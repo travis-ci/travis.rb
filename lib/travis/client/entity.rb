@@ -84,7 +84,7 @@ module Travis
         !attributes.include?(key.to_s)
       end
 
-      def compelete?
+      def complete?
         attribute_names.all? { |key| attributes.include? key }
       end
 
