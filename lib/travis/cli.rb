@@ -20,7 +20,8 @@ module Travis
     end
 
     def command(name)
-      constant = CLI.const_get(command_name(name)) rescue nil
+      const_name = command_name(name)
+      constant   = CLI.const_get(const_name) if const_defined? const_name
       if command? constant
         constant
       else
