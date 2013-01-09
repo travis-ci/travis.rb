@@ -4,6 +4,7 @@ module Travis
   module CLI
     autoload :ApiCommand,   'travis/cli/api_command'
     autoload :Command,      'travis/cli/command'
+    autoload :Endpoint,     'travis/cli/endpoint'
     autoload :Help,         'travis/cli/help'
     autoload :Parser,       'travis/cli/parser'
     autoload :RepoCommand,  'travis/cli/repo_command'

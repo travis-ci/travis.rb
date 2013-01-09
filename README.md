@@ -19,6 +19,7 @@ The client will try its best at figuring out which API endpoint to talk to. But 
 
 Currently the following commands are available:
 
+* `endpoint` - displays the API endpoint used
 * `help` - displays general or command specific help
 * `whoami` - displays the user name you are logged in with
 
