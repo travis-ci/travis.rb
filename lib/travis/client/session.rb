@@ -20,6 +20,10 @@ module Travis
         headers['Accept'] ||= 'application/vnd.travis-ci.2+json, */*; q=0.01'
       end
 
+      def uri
+        connection.url_prefix.to_s if connection
+      end
+
       def uri=(uri)
         clear_cache!
         self.connection = Faraday.new(:url => uri) do |faraday|
@@ -99,9 +103,7 @@ module Travis
       end
 
       def inspect
-        "#<#{self.class}: #{connection.url_prefix}>"
-      rescue
-        super
+        "#<#{self.class}: #{uri}>"
       end
 
       def clear_cache

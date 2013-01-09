@@ -9,6 +9,14 @@ module Travis
         session.access_token = token
       end
 
+      def api_endpoint
+        session.uri
+      end
+
+      def api_endpoint=(uri)
+        session.uri = uri
+      end
+
       def repos(params = {})
         session.find_many(Repository, params)
       end
