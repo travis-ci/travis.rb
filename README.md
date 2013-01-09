@@ -63,7 +63,7 @@ You can also reload *all* entities by calling:
 Travis.session.clear_cache
 ```
 
-### Using with Pro
+### Using Pro
 
 ``` ruby
 require 'travis/pro'
