@@ -15,6 +15,13 @@ travis encrypt FOO=BAR
 
 The client will try its best at figuring out which API endpoint to talk to. But you can always explicitly state which one it is by adding `--pro` or `--org`.
 
+### Available commands
+
+Currently the following commands are available:
+
+* `help` - displays general or command specific help
+* `whoami` - displays the user name you are logged in with
+
 ### Invoking from Ruby
 
 You can also invoke the commands from within Ruby:
