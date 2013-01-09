@@ -17,9 +17,10 @@ module Travis
       def on(*args, &block)
         block ||= begin
           full_arg = args.detect { |a| a.start_with? '--' }
-          name = full_arg.gsub(/^--(\S+).*$/, '\1').gsub('-', '_')
-          attr_accessor(name)
-          alias_method("#{name}?", name) if full_arg.start_with? '--[no-]'
+          name = full_arg.gsub(/^--(\[no-\])?(\S+).*$/, '\2').gsub('-', '_')
+          attr_reader(name) unless method_defined? name
+          attr_writer(name) unless method_defined? "#{name}="
+          alias_method("#{name}?", name) if full_arg.start_with? '--[no-]' and not method_defined? "#{name}?"
           proc { |instance, value| instance.public_send("#{name}=", value) }
         end
 

@@ -10,6 +10,8 @@ module Travis
         exit
       end
 
+       on('-E', '--[no-]explode', "don't rescue exceptions")
+
       def self.command_name
         name[/[^:]*$/].downcase
       end
@@ -47,6 +49,10 @@ module Travis
         check_arity(method(:run), *arguments)
         setup
         run(*arguments)
+      rescue Exception => e
+        raise(e) if explode?
+        $stderr.puts e.message
+        exit 1
       end
 
       def command_name
