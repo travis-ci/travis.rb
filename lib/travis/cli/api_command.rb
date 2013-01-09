@@ -17,6 +17,10 @@ module Travis
         super
       end
 
+      def setup
+        authenticate if api_endpoint.start_with? Travis::Client::PRO_URI
+      end
+
       def authenticate
         return if access_token
         fail "authentication failed"
