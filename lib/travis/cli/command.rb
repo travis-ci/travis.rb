@@ -1,4 +1,5 @@
 require 'travis/cli'
+require 'yaml'
 
 module Travis
   module CLI
@@ -25,7 +26,7 @@ module Travis
         @@abstract << self
       end
 
-      attr_accessor :arguments
+      attr_accessor :arguments, :config
 
       def initialize(options = {})
         options.each do |key, value|
@@ -47,8 +48,10 @@ module Travis
 
       def execute
         check_arity(method(:run), *arguments)
+        load_config
         setup
         run(*arguments)
+        store_config
       rescue Exception => e
         raise(e) if explode?
         $stderr.puts e.message
@@ -80,6 +83,31 @@ module Travis
       end
 
       private
+
+        def asset_path(name)
+          path = ENV.fetch('TRAVIS_CONFIG_PATH') { File.expand_path('.travis', Dir.home) }
+          Dir.mkdir(path, 0700) unless File.directory? path
+          File.join(path, name)
+        end
+
+        def load_asset(name, default = nil)
+          path = asset_path(name)
+          File.exist?(path) ? File.read(path) : default
+        end
+
+        def save_asset(name, content)
+          File.write(asset_path(name), content.to_s)
+        end
+
+        def load_config
+          @config = YAML.load load_asset('config.yml', '{}')
+          @original_config = @config.dup
+        end
+
+        def store_config
+          return if @original_config == @config
+          save_asset('config.yml', @config.to_yaml)
+        end
 
         def check_arity(method, *args)
           return unless method.respond_to? :parameters

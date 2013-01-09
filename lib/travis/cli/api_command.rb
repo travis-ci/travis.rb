@@ -18,6 +18,9 @@ module Travis
       end
 
       def setup
+        config[api_endpoint]                 ||= {}
+        self.access_token                    ||= config[api_endpoint]['access_token']
+        config[api_endpoint]['access_token'] ||= access_token if access_token
         authenticate if api_endpoint.start_with? Travis::Client::PRO_URI
       end
 
