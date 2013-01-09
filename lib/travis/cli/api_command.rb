@@ -23,14 +23,16 @@ module Travis
       end
 
       def setup
-        self.access_token ||= endpoint_config['access_token']
         authenticate if api_endpoint.start_with? Travis::Client::PRO_URI
-        endpoint_config['access_token'] ||= access_token
+      end
+
+      def fetch_token
+        return endpoint_config['access_token'] if endpoint_config['access_token']
       end
 
       def authenticate
-        return if access_token
-        fail "authentication failed"
+        self.access_token               ||= fetch_token
+        endpoint_config['access_token'] ||= access_token
       end
     end
   end
