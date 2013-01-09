@@ -3,7 +3,7 @@ require 'travis/cli'
 module Travis
   module CLI
     class Endpoint < ApiCommand
-      def setup
+      def authenticate
         # skip authentication on pro
       end
 
