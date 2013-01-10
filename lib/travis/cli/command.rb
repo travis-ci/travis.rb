@@ -1,17 +1,31 @@
 require 'travis/cli'
+require 'highline'
+require 'forwardable'
+require 'delegate'
 require 'yaml'
 
 module Travis
   module CLI
     class Command
       extend Parser
+      extend Forwardable
+      def_delegators :terminal, :agree, :ask, :choose
+
+      HighLine.color_scheme = HighLine::ColorScheme.new do |cs|
+        cs[:command] = [ :bold ]
+        cs[:error]   = [ :red  ]
+      end
 
       on('-h', '--help', 'Display help') do |c|
-        puts c.help
+        c.say c.help
         exit
       end
 
-       on('-E', '--[no-]explode', "don't rescue exceptions")
+      on('-i', '--[no-]interactive', "be interactive and colorful") do |c, v|
+        c.force_interactive = v
+      end
+
+      on('-E', '--[no-]explode', "don't rescue exceptions")
 
       def self.command_name
         name[/[^:]*$/].downcase
@@ -26,21 +40,50 @@ module Travis
         @@abstract << self
       end
 
-      attr_accessor :arguments, :config
+      def self.skip(name)
+        define_method(name) {}
+      end
+
+      attr_accessor :arguments, :config, :terminal, :force_interactive
 
       def initialize(options = {})
+        @output   = SimpleDelegator.new($stdout)
+        @input    = SimpleDelegator.new($stdin)
+        @terminal = HighLine.new(@input, @output)
         options.each do |key, value|
           public_send("#{key}=", value) if respond_to? "#{key}="
         end
         @arguments ||= []
       end
 
+      def input
+        @input.__getobj__
+      end
+
+      def input=(io)
+        @input.__setobj__(io)
+      end
+
+      def output
+        @output.__getobj__
+      end
+
+      def output=(io)
+        @output.__setobj__(io)
+      end
+
+      def write_to(io)
+        io_was, self.output = output, io
+        yield
+      ensure
+        self.output = io_was if io_was
+      end
+
       def parse(args)
         rest = parser.parse(args)
         arguments.concat(rest)
       rescue OptionParser::InvalidOption => e
-        $stderr.puts e.message
-        exit 1
+        error e.message
       end
 
       def setup
@@ -52,10 +95,9 @@ module Travis
         setup
         run(*arguments)
         store_config
-      rescue Exception => e
+      rescue StandardError => e
         raise(e) if explode?
-        $stderr.puts e.message
-        exit 1
+        error e.message
       end
 
       def command_name
@@ -63,7 +105,7 @@ module Travis
       end
 
       def usage
-        usage  = "Usage: #$0 #{command_name} [options]"
+        usage  = "#$0 #{command_name} [options]"
         method = method(:run)
         if method.respond_to? :parameters
           method.parameters.each do |type, name|
@@ -74,7 +116,7 @@ module Travis
         else
           usage << " ..."
         end
-        usage
+        "Usage: " << color(usage, :command)
       end
 
       def help
@@ -83,6 +125,33 @@ module Travis
       end
 
       private
+
+        def color(line, *args)
+          return line unless interactive?
+          terminal.color(line, *args)
+        end
+
+        def interactive?(io = output)
+          return io.tty? if force_interactive.nil?
+          force_interactive
+        end
+
+        def say(data, format = nil)
+          data = format % color(data, :bold) if format and interactive?
+          terminal.say(data)
+        end
+
+        def error(message)
+          write_to($stderr) do
+            say color(message, :error)
+            yield if block_given?
+            exit 1
+          end
+        end
+
+        def command(name)
+          color("#$0 #{name}", :command)
+        end
 
         def asset_path(name)
           path = ENV.fetch('TRAVIS_CONFIG_PATH') { File.expand_path('.travis', Dir.home) }
@@ -119,9 +188,9 @@ module Travis
         end
 
         def wrong_args(quantity)
-          $stderr.puts "too #{quantity} arguments"
-          $stderr.puts help
-          exit 1
+          error "too #{quantity} arguments" do
+            say help
+          end
         end
     end
   end

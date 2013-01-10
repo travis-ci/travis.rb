@@ -3,12 +3,10 @@ require 'travis/cli'
 module Travis
   module CLI
     class Endpoint < ApiCommand
-      def authenticate
-        # skip authentication on pro
-      end
+      skip :authenticate
 
       def run
-        puts api_endpoint
+        say api_endpoint, "API endpoint: %s"
       end
     end
   end

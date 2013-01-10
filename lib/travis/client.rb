@@ -5,8 +5,8 @@ require 'travis/client/namespace'
 
 module Travis
   module Client
-    ORG_URI = 'https://api.travis-ci.org'
-    PRO_URI = 'https://api.travis-ci.com'
+    ORG_URI = 'https://api.travis-ci.org/'
+    PRO_URI = 'https://api.travis-ci.com/'
 
     def self.new(options = {})
       options['uri'] ||= ORG_URI if options.is_a? Hash

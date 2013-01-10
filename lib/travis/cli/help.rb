@@ -5,11 +5,11 @@ module Travis
     class Help < Command
       def run(command = nil)
         if command
-          puts CLI.command(command).new.help
+          say CLI.command(command).new.help
         else
-          puts "Usage: #$0 COMMAND ...", "", "Available commands:", ""
-          CLI.commands.each { |c| puts "\t#{c.command_name}" }
-          puts "", "run `#$0 help COMMAND` for more infos"
+          say "Usage: #$0 COMMAND ...\n\nAvailable commands:\n\n"
+          CLI.commands.each { |c| say "\t#{c.command_name}" }
+          say "\nrun `#$0 help COMMAND` for more infos"
         end
       end
     end

@@ -23,17 +23,43 @@ module Travis
       end
 
       def setup
-        authenticate if api_endpoint.start_with? Travis::Client::PRO_URI
+        authenticate if pro?
       end
 
-      def fetch_token
-        return endpoint_config['access_token'] if endpoint_config['access_token']
+      def pro?
+        api_endpoint == Travis::Client::PRO_URI
+      end
+
+      def org?
+        api_endpoint == Travis::Client::ORG_URI
+      end
+
+      def detected_endpoint?
+        api_endpoint == detected_endpoint
       end
 
       def authenticate
         self.access_token               ||= fetch_token
         endpoint_config['access_token'] ||= access_token
+        error "not logged in, please run #{command("login#{endpoint_option}")}" if access_token.nil?
       end
+
+      private
+
+        def detected_endpoint
+          Travis::Client::ORG_URI
+        end
+
+        def endpoint_option
+          return ""       if org? and detected_endpoint?
+          return " --org" if org?
+          return " --pro" if pro?
+          " -e %p" % api_endpoint
+        end
+
+        def fetch_token
+          return endpoint_config['access_token'] if endpoint_config['access_token']
+        end
     end
   end
 end

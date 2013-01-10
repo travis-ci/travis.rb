@@ -5,7 +5,7 @@ module Travis
     class Whoami < ApiCommand
       def run
         authenticate
-        puts user.login
+        say user.login, "You are %s (#{user.name})"
       end
     end
   end
