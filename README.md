@@ -23,6 +23,15 @@ Currently the following commands are available:
 * `help` - displays general or command specific help
 * `whoami` - displays the user name you are logged in with
 
+### Unix friendly
+
+All the commands are written with Unix in mind:
+
+```
+$ curl "$(travis endpoint)/docs" > docs.html
+$ cat secret.txt | travis encrypt
+```
+
 ### Invoking from Ruby
 
 You can also invoke the commands from within Ruby:
