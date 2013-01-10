@@ -8,7 +8,7 @@ The `travis` [gem](https://rubygems.org/) includes both a command line client an
 
 Command line usage is pretty simple:
 
-``` ruby
+```
 cd my_awesome_project
 travis encrypt FOO=BAR
 ```
