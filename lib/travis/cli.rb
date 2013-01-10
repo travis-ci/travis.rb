@@ -8,6 +8,7 @@ module Travis
     autoload :Help,         'travis/cli/help'
     autoload :Parser,       'travis/cli/parser'
     autoload :RepoCommand,  'travis/cli/repo_command'
+    autoload :Version,      'travis/cli/version'
     autoload :Whoami,       'travis/cli/whoami'
 
     extend self
@@ -22,7 +23,7 @@ module Travis
 
     def command(name)
       const_name = command_name(name)
-      constant   = CLI.const_get(const_name) if const_defined? const_name
+      constant   = CLI.const_get(const_name) if const_name =~ /^[A-Z][a-z]+$/ and const_defined? const_name
       if command? constant
         constant
       else
@@ -44,6 +45,7 @@ module Travis
       def command_name(name)
         case name
         when nil, '-h', '-?' then 'Help'
+        when '-v'            then 'Version'
         when /^--/           then command_name(name[2..-1])
         else name.to_s.capitalize
         end
