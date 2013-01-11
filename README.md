@@ -21,6 +21,7 @@ Currently the following commands are available:
 
 * `endpoint` - displays the API endpoint used
 * `help` - displays general or command specific help
+* `login` - authenticates for subsequent commands
 * `whoami` - displays the user name you are logged in with
 
 ### Unix friendly

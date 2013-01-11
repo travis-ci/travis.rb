@@ -6,6 +6,7 @@ module Travis
     autoload :Command,      'travis/cli/command'
     autoload :Endpoint,     'travis/cli/endpoint'
     autoload :Help,         'travis/cli/help'
+    autoload :Login,        'travis/cli/login'
     autoload :Parser,       'travis/cli/parser'
     autoload :RepoCommand,  'travis/cli/repo_command'
     autoload :Version,      'travis/cli/version'

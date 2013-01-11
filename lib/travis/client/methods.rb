@@ -13,6 +13,11 @@ module Travis
         session.uri
       end
 
+      def github_auth(github_token)
+        reply = session.post_raw("/auth/github?github_token=#{github_token}")
+        session.access_token = reply["access_token"]
+      end
+
       def api_endpoint=(uri)
         session.uri = uri
       end

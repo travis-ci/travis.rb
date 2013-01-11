@@ -1,4 +1,6 @@
 require 'travis/client/methods'
+require 'travis/client/error'
+
 require 'faraday'
 require 'faraday_middleware'
 require 'json'
@@ -100,6 +102,19 @@ module Travis
 
       def get_raw(*args)
         connection.get(*args).body
+      rescue Faraday::Error::ClientError => e
+        handle_error(e)
+      end
+
+      def post_raw(*args)
+        connection.post(*args).body
+      rescue Faraday::Error::ClientError => e
+        handle_error(e)
+      end
+
+      def handle_error(e)
+        message = e.response[:body].to_str rescue e.message
+        raise Travis::Client::Error, message, e.backtrace
       end
 
       def inspect

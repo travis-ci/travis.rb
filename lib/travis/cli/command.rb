@@ -12,8 +12,10 @@ module Travis
       def_delegators :terminal, :agree, :ask, :choose
 
       HighLine.color_scheme = HighLine::ColorScheme.new do |cs|
-        cs[:command] = [ :bold ]
-        cs[:error]   = [ :red  ]
+        cs[:command]   = [ :bold             ]
+        cs[:error]     = [ :red              ]
+        cs[:important] = [ :bold, :underline ]
+        cs[:success]   = [ :green            ]
       end
 
       on('-h', '--help', 'Display help') do |c|
@@ -82,7 +84,7 @@ module Travis
       def parse(args)
         rest = parser.parse(args)
         arguments.concat(rest)
-      rescue OptionParser::InvalidOption => e
+      rescue OptionParser::ParseError => e
         error e.message
       end
 
@@ -124,6 +126,11 @@ module Travis
         parser.to_s
       end
 
+      def say(data, format = nil)
+        data = format % color(data, :important) if format and interactive?
+        terminal.say(data)
+      end
+
       private
 
         def color(line, *args)
@@ -136,9 +143,8 @@ module Travis
           force_interactive
         end
 
-        def say(data, format = nil)
-          data = format % color(data, :bold) if format and interactive?
-          terminal.say(data)
+        def empty_line
+          say "\n"
         end
 
         def error(message)
@@ -151,6 +157,10 @@ module Travis
 
         def command(name)
           color("#$0 #{name}", :command)
+        end
+
+        def success(line)
+          say color(line, :success) if interactive?
         end
 
         def asset_path(name)
@@ -174,7 +184,6 @@ module Travis
         end
 
         def store_config
-          return if @original_config == @config
           save_asset('config.yml', @config.to_yaml)
         end
 
