@@ -16,6 +16,7 @@ module Travis
         cs[:error]     = [ :red              ]
         cs[:important] = [ :bold, :underline ]
         cs[:success]   = [ :green            ]
+        cs[:info]      = [ :yellow           ]
       end
 
       on('-h', '--help', 'Display help') do |c|
@@ -128,10 +129,14 @@ module Travis
 
       def say(data, format = nil)
         data = format % color(data, :important) if format and interactive?
-        terminal.say(data)
+        terminal.say data.gsub(/<\[\[(.*)\]\]>/, '<%= \1 %>')
       end
 
       private
+
+        def template(file)
+          File.read(file).split('__END__', 2)[1].strip
+        end
 
         def color(line, *args)
           return line unless interactive?

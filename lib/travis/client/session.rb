@@ -29,7 +29,7 @@ module Travis
         clear_cache!
         self.connection = Faraday.new(:url => uri) do |faraday|
           faraday.request   :json
-          faraday.response  :json, :content_type => /\bjson$/
+          faraday.response  :json
           faraday.response  :follow_redirects
           faraday.response  :raise_error
           faraday.adapter(*faraday_adapter)
@@ -57,15 +57,18 @@ module Travis
       end
 
       def find_one(entity, id = nil)
+        raise Travis::Error, "cannot fetch #{entity}" unless entity.respond_to?(:many) and entity.many
         return create_entity(entity, "id" => id) if id.is_a? Integer
         cached(entity, :by, id) { fetch_one(entity, id) }
       end
 
       def find_many(entity, args = {})
+        raise Travis::Error, "cannot fetch #{entity}" unless entity.respond_to?(:many) and entity.many
         cached(entity, :many, args) { fetch_many(entity, args) }
       end
 
       def find_one_or_many(entity, args = nil)
+        raise Travis::Error, "cannot fetch #{entity}" unless entity.respond_to?(:many) and entity.many
         cached(entity, :one_or_many, args) do
           path       = "/#{entity.many}"
           path, args = "#{path}/#{args}", {} unless args.is_a? Hash
@@ -88,7 +91,7 @@ module Travis
 
       def get(*args)
         result = {}
-        get_raw(*args).each do |key, value|
+        get_raw(*args).each_pair do |key, value|
           type = Entity.subclass_for(key)
           if value.respond_to? :to_ary
             result[key] = value.to_ary.map { |e| create_entity(type, e) }
@@ -142,7 +145,9 @@ module Travis
 
         def handle_error(e)
           message = e.response[:body].to_str rescue e.message
-          raise Travis::Client::Error, message, e.backtrace
+          klass   = Travis::Client::NotFound if e.is_a? Faraday::Error::ResourceNotFound
+          klass ||= Travis::Client::Error
+          raise klass, message, e.backtrace
         end
 
         def faraday_adapter

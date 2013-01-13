@@ -69,7 +69,7 @@ module Travis
       end
 
       def include?(key)
-        attribute_names.include? key.to_s
+        attributes.include? key or attribute_names.include? key.to_s
       end
 
       def reload

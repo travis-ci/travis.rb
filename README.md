@@ -20,6 +20,7 @@ The client will try its best at figuring out which API endpoint to talk to. But 
 Currently the following commands are available:
 
 * `endpoint` - displays the API endpoint used
+* `encrypt` - encrypts data with a repos public key (useful for secure env vars etc)
 * `help` - displays general or command specific help
 * `login` - authenticates for subsequent commands
 * `whoami` - displays the user name you are logged in with

@@ -1,6 +1,8 @@
 require 'sinatra/base'
 require 'travis/client/session'
 
+RAILS_KEY = "-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCnOGqjSJGeWIlTFLm5qjEIs/7l\nEx4v0LMGld6+7RwaFjIptr/slaJXPsE8gJxxaDs5aqpD2wT0IXLYw4RDhlwOYnHI\nXjlPwak+sJycfVolhY9QAJJbADD+kwjlnnDAe5QzQg1xVLusUr9QXzZ93nftb0m7\n+Lntq91SxE1r8F/+zQIDAQAB\n-----END PUBLIC KEY-----\n"
+
 module Travis
   module Client
     class Session
@@ -44,6 +46,12 @@ module Travis
               "last_build_finished_at"=>"2013-01-13T16:55:08Z"}]}.to_json
         end
 
+        get '/repos/travis-ci/travis' do
+          # hack hack
+          request.path_info = '/repos/rails/rails'
+          pass
+        end
+
         get '/repos/891' do
           request.path_info = '/repos/rails/rails'
           pass
@@ -61,6 +69,10 @@ module Travis
              "last_build_language"=>nil,
              "last_build_started_at"=>"2013-01-13T15:55:17Z",
              "last_build_finished_at"=>nil}}.to_json
+        end
+
+        get '/repos/891/key' do
+          {"key"=>RAILS_KEY}.to_json
         end
 
         post '/auth/github' do

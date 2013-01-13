@@ -47,7 +47,7 @@ module Travis
           say "This information will #{color("not be sent to Travis CI", :important)}, only to GitHub."
           say "The password will not be displayed."
           empty_line
-          say "Try running with #{color("--github-token", :command)} or #{color("--auto", :command)} if you don't want to enter your password anyways."
+          say "Try running with #{color("--github-token", :info)} or #{color("--auto", :info)} if you don't want to enter your password anyways."
           empty_line
           self.github_login    = ask("Username: ")
           self.github_password = ask("Password: ") { |q| q.echo = "*" }

@@ -12,6 +12,7 @@ module GH
       frontend.load("url" => "https://api.github.com/authorizations/1", "token" => "github_token")
     end
 
+    def head(*) end
     def delete(*) end
   end
 

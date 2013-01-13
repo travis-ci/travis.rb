@@ -11,4 +11,5 @@ describe Travis::Client::Repository do
   its(:last_build_started_at) { should be_a(Time) }
   its(:last_build_finished_at) { should be_nil }
   its(:inspect) { should be == "#<Travis::Client::Repository: rails/rails>" }
+  its(:key) { should be_a(Travis::Client::Repository::Key) }
 end

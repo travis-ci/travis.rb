@@ -20,7 +20,12 @@ module Travis
         session.access_token = reply["access_token"]
       end
 
+      def explicit_api_endpoint?
+        @explicit_api_endpoint ||= false
+      end
+
       def api_endpoint=(uri)
+        @explicit_api_endpoint = true
         session.uri = uri
       end
 
