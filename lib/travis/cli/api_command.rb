@@ -23,6 +23,8 @@ module Travis
       end
 
       def setup
+        self.access_token               ||= fetch_token
+        endpoint_config['access_token'] ||= access_token
         authenticate if pro?
       end
 
@@ -39,8 +41,6 @@ module Travis
       end
 
       def authenticate
-        self.access_token               ||= fetch_token
-        endpoint_config['access_token'] ||= access_token
         error "not logged in, please run #{command("login#{endpoint_option}")}" if access_token.nil?
       end
 

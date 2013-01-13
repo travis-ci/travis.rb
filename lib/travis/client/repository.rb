@@ -1,4 +1,4 @@
-require 'travis/client/entity'
+require 'travis/client'
 
 module Travis
   module Client

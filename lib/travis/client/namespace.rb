@@ -1,4 +1,4 @@
-require 'travis/client/session'
+require 'travis/client'
 
 module Travis
   module Client

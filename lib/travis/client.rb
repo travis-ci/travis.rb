@@ -1,4 +1,7 @@
+require 'travis/client/error'
+require 'travis/client/methods'
 require 'travis/client/session'
+require 'travis/client/entity'
 require 'travis/client/user'
 require 'travis/client/repository'
 require 'travis/client/namespace'

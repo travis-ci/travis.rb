@@ -1,3 +1,4 @@
+require 'travis/client'
 require 'time'
 
 module Travis

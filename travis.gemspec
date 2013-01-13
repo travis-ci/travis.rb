@@ -29,18 +29,23 @@ Gem::Specification.new do |s|
     "lib/travis/cli.rb",
     "lib/travis/cli/api_command.rb",
     "lib/travis/cli/command.rb",
+    "lib/travis/cli/endpoint.rb",
     "lib/travis/cli/help.rb",
+    "lib/travis/cli/login.rb",
     "lib/travis/cli/parser.rb",
     "lib/travis/cli/repo_command.rb",
+    "lib/travis/cli/version.rb",
     "lib/travis/cli/whoami.rb",
     "lib/travis/client.rb",
     "lib/travis/client/entity.rb",
+    "lib/travis/client/error.rb",
     "lib/travis/client/methods.rb",
     "lib/travis/client/namespace.rb",
     "lib/travis/client/repository.rb",
     "lib/travis/client/session.rb",
     "lib/travis/client/user.rb",
     "lib/travis/pro.rb",
+    "lib/travis/tools/token_finder.rb",
     "lib/travis/version.rb",
     "spec/cli_spec.rb",
     "spec/client/connection_spec.rb",
@@ -49,10 +54,12 @@ Gem::Specification.new do |s|
   ]
 
   # dependencies
-  s.add_dependency "faraday",            "~> 0.8"
-  s.add_dependency "faraday_middleware", "~> 0.9"
-  s.add_dependency "highline",           "~> 1.6"
-  s.add_dependency "netrc",              "~> 0.7"
-  s.add_dependency "gh",                 "~> 0.9"
-  s.add_development_dependency "rspec",  "~> 2.12"
+  s.add_dependency "faraday",               "~> 0.8"
+  s.add_dependency "faraday_middleware",    "~> 0.9"
+  s.add_dependency "highline",              "~> 1.6"
+  s.add_dependency "netrc",                 "~> 0.7"
+  s.add_dependency "gh",                    "~> 0.9"
+  s.add_development_dependency "rspec",     "~> 2.12"
+  s.add_development_dependency "sinatra",   "~> 1.3"
+  s.add_development_dependency "rack-test", "~> 0.6"
 end

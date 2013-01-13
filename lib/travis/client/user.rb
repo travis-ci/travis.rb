@@ -1,4 +1,4 @@
-require 'travis/client/entity'
+require 'travis/client'
 
 module Travis
   module Client
@@ -12,6 +12,9 @@ module Travis
       def synced_at=(time)
         set_attribute(:synced_at, time(time))
       end
+
+      alias syncing? is_syncing
+      alias correct_scopes? correct_scopes
     end
   end
 end

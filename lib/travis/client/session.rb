@@ -1,5 +1,4 @@
-require 'travis/client/methods'
-require 'travis/client/error'
+require 'travis/client'
 
 require 'faraday'
 require 'faraday_middleware'
@@ -11,7 +10,7 @@ module Travis
       include Methods
       attr_reader :connection, :headers, :access_token
 
-      def initialize(options = {})
+      def initialize(options = Travis::Client::ORG_URI)
         @headers = {}
         @cache   = {}
 
@@ -33,7 +32,7 @@ module Travis
           faraday.response  :json, :content_type => /\bjson$/
           faraday.response  :follow_redirects
           faraday.response  :raise_error
-          faraday.adapter   Faraday.default_adapter
+          faraday.adapter(*faraday_adapter)
         end
       end
 
@@ -112,11 +111,6 @@ module Travis
         handle_error(e)
       end
 
-      def handle_error(e)
-        message = e.response[:body].to_str rescue e.message
-        raise Travis::Client::Error, message, e.backtrace
-      end
-
       def inspect
         "#<#{self.class}: #{uri}>"
       end
@@ -133,18 +127,27 @@ module Travis
         self
       end
 
-      def create_entity(type, data)
-        id     = Integer(data.fetch('id'))
-        entity = cached(type, :id, id) { type.new(self, id) }
-        entity.update_attributes(data)
-        entity
-      end
-
       def session
         self
       end
 
       private
+
+        def create_entity(type, data)
+          id     = Integer(data.fetch('id'))
+          entity = cached(type, :id, id) { type.new(self, id) }
+          entity.update_attributes(data)
+          entity
+        end
+
+        def handle_error(e)
+          message = e.response[:body].to_str rescue e.message
+          raise Travis::Client::Error, message, e.backtrace
+        end
+
+        def faraday_adapter
+          Faraday.default_adapter
+        end
 
         def reset_entities
           subcaches do |subcache|

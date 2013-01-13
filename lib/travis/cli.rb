@@ -8,6 +8,7 @@ module Travis
     autoload :Help,         'travis/cli/help'
     autoload :Login,        'travis/cli/login'
     autoload :Parser,       'travis/cli/parser'
+    autoload :Raw,          'travis/cli/raw'
     autoload :RepoCommand,  'travis/cli/repo_command'
     autoload :Version,      'travis/cli/version'
     autoload :Whoami,       'travis/cli/whoami'

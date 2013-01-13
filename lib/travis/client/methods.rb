@@ -1,3 +1,5 @@
+require 'travis/client'
+
 module Travis
   module Client
     module Methods
