@@ -1,5 +1,3 @@
-**This is work in progress!**
-
 # Travis Client
 
 The `travis` [gem](https://rubygems.org/) includes both a command line client and a Ruby library to interface with a Travis CI service.
