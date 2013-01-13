@@ -113,7 +113,6 @@ MyTravis::Repository.find('foo/bar')
 
 ### Command Line Client
 
-* Secure env encryption
 * Enabling/disabling projects
 * Build status inspection
 * Log streaming
