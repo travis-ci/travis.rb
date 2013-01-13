@@ -107,3 +107,34 @@ You can also create a namespace to get the look and feel of `Travis` and `Travis
 MyTravis = Travis::Namespace.new('http://localhost:3000')
 MyTravis::Repository.find('foo/bar')
 ```
+
+## TODO
+
+### Command Line Client
+
+* Secure env encryption
+* Enabling/disabling projects
+* Build status inspection
+* Log streaming
+* Rebuild builds/jobs
+* Requeue projects
+* List projects, maybe
+* Broadcasts
+* Events?
+* Workers?
+* Artifacts?
+* Integrate travis-lint?
+* What about deploy/config?
+
+### Ruby Client
+
+* Artifacts
+* Branches
+* Broadcasts
+* Builds
+* Commits
+* Events
+* Hooks
+* Jobs
+* Requests
+* Workers
