@@ -7,8 +7,8 @@ The `travis` [gem](https://rubygems.org/) includes both a command line client an
 Command line usage is pretty simple:
 
 ```
-cd my_awesome_project
-travis encrypt FOO=BAR
+$ cd my_awesome_project
+$ travis encrypt FOO=BAR
 ```
 
 The client will try its best at figuring out which API endpoint to talk to. But you can always explicitly state which one it is by adding `--pro` or `--org`.
