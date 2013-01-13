@@ -1,4 +1,13 @@
-require 'travis/client'
+begin
+  require 'travis/client'
+rescue LoadError => e
+  if e.message == 'no such file to load -- json'
+    $stderr.puts "You should either run `gem install json` or upgrade your Ruby version!"
+    exit 1
+  else
+    raise e
+  end
+end
 
 module Travis
   module CLI

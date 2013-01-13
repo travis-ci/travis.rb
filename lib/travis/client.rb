@@ -1,3 +1,4 @@
+require 'backports/1.9.3' if RUBY_VERSION < '1.9.3'
 require 'travis/client/error'
 require 'travis/client/methods'
 require 'travis/client/session'

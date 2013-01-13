@@ -8,8 +8,8 @@ module Travis
       abstract
 
       on('-e', '--api-endpoint URL', 'Travis API server to talk to')
-      on('--pro', "short-cut for --api-endpoint '#{Travis::Client::PRO_URI}'") { |c| c.api_endpoint = Travis::Client::PRO_URI }
-      on('--org', "short-cut for --api-endpoint '#{Travis::Client::ORG_URI}'") { |c| c.api_endpoint = Travis::Client::ORG_URI }
+      on('--pro', "short-cut for --api-endpoint '#{Travis::Client::PRO_URI}'") { |c,_| c.api_endpoint = Travis::Client::PRO_URI }
+      on('--org', "short-cut for --api-endpoint '#{Travis::Client::ORG_URI}'") { |c,_| c.api_endpoint = Travis::Client::ORG_URI }
       on('-t', '--token [ACCESS_TOKEN]', 'access token to use') { |c, t| c.access_token = t }
 
       def initialize(*)

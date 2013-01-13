@@ -19,7 +19,7 @@ module Travis
         cs[:info]      = [ :yellow           ]
       end
 
-      on('-h', '--help', 'Display help') do |c|
+      on('-h', '--help', 'Display help') do |c, _|
         c.say c.help
         exit
       end

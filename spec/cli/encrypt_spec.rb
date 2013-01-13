@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Travis::CLI::Endpoint do
   example "travis encrypt foo" do
     run_cli('encrypt', 'foo').should be_success
-    stdout.should be =~ /^"\w{60,}"\n$/
+    stdout.should match(/^".{60,}"\n$/)
   end
 
   example "travis encrypt foo -i" do
@@ -13,6 +13,6 @@ describe Travis::CLI::Endpoint do
 
   example "cat foo | travis encrypt" do
     run_cli('encrypt') { |i| i.puts('foo') }
-    stdout.should be =~ /^"\w{60,}"\n$/
+    stdout.should match(/^".{60,}"\n$/)
   end
 end
