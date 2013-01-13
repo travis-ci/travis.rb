@@ -11,7 +11,7 @@ $ cd my_awesome_project
 $ travis encrypt FOO=BAR
 ```
 
-The client will try its best at figuring out which API endpoint to talk to. But you can always explicitly state which one it is by adding `--pro` or `--org`.
+The client will try its best at figuring out which API endpoint to talk to. But you can always explicitly state which one it is by adding `--pro` or `--org` (or `-e URL` if you run your own).
 
 ### Available commands
 
