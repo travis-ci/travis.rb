@@ -1,5 +1,4 @@
 require 'travis/cli'
-require 'gh'
 
 module Travis
   module CLI

@@ -130,7 +130,7 @@ module Travis
 
       def say(data, format = nil)
         data = format % color(data, :important) if format and interactive?
-        terminal.say data.gsub(/<\[\[(.*)\]\]>/, '<%= \1 %>')
+        terminal.say data.gsub(/<\[\[/, '<%=').gsub(/\]\]>/, '%>')
       end
 
       private

@@ -9,6 +9,9 @@ rescue LoadError => e
   end
 end
 
+require 'gh'
+GH.set(:ssl => Travis::Client::Session::SSL_OPTIONS)
+
 module Travis
   module CLI
     autoload :ApiCommand,   'travis/cli/api_command'

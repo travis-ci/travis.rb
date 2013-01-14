@@ -7,6 +7,7 @@ require 'json'
 module Travis
   module Client
     class Session
+      SSL_OPTIONS = { :ca_file => File.expand_path("../../cacert.pem", __FILE__) }
       include Methods
       attr_reader :connection, :headers, :access_token
 
@@ -27,7 +28,7 @@ module Travis
 
       def uri=(uri)
         clear_cache!
-        self.connection = Faraday.new(:url => uri) do |faraday|
+        self.connection = Faraday.new(:url => uri, :ssl => SSL_OPTIONS) do |faraday|
           faraday.request   :json
           faraday.response  :json
           faraday.response  :follow_redirects

@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'travis/cli'
 require 'yaml'
 
@@ -52,5 +53,5 @@ Please add the following to your <[[ color('.travis.yml', :info) ]]> file:
 
   secure: %s
 
-Pro Tip™: You can add it automatically by running with <[[ color('--add', :info) ]]>.
+Pro Tip<[[ "™" unless Travis::CLI.windows? ]]>: You can add it automatically by running with <[[ color('--add', :info) ]]>.
 

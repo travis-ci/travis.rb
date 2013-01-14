@@ -1,6 +1,5 @@
 require 'travis/cli'
 require 'travis/tools/token_finder'
-require 'gh'
 require 'json'
 
 module Travis
