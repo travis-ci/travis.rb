@@ -25,6 +25,7 @@ Gem::Specification.new do |s|
     "README.md",
     "Rakefile",
     "bin/travis",
+    "example/org_overview.rb",
     "lib/travis.rb",
     "lib/travis/cacert.pem",
     "lib/travis/cli.rb",
