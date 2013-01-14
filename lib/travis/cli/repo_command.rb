@@ -24,6 +24,10 @@ module Travis
 
       private
 
+        def detected_endpoint?
+          !explicit_api_endpoint?
+        end
+
         def find_slug
           git_info = `git remote show origin 2>&1`
           $1 if git_info =~ GIT_REGEX
