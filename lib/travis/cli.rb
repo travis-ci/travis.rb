@@ -25,6 +25,10 @@ module Travis
 
     extend self
 
+    def windows?
+      RUBY_PLATFORM =~ /mswin|mingw/
+    end
+
     def run(*args)
       args, opts = preparse(args)
       name       = args.shift unless args.empty?

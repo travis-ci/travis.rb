@@ -11,6 +11,7 @@ module Travis
       extend Forwardable
       def_delegators :terminal, :agree, :ask, :choose
 
+      HighLine.use_color = !CLI.windows?
       HighLine.color_scheme = HighLine::ColorScheme.new do |cs|
         cs[:command]   = [ :bold             ]
         cs[:error]     = [ :red              ]
