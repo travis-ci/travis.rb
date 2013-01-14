@@ -2,7 +2,7 @@
 Gem::Specification.new do |s|
   # general infos
   s.name        = "travis"
-  s.version     = "1.0.0pre"
+  s.version     = "1.0.0pre2"
   s.description = "CLI and Ruby client library for Travis CI"
   s.homepage    = "https://github.com/travis-ci/travis"
   s.summary     = "Travis CI client"
@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
     "Rakefile",
     "bin/travis",
     "lib/travis.rb",
+    "lib/travis/cacert.pem",
     "lib/travis/cli.rb",
     "lib/travis/cli/api_command.rb",
     "lib/travis/cli/command.rb",
