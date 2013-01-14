@@ -1,8 +1,9 @@
 # encoding: utf-8
 $LOAD_PATH.unshift File.expand_path('../lib', __FILE__)
+windows = RUBY_PLATFORM =~ /mswin|mingw/
 
 desc "run specs"
-task(:spec) { ruby "-S rspec spec#{" -c" unless RUBY_PLATFORM =~ /mswin|mingw/}" }
+task(:spec) { ruby "-S rspec spec#{" -c" unless windows}" }
 
 desc "generate gemspec"
 task 'travis.gemspec' do
@@ -34,5 +35,6 @@ task 'travis.gemspec' do
 end
 
 task :gemspec => 'travis.gemspec'
-task :default => [:spec, :gemspec]
+task :default => :spec
+task :default => :gemspec unless windows
 task :test    => :spec
