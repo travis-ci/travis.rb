@@ -32,6 +32,10 @@ $ curl "$(travis endpoint)/docs" > docs.html
 $ cat secret.txt | travis encrypt
 ```
 
+### Windows friendly
+
+It should work on Windows. However, we do not yet run our CI on Windows and only tried on Windows 7 so far.
+
 ### Invoking from Ruby
 
 You can also invoke the commands from within Ruby:
