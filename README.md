@@ -111,6 +111,18 @@ MyTravis = Travis::Namespace.new('http://localhost:3000')
 MyTravis::Repository.find('foo/bar')
 ```
 
+## Installation
+
+Make sure you have Ruby installed (duh!), it should work with any Ruby starting from version 1.8.7, including 2.0, Rubinius and JRuby:
+
+```
+$ gem install travis --no-rdoc --no-ri
+```
+
+### Upgrading from travis-cli (now travis-deploy)
+
+If you have the old `travis-cli` gem installed, you should `gem uninstall travis-cli`, just to be sure, as it ships with an executable that is also named `travis`.
+
 ## TODO
 
 ### Command Line Client
