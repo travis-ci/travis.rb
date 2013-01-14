@@ -18,6 +18,6 @@ describe Travis::CLI::Endpoint do
 
   example "travis endpoint -i" do
     run_cli('endpoint', '-i').should be_success
-    stdout.should be == "API endpoint: \e[1m\e[4mhttps://api.travis-ci.org/\e[0m\n"
+    stdout.should be == "API endpoint: https://api.travis-ci.org/\n"
   end
 end

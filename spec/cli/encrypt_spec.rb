@@ -8,7 +8,7 @@ describe Travis::CLI::Endpoint do
 
   example "travis encrypt foo -i" do
     run_cli('encrypt', 'foo', '-i').should be_success
-    stdout.should start_with("Please add the following to your \e[33m.travis.yml\e[0m file:\n\n  secure: ")
+    stdout.should start_with("Please add the following to your .travis.yml file:\n\n  secure: ")
   end
 
   example "cat foo | travis encrypt" do

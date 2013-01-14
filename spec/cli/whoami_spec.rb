@@ -21,7 +21,7 @@ describe Travis::CLI::Whoami do
 
   example "travis whoami -t token -i" do
     run_cli('whoami', '-t', 'token', '-i').should be_success
-    stdout.should be == "You are \e[1m\e[4mrkh\e[0m (Konstantin Haase)\n"
+    stdout.should be == "You are rkh (Konstantin Haase)\n"
     stderr.should be_empty
   end
 end
