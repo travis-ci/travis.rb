@@ -123,6 +123,27 @@ $ gem install travis --no-rdoc --no-ri
 
 If you have the old `travis-cli` gem installed, you should `gem uninstall travis-cli`, just to be sure, as it ships with an executable that is also named `travis`.
 
+## Version History
+
+**v1.0.1** (January 14, 2013)
+
+* Only bundle CA certs needed to verify Travis CI and GitHub domains.
+* Make tests pass on Windows.
+
+**v1.0.0** (January 14, 2013)
+
+* Fist public release.
+* Improved documentation.
+
+**v1.0.0pre2**  (January 14, 2013)
+
+* Added Windows support.
+* Suggestion to run `travis login` will add `--org` if needed.
+
+**v1.0.0pre** (January 13, 2013)
+
+* Initial public prerelease.
+
 ## TODO
 
 ### Command Line Client
