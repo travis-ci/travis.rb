@@ -125,10 +125,18 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
-**v1.0.1** (January 14, 2013)
+**v1.0.3** (January 15, 2013)
+
+* Fix `-r slug` for repository commands. (#3)
+
+**v1.0.2** (January 14, 2013)
 
 * Only bundle CA certs needed to verify Travis CI and GitHub domains.
 * Make tests pass on Windows.
+
+**v1.0.1** (January 14, 2013)
+
+* Improve `encrypt --add` behavior.
 
 **v1.0.0** (January 14, 2013)
 
