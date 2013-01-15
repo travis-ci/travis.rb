@@ -4,7 +4,7 @@ module Travis
   module CLI
     class RepoCommand < ApiCommand
       GIT_REGEX = %r{Fetch URL: (?:https://|git://|git@)github\.com[:/](.*/.+?)(\.git)?$}
-      on('-r', '--repo SLUG') { |c| c.slug = slug }
+      on('-r', '--repo SLUG') { |c, slug| c.slug = slug }
 
       attr_accessor :slug
       abstract
