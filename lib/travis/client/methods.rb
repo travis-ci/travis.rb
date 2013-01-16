@@ -37,6 +37,14 @@ module Travis
         session.find_one(Repository, id_or_slug)
       end
 
+      def build(id)
+        session.find_one(Build, id)
+      end
+
+      def job(id)
+        session.find_one(Job, id)
+      end
+
       def user
         session.find_one(User)
       end

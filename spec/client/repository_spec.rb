@@ -12,4 +12,19 @@ describe Travis::Client::Repository do
   its(:last_build_finished_at) { should be_nil }
   its(:inspect) { should be == "#<Travis::Client::Repository: rails/rails>" }
   its(:key) { should be_a(Travis::Client::Repository::Key) }
+  its(:last_build) { should be_a(Travis::Client::Build) }
+  its(:color) { should be == 'red' }
+
+  it { should_not be_pending  }
+  it { should     be_started  }
+  it { should     be_finished }
+  it { should_not be_passed   }
+  it { should_not be_errored  }
+  it { should     be_failed   }
+  it { should_not be_canceled }
+  it { should     be_created  }
+  it { should     be_red      }
+  it { should_not be_green    }
+  it { should_not be_yellow   }
+  it { should be_unsuccessful }
 end

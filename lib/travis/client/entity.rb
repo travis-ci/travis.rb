@@ -17,6 +17,10 @@ module Travis
         MAP.fetch(key)
       end
 
+      def self.aka(name)
+        MAP[name.to_s] = self
+      end
+
       def self.one(key = nil)
         MAP[key.to_s] = self if key
         @one ||= key.to_s
@@ -37,6 +41,18 @@ module Travis
           define_method("#{name}?") { !!send(name) }
         end
         @attributes
+      end
+
+      def self.time(*list)
+        list.each do |name|
+          define_method("#{name}=") { |value| set_attribute(name, time(value)) }
+        end
+      end
+
+      def self.has(*list)
+        list.each do |name|
+          define_method(name) { relation(name.to_s) }
+        end
       end
 
       def self.inspect_info(name)
@@ -96,6 +112,19 @@ module Travis
       end
 
       private
+
+        def relation(name)
+          name   = name.to_s
+          entity = Entity.subclass_for(name)
+
+          if entity.many == name
+            send("#{entity.one}_ids").map do |id|
+              session.find_one(entity, id)
+            end
+          else
+            session.find_one(entity, send("#{name}_id"))
+          end
+        end
 
         def inspect_info
           id
