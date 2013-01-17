@@ -78,7 +78,7 @@ module Travis
       end
 
       def build(number)
-        builds(number: number.to_s).first
+        builds(:number => number.to_s).first
       end
 
       def recent_builds
