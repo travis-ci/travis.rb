@@ -16,6 +16,7 @@ module Travis
   module CLI
     autoload :ApiCommand,   'travis/cli/api_command'
     autoload :Command,      'travis/cli/command'
+    autoload :Console,      'travis/cli/console'
     autoload :Encrypt,      'travis/cli/encrypt'
     autoload :Endpoint,     'travis/cli/endpoint'
     autoload :Help,         'travis/cli/help'
