@@ -109,7 +109,7 @@ module Travis
       end
 
       def usage
-        usage  = "#$0 #{command_name} [options]"
+        usage  = "#$0 #{command_name}"
         method = method(:run)
         if method.respond_to? :parameters
           method.parameters.each do |type, name|
@@ -120,6 +120,7 @@ module Travis
         else
           usage << " ..."
         end
+        usage << " [options]"
         "Usage: " << color(usage, :command)
       end
 
