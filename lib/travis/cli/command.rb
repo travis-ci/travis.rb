@@ -117,7 +117,7 @@ module Travis
             name = "[#{name}..]" if type == :rest
             usage << " #{name}"
           end
-        else
+        elsif method.arity != 0
           usage << " ..."
         end
         usage << " [options]"
