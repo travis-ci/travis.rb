@@ -11,12 +11,15 @@ Gem::Specification.new do |s|
 
   # generated from git shortlog -sn
   s.authors = [
-    "Konstantin Haase"
+    "Konstantin Haase",
+    "Henrik Hodne"
   ]
 
   # generated from git shortlog -sne
   s.email = [
-    "konstantin.mailinglists@googlemail.com"
+    "konstantin.mailinglists@googlemail.com",
+    "me@henrikhodne.com",
+    "konstantin.haase@gmail.com"
   ]
 
   # generated from git ls-files
@@ -41,12 +44,16 @@ Gem::Specification.new do |s|
     "lib/travis/cli/version.rb",
     "lib/travis/cli/whoami.rb",
     "lib/travis/client.rb",
+    "lib/travis/client/build.rb",
+    "lib/travis/client/commit.rb",
     "lib/travis/client/entity.rb",
     "lib/travis/client/error.rb",
+    "lib/travis/client/job.rb",
     "lib/travis/client/methods.rb",
     "lib/travis/client/namespace.rb",
     "lib/travis/client/repository.rb",
     "lib/travis/client/session.rb",
+    "lib/travis/client/states.rb",
     "lib/travis/client/user.rb",
     "lib/travis/pro.rb",
     "lib/travis/tools/token_finder.rb",
@@ -57,6 +64,9 @@ Gem::Specification.new do |s|
     "spec/cli/login_spec.rb",
     "spec/cli/version_spec.rb",
     "spec/cli/whoami_spec.rb",
+    "spec/client/build_spec.rb",
+    "spec/client/commit_spec.rb",
+    "spec/client/job_spec.rb",
     "spec/client/methods_spec.rb",
     "spec/client/namespace_spec.rb",
     "spec/client/repository_spec.rb",
