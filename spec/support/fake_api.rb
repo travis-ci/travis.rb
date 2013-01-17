@@ -8,7 +8,8 @@ module Travis
     class Session
       class FakeAPI < Sinatra::Base
         disable :protection
-        set(:rails_description, "Ruby on Rails")
+        enable :raise_errors
+        set :rails_description, "Ruby on Rails"
 
         before do
           content_type :json

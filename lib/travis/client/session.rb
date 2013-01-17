@@ -29,7 +29,7 @@ module Travis
       def uri=(uri)
         clear_cache!
         self.connection = Faraday.new(:url => uri, :ssl => SSL_OPTIONS) do |faraday|
-          faraday.request   :json
+          faraday.request  :url_encoded
           faraday.response  :json
           faraday.response  :follow_redirects
           faraday.response  :raise_error
