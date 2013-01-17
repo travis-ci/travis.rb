@@ -3,6 +3,7 @@ require 'travis/client'
 module Travis
   module Client
     class Commit < Entity
+      # @!parse attr_reader :sha, :branch, :message, :committed_at, :author_name, :author_email, :committer_name, :committer_email, :compare_url
       attributes :sha, :branch, :message, :committed_at, :author_name, :author_email, :committer_name, :committer_email, :compare_url
       time :committed_at
 

@@ -3,6 +3,7 @@ require 'travis/client'
 module Travis
   module Client
     class User < Entity
+      # @!parse attr_reader :login, :name, :email, :gravatar_id, :locale, :is_syncing, :synced_at, :correct_scopes
       attributes :login, :name, :email, :gravatar_id, :locale, :is_syncing, :synced_at, :correct_scopes
       inspect_info :login
 

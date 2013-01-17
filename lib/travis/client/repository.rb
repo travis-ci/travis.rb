@@ -31,6 +31,7 @@ module Travis
 
       include States
 
+      # @!parse attr_reader :slug, :description
       attributes :slug, :description, :last_build_id, :last_build_number, :last_build_state, :last_build_duration, :last_build_started_at, :last_build_finished_at
       inspect_info :slug
 
@@ -59,6 +60,7 @@ module Travis
         key.encrypt(value)
       end
 
+      # @!parse attr_reader :last_build
       def last_build
         attributes['last_build'] ||= begin
           last_build               = session.find_one(Build, last_build_id)
