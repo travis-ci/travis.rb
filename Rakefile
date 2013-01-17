@@ -17,6 +17,9 @@ task 'travis.gemspec' do
     :files   => `git ls-files`.split("\n").reject { |f| f =~ /^(\.|Gemfile)/ }
   }
 
+  # :(
+  fields[:email].delete("konstantin.haase@gmail.com")
+
   # insert data
   fields.each do |field, values|
     updated = "  s.#{field} = ["

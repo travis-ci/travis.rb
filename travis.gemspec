@@ -18,8 +18,7 @@ Gem::Specification.new do |s|
   # generated from git shortlog -sne
   s.email = [
     "konstantin.mailinglists@googlemail.com",
-    "me@henrikhodne.com",
-    "konstantin.haase@gmail.com"
+    "me@henrikhodne.com"
   ]
 
   # generated from git ls-files
