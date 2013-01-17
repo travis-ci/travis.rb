@@ -23,20 +23,26 @@ module Travis
 
         if data.empty?
           say color("Reading from stdin, press Ctrl+D when done", :info) if $stdin.tty?
-          data = $stdin.read
+          data = $stdin.read.split("\n")
         end
 
-        encrypted = repository.encrypt(data)
+        encrypted = [data].flatten.map { |data| repository.encrypt(data) }
 
         if config_key
           travis_config = YAML.load_file(travis_yaml)
           keys          = config_key.split('.')
           last_key      = keys.pop
           nested_config = keys.inject(travis_config) { |c,k| c[k] ||= {}}
-          nested_config[last_key] ||= [] << { 'secret' => encrypted }
+          encrypted.each do |encrypted|
+            nested_config[last_key] ||= [] << { 'secret' => encrypted }
+          end
           File.write(travis_yaml, travis_config.to_yaml)
         else
-          say encrypted.inspect, template(__FILE__)
+          if interactive?
+            say encrypted.map { |str| "  secure: #{str.inspect}" }.join("\n"), template(__FILE__)
+          else
+            say encrypted.map(&:inspect).join("\n")
+          end
         end
       end
 
