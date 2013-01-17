@@ -20,4 +20,9 @@ describe Travis::CLI::Endpoint do
     run_cli('encrypt') { |i| i.puts('foo') }
     stdout.should match(/^".{60,}"\n$/)
   end
+
+  example "travis encrypt rails/rails foo" do
+    run_cli('encrypt', 'rails/rails', 'foo').should be_success
+    stderr.should match(/WARNING/)
+  end
 end
