@@ -5,15 +5,13 @@ require 'yaml'
 module Travis
   module CLI
     class Encrypt < RepoCommand
-      attr_accessor :config_key, :split_lines
+      attr_accessor :config_key
 
       on('--add [KEY]', 'adds it to .travis.yml under KEY (default: env.global)') do |c, value|
         c.config_key = value || 'env.global'
       end
 
-      on('-s', '--split', 'treat each line as a separate input') do |c, value|
-        c.split_lines = value
-      end
+      on('-s', '--[no-]split', 'treat each line as a separate input')
 
       def run(*args)
         if args.first =~ %r{\w+/\w+}
@@ -30,7 +28,7 @@ module Travis
           data = $stdin.read
         end
 
-        data = data.split("\n") if split_lines
+        data = data.split("\n") if split?
 
         encrypted = [data].flatten.map { |data| repository.encrypt(data) }
 
