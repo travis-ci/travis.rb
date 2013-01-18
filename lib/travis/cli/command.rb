@@ -161,12 +161,16 @@ module Travis
           say "\n"
         end
 
-        def error(message)
+        def warn(message)
           write_to($stderr) do
             say color(message, :error)
             yield if block_given?
-            exit 1
           end
+        end
+
+        def error(message, &block)
+          warn(message, &block)
+          exit 1
         end
 
         def command(name)
