@@ -147,9 +147,9 @@ module Travis
           File.read(file).split('__END__', 2)[1].strip
         end
 
-        def color(line, *args)
+        def color(line, style)
           return line unless interactive?
-          terminal.color(line, *args)
+          terminal.color(line, style.to_sym)
         end
 
         def interactive?(io = output)
