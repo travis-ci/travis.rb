@@ -129,12 +129,17 @@ module Travis
         parser.to_s
       end
 
-      def say(data, format = nil)
-        data = format % color(data, :important) if format and interactive?
-        terminal.say data.gsub(/<\[\[/, '<%=').gsub(/\]\]>/, '%>')
+      def say(data, format = nil, style = nil)
+        terminal.say format(data, format, style)
       end
 
       private
+
+        def format(data, format = nil, style = nil)
+          style ||= :important
+          data = format % color(data, style) if format and interactive?
+          data = data.gsub(/<\[\[/, '<%=').gsub(/\]\]>/, '%>')
+        end
 
         def template(file)
           File.read(file).split('__END__', 2)[1].strip

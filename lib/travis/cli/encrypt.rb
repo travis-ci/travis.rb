@@ -28,9 +28,8 @@ module Travis
           data = $stdin.read
         end
 
-        data = data.split("\n") if split?
-
-        encrypted = [data].flatten.map { |data| repository.encrypt(data) }
+        data = split? ? data.split("\n") : [data]
+        encrypted = data.map { |data| repository.encrypt(data) }
 
         if config_key
           travis_config = YAML.load_file(travis_yaml)
@@ -42,11 +41,8 @@ module Travis
           end
           File.write(travis_yaml, travis_config.to_yaml)
         else
-          if interactive?
-            say encrypted.map { |str| "  secure: #{str.inspect}" }.join("\n"), template(__FILE__)
-          else
-            say encrypted.map(&:inspect).join("\n")
-          end
+          list = encrypted.map { |data| format(data.inspect, "  secure: %s") }
+          say(list.join("\n"), template(__FILE__), :none)
         end
       end
 
