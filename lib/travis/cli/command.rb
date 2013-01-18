@@ -18,6 +18,7 @@ module Travis
         cs[:important] = [ :bold, :underline ]
         cs[:success]   = [ :green            ]
         cs[:info]      = [ :yellow           ]
+        cs[:debug]     = [ :magenta          ]
       end
 
       on('-h', '--help', 'Display help') do |c, _|
@@ -132,6 +133,12 @@ module Travis
       def say(data, format = nil)
         data = format % color(data, :important) if format and interactive?
         terminal.say data.gsub(/<\[\[/, '<%=').gsub(/\]\]>/, '%>')
+      end
+
+      def debug(line)
+        write_to($stderr) do
+          say color("** #{line}", :debug)
+        end
       end
 
       private

@@ -9,11 +9,12 @@ module Travis
     class Session
       SSL_OPTIONS = { :ca_file => File.expand_path("../../cacert.pem", __FILE__) }
       include Methods
-      attr_reader :connection, :headers, :access_token
+      attr_reader :connection, :headers, :access_token, :instruments
 
       def initialize(options = Travis::Client::ORG_URI)
-        @headers = {}
-        @cache   = {}
+        @headers     = {}
+        @cache       = {}
+        @instruments = []
 
         options = { :uri => options } unless options.respond_to? :each_pair
         options.each_pair { |key, value| public_send("#{key}=", value) }
@@ -104,13 +105,13 @@ module Travis
       end
 
       def get_raw(*args)
-        connection.get(*args).body
+        instrumented("GET", *args) { connection.get(*args).body }
       rescue Faraday::Error::ClientError => e
         handle_error(e)
       end
 
       def post_raw(*args)
-        connection.post(*args).body
+        instrumented("POST", *args) { connection.post(*args).body }
       rescue Faraday::Error::ClientError => e
         handle_error(e)
       end
@@ -135,7 +136,20 @@ module Travis
         self
       end
 
+      def instrument(&block)
+        instruments << block
+      end
+
       private
+
+        def instrumented(name, *args)
+          name   = [name, *args.map(&:inspect)].join(" ") if args.any?
+          result = nil
+          chain  = instruments + [proc { |n,l| result = yield }]
+          lift   = proc { chain.shift.call(name, lift) }
+          lift.call
+          result
+        end
 
         def create_entity(type, data)
           id     = Integer(data.fetch('id'))
