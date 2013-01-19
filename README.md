@@ -152,7 +152,7 @@ This is really helpful both when working on this client and when exploring the [
        "last_build_started_at"=>"2013-01-19T18:00:49Z",
        "last_build_finished_at"=>"2013-01-19T18:02:17Z"}}
 
-User `--json` if you'd rather prefer the output to be JSON.
+Use `--json` if you'd rather prefer the output to be JSON.
 
 #### `whoami`
 
