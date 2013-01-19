@@ -11,6 +11,8 @@ module Travis
         c.config_key = value || 'env.global'
       end
 
+      on('-s', '--[no-]split', 'treat each line as a separate input')
+
       def run(*args)
         if args.first =~ %r{\w+/\w+}
           warn "WARNING: The name of the repository is now passed to the command with the -r option:"
@@ -26,17 +28,21 @@ module Travis
           data = $stdin.read
         end
 
-        encrypted = repository.encrypt(data)
+        data = split? ? data.split("\n") : [data]
+        encrypted = data.map { |data| repository.encrypt(data) }
 
         if config_key
           travis_config = YAML.load_file(travis_yaml)
           keys          = config_key.split('.')
           last_key      = keys.pop
           nested_config = keys.inject(travis_config) { |c,k| c[k] ||= {}}
-          nested_config[last_key] ||= [] << { 'secure' => encrypted }
+          encrypted.each do |encrypted|
+            nested_config[last_key] ||= [] << { 'secure' => encrypted }
+          end
           File.write(travis_yaml, travis_config.to_yaml)
         else
-          say encrypted.inspect, template(__FILE__)
+          list = encrypted.map { |data| format(data.inspect, "  secure: %s") }
+          say(list.join("\n"), template(__FILE__), :none)
         end
       end
 
@@ -58,7 +64,7 @@ end
 __END__
 Please add the following to your <[[ color('.travis.yml', :info) ]]> file:
 
-  secure: %s
+%s
 
 Pro Tip<[[ "™" unless Travis::CLI.windows? ]]>: You can add it automatically by running with <[[ color('--add', :info) ]]>.
 
