@@ -87,15 +87,24 @@ module Travis
         builds({})
       end
 
-      def each_build(params = {}, &block)
+      def each_build(params = nil, &block)
         return enum_for(__method__, params) unless block_given?
-        chunk = recent_builds
+        params ||= {}
+        chunk = builds(params)
         until chunk.empty?
           chunk.each(&block)
           number = chunk.last.number
           chunk  = number == '1' ? [] : builds(params.merge(:after_number => number))
         end
         self
+      end
+
+      def job(number)
+        build_number = number.to_s[/^\d+/]
+        build        = build(build_number)
+        job          = build.jobs.detect { |j| j.number == number } if number != build_number
+        job        ||= build.jobs.first if build.jobs.size == 1
+        job
       end
 
       private

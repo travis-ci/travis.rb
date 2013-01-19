@@ -45,9 +45,15 @@ module Travis
         session.find_one(Job, id)
       end
 
+      def artifact(id)
+        session.find_one(Artifact, id)
+      end
+
       def user
         session.find_one(User)
       end
+
+      alias log artifact
     end
   end
 end

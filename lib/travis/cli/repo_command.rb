@@ -23,6 +23,16 @@ module Travis
 
       private
 
+        def build(number_or_id)
+          return super if number_or_id.is_a? Integer
+          repository.build(number_or_id)
+        end
+
+        def job(number_or_id)
+          return super if number_or_id.is_a? Integer
+          repository.job(number_or_id)
+        end
+
         def last_build
           repository.last_build
         end
