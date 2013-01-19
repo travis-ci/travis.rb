@@ -15,10 +15,10 @@ module Travis
 
       def run(*args)
         if args.first =~ %r{\w+/\w+}
-          $stderr.puts 'WARNING: The name of the repository is now passed to the command with the -r option:'
-          $stderr.puts "    travis encrypt [...] -r #{args.first}"
-          $stderr.puts '  If you tried to pass the name of the repository as the first argument, you'
-          $stderr.puts '  probably won\'t get the results you wanted.'
+          warn "WARNING: The name of the repository is now passed to the command with the -r option:"
+          warn "    #{command("encrypt [...] -r #{args.first}")}"
+          warn "  If you tried to pass the name of the repository as the first argument, you"
+          warn "  probably won't get the results you wanted.\n"
         end
 
         data = args.join(" ")
@@ -37,7 +37,7 @@ module Travis
           last_key      = keys.pop
           nested_config = keys.inject(travis_config) { |c,k| c[k] ||= {}}
           encrypted.each do |encrypted|
-            nested_config[last_key] ||= [] << { 'secret' => encrypted }
+            nested_config[last_key] ||= [] << { 'secure' => encrypted }
           end
           File.write(travis_yaml, travis_config.to_yaml)
         else

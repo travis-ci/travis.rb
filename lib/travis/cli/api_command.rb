@@ -12,6 +12,13 @@ module Travis
       on('--org', "short-cut for --api-endpoint '#{Travis::Client::ORG_URI}'") { |c,_| c.api_endpoint = Travis::Client::ORG_URI }
       on('-t', '--token [ACCESS_TOKEN]', 'access token to use') { |c, t| c.access_token = t }
 
+      on('--debug', 'show API requests') do |c,_|
+        c.session.instrument do |info, request|
+          c.debug(info)
+          request.call
+        end
+      end
+
       def initialize(*)
         @session = Travis::Client.new
         super

@@ -18,6 +18,7 @@ module Travis
         cs[:important] = [ :bold, :underline ]
         cs[:success]   = [ :green            ]
         cs[:info]      = [ :yellow           ]
+        cs[:debug]     = [ :magenta          ]
       end
 
       on('-h', '--help', 'Display help') do |c, _|
@@ -133,6 +134,12 @@ module Travis
         terminal.say format(data, format, style)
       end
 
+      def debug(line)
+        write_to($stderr) do
+          say color("** #{line}", :debug)
+        end
+      end
+
       private
 
         def format(data, format = nil, style = nil)
@@ -145,9 +152,9 @@ module Travis
           File.read(file).split('__END__', 2)[1].strip
         end
 
-        def color(line, *args)
+        def color(line, style)
           return line unless interactive?
-          terminal.color(line, *args)
+          terminal.color(line, style.to_sym)
         end
 
         def interactive?(io = output)
@@ -159,12 +166,16 @@ module Travis
           say "\n"
         end
 
-        def error(message)
+        def warn(message)
           write_to($stderr) do
             say color(message, :error)
             yield if block_given?
-            exit 1
           end
+        end
+
+        def error(message, &block)
+          warn(message, &block)
+          exit 1
         end
 
         def command(name)

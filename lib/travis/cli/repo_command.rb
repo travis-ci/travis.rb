@@ -23,6 +23,10 @@ module Travis
 
       private
 
+        def last_build
+          repository.last_build
+        end
+
         def detected_endpoint?
           !explicit_api_endpoint?
         end

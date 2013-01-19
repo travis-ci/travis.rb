@@ -16,6 +16,7 @@ module Travis
   module CLI
     autoload :ApiCommand,   'travis/cli/api_command'
     autoload :Command,      'travis/cli/command'
+    autoload :Console,      'travis/cli/console'
     autoload :Encrypt,      'travis/cli/encrypt'
     autoload :Endpoint,     'travis/cli/endpoint'
     autoload :Help,         'travis/cli/help'
@@ -23,6 +24,7 @@ module Travis
     autoload :Parser,       'travis/cli/parser'
     autoload :Raw,          'travis/cli/raw'
     autoload :RepoCommand,  'travis/cli/repo_command'
+    autoload :Status,       'travis/cli/status'
     autoload :Version,      'travis/cli/version'
     autoload :Whoami,       'travis/cli/whoami'
 
