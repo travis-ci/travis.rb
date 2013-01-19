@@ -25,6 +25,13 @@ module Travis
         build.push?
       end
 
+      def allow_failures?
+        return false unless config.include? 'matrix' and config['matrix'].include? 'allow_failures'
+        config['matrix']['allow_failures'].any? do |allow|
+          allow.all? { |key, value| config[key] == value }
+        end
+      end
+
       def duration
         attributes['duration'] ||= begin
           start  = started_at  || Time.now

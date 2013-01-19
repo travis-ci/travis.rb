@@ -20,11 +20,18 @@ module Travis
         ]
 
         if entity.respond_to? :jobs
-          jobs.each do |job|
+          empty_line
+          entity.jobs.each do |job|
             say [
-              color("##{job.number} #{job.state}:".ljust(14), [build.color, :bold])
-            ].join
+              color("##{job.number} #{job.state}:".ljust(14), [job.color, :bold]),
+              format.duration(job.duration).ljust(14),
+              format.job_config(job.config),
+              (color("(failure allowed)", :info) if job.allow_failures?)
+            ].compact.join(" ")
           end
+        else
+          say color("Allow Failure: ", :info) + entity.allow_failures?.inspect
+          say color("Config:        ", :info) + format.job_config(entity.config)
         end
       end
     end
@@ -34,9 +41,9 @@ end
 __END__
 
 <[[ color("%s #%s: %s", :bold) ]]>
-<[[ color("State:       ", :info) ]]><[[ color(%p, :%s) ]]>
-<[[ color("Type:        ", :info) ]]>%s
-<[[ color("Compare URL: ", :info) ]]>%s
-<[[ color("Duration:    ", :info) ]]>%s
-<[[ color("Started:     ", :info) ]]>%s
-<[[ color("Finished:    ", :info) ]]>%s
+<[[ color("State:         ", :info) ]]><[[ color(%p, :%s) ]]>
+<[[ color("Type:          ", :info) ]]>%s
+<[[ color("Compare URL:   ", :info) ]]>%s
+<[[ color("Duration:      ", :info) ]]>%s
+<[[ color("Started:       ", :info) ]]>%s
+<[[ color("Finished:      ", :info) ]]>%s
