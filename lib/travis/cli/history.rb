@@ -7,7 +7,7 @@ module Travis
       on('-p', '--pull-request NUMBER', 'Only show history for the given Pull Request')
       on('-b', '--branch BRANCH', 'Only show history for the given branch')
       on('-l', '--limit LIMIT', 'Maximum number of history items')
-      on('-a', '--[no-]all', 'Display all history items')
+      on('--[no-]all', 'Display all history items')
 
       def run
         countdown = Integer(limit || 10) unless all?
