@@ -23,15 +23,16 @@ module Travis
           empty_line
           entity.jobs.each do |job|
             say [
-              color("##{job.number} #{job.state}:".ljust(14), [job.color, :bold]),
+              color("##{job.number} #{job.state}:".ljust(16), [job.color, :bold]),
               format.duration(job.duration).ljust(14),
               format.job_config(job.config),
               (color("(failure allowed)", :info) if job.allow_failures?)
             ].compact.join(" ")
           end
         else
+          config = format.job_config(entity.config)
           say color("Allow Failure: ", :info) + entity.allow_failures?.inspect
-          say color("Config:        ", :info) + format.job_config(entity.config)
+          say color("Config:        ", :info) + config unless config.empty?
         end
       end
     end
