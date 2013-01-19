@@ -12,13 +12,17 @@ Gem::Specification.new do |s|
   # generated from git shortlog -sn
   s.authors = [
     "Konstantin Haase",
-    "Henrik Hodne"
+    "Henrik Hodne",
+    "Adrien Brault",
+    "Piotr Sarnacki"
   ]
 
   # generated from git shortlog -sne
   s.email = [
     "konstantin.mailinglists@googlemail.com",
-    "me@henrikhodne.com"
+    "me@henrikhodne.com",
+    "adrien.brault@gmail.com",
+    "drogus@gmail.com"
   ]
 
   # generated from git ls-files
@@ -37,13 +41,18 @@ Gem::Specification.new do |s|
     "lib/travis/cli/encrypt.rb",
     "lib/travis/cli/endpoint.rb",
     "lib/travis/cli/help.rb",
+    "lib/travis/cli/history.rb",
     "lib/travis/cli/login.rb",
+    "lib/travis/cli/logs.rb",
     "lib/travis/cli/parser.rb",
     "lib/travis/cli/raw.rb",
     "lib/travis/cli/repo_command.rb",
+    "lib/travis/cli/show.rb",
+    "lib/travis/cli/status.rb",
     "lib/travis/cli/version.rb",
     "lib/travis/cli/whoami.rb",
     "lib/travis/client.rb",
+    "lib/travis/client/artifact.rb",
     "lib/travis/client/build.rb",
     "lib/travis/client/commit.rb",
     "lib/travis/client/entity.rb",
@@ -56,12 +65,17 @@ Gem::Specification.new do |s|
     "lib/travis/client/states.rb",
     "lib/travis/client/user.rb",
     "lib/travis/pro.rb",
+    "lib/travis/tools/formatter.rb",
     "lib/travis/tools/token_finder.rb",
     "lib/travis/version.rb",
     "spec/cli/encrypt_spec.rb",
     "spec/cli/endpoint_spec.rb",
     "spec/cli/help_spec.rb",
+    "spec/cli/history_spec.rb",
     "spec/cli/login_spec.rb",
+    "spec/cli/logs_spec.rb",
+    "spec/cli/show_spec.rb",
+    "spec/cli/status_spec.rb",
     "spec/cli/version_spec.rb",
     "spec/cli/whoami_spec.rb",
     "spec/client/build_spec.rb",

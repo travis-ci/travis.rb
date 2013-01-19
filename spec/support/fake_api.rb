@@ -517,6 +517,118 @@ module Travis
               "tags"=>""}]}.to_json
         end
 
+        get '/builds/' do
+          return {"builds"=>[]}.to_json if params[:after_number]
+          {"builds"=>
+            [{"id"=>4125095,
+             "repository_id"=>891,
+             "commit_id"=>1201631,
+             "number"=>"6180",
+             "pull_request"=>false,
+             "config"=>
+              {"script"=>"ci/travis.rb",
+               "before_install"=>["gem install bundler"],
+               "rvm"=>["1.9.3", "2.0.0"],
+               "env"=>
+                ["GEM=railties",
+                 "GEM=ap,am,amo,as",
+                 "GEM=ar:mysql",
+                 "GEM=ar:mysql2",
+                 "GEM=ar:sqlite3",
+                 "GEM=ar:postgresql"],
+               "notifications"=>
+                {"email"=>false,
+                 "irc"=>
+                  {"on_success"=>"change",
+                   "on_failure"=>"always",
+                   "channels"=>["irc.freenode.org#rails-contrib"]},
+                 "campfire"=>
+                  {"on_success"=>"change",
+                   "on_failure"=>"always",
+                   "rooms"=>
+                    [{"secure"=>
+                       "YA1alef1ESHWGFNVwvmVGCkMe4cUy4j+UcNvMUESraceiAfVyRMAovlQBGs6\n9kBRm7DHYBUXYC2ABQoJbQRLDr/1B5JPf/M8+Qd7BKu8tcDC03U01SMHFLpO\naOs/HLXcDxtnnpL07tGVsm0zhMc5N8tq4/L3SHxK7Vi+TacwQzI="}]}},
+               "bundler_args"=>"--path vendor/bundle",
+               ".result"=>"configured"},
+             "state"=>"failed",
+             "started_at"=>"2013-01-13T15:55:17Z",
+             "finished_at"=>nil,
+             "duration"=>5019,
+             "job_ids"=>
+              [4125096,
+               4125097,
+               4125098,
+               4125099,
+               4125100,
+               4125101,
+               4125102,
+               4125103,
+               4125104,
+               4125105,
+               4125106,
+               4125107]}],
+           "commits"=>
+            [{"id"=>1201631,
+             "sha"=>"a0265b98f16c6e33be32aa3f57231d1189302400",
+             "branch"=>"master",
+             "message"=>"Associaton -> Association",
+             "committed_at"=>"2013-01-13T15:43:24Z",
+             "author_name"=>"Steve Klabnik",
+             "author_email"=>"steve@steveklabnik.com",
+             "committer_name"=>"Steve Klabnik",
+             "committer_email"=>"steve@steveklabnik.com",
+             "compare_url"=>
+              "https://github.com/rails/rails/compare/6581d798e830...a0265b98f16c"}]}.to_json
+        end
+
+        get '/jobs/4125096' do
+          {"job"=>
+            {"id"=>4125096,
+             "repository_id"=>891,
+             "repository_slug"=>"rails/rails",
+             "build_id"=>4125095,
+             "commit_id"=>1201631,
+             "log_id"=>3168318,
+             "number"=>"6180.1",
+             "config"=>
+              {"script"=>"ci/travis.rb",
+               "before_install"=>["gem install bundler"],
+               "rvm"=>"1.9.3",
+               "env"=>"GEM=railties",
+               "notifications"=>
+                {"email"=>false,
+                 "irc"=>
+                  {"on_success"=>"change",
+                   "on_failure"=>"always",
+                   "channels"=>["irc.freenode.org#rails-contrib"]},
+                 "campfire"=>
+                  {"on_success"=>"change",
+                   "on_failure"=>"always",
+                   "rooms"=>
+                    [{"secure"=>
+                       "YA1alef1ESHWGFNVwvmVGCkMe4cUy4j+UcNvMUESraceiAfVyRMAovlQBGs6\n9kBRm7DHYBUXYC2ABQoJbQRLDr/1B5JPf/M8+Qd7BKu8tcDC03U01SMHFLpO\naOs/HLXcDxtnnpL07tGVsm0zhMc5N8tq4/L3SHxK7Vi+TacwQzI="}]}},
+               "bundler_args"=>"--path vendor/bundle",
+               ".result"=>"configured"},
+             "state"=>"failed",
+             "started_at"=>"2013-01-13T15:55:59Z",
+             "finished_at"=>"2013-01-13T16:10:15Z",
+             "queue"=>"builds.rails",
+             "allow_failure"=>false,
+             "tags"=>""},
+           "commit"=>
+            {"id"=>1201631,
+             "sha"=>"a0265b98f16c6e33be32aa3f57231d1189302400",
+             "branch"=>"master",
+             "message"=>"Associaton -> Association",
+             "committed_at"=>"2013-01-13T15:43:24Z",
+             "author_name"=>"Steve Klabnik",
+             "author_email"=>"steve@steveklabnik.com",
+             "committer_name"=>"Steve Klabnik",
+             "committer_email"=>"steve@steveklabnik.com",
+             "compare_url"=>
+              "https://github.com/rails/rails/compare/6581d798e830...a0265b98f16c"}}.to_json
+        end
+
         get '/repos/' do
           {"repos"=>
             [{"id"=>107495,
@@ -529,6 +641,15 @@ module Travis
               "last_build_language"=>nil,
               "last_build_started_at"=>"2013-01-13T16:58:43Z",
               "last_build_finished_at"=>"2013-01-13T16:55:08Z"}]}.to_json
+        end
+
+        get '/artifacts/3168318' do
+          {"artifact"=>
+            {"id"=>3168318,
+             "job_id"=>4125096,
+             "type"=>"Log",
+             "body"=>
+              "$ export GEM=railties\n"}}.to_json
         end
 
         get '/repos/travis-ci/travis' do

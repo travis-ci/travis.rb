@@ -21,6 +21,14 @@ module Travis
         not pull_request?
       end
 
+      def pr_number
+        commit.compare_url[/\d+$/] if pull_request?
+      end
+
+      def branch_info
+        pull_request? ? "Pull Request ##{pr_number}" : commit.branch
+      end
+
       def inspect_info
         "#{repository.slug}##{number}"
       end

@@ -11,6 +11,7 @@ describe Travis::Client::Job do
   its(:color) { should be == 'green' }
   its(:commit) { should be_a(Travis::Client::Commit) }
   its(:repository) { should be == session.repo('rails/rails') }
+  its(:duration) { should be == 905 }
 
   it { should be == subject.build.jobs[1] }
 

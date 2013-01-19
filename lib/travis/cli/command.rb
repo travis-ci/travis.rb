@@ -1,4 +1,6 @@
 require 'travis/cli'
+require 'travis/tools/formatter'
+
 require 'highline'
 require 'forwardable'
 require 'delegate'
@@ -11,7 +13,7 @@ module Travis
       extend Forwardable
       def_delegators :terminal, :agree, :ask, :choose
 
-      HighLine.use_color = !CLI.windows?
+      HighLine.use_color = !CLI.windows? && $stdin.tty?
       HighLine.color_scheme = HighLine::ColorScheme.new do |cs|
         cs[:command]   = [ :bold             ]
         cs[:error]     = [ :red              ]
@@ -27,6 +29,7 @@ module Travis
       end
 
       on('-i', '--[no-]interactive', "be interactive and colorful") do |c, v|
+        HighLine.use_color = v unless CLI.windows?
         c.force_interactive = v
       end
 
@@ -49,9 +52,10 @@ module Travis
         define_method(name) {}
       end
 
-      attr_accessor :arguments, :config, :terminal, :force_interactive
+      attr_accessor :arguments, :config, :terminal, :force_interactive, :format
 
       def initialize(options = {})
+        @format   = Travis::Tools::Formatter.new
         @output   = SimpleDelegator.new($stdout)
         @input    = SimpleDelegator.new($stdin)
         @terminal = HighLine.new(@input, @output)
@@ -154,7 +158,7 @@ module Travis
 
         def color(line, style)
           return line unless interactive?
-          terminal.color(line, style.to_sym)
+          terminal.color(line, Array(style).map(&:to_sym))
         end
 
         def interactive?(io = output)
@@ -214,7 +218,7 @@ module Travis
           return unless method.respond_to? :parameters
           method.parameters.each do |type, name|
             return if type == :rest
-            wrong_args("few") unless args.shift or type == :opt
+            wrong_args("few") unless args.shift or type == :opt or type == :block
           end
           wrong_args("many") if args.any?
         end
