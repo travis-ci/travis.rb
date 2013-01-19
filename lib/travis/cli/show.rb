@@ -18,6 +18,14 @@ module Travis
           format.time(entity.started_at),
           format.time(entity.finished_at)
         ]
+
+        if entity.respond_to? :jobs
+          jobs.each do |job|
+            say [
+              color("##{job.number} #{job.state}:".ljust(14), [build.color, :bold])
+            ].join
+          end
+        end
       end
     end
   end
