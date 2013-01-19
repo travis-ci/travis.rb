@@ -213,7 +213,7 @@ module Travis
           return unless method.respond_to? :parameters
           method.parameters.each do |type, name|
             return if type == :rest
-            wrong_args("few") unless args.shift or type == :opt
+            wrong_args("few") unless args.shift or type == :opt or type == :block
           end
           wrong_args("many") if args.any?
         end
