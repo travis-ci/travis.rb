@@ -18,7 +18,17 @@ describe Travis::CLI::Endpoint do
 
   example "cat foo | travis encrypt" do
     run_cli('encrypt') { |i| i.puts('foo') }
-    stdout.should match(/^".{60,}"\n$/)
+    stdout.should match(/\A".{60,}"\n\Z/)
+  end
+
+  example "cat foo\\nbar | travis encrypt -s" do
+    run_cli('encrypt', '-s') { |i| i.puts("foo\nbar") }
+    stdout.should match(/\A(".{60,}"\n){2}\Z/)
+  end
+
+  example "cat foo\\nbar | travis encrypt" do
+    run_cli('encrypt') { |i| i.puts("foo\nbar") }
+    stdout.should match(/\A".{60,}"\n\Z/)
   end
 
   example "travis encrypt rails/rails foo" do
