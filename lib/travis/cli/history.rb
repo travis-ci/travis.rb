@@ -12,7 +12,7 @@ module Travis
       def run
         countdown = Integer(limit || 10) unless all?
         params    = { :after_number => after } if after
-        repository.each_build do |build|
+        repository.each_build(params) do |build|
           next unless display? build
           display(build)
 

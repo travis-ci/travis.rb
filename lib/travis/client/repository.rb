@@ -87,9 +87,10 @@ module Travis
         builds({})
       end
 
-      def each_build(params = {}, &block)
+      def each_build(params = nil, &block)
         return enum_for(__method__, params) unless block_given?
-        chunk = recent_builds
+        params ||= {}
+        chunk = builds(params)
         until chunk.empty?
           chunk.each(&block)
           number = chunk.last.number
