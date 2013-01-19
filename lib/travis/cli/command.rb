@@ -52,13 +52,13 @@ module Travis
         define_method(name) {}
       end
 
-      attr_accessor :arguments, :config, :terminal, :force_interactive, :format
+      attr_accessor :arguments, :config, :terminal, :force_interactive, :formatter
 
       def initialize(options = {})
-        @format   = Travis::Tools::Formatter.new
-        @output   = SimpleDelegator.new($stdout)
-        @input    = SimpleDelegator.new($stdin)
-        @terminal = HighLine.new(@input, @output)
+        @formatter = Travis::Tools::Formatter.new
+        @output    = SimpleDelegator.new($stdout)
+        @input     = SimpleDelegator.new($stdin)
+        @terminal  = HighLine.new(@input, @output)
         options.each do |key, value|
           public_send("#{key}=", value) if respond_to? "#{key}="
         end

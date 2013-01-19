@@ -14,9 +14,9 @@ module Travis
           entity.color,
           entity.pull_request? ? "pull request" : "push",
           entity.commit.compare_url,
-          format.duration(entity.duration),
-          format.time(entity.started_at),
-          format.time(entity.finished_at)
+          formatter.duration(entity.duration),
+          formatter.time(entity.started_at),
+          formatter.time(entity.finished_at)
         ]
 
         if entity.respond_to? :jobs
@@ -24,13 +24,13 @@ module Travis
           entity.jobs.each do |job|
             say [
               color("##{job.number} #{job.state}:".ljust(16), [job.color, :bold]),
-              format.duration(job.duration).ljust(14),
-              format.job_config(job.config),
+              formatter.duration(job.duration).ljust(14),
+              formatter.job_config(job.config),
               (color("(failure allowed)", :info) if job.allow_failures?)
             ].compact.join(" ")
           end
         else
-          config = format.job_config(entity.config)
+          config = formatter.job_config(entity.config)
           say color("Allow Failure: ", :info) + entity.allow_failures?.inspect
           say color("Config:        ", :info) + config unless config.empty?
         end
