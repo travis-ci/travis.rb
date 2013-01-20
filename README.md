@@ -25,6 +25,7 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a command line 
     * [Authentication](#authentication)
     * [Using Pro](#using-pro)
     * [Entities](#entities)
+        * [Stateful Entities](#stateful-entities)
         * [Repositories](#repositories)
         * [Builds](#builds)
         * [Jobs](#jobs)
@@ -456,41 +457,264 @@ Travis CI will not store that token.
 
 ### Using Pro
 
-... TODO ...
+Using the library with private projects pretty much works the same, except you use `Travis::Pro`.
+
+Keep in mind that you need to authenticate.
+
+``` ruby
+require 'travis/pro'
+
+Travis::Pro.access_token = '...'
+user = Travis::Pro::User.current
+
+puts "Hello #{user.name}!"
+```
 
 ### Entities
 
+Entities are like the models in the Travis Client land. They keep the data and it's usually them you talk to if you want something.
+They are pretty much normal Ruby objects.
+
+The Travis session will cache all entities, so don't worry about loading the same one twice.
+Once you got a hold of one, you can easily reload it at any time if you want to make sure the data is fresh:
+
+``` ruby
+rails = Travis::Repository.find('rails/rails')
+sleep 1.hour
+rails.reload
+```
+
+The travis gem supports lazy and partial loading, so if you want to make sure you have all the data, just call load.
+
+``` ruby
+rails.load
+```
+
+This is not something you should usually do, as partial loading is actually your friend (keeps requests to a minimum).
+
+
+#### Stateful Entities
+
+[Repositories](#repositories), [Builds](#builds) and [Jobs](#jobs) all are basically state machines, which means the implement the following methods:
+
+``` ruby
+require 'travis'
+repo = Travis::Repository.find('rails/rails')
+
+p repo.canceled?
+p repo.created?
+p repo.errored?
+p repo.failed?
+p repo.finished?
+p repo.green?
+p repo.passed?
+p repo.pending?
+p repo.red?
+p repo.running?
+p repo.started?
+p repo.successful?
+p repo.unsuccessful?
+p repo.yellow?
+p repo.color
+```
+
+Builds and jobs also have a `state` method. For repositories, use `last_build.state`.
+
 #### Repositories
 
-... TODO ...
+Repositories are probably one of the first entities you'll load. It's pretty straight forward, too.
+
+``` ruby
+require 'travis'
+
+Travis::Repository.find('rails/rails')            # find by slug
+Travis::Repository.find(891)                      # find by id
+Travis::Repository.find_all(owner_name: 'rails')  # all repos in the rails organization
+Travis::Repository.current                        # repos that see some action right now
+```
+
+Once you have a repository, you can for instance encrypt some strings with its private key:
+
+``` ruby
+require 'travis'
+
+Travis::Repository.find('rails/rails')
+puts repo.encrypt('FOO=bar')
+```
+
+Repositories are [stateful](#stateful-entities).
 
 #### Builds
 
-... TODO ...
+You could load a build by its id using `Travis::Build.find`. But most of the time you won't have the id handy, so you'd usually start with a repository.
+
+```
+require 'travis'
+rails = Travis::Repository.find('rails/rails')
+
+rails.last_build               # the latest build
+rails.recent_builds            # the last 20 or so builds (don't rely on that number)
+rails.builds(after_number: 42) # the last 20 or so builds *before* 42
+rails.build(42)                # build with the number 42 (not the id!)
+rails.builds                   # Enumerator for #each_build
+
+# this will loop through all builds
+rails.each_build do |build|
+  puts "#{build.number}: #{build.state}"
+end
+
+# this will loop through all builds before build 42
+rails.each_build(after_number: 42) do |build|
+  puts "#{build.number}: #{build.state}"
+end
+```
+
+Note that `each_build` (and thus `builds` without and argument) is lazy and uses pagination, so you can safely do things like this:
+
+``` ruby
+build = rails.builds.detect { |b| b.failed? }
+puts "Last failing Rails build: #{build.number}"
+```
+
+Without having to load more than 6000 builds.
 
 #### Jobs
 
-... TODO ...
+Jobs behave a lot like [builds](#builds), and similar to them, you probably don't have the id ready. You can get the jobs from a build:
+
+``` ruby
+rails.last_build.jobs.each do |job|
+  puts "#{job.number} took #{job.duration} seconds"
+end
+```
+
+If you have the job number, you can also reach a job directly from the repository:
+
+``` ruby
+rails.job('5000.1')
+```
 
 #### Artifacts
 
-... TODO ...
+The artifacts you usually care for are probably logs. You can reach them directly from a build:
+
+``` ruby
+require 'travis'
+
+repo = Travis::Repository.find('travis-ci/travis')
+job  = repo.last_build.jobs.first
+puts job.log.body
+```
+
+If you plan to print our the body, be aware that it might contain malicious escape codes. For this reason, we added `colorized_body`, which removes all the unprintable characters, except for ANSI color codes, and `clean_body` which also removes the color codes.
+
+``` ruby
+puts job.log.colorized_body
+````
 
 #### Users
 
-... TODO ...
+The only user you usually get access to is the currently authenticated one.
+
+``` ruby
+require 'travis'
+
+Travis.access_token = '...'
+user = Travis::User.current
+
+puts "Hello, #{user.login}! Or should I cal you... #{user.name.upcase}!?"
+```
 
 #### Commits
 
-... TODO ...
+Commits cannot be loaded directly. They come as a byproduct of [jobs](#jobs) and [builds](#builds).
+
+``` ruby
+require 'travis'
+
+repo   = Travis::Repository.find('travis-ci/travis')
+commit = repo.last_build.commit
+
+puts "Last tested commit: #{commit.short_sha} on #{commit.branch} by #{commit.author} - #{commit.subject}"
+```
 
 ### Dealing with Sessions
 
-... TODO ...
+Under the hood the session is where the fun is happening. Most methods on the constants and entities just wrap methods on your session, so you don't have to pass the session around all the time or even see it if you don't want to.
+
+There are two levels of session methods, the higher level methods from the `Travis::Client::Methods` mixin, which are also available from `Travis`, `Travis::Pro` or any custom [Namespace](#using-namespaces).
+
+``` ruby
+require 'travis/client/session'
+session = Travis::Client::Session.new
+
+session.access_token = "secret_token"           # access token to use
+session.api_endpoint = "http://localhost:3000/" # api endpoint to talk to
+session.github_auth("github_token")             # log in with a github token
+session.repos(owner_name: 'travis-ci')          # all travis-ci/* projects
+session.repo('travis-ci/travis')                # this project
+session.repo(409371)                            # same as the one above
+session.build(4266036)                          # build with id 4266036
+session.job(4266037)                            # job with id 4266037
+session.artifact(42)                            # artifact with id 42
+session.log(42)                                 # same as above
+session.user                                    # the current user, if logged in
+```
+
+You can add these methods to any object responding to `session` via said mixin.
+
+Below this, there is a second API, close to the HTTP level:
+
+``` ruby
+require 'travis/client/session'
+session = Travis::Client::Session.new
+
+session.instrument do |description, block|
+  time = Time.now
+  block.call
+  puts "#{description} took #{Time.now - time} seconds"
+end
+
+session.connection = Faraday::Connection.new
+
+session.get_raw('/repos/rails/rails') # => {"repo" => {"id" => 891, "slug" => "rails/rails", ...}}
+session.get('/repos/rails/rails')     # => {"repo" => #<Travis::Client::Repository: rails/rails>}
+session.headers['Foo'] = 'Bar'        # send a custom HTTP header with every request
+
+rails = session.find_one(Travis::Client::Repository, 'rails/rails')
+
+session.find_many(Travis::Client::Repository)  # repositories with the latest builds
+session.find_one_or_many(Travis::Client::User) # the current user (you could also use find_one here)
+
+session.reload(rails)
+
+session.clear_cache   # empty cached attributes
+session.clear_cache!  # empty identity map
+```
 
 ### Using Namespaces
 
-... TODO ...
+`Travis` and `Travis::Pro` are just two different namespaces for two different Travis sessions. A namespace is a Module, exposing the higher level [session methods](#dealing-with-sessions). It also has a dummy constant for every [entity](#entities), wrapping `find_one` (aliased to `find`) and `find_many` (aliased to `find_all`) for you, so you don't have to keep track of the session or hand in the entity class. You can easily create your own namespace:
+
+``` ruby
+require 'travis/client'
+MyTravis = Travis::Namespaces.new("http://localhost:3000")
+
+MyTravis.access_token = "..."
+MyTravis::Repository.find("foo/bar")
+```
+
+Since namespaces are Modules, you can also include them.
+
+``` ruby
+require 'travis/client'
+
+class MyTravis
+  include Travis::Namespaces.new
+end
+
+MyTravis::Repository.find('rails/rails')
+```
 
 ## Installation
 
