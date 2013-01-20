@@ -13,12 +13,13 @@ module Travis
         error "Can't figure out GitHub repo name. Are you in the right directory?" unless self.slug ||= find_slug
         self.api_endpoint = detect_api_endpoint
         super
+        repository.load # makes sure we actually have access to the repo
       end
 
       def repository
         repo(slug)
       rescue Travis::Client::NotFound
-        error "repository not known to travis: #{color(slug, :important)}"
+        error "repository not known to #{api_endpoint}: #{color(slug, :important)}"
       end
 
       private

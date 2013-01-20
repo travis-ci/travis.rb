@@ -142,4 +142,8 @@ describe Travis::Client::Session do
   describe "session" do
     its(:session) { should eq(subject) }
   end
+
+  describe "config" do
+    its(:config) { should be == {"host" => "travis-ci.org"}}
+  end
 end

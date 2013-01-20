@@ -18,6 +18,7 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a command line 
         * [`encrypt`](#encrypt)
         * [`history`](#history)
         * [`logs`](#logs)
+        * [`open`](#open)
         * [`show`](#show)
         * [`status`](#status)
 * [Ruby Library](#ruby-library)
@@ -303,6 +304,19 @@ Given a job number, logs simply prints out that job's logs.
     163 examples, 0 failures
 
     Done. Build script exited with: 0
+
+#### `open`
+
+Opens the project view in the Travis CI web interface. If you pass it a build or job number, it will open that specific view:
+
+    $ travis open
+
+If you just want the URL printed out instead of opened in a browser, pass `--print`.
+
+If instead you want to open the repository, compare or pull request view on GitHub, use `--github`.
+
+    $ travis open 56 --print --github
+    web view: https://github.com/travis-ci/travis/pull/5
 
 #### `show`
 

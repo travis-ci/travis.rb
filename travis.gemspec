@@ -44,6 +44,7 @@ Gem::Specification.new do |s|
     "lib/travis/cli/history.rb",
     "lib/travis/cli/login.rb",
     "lib/travis/cli/logs.rb",
+    "lib/travis/cli/open.rb",
     "lib/travis/cli/parser.rb",
     "lib/travis/cli/raw.rb",
     "lib/travis/cli/repo_command.rb",
@@ -74,6 +75,7 @@ Gem::Specification.new do |s|
     "spec/cli/history_spec.rb",
     "spec/cli/login_spec.rb",
     "spec/cli/logs_spec.rb",
+    "spec/cli/open_spec.rb",
     "spec/cli/show_spec.rb",
     "spec/cli/status_spec.rb",
     "spec/cli/version_spec.rb",
@@ -103,6 +105,7 @@ Gem::Specification.new do |s|
   s.add_dependency "netrc",                 "~> 0.7"
   s.add_dependency "gh",                    "~> 0.9"
   s.add_dependency "backports",             "~> 2.6"
+  s.add_dependency "launchy",               "~> 2.1"
   s.add_development_dependency "rspec",     "~> 2.12"
   s.add_development_dependency "sinatra",   "~> 1.3"
   s.add_development_dependency "pry",       "~> 0.9"

@@ -643,6 +643,10 @@ module Travis
               "last_build_finished_at"=>"2013-01-13T16:55:08Z"}]}.to_json
         end
 
+        get '/config' do
+          {"config" => {"host" => "travis-ci.org"}}.to_json
+        end
+
         get '/artifacts/3168318' do
           {"artifact"=>
             {"id"=>3168318,

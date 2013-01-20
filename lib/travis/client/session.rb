@@ -15,6 +15,7 @@ module Travis
         @headers     = {}
         @cache       = {}
         @instruments = []
+        @config      = nil
 
         options = { :uri => options } unless options.respond_to? :each_pair
         options.each_pair { |key, value| public_send("#{key}=", value) }
@@ -48,6 +49,7 @@ module Travis
       def connection=(connection)
         clear_cache!
         connection.headers.merge! headers
+        @config     = nil
         @connection = connection
         @headers    = connection.headers
       end
@@ -89,6 +91,10 @@ module Travis
         result = fetch_one(entity.class, entity.id)
         entity.update_attributes(result.attributes) if result.attributes != entity.attributes
         result
+      end
+
+      def config
+        @config ||= get_raw('/config')['config']
       end
 
       def get(*args)

@@ -23,6 +23,7 @@ module Travis
     autoload :History,      'travis/cli/history'
     autoload :Login,        'travis/cli/login'
     autoload :Logs,         'travis/cli/logs'
+    autoload :Open,         'travis/cli/open'
     autoload :Parser,       'travis/cli/parser'
     autoload :Raw,          'travis/cli/raw'
     autoload :RepoCommand,  'travis/cli/repo_command'
