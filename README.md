@@ -548,7 +548,7 @@ Repositories are [stateful](#stateful-entities).
 
 You could load a build by its id using `Travis::Build.find`. But most of the time you won't have the id handy, so you'd usually start with a repository.
 
-```
+``` ruby
 require 'travis'
 rails = Travis::Repository.find('rails/rails')
 
@@ -635,7 +635,7 @@ require 'travis'
 repo   = Travis::Repository.find('travis-ci/travis')
 commit = repo.last_build.commit
 
-puts "Last tested commit: #{commit.short_sha} on #{commit.branch} by #{commit.author} - #{commit.subject}"
+puts "Last tested commit: #{commit.short_sha} on #{commit.branch} by #{commit.author_name} - #{commit.subject}"
 ```
 
 ### Dealing with Sessions
