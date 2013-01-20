@@ -391,11 +391,68 @@ Outputs a one line status message about the project's last build. With `-q` that
 
 ## Ruby Library
 
-... TODO ...
+There are two approaches of using the Ruby library, one straight forward with one global session:
+
+``` ruby
+require 'travis'
+
+rails = Travis::Repository.find('rails/rails')
+puts "oh no" unless rails.green?
+```
+
+And one where you have to instantiate your own session:
+
+``` ruby
+require 'travis/client'
+
+client = Travis::Client.new
+rails  = client.repo('rails/rails')
+puts "oh no" unless rails.green?
+```
+
+For most parts, those are pretty much the same, the entities you get back look the same, etc, except one offers nice constants as part of the API, the other doesn't. In fact the "global" session style uses `Travis::Client` internally.
+
+So, which one to choose? The global style has one session, whereas with the client style, you have one session per client instance. Each session has it's own cache and identity map. This might matter for log running processes. If you use a new session for separate units of work, you can be pretty sure to not leak any objects. On the other hand using the constants or reusing the same session might save you from unnecessary HTTP requests.
+
+In either way, if you should use the first approach or long living clients, here is how you make sure not to have stale data around:
+
+``` ruby
+Travis.clear_cache
+client.clear_cache
+```
+
+Note that this will still keep the identity map around, it will only drop all attributes. To clear the identity map, you can use the `clear_cache!` method. However, if you do that, you should not keep old instances of any entities (like repositories, etc) around.
 
 ### Authentication
 
-... TODO ...
+Authentication is pretty easy, you just need to set an access token:
+
+``` ruby
+require 'travis'
+
+Travis.access_token = "..."
+puts "Hello #{Travis::User.current.name}!"
+```
+
+Or with your own client instance:
+
+``` ruby
+require 'travis/client'
+
+client = Travis::Client.new
+puts "Hello #{client.user.name}"
+```
+
+If you don't have an access token for Travis CI, you can use a GitHub access token to get one:
+
+``` ruby
+require 'travis'
+
+Travis.github_auth("...")
+puts "Hello #{Travis::User.current.name}!"
+```
+
+Travis CI will not store that token.
 
 ### Using Pro
 
