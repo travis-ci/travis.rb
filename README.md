@@ -622,7 +622,7 @@ require 'travis'
 Travis.access_token = '...'
 user = Travis::User.current
 
-puts "Hello, #{user.login}! Or should I cal you... #{user.name.upcase}!?"
+puts "Hello, #{user.login}! Or should I call you... #{user.name.upcase}!?"
 ```
 
 #### Commits
