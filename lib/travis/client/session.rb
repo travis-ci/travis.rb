@@ -87,7 +87,13 @@ module Travis
         end
       end
 
+      def reset(entity)
+        entity.attributes.clear
+        entity
+      end
+
       def reload(entity)
+        reset(entity)
         result = fetch_one(entity.class, entity.id)
         entity.update_attributes(result.attributes) if result.attributes != entity.attributes
         result

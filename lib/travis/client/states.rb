@@ -3,14 +3,19 @@ require 'travis/client'
 module Travis
   module Client
     module States
-      STATES = %w[created started passed failed errored canceled]
+      STATES  = %w[created queued started passed failed errored canceled]
 
       def pending?
         check_state
-        state == 'created' or state == 'started'
+        %w[created started queued].include? state
       end
 
       def started?
+        check_state
+        state != 'created' and state != 'queued'
+      end
+
+      def queued?
         check_state
         state != 'created'
       end
@@ -64,7 +69,10 @@ module Travis
         color == 'red'
       end
 
-      alias running?    pending?
+      def running?
+        state == 'started'
+      end
+
       alias successful? passed?
 
       private

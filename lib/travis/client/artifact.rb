@@ -3,8 +3,8 @@ require 'travis/client'
 module Travis
   module Client
     class Artifact < Entity
-      # @!parse attr_reader :id, :job_id, :type, :body
-      attributes :id, :job_id, :type, :body
+      # @!parse attr_reader :job_id, :type, :body
+      attributes :job_id, :type, :body
 
       # @!parse attr_reader :job
       has :job

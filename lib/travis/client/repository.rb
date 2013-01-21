@@ -62,6 +62,7 @@ module Travis
 
       # @!parse attr_reader :last_build
       def last_build
+        return unless last_build_id
         attributes['last_build'] ||= begin
           last_build               = session.find_one(Build, last_build_id)
           last_build.number        = last_build_number

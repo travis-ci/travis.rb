@@ -19,6 +19,7 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a command line 
         * [`history`](#history)
         * [`logs`](#logs)
         * [`open`](#open)
+        * [`restart`](#restart)
         * [`show`](#show)
         * [`status`](#status)
 * [Ruby Library](#ruby-library)
@@ -319,6 +320,23 @@ If instead you want to open the repository, compare or pull request view on GitH
     $ travis open 56 --print --github
     web view: https://github.com/travis-ci/travis/pull/5
 
+#### `restart`
+
+This command will restart the latest build:
+
+    $ travis restart
+    build #85 has been restarted
+
+You can also restart any build by giving a build number:
+
+    $ travis restart 57
+    build #57 has been restarted
+
+Or a single job:
+
+    $ travis restart 57.1
+    job #57.1 has been restarted
+
 #### `show`
 
 Displays general infos about the latest build:
@@ -499,23 +517,24 @@ This is not something you should usually do, as partial loading is actually your
 
 ``` ruby
 require 'travis'
-repo = Travis::Repository.find('rails/rails')
+build = Travis::Repository.find('rails/rails').last_build
 
-p repo.canceled?
-p repo.created?
-p repo.errored?
-p repo.failed?
-p repo.finished?
-p repo.green?
-p repo.passed?
-p repo.pending?
-p repo.red?
-p repo.running?
-p repo.started?
-p repo.successful?
-p repo.unsuccessful?
-p repo.yellow?
-p repo.color
+p build.canceled?
+p build.created?
+p build.errored?
+p build.failed?
+p build.finished?
+p build.green?
+p build.passed?
+p build.pending?
+p build.queued?
+p build.red?
+p build.running?
+p build.started?
+p build.successful?
+p build.unsuccessful?
+p build.yellow?
+p build.color
 ```
 
 Builds and jobs also have a `state` method. For repositories, use `last_build.state`.

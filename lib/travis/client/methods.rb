@@ -49,11 +49,18 @@ module Travis
         session.find_one(Artifact, id)
       end
 
+      alias log artifact
+
       def user
         session.find_one(User)
       end
 
-      alias log artifact
+      def restart(entity)
+        # btw, internally we call this reset, not restart, as it resets the state machine
+        # but we thought that would be too confusing
+        session.post_raw('/requests', "#{entity.class.one}_id" => entity.id)
+        entity.reload
+      end
     end
   end
 end

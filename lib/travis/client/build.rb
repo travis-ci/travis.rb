@@ -17,6 +17,10 @@ module Travis
       one :build
       many :builds
 
+      def restart
+        session.restart(self)
+      end
+
       def push?
         not pull_request?
       end

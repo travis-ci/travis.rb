@@ -685,6 +685,11 @@ module Travis
           {"key"=>RAILS_KEY}.to_json
         end
 
+        post '/requests' do
+          $params = params
+          "{}"
+        end
+
         post '/auth/github' do
           halt(403) unless params[:github_token] == 'github_token'
           { 'access_token' => 'token' }.to_json

@@ -17,6 +17,10 @@ module Travis
       one :job
       many :jobs
 
+      def restart
+        session.restart(self)
+      end
+
       def pull_request?
         build.pull_request?
       end

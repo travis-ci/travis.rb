@@ -9,6 +9,10 @@ module Travis
 
       MAP = {}
 
+      def self.relations
+        @relations ||= []
+      end
+
       def self.subclasses
         MAP.values.uniq
       end
@@ -33,13 +37,17 @@ module Travis
 
       def self.attributes(*list)
         @attributes ||= []
+
         list.each do |name|
           name = name.to_s
+          fail "can't call an attribute id" if name == "id"
+
           @attributes << name
           define_method(name) { load_attribute(name) }
           define_method("#{name}=") { |value| set_attribute(name, value) }
           define_method("#{name}?") { !!send(name) }
         end
+
         @attributes
       end
 
@@ -51,6 +59,7 @@ module Travis
 
       def self.has(*list)
         list.each do |name|
+          relations << name
           define_method(name) { relation(name.to_s) }
         end
       end
@@ -89,11 +98,12 @@ module Travis
       end
 
       def reload
-        session.reload(self)
+        relations.each { |e| session.reset(e) }
+        session.reset(self)
       end
 
       def load
-        reload unless complete?
+        session.reload(self) unless complete?
       end
 
       def missing?(key)
@@ -111,6 +121,10 @@ module Travis
         "#<#{klass}: #{inspect_info}>"
       end
 
+      def relations
+        self.class.relations.map { |r| public_send(r) }.flatten(1)
+      end
+
       private
 
         def relation(name)
@@ -118,11 +132,12 @@ module Travis
           entity = Entity.subclass_for(name)
 
           if entity.many == name
-            send("#{entity.one}_ids").map do |id|
+            Array(send("#{entity.one}_ids")).map do |id|
               session.find_one(entity, id)
             end
           else
-            session.find_one(entity, send("#{name}_id"))
+            id = send("#{name}_id")
+            session.find_one(entity, id) unless id.nil?
           end
         end
 
@@ -135,7 +150,7 @@ module Travis
         end
 
         def load_attribute(name)
-          reload if missing? name
+          session.reload(self) if missing? name
           attributes[name.to_s]
         end
 

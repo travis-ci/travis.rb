@@ -27,6 +27,7 @@ module Travis
     autoload :Parser,       'travis/cli/parser'
     autoload :Raw,          'travis/cli/raw'
     autoload :RepoCommand,  'travis/cli/repo_command'
+    autoload :Restart,      'travis/cli/restart'
     autoload :Show,         'travis/cli/show'
     autoload :Status,       'travis/cli/status'
     autoload :Version,      'travis/cli/version'
