@@ -252,7 +252,7 @@ It even works when enabling a repo Travis didn't know existed by triggering a sy
     triggering sync: ............. done
     rkh/test: enabled
 
-If you don't want the sync to be triggered, use `--skip-sync`
+If you don't want the sync to be triggered, use `--skip-sync`.
 
 #### `encrypt`
 
