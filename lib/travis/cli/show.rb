@@ -27,7 +27,7 @@ module Travis
               formatter.duration(job.duration).ljust(14),
               formatter.job_config(job.config),
               (color("(failure allowed)", :info) if job.allow_failures?)
-            ].compact.join(" ")
+            ].compact.join(" ").rstrip
           end
         else
           config = formatter.job_config(entity.config)
