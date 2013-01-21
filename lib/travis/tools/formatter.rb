@@ -8,6 +8,7 @@ module Travis
       CONFIG_KEYS = ['rvm', 'gemfile', 'env', 'jdk', 'otp_release', 'php', 'node_js', 'perl', 'python', 'scala', 'compiler']
 
       def duration(seconds, suffix = nil)
+        return "none" if seconds.nil?
         seconds          = (Time.now - seconds).to_i if seconds.is_a? Time
         output           = []
         minutes, seconds = seconds.divmod(60)
