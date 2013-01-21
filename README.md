@@ -851,7 +851,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 * `--debug` option for all API commands.
 * `--split` option for `encrypt`.
 * Fix `--add` option for `encrypt` (was naming key `secret` instead of `secure`).
-* First class representation for builds, commits and jobs to the Ruby library.
+* First class representation for builds, commits and jobs in the Ruby library.
 * Print warning when running "encrypt owner/project data", as it's not supported by the new client.
 * Improved documentation.
 
