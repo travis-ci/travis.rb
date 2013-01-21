@@ -31,6 +31,7 @@ module Travis
     autoload :Show,         'travis/cli/show'
     autoload :Status,       'travis/cli/status'
     autoload :Version,      'travis/cli/version'
+    autoload :Whatsup,      'travis/cli/whatsup'
     autoload :Whoami,       'travis/cli/whoami'
 
     extend self

@@ -13,6 +13,7 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a command line 
         * [`endpoint`](#endpoint)
         * [`login`](#login)
         * [`raw`](#raw)
+        * [`whatsup`](#whatsup)
         * [`whoami`](#whoami)
     * [Repository Commands](#repository-commands)
         * [`encrypt`](#encrypt)
@@ -156,6 +157,17 @@ This is really helpful both when working on this client and when exploring the [
        "last_build_finished_at"=>"2013-01-19T18:02:17Z"}}
 
 Use `--json` if you'd rather prefer the output to be JSON.
+
+#### `whatsup`
+
+It's just a tiny feature, but it allows you to take a look at repositories that have recently seen some action (ie the left hand sidebar on [travis-ci.org](https://travis-ci.org)):
+
+    $ travis whatsup
+    mysociety/fixmystreet started: #154
+    eloquent/typhoon started: #228
+    Pajk/apipie-rails started: #84
+    qcubed/framework failed: #21
+    ...
 
 #### `whoami`
 

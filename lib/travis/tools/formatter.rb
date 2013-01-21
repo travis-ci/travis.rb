@@ -20,7 +20,7 @@ module Travis
       end
 
       def time(time)
-        return "not yet" if time.nil? or time > Time.now
+        return "not yet" if time.nil? # or time > Time.now
         #return duration(time, "ago") if Time.now - time < DAY
         time.localtime.strftime(TIME_FORMAT)
       end
