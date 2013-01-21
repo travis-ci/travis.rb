@@ -14,6 +14,11 @@ module Travis
         set_attribute(:synced_at, time(time))
       end
 
+      def sync
+        session.post_raw('/users/sync')
+        reload
+      end
+
       alias syncing? is_syncing
       alias correct_scopes? correct_scopes
     end

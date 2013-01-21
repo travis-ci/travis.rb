@@ -51,6 +51,7 @@ Gem::Specification.new do |s|
     "lib/travis/cli/restart.rb",
     "lib/travis/cli/show.rb",
     "lib/travis/cli/status.rb",
+    "lib/travis/cli/sync.rb",
     "lib/travis/cli/version.rb",
     "lib/travis/cli/whatsup.rb",
     "lib/travis/cli/whoami.rb",

@@ -13,6 +13,7 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a command line 
         * [`endpoint`](#endpoint)
         * [`login`](#login)
         * [`raw`](#raw)
+        * [`sync`](#sync)
         * [`whatsup`](#whatsup)
         * [`whoami`](#whoami)
     * [Repository Commands](#repository-commands)
@@ -157,6 +158,36 @@ This is really helpful both when working on this client and when exploring the [
        "last_build_finished_at"=>"2013-01-19T18:02:17Z"}}
 
 Use `--json` if you'd rather prefer the output to be JSON.
+
+### `sync`
+
+    Usage: travis sync [options]
+        -h, --help                       Display help
+        -i, --[no-]interactive           be interactive and colorful
+        -E, --[no-]explode               don't rescue exceptions
+        -e, --api-endpoint URL           Travis API server to talk to
+            --pro                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
+            --org                        short-cut for --api-endpoint 'https://api.travis-ci.org/'
+        -t, --token [ACCESS_TOKEN]       access token to use
+            --debug                      show API requests
+        -c, --check                      only check the sync status
+        -b, --background                 will trigger sync but not block until sync is done
+        -f, --force                      will force sync, even if one is already running
+
+Sometimes the infos Travis CI has about users and repositories become out of date. If that should happen, you can manually trigger a sync:
+
+    $ travis sync
+    synchronizing: ........... done
+
+The command blocks until the synchronization is done. You can avoid that with `--background`:
+
+    $ travis sync --background
+    starting synchronization
+
+If you just want to know if your account is being synchronized right now, use `--check`:
+
+    $ travis sync --check
+    rkh is currently syncing
 
 #### `whatsup`
 

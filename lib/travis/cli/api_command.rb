@@ -51,6 +51,21 @@ module Travis
         error "not logged in, please run #{command("login#{endpoint_option}")}" if access_token.nil?
       end
 
+      def sync(block = true, dot = '.')
+        user.sync
+
+        steps = count = 1
+        while block and user.reload.syncing?
+          count += 1
+          sleep(1)
+
+          if count % steps == 0
+            steps = count/10 + 1
+            output.print dot
+          end
+        end
+      end
+
       private
 
         def detected_endpoint

@@ -30,6 +30,7 @@ module Travis
     autoload :Restart,      'travis/cli/restart'
     autoload :Show,         'travis/cli/show'
     autoload :Status,       'travis/cli/status'
+    autoload :Sync,         'travis/cli/sync'
     autoload :Version,      'travis/cli/version'
     autoload :Whatsup,      'travis/cli/whatsup'
     autoload :Whoami,       'travis/cli/whoami'
