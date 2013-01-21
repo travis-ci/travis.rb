@@ -35,7 +35,7 @@ module Travis
         end
 
         def last_build
-          repository.last_build
+          repository.last_build or error("no build yet for #{slug}")
         end
 
         def detected_endpoint?
