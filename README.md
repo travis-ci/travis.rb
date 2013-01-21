@@ -847,7 +847,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 **v1.1.0** (not yet released)
 
-* New commands: `console`, `status`, `show`, `logs`, `open` and `history`.
+* New commands: `console`, `status`, `show`, `logs`, `history`, `restart`, `sync`, `enable`, `disable`, `open` and `whatsup`.
 * `--debug` option for all API commands.
 * `--split` option for `encrypt`.
 * Fix `--add` option for `encrypt` (was naming key `secret` instead of `secure`).
