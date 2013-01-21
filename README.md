@@ -614,7 +614,7 @@ system "push all the things"
 rails.enable
 ```
 
-If you want to enable a new project, you might have to do a `User.current.sync` first and wait until it's done syncing.
+If you want to enable a new project, you might have to do a sync first.
 
 #### Builds
 
@@ -707,6 +707,12 @@ Travis.access_token = '...'
 user = Travis::User.current
 
 puts "Hello, #{user.login}! Or should I call you... #{user.name.upcase}!?"
+```
+
+If some data gets out of sync between GitHub and Travis, you can use the user object to trigger a new sync.
+
+``` ruby
+Travis::User.current.sync
 ```
 
 #### Commits
