@@ -38,6 +38,8 @@ Gem::Specification.new do |s|
     "lib/travis/cli/api_command.rb",
     "lib/travis/cli/command.rb",
     "lib/travis/cli/console.rb",
+    "lib/travis/cli/disable.rb",
+    "lib/travis/cli/enable.rb",
     "lib/travis/cli/encrypt.rb",
     "lib/travis/cli/endpoint.rb",
     "lib/travis/cli/help.rb",

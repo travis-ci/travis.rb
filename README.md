@@ -17,6 +17,8 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a command line 
         * [`whatsup`](#whatsup)
         * [`whoami`](#whoami)
     * [Repository Commands](#repository-commands)
+        * [`disable`](#disable)
+        * [`enable`](#enable)
         * [`encrypt`](#encrypt)
         * [`history`](#history)
         * [`logs`](#logs)
@@ -228,6 +230,29 @@ Repository commands have all the options [General API Commands](#general-api-com
 Additionally, you can specify the Repository to talk to by providing `--repo owner/name`. However, if you invoke the command inside a clone of the project, the client will figure out this option on its own. Note that it uses the [git remote](http://www.kernel.org/pub/software/scm/git/docs/git-remote.html) "origin" to do so.
 
 It will also automatically pick [Travis Pro](https://travis-ci.com) if it is a private project. You can of course override this decission with `--pro`, `--org` or `--api-endpoint URL`
+
+#### `disable`
+
+If you want to turn of a repository temporarily or indefinitely, you can do so with the `disable` command:
+
+    $ travis disable
+    travis-ci/travis: disabled :(
+
+#### `enable`
+
+With the `enable` command, you can easily activate a project on Travis CI:
+
+    $ travis enable
+    travis-ci/travis: enabled :)
+
+It even works when enabling a repo Travis didn't know existed by triggering a sync:
+
+    $ travis enable -r rkh/test
+    repository not known to Travis CI (or no access?)
+    triggering sync: ............. done
+    rkh/test: enabled
+
+If you don't want the sync to be triggered, use `--skip-sync`
 
 #### `encrypt`
 

@@ -18,7 +18,7 @@ module Travis
           say "starting synchronization"
           sync(false)
         else
-          output.print "synchronizing: "
+          say "synchronizing: "
           sync
           say color(" done", :success)
         end
