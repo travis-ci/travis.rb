@@ -597,6 +597,12 @@ puts "Last failing Rails build: #{build.number}"
 
 Without having to load more than 6000 builds.
 
+You can restart a build, if the current user has sufficient permissions on the repository:
+
+``` ruby
+rails.last_build.restart
+```
+
 #### Jobs
 
 Jobs behave a lot like [builds](#builds), and similar to them, you probably don't have the id ready. You can get the jobs from a build:
@@ -611,6 +617,12 @@ If you have the job number, you can also reach a job directly from the repositor
 
 ``` ruby
 rails.job('5000.1')
+```
+
+Like builds, you can also restart singe jobs:
+
+``` ruby
+rails.job('5000.1').restart
 ```
 
 #### Artifacts
@@ -678,6 +690,7 @@ session.job(4266037)                            # job with id 4266037
 session.artifact(42)                            # artifact with id 42
 session.log(42)                                 # same as above
 session.user                                    # the current user, if logged in
+session.restart(session.build(4266036))         # restart some build
 ```
 
 You can add these methods to any object responding to `session` via said mixin.
@@ -706,6 +719,7 @@ session.find_many(Travis::Client::Repository)  # repositories with the latest bu
 session.find_one_or_many(Travis::Client::User) # the current user (you could also use find_one here)
 
 session.reload(rails)
+session.reset(rails)  # lazy reload
 
 session.clear_cache   # empty cached attributes
 session.clear_cache!  # empty identity map
