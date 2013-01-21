@@ -117,13 +117,19 @@ module Travis
       end
 
       def get_raw(*args)
-        instrumented("GET", *args) { connection.get(*args).body }
-      rescue Faraday::Error::ClientError => e
-        handle_error(e)
+        raw(:get, *args)
       end
 
       def post_raw(*args)
-        instrumented("POST", *args) { connection.post(*args).body }
+        raw(:post, *args)
+      end
+
+      def put_raw(*args)
+        raw(:put, *args)
+      end
+
+      def raw(verb, *args)
+        instrumented(verb.to_s.upcase, *args) { connection.public_send(verb, *args).body }
       rescue Faraday::Error::ClientError => e
         handle_error(e)
       end

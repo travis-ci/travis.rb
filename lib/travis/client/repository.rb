@@ -108,6 +108,19 @@ module Travis
         job
       end
 
+      def set_hook(flag)
+        result = session.put_raw('/hooks/', :hook => { :id => id, :active => flag })
+        result['result']
+      end
+
+      def disable
+        set_hook(false)
+      end
+
+      def enable
+        set_hook(true)
+      end
+
       private
 
         def state

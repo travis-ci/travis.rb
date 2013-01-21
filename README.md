@@ -606,6 +606,16 @@ puts repo.encrypt('FOO=bar')
 
 Repositories are [stateful](#stateful-entities).
 
+You can enable or disable a repository with the methods that go by the same name.
+
+``` ruby
+rails.disable
+system "push all the things"
+rails.enable
+```
+
+If you want to enable a new project, you might have to do a `User.current.sync` first and wait until it's done syncing.
+
 #### Builds
 
 You could load a build by its id using `Travis::Build.find`. But most of the time you won't have the id handy, so you'd usually start with a repository.
