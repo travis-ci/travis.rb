@@ -845,6 +845,10 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
+**v1.1.1** (January 22, 2013)
+
+* Make pry a runtime dependency rather than a development dependency.
+
 **v1.1.0** (January 21, 2013)
 
 * New commands: `console`, `status`, `show`, `logs`, `history`, `restart`, `sync`, `enable`, `disable`, `open` and `whatsup`.
