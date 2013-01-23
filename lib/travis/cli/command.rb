@@ -3,7 +3,6 @@ require 'travis/tools/formatter'
 
 require 'highline'
 require 'forwardable'
-require 'delegate'
 require 'yaml'
 
 module Travis
@@ -52,33 +51,31 @@ module Travis
         define_method(name) {}
       end
 
-      attr_accessor :arguments, :config, :terminal, :force_interactive, :formatter
+      attr_accessor :arguments, :config, :force_interactive, :formatter
+      attr_reader :input, :output
 
       def initialize(options = {})
-        @formatter = Travis::Tools::Formatter.new
-        @output    = SimpleDelegator.new($stdout)
-        @input     = SimpleDelegator.new($stdin)
-        @terminal  = HighLine.new(@input, @output)
+        @formatter  = Travis::Tools::Formatter.new
+        self.output = $stdout
+        self.input  = $stdin
         options.each do |key, value|
           public_send("#{key}=", value) if respond_to? "#{key}="
         end
         @arguments ||= []
       end
 
-      def input
-        @input.__getobj__
+      def terminal
+        @terminal ||= HighLine.new(input, output)
       end
 
       def input=(io)
-        @input.__setobj__(io)
-      end
-
-      def output
-        @output.__getobj__
+        @terminal = nil
+        @input = io
       end
 
       def output=(io)
-        @output.__setobj__(io)
+        @terminal = nil
+        @output = io
       end
 
       def write_to(io)
