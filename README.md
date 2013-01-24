@@ -192,8 +192,6 @@ If you just want to know if your account is being synchronized right now, use `-
     $ travis sync --check
     rkh is currently syncing
 
-
-
 #### `token`
 
 The use the Ruby library you will need to obtain an access token first. To do this simply run the `travis login` command. Once logged in you can check your token with `travis token`:
@@ -206,7 +204,7 @@ You can use that token for instance with curl:
     $ curl -H "Authorization: token $(travis token)" https://api.travis-ci.org/users/
     {"login":"rkh","name":"Konstantin Haase","email":"konstantin.haase@gmail.com","gravatar_id":"5c2b452f6eea4a6d84c105ebd971d2a4","locale":"en","is_syncing":false,"synced_at":"2013-01-21T20:31:06Z"}
 
-Note that if you just need it for looking at API payloads, that we also have the [`raw`][#raw] command.
+Note that if you just need it for looking at API payloads, that we also have the [`raw`](#raw) command.
 
 #### `whatsup`
 
