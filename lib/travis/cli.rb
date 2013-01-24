@@ -14,6 +14,7 @@ GH.set(:ssl => Travis::Client::Session::SSL_OPTIONS)
 
 module Travis
   module CLI
+    autoload :Token,        'travis/cli/token'
     autoload :ApiCommand,   'travis/cli/api_command'
     autoload :Command,      'travis/cli/command'
     autoload :Console,      'travis/cli/console'
