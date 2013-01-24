@@ -864,6 +864,12 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
+**v1.1.2** (January 24, 2013)
+
+* `token` command
+* no longer wrap $stdin in delegator (caused bug on some Linux systems)
+* correctly detect when running on Windows, even on JRuby
+
 **v1.1.1** (January 22, 2013)
 
 * Make pry a runtime dependency rather than a development dependency.
