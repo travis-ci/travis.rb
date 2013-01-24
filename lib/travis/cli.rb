@@ -40,7 +40,7 @@ module Travis
     extend self
 
     def windows?
-      RUBY_PLATFORM =~ /mswin|mingw/
+      File::ALT_SEPARATOR == "\\"
     end
 
     def run(*args)
