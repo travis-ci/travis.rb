@@ -14,6 +14,7 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a command line 
         * [`login`](#login)
         * [`raw`](#raw)
         * [`sync`](#sync)
+        * [`token`](#token)
         * [`whatsup`](#whatsup)
         * [`whoami`](#whoami)
     * [Repository Commands](#repository-commands)
@@ -190,6 +191,17 @@ If you just want to know if your account is being synchronized right now, use `-
 
     $ travis sync --check
     rkh is currently syncing
+
+
+
+#### `token`
+
+The use the Ruby library you will need to obtain an access token first. To do this simply run the `travis login` command. Once logged in you can check your token with `travis token`
+
+It's just a tiny feature, but it allows you to take a look at repositories that have recently seen some action (ie the left hand sidebar on [travis-ci.org](https://travis-ci.org)):
+
+    $ travis token
+    Your access token is super-secret
 
 #### `whatsup`
 
@@ -512,7 +524,8 @@ Note that this will still keep the identity map around, it will only drop all at
 
 ### Authentication
 
-Authentication is pretty easy, you just need to set an access token:
+Authentication is pretty easy, you just need to set an access token:  
+See [The token command](#token) for information on obtaining an access token.
 
 ``` ruby
 require 'travis'
