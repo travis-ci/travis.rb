@@ -522,8 +522,7 @@ Note that this will still keep the identity map around, it will only drop all at
 
 ### Authentication
 
-Authentication is pretty easy, you just need to set an access token:  
-See [The token command](#token) for information on obtaining an access token.
+Authentication is pretty easy, you just need to set an access token:
 
 ``` ruby
 require 'travis'
@@ -540,6 +539,8 @@ require 'travis/client'
 client = Travis::Client.new
 puts "Hello #{client.user.name}"
 ```
+
+See [the token command](#token) for obtaining the access token used by the CLI.
 
 If you don't have an access token for Travis CI, you can use a GitHub access token to get one:
 
