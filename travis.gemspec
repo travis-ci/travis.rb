@@ -14,6 +14,7 @@ Gem::Specification.new do |s|
     "Konstantin Haase",
     "Henrik Hodne",
     "Adrien Brault",
+    "Mario Visic",
     "Piotr Sarnacki"
   ]
 
@@ -22,6 +23,7 @@ Gem::Specification.new do |s|
     "konstantin.mailinglists@googlemail.com",
     "me@henrikhodne.com",
     "adrien.brault@gmail.com",
+    "mario@mariovisic.com",
     "drogus@gmail.com"
   ]
 
