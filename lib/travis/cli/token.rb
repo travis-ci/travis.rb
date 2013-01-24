@@ -4,11 +4,8 @@ module Travis
   module CLI
     class Token < ApiCommand
       def run
-        if access_token.nil?
-          error "not logged in, please run #{command("login#{endpoint_option}")}"
-        else
-          say "Your access token is #{access_token}"
-        end
+        error "not logged in, please run #{command("login#{endpoint_option}")}" if access_token.nil?
+        say access_token, "Your access token is %s"
       end
     end
   end
