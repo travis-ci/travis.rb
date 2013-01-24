@@ -194,7 +194,7 @@ If you just want to know if your account is being synchronized right now, use `-
 
 #### `token`
 
-The use the Ruby library you will need to obtain an access token first. To do this simply run the `travis login` command. Once logged in you can check your token with `travis token`:
+In order to use the Ruby library you will need to obtain an access token first. To do this simply run the `travis login` command. Once logged in you can check your token with `travis token`:
 
     $ travis token
     Your access token is super-secret
