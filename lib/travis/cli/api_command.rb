@@ -22,6 +22,12 @@ module Travis
         end
       end
 
+      on('--adapter ADAPTER', 'Faraday adapter to use for HTTP requests') do |c, adapter|
+        adapter.gsub! '-', '_'
+        require "faraday/adapter/#{adapter}"
+        c.session.faraday_adapter = adapter.to_sym
+      end
+
       def initialize(*)
         @session = Travis::Client.new
         super

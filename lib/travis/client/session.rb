@@ -1,7 +1,6 @@
 require 'travis/client'
 
 require 'faraday'
-require 'faraday/adapter/net_http_persistent'
 require 'faraday_middleware'
 require 'json'
 
@@ -10,13 +9,14 @@ module Travis
     class Session
       SSL_OPTIONS = { :ca_file => File.expand_path("../../cacert.pem", __FILE__) }
       include Methods
-      attr_reader :connection, :headers, :access_token, :instruments
+      attr_reader :connection, :headers, :access_token, :instruments, :faraday_adapter
 
       def initialize(options = Travis::Client::ORG_URI)
-        @headers     = {}
-        @cache       = {}
-        @instruments = []
-        @config      = nil
+        @headers         = {}
+        @cache           = {}
+        @instruments     = []
+        @config          = nil
+        @faraday_adapter = :net_http_persistent
 
         options = { :uri => options } unless options.respond_to? :each_pair
         options.each_pair { |key, value| public_send("#{key}=", value) }
@@ -38,6 +38,11 @@ module Travis
           faraday.response  :raise_error
           faraday.adapter(*faraday_adapter)
         end
+      end
+
+      def faraday_adapter=(adapter)
+        @faraday_adapter = adapter
+        self.uri &&= uri
       end
 
       def access_token=(token)
@@ -182,10 +187,6 @@ module Travis
           klass   = Travis::Client::NotFound if e.is_a? Faraday::Error::ResourceNotFound
           klass ||= Travis::Client::Error
           raise klass, message, e.backtrace
-        end
-
-        def faraday_adapter
-          :net_http_persistent #Faraday.default_adapter
         end
 
         def reset_entities

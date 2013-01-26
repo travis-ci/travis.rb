@@ -89,12 +89,22 @@ Additionally, every API command understands the following options:
         --org                        short-cut for --api-endpoint 'https://api.travis-ci.org/'
     -t, --token [ACCESS_TOKEN]       access token to use
         --debug                      show API requests
+        --adapter ADAPTER            Faraday adapter to use for HTTP requests
 
 By default, [General API Commands](#general-api-commands) will talk to [api.travis-ci.org](https://api.travis-ci.org). You can change this by supplying `--pro` for [api.travis-ci.com](https://api.travis-ci.com) or `--api-endpoint` with your own endpoint. Note that all [Repository Commands](#repository-commands) will try to figure out the API endpoint to talk to automatically depending on the project's visibility on GitHub.
 
 You can supply an access token via `--token` if you want to make an authenticated call. If you don't have an access token stored for the API endpoint, it will remember it for subsequent requests. Keep in mind, this is not the "Travis token" used when setting up GitHub hooks (due to security). You probably don't have an access token handy right now. Don't worry, usually you won't use this option but instead just do a [`travis login`](#login).
 
 The `--debug` option will print HTTP requests to STDERR. Like `--explode`, this is really helpful when contributing to this project.
+
+There are many libraries out there to do HTTP requests in Ruby. You can switch amongst common ones with `--adapter`:
+
+    $ travis show --adapter net-http
+    ...
+    $ gem install excon
+    ...
+    $ travis show --adapter excon
+    ...
 
 #### `console`
 
@@ -861,6 +871,10 @@ Make sure you have at least [Ruby](http://www.ruby-lang.org/en/downloads/) 1.8.7
 If you have the old `travis-cli` gem installed, you should `gem uninstall travis-cli`, just to be sure, as it ships with an executable that is also named `travis`.
 
 ## Version History
+
+**Not yet released**
+
+* add `--adapter` to API endpoints
 
 **v1.1.3** (January 26, 2013)
 
