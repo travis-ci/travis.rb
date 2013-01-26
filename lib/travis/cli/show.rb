@@ -13,6 +13,7 @@ module Travis
           entity.state,
           entity.color,
           entity.pull_request? ? "pull request" : "push",
+          entity.branch_info,
           entity.commit.compare_url,
           formatter.duration(entity.duration),
           formatter.time(entity.started_at),
@@ -44,6 +45,7 @@ __END__
 <[[ color("%s #%s: %s", :bold) ]]>
 <[[ color("State:         ", :info) ]]><[[ color(%p, :%s) ]]>
 <[[ color("Type:          ", :info) ]]>%s
+<[[ color("Branch:        ", :info) ]]>%s
 <[[ color("Compare URL:   ", :info) ]]>%s
 <[[ color("Duration:      ", :info) ]]>%s
 <[[ color("Started:       ", :info) ]]>%s
