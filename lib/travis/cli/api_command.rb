@@ -25,6 +25,7 @@ module Travis
       on('--adapter ADAPTER', 'Faraday adapter to use for HTTP requests') do |c, adapter|
         adapter.gsub! '-', '_'
         require "faraday/adapter/#{adapter}"
+        require 'typhoeus/adapters/faraday' if adapter == 'typhoeus'
         c.session.faraday_adapter = adapter.to_sym
       end
 
