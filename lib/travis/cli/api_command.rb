@@ -14,8 +14,11 @@ module Travis
 
       on('--debug', 'show API requests') do |c,_|
         c.session.instrument do |info, request|
+          start = Time.now
           c.debug(info)
           request.call
+          duration = Time.now - start
+          c.debug("  took %.2g seconds" % duration)
         end
       end
 
