@@ -1,6 +1,7 @@
 require 'travis/client'
 
 require 'faraday'
+require 'faraday/adapter/net_http_persistent'
 require 'faraday_middleware'
 require 'json'
 
@@ -184,7 +185,7 @@ module Travis
         end
 
         def faraday_adapter
-          Faraday.default_adapter
+          :net_http_persistent #Faraday.default_adapter
         end
 
         def reset_entities
