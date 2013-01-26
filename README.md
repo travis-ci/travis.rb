@@ -862,6 +862,11 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
+**v1.1.3** (January 26, 2013)
+
+* use persistent HTTP connections (performance for commands with multiple api requests)
+* include round trip time in debug output
+
 **v1.1.2** (January 24, 2013)
 
 * `token` command
