@@ -36,8 +36,9 @@ module Travis
           keys          = config_key.split('.')
           last_key      = keys.pop
           nested_config = keys.inject(travis_config) { |c,k| c[k] ||= {}}
+          nested_config = nested_config[last_key] ||= []
           encrypted.each do |encrypted|
-            nested_config[last_key] ||= [] << { 'secure' => encrypted }
+             nested_config << { 'secure' => encrypted }
           end
           File.write(travis_yaml, travis_config.to_yaml)
         else
