@@ -33,6 +33,7 @@ module Travis
 
         if config_key
           travis_config = YAML.load_file(travis_yaml)
+          travis_config = {} if [[], false, nil].include? travis_config
           keys          = config_key.split('.')
           last_key      = keys.pop
           nested_config = keys.inject(travis_config) { |c,k| c[k] ||= {}}
@@ -55,7 +56,8 @@ module Travis
             path
           else
             parent = File.expand_path('..', dir)
-            travis_yaml(parent) if parent != dir
+            error "no .travis.yml found" if parent == dir
+            travis_yaml(parent)
           end
         end
     end
