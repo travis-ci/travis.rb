@@ -29,6 +29,10 @@ module Travis
         build.push?
       end
 
+      def branch_info
+        build.branch_info
+      end
+
       def allow_failures?
         return false unless config.include? 'matrix' and config['matrix'].include? 'allow_failures'
         config['matrix']['allow_failures'].any? do |allow|
