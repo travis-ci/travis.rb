@@ -876,6 +876,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 * add `--adapter` to API endpoints
 * added branch to `show`
+* fix bug where colors were not used if stdin is a pipe
 
 **v1.1.3** (January 26, 2013)
 
