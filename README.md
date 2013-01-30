@@ -842,7 +842,7 @@ session.clear_cache!  # empty identity map
 
 ``` ruby
 require 'travis/client'
-MyTravis = Travis::Namespaces.new("http://localhost:3000")
+MyTravis = Travis::Client::Namespaces.new("http://localhost:3000")
 
 MyTravis.access_token = "..."
 MyTravis::Repository.find("foo/bar")
@@ -854,7 +854,7 @@ Since namespaces are Modules, you can also include them.
 require 'travis/client'
 
 class MyTravis
-  include Travis::Namespaces.new
+  include Travis::Client::Namespaces.new
 end
 
 MyTravis::Repository.find('rails/rails')
