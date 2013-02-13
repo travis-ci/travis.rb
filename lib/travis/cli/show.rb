@@ -5,6 +5,7 @@ module Travis
     class Show < RepoCommand
       def run(number = last_build.number)
         entity = job(number) || build(number)
+        error "unknown build or job #{number}" unless entity
 
         say template(__FILE__) % [
           entity.class.one.capitalize,

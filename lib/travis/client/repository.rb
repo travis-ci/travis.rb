@@ -104,7 +104,7 @@ module Travis
         build_number = number.to_s[/^\d+/]
         build        = build(build_number)
         job          = build.jobs.detect { |j| j.number == number } if number != build_number
-        job        ||= build.jobs.first if build.jobs.size == 1
+        job        ||= build.jobs.first if build and build.jobs.size == 1
         job
       end
 
