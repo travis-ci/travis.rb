@@ -38,6 +38,7 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a command line 
         * [Artifacts](#artifacts)
         * [Users](#users)
         * [Commits](#commits)
+        * [Workers](#workers)
     * [Dealing with Sessions](#dealing-with-sessions)
     * [Using Namespaces](#using-namespaces)
 * [Installation](#installation)
@@ -778,6 +779,19 @@ repo   = Travis::Repository.find('travis-ci/travis')
 commit = repo.last_build.commit
 
 puts "Last tested commit: #{commit.short_sha} on #{commit.branch} by #{commit.author_name} - #{commit.subject}"
+```
+
+#### Workers
+
+If a worker is running something, it will reference a `job` and a `repository`. Otherwise the values will be `nil`.
+
+``` ruby
+require 'travis'
+workers = Travis::Worker.find_all
+
+workers.each do |worker|
+  puts "#{worker.name}: #{worker.host} - #{worker.state} - #{worker.repository.slug if worker.repository}"
+end
 ```
 
 ### Dealing with Sessions

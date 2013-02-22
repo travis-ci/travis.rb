@@ -685,6 +685,26 @@ module Travis
           {"key"=>RAILS_KEY}.to_json
         end
 
+        get '/workers/' do
+          {"workers"=>
+            [{'id' => 'foo',
+              'name' => 'ruby-1',
+              'host' => 'ruby-1.worker.travis-ci.org',
+              'state' => 'ready',
+              'payload' => {
+                "job"=>{"id"=>4125096},
+                "repo"=>{"id"=>891}}}]}.to_json
+        end
+
+        get '/workers/foo' do
+          {"worker"=>
+             {'id' => 'foo',
+              'name' => 'ruby-1',
+              'host' => 'ruby-1.worker.travis-ci.org',
+              'state' => 'ready',
+              'payload' => nil}}.to_json
+        end
+
         post '/requests' do
           $params = params
           "{}"

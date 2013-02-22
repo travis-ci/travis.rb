@@ -10,6 +10,7 @@ require 'travis/client/build'
 require 'travis/client/artifact'
 require 'travis/client/commit'
 require 'travis/client/job'
+require 'travis/client/worker'
 require 'travis/client/namespace'
 
 module Travis

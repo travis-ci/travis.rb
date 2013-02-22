@@ -38,7 +38,6 @@ module Travis
           end
       end
 
-
       include Methods
       attr_accessor :session
 

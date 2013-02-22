@@ -69,10 +69,14 @@ module Travis
         private(:inspect_info)
       end
 
+      def self.cast_id(id)
+        Integer(id)
+      end
+
       def initialize(session, id)
         @attributes = {}
         @session    = session
-        @id         = Integer(id)
+        @id         = self.class.cast_id(id)
       end
 
       def update_attributes(data)

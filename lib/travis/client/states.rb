@@ -3,7 +3,11 @@ require 'travis/client'
 module Travis
   module Client
     module States
-      STATES  = %w[created queued started passed failed errored canceled]
+      STATES  = %w[created queued started passed failed errored canceled ready]
+
+      def ready?
+        state == 'ready'
+      end
 
       def pending?
         check_state
@@ -54,7 +58,11 @@ module Travis
       end
 
       def color
-        pending? ? 'yellow' : passed? ? 'green' : 'red'
+        case state
+        when 'created', 'queued', 'started'   then 'yellow'
+        when 'passed', 'ready'                then 'green'
+        when 'errored', 'canceled', 'failed'  then 'red'
+        end
       end
 
       def yellow?

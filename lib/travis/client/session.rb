@@ -109,9 +109,9 @@ module Travis
         @config ||= get_raw('/config')['config']
       end
 
-      def get(*args)
+      def load(data)
         result = {}
-        get_raw(*args).each_pair do |key, value|
+        (data || {}).each_pair do |key, value|
           type = Entity.subclass_for(key)
           if value.respond_to? :to_ary
             result[key] = value.to_ary.map { |e| create_entity(type, e) }
@@ -120,6 +120,10 @@ module Travis
           end
         end
         result
+      end
+
+      def get(*args)
+        load get_raw(*args)
       end
 
       def get_raw(*args)
@@ -176,7 +180,7 @@ module Travis
         end
 
         def create_entity(type, data)
-          id     = Integer(data.fetch('id'))
+          id     = type.cast_id(data.fetch('id'))
           entity = cached(type, :id, id) { type.new(self, id) }
           entity.update_attributes(data)
           entity
