@@ -17,9 +17,9 @@ module Travis
         attributes['clean_body'] ||= colorized_body.gsub(/\e[^m]+m/, '')
       end
 
-      one :artifact
-      many :artifacts
-      aka :log
+      one :log
+      many :logs
+      aka :artifact
     end
   end
 end

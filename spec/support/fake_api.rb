@@ -647,8 +647,8 @@ module Travis
           {"config" => {"host" => "travis-ci.org"}}.to_json
         end
 
-        get '/artifacts/3168318' do
-          {"artifact"=>
+        get '/logs/3168318' do
+          {"log"=>
             {"id"=>3168318,
              "job_id"=>4125096,
              "type"=>"Log",
