@@ -893,6 +893,10 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 * fix bug where colors were not used if stdin is a pipe
 * make `encrypt` options `--split` and `--add` work together properly
 * better handling of missing or empty `.travis.yml` when running `encrypt --add`
+* fix broken example code
+* no longer require network connection to automatically detect repository slug
+* add worker support to the ruby library
+* adjust artifacts/logs code to upstream api changes
 
 **v1.1.3** (January 26, 2013)
 
