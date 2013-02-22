@@ -20,6 +20,7 @@ module Helpers
   end
 
   def run_cli(*args)
+    args << ENV['TRAVIS_OPTS'] if ENV['TRAVIS_OPTS']
     capture do
       yield $stdin if block_given?
       $stdin.rewind
