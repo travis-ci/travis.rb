@@ -3,7 +3,7 @@ require 'travis/cli'
 module Travis
   module CLI
     class RepoCommand < ApiCommand
-      GIT_REGEX = %r{Fetch URL: (?:https://|git://|git@)github\.com[:/](.*/.+?)(\.git)?$}
+      GIT_REGEX = %r{^(?:https://|git://|git@)github\.com[:/](.*/.+?)(\.git)?$}
       on('-r', '--repo SLUG') { |c, slug| c.slug = slug }
 
       attr_accessor :slug
@@ -43,7 +43,7 @@ module Travis
         end
 
         def find_slug
-          git_info = `git remote show origin 2>&1`
+          git_info = `git config --get remote.origin.url 2>&1`
           $1 if git_info =~ GIT_REGEX
         end
 
