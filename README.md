@@ -886,7 +886,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
-**Not yet released**
+**v1.2.0** (February 22, 2013)
 
 * add `--adapter` to API endpoints
 * added branch to `show`
