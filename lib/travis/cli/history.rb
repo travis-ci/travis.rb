@@ -33,7 +33,7 @@ module Travis
 
         def display(build)
           say [
-            color("##{build.number} #{build.state}:".ljust(14), [build.color, :bold]),
+            color("##{build.number} #{build.state}:".ljust(16), [build.color, :bold]),
             color("#{build.branch_info} ", :info),
             build.commit.subject
           ].join
