@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Travis::CLI::History do
   example 'travis history' do
     run_cli('history').should be_success
-    stdout.should be == "#6180 failed: master Associaton -> Association\n"
+    stdout.should be == "#6180 failed:   master Associaton -> Association\n"
   end
 
   example 'travis history -a 6180' do
@@ -13,7 +13,7 @@ describe Travis::CLI::History do
 
   example 'travis history -b master' do
     run_cli('history', '-b', 'master').should be_success
-    stdout.should be == "#6180 failed: master Associaton -> Association\n"
+    stdout.should be == "#6180 failed:   master Associaton -> Association\n"
   end
 
   example 'travis history -b not-master' do
