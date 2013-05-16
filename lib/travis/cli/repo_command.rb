@@ -10,7 +10,7 @@ module Travis
       abstract
 
       def setup
-        error "Can't figure out GitHub repo name. Are you in the right directory?" unless self.slug ||= find_slug
+        error "Can't figure out GitHub repo name. Ensure you're in the repo directory, or specify the repo name via the -r option (e.g. travis <command> -r <repo-name>)" unless self.slug ||= find_slug
         self.api_endpoint = detect_api_endpoint
         super
         repository.load # makes sure we actually have access to the repo
