@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'travis/client'
 
 module Travis
@@ -9,8 +10,13 @@ module Travis
       # @!parse attr_reader :job
       has :job
 
+      def encoded_body
+        return body unless body.respond_to? :encode
+        body.encode 'utf-8'
+      end
+
       def colorized_body
-        attributes['colorized_body'] ||= body.gsub(/[^[:print:]\e\n]/, '')
+        attributes['colorized_body'] ||= encoded_body.gsub(/[^[:print:]\e\n]/, '')
       end
 
       def clean_body
