@@ -888,7 +888,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
-**not yet released**
+**v1.2.2** (May 24, 2013)
 
 * Fixed `travis disable`.
 * Fix edge cases around `travis encrypt`.
