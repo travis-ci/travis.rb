@@ -888,6 +888,12 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
+**v1.3.0** (May 24, 2013)
+
+* Builds with high build numbers are properly aligned when running `travis history`.
+* Don't lock against a specific backports version, makes it easier to use it as a Ruby library.
+* Fix encoding issues.
+
 **v1.2.0** (February 22, 2013)
 
 * add `--adapter` to API endpoints
