@@ -255,7 +255,7 @@ Again, like most other commands, goes well with shell scripting:
 
 Repository commands have all the options [General API Commands](#general-api-commands) have.
 
-Additionally, you can specify the Repository to talk to by providing `--repo owner/name`. However, if you invoke the command inside a clone of the project, the client will figure out this option on its own. Note that it uses the [git remote](http://www.kernel.org/pub/software/scm/git/docs/git-remote.html) "origin" to do so.
+Additionally, you can specify the Repository to talk to by providing `--repo owner/name`. However, if you invoke the command inside a clone of the project, the client will figure out this option on its own. Note that it uses the tracked [git remote](http://www.kernel.org/pub/software/scm/git/docs/git-remote.html) for the current branch (and defaults to 'origin' if no tracking is set) to do so.
 
 It will also automatically pick [Travis Pro](https://travis-ci.com) if it is a private project. You can of course override this decission with `--pro`, `--org` or `--api-endpoint URL`
 
