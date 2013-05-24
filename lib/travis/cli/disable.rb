@@ -5,7 +5,7 @@ module Travis
     class Disable < RepoCommand
       def run
         authenticate
-        repository.enable
+        repository.disable
         say "disabled", color("#{slug}: %s :(", :error)
       end
     end

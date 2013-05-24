@@ -888,6 +888,10 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
+**not yet released**
+
+* Fixed `travis disable`.
+
 **v1.2.1** (May 24, 2013)
 
 * Builds with high build numbers are properly aligned when running `travis history`.
