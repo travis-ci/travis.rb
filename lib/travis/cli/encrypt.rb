@@ -69,5 +69,5 @@ Please add the following to your <[[ color('.travis.yml', :info) ]]> file:
 
 %s
 
-Pro Tip<[[ "™" unless Travis::CLI.windows? ]]>: You can add it automatically by running with <[[ color('--add', :info) ]]>.
+Pro Tip: You can add it automatically by running with <[[ color('--add', :info) ]]>.
 

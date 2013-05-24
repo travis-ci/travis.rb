@@ -149,8 +149,8 @@ module Travis
           data = data.gsub(/<\[\[/, '<%=').gsub(/\]\]>/, '%>')
         end
 
-        def template(file)
-          File.read(file).split('__END__', 2)[1].strip
+        def template(*args)
+          File.read(*args).split('__END__', 2)[1].strip
         end
 
         def color(line, style)

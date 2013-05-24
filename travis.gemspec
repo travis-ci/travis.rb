@@ -13,18 +13,24 @@ Gem::Specification.new do |s|
   s.authors = [
     "Konstantin Haase",
     "Henrik Hodne",
-    "Adrien Brault",
+    "Max Barnash",
     "Mario Visic",
-    "Piotr Sarnacki"
+    "Adrien Brault",
+    "Piotr Sarnacki",
+    "Justin Lambert",
+    "Laurent Petit"
   ]
 
   # generated from git shortlog -sne
   s.email = [
     "konstantin.mailinglists@googlemail.com",
     "me@henrikhodne.com",
+    "i.am@anhero.ru",
     "adrien.brault@gmail.com",
-    "mario@mariovisic.com",
-    "drogus@gmail.com"
+    "drogus@gmail.com",
+    "jlambert@eml.cc",
+    "laurent.petit@gmail.com",
+    "mario@mariovisic.com"
   ]
 
   # generated from git ls-files
