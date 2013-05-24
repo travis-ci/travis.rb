@@ -891,6 +891,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 **not yet released**
 
 * Fixed `travis disable`.
+* Fix edge cases around `travis encrypt`.
 
 **v1.2.1** (May 24, 2013)
 

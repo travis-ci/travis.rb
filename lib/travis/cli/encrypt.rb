@@ -32,15 +32,7 @@ module Travis
         encrypted = data.map { |data| repository.encrypt(data) }
 
         if config_key
-          travis_config = YAML.load_file(travis_yaml)
-          travis_config = {} if [[], false, nil].include? travis_config
-          keys          = config_key.split('.')
-          last_key      = keys.pop
-          nested_config = keys.inject(travis_config) { |c,k| c[k] ||= {}}
-          nested_config = nested_config[last_key] ||= []
-          encrypted.each do |encrypted|
-             nested_config << { 'secure' => encrypted }
-          end
+          set_config encrypted.map { |e| { 'secure' => e } }
           File.write(travis_yaml, travis_config.to_yaml)
         else
           list = encrypted.map { |data| format(data.inspect, "  secure: %s") }
@@ -49,6 +41,52 @@ module Travis
       end
 
       private
+
+        def travis_config
+          @travis_config ||= begin
+            payload = YAML.load_file(travis_yaml)
+            payload.respond_to?(:to_hash) ? payload.to_hash : {}
+          end
+        end
+
+        def set_config(result)
+          parent_config[last_key] = merge_config(result)
+        end
+
+        def merge_config(result)
+          case subconfig = parent_config[last_key]
+          when nil   then result.size == 1 ? result.first : result
+          when Array then subconfig + result
+          else            result.unshift(subconfig)
+          end
+        end
+
+        def subconfig
+        end
+
+        def key_chain
+          @key_chain ||= config_key.split('.')
+        end
+
+        def last_key
+          key_chain.last
+        end
+
+        def parent_config
+          @parent_config ||= traverse_config(travis_config, *key_chain[0..-2])
+        end
+
+        def traverse_config(hash, key = nil, *rest)
+          return hash unless key
+
+          hash[key] = case value = hash[key]
+                      when nil  then {}
+                      when Hash then value
+                      else { 'matrix' => Array(value) }
+                      end
+
+          traverse_config(hash[key], *rest)
+        end
 
         def travis_yaml(dir = Dir.pwd)
           path = File.expand_path('.travis.yml', dir)
