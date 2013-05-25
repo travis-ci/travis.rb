@@ -31,6 +31,14 @@ module Travis
         alias find     find_one
         alias find_all find_many
 
+        def clear_cache
+          session.clear_cache
+        end
+
+        def clear_cache!
+          session.clear_cache!
+        end
+
         private
 
           def session
