@@ -2,7 +2,7 @@
 Gem::Specification.new do |s|
   # general infos
   s.name        = "travis"
-  s.version     = "1.2.2"
+  s.version     = "1.2.3"
   s.description = "CLI and Ruby client library for Travis CI"
   s.homepage    = "https://github.com/travis-ci/travis"
   s.summary     = "Travis CI client"
@@ -15,8 +15,9 @@ Gem::Specification.new do |s|
     "Henrik Hodne",
     "Max Barnash",
     "Mario Visic",
-    "Adrien Brault",
     "Piotr Sarnacki",
+    "Adrien Brault",
+    "Rapha0353l Pinson",
     "Justin Lambert",
     "Laurent Petit"
   ]
@@ -26,8 +27,9 @@ Gem::Specification.new do |s|
     "konstantin.mailinglists@googlemail.com",
     "me@henrikhodne.com",
     "i.am@anhero.ru",
-    "adrien.brault@gmail.com",
     "drogus@gmail.com",
+    "adrien.brault@gmail.com",
+    "raphael.pinson@camptocamp.com",
     "jlambert@eml.cc",
     "laurent.petit@gmail.com",
     "mario@mariovisic.com"
