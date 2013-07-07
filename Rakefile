@@ -39,5 +39,5 @@ end
 
 task :gemspec => 'travis.gemspec'
 task :default => :spec
-task :default => :gemspec unless windows
+task :default => :gemspec unless windows or ENV['CI']
 task :test    => :spec
