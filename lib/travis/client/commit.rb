@@ -11,7 +11,7 @@ module Travis
       many :commits
 
       def subject
-        message.to_s.lines.first.strip
+        message.to_s.lines.first.to_s.strip
       end
 
       def short_sha
