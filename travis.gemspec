@@ -2,7 +2,7 @@
 Gem::Specification.new do |s|
   # general infos
   s.name        = "travis"
-  s.version     = "1.2.3"
+  s.version     = "1.2.5"
   s.description = "CLI and Ruby client library for Travis CI"
   s.homepage    = "https://github.com/travis-ci/travis"
   s.summary     = "Travis CI client"
@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
     "Mario Visic",
     "Piotr Sarnacki",
     "Adrien Brault",
-    "Rapha0353l Pinson",
+    "Rapha\xC3\xABl Pinson",
     "Justin Lambert",
     "Laurent Petit"
   ]
