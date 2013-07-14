@@ -14,7 +14,7 @@ module Travis
 
         def encrypt(value)
           encrypted = to_rsa.public_encrypt(value)
-          Base64.encode64(encrypted).strip
+          Base64.encode64(encrypted).gsub(/\s+/, "")
         end
 
         def to_rsa
