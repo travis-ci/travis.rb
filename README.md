@@ -905,6 +905,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 **1.2.7** (July 15, 2013)
 
 * Add pubkey command
+* Remove all whitespace from an encrypted string
 
 **v1.2.6** (July 7, 2013)
 
