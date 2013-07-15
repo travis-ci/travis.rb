@@ -11,7 +11,7 @@ module Travis
       private
 
         def key
-          repository.public_key.to_rsa.to_s
+          repository.public_key.to_s
         end
     end
   end
