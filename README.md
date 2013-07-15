@@ -888,6 +888,24 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
+**v1.2.6** (July 7, 2013)
+
+* Improve output of history command
+
+**v1.2.5** (July 7, 2013)
+
+* Fix encoding issue
+
+**v1.2.4** (July 7, 2013)
+
+* Allow empty commit message
+
+**v1.2.3** (June 27, 2013)
+
+* Fix encoding issue
+* Will detect github repo from other remotes besides origin
+* Add clear_cache(!) to Travis::Namespace
+
 **v1.2.2** (May 24, 2013)
 
 * Fixed `travis disable`.
