@@ -26,6 +26,7 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a command line 
         * [`history`](#history)
         * [`logs`](#logs)
         * [`open`](#open)
+        * [`pubkey`](#pubkey)
         * [`restart`](#restart)
         * [`show`](#show)
         * [`status`](#status)
@@ -415,6 +416,19 @@ If instead you want to open the repository, compare or pull request view on GitH
 
     $ travis open 56 --print --github
     web view: https://github.com/travis-ci/travis/pull/5
+
+#### `pubkey`
+
+Outputs the public key for a repository.
+
+    $ travis pubkey
+    Public key for travis-ci/travis:
+    
+    -----BEGIN PUBLIC KEY-----
+    ...
+    -----END PUBLIC KEY-----
+    
+    $ travis pubkey -r rails/rails > rails.key
 
 #### `restart`
 
@@ -887,6 +901,10 @@ Make sure you have at least [Ruby](http://www.ruby-lang.org/en/downloads/) 1.8.7
 If you have the old `travis-cli` gem installed, you should `gem uninstall travis-cli`, just to be sure, as it ships with an executable that is also named `travis`.
 
 ## Version History
+
+**1.2.7** (July 15, 2013)
+
+* Add pubkey command
 
 **v1.2.6** (July 7, 2013)
 

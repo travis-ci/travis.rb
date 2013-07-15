@@ -28,6 +28,7 @@ module Travis
     autoload :Logs,         'travis/cli/logs'
     autoload :Open,         'travis/cli/open'
     autoload :Parser,       'travis/cli/parser'
+    autoload :Pubkey,       'travis/cli/pubkey'
     autoload :Raw,          'travis/cli/raw'
     autoload :RepoCommand,  'travis/cli/repo_command'
     autoload :Restart,      'travis/cli/restart'
