@@ -147,6 +147,8 @@ module Travis
           style ||= :important
           data = format % color(data, style) if format and interactive?
           data = data.gsub(/<\[\[/, '<%=').gsub(/\]\]>/, '%>')
+          data.encode! 'utf-8' if data.respond_to? :encode!
+          data
         end
 
         def template(*args)

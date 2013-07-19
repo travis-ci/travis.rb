@@ -1,4 +1,8 @@
 #!/usr/bin/env ruby
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
+
+# :(
+Encoding.default_external = Encoding::UTF_8 if defined? Encoding
+
 require 'travis/cli'
 Travis::CLI.run(ARGV)
