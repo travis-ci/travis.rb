@@ -908,6 +908,12 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
+**1.2.8** (July 19, 2013)
+
+* Make pubkey print out key in ssh encoding, add --pem flag for old format
+* Fix more encoding issues
+* Fix edge cases that broke history view
+
 **1.2.7** (July 15, 2013)
 
 * Add pubkey command
