@@ -4,6 +4,8 @@ require 'travis/cli'
 module Travis
   module CLI
     class Pubkey < RepoCommand
+      on('-p', '--[no-]pem', 'encode in format used by pem')
+
       def run
         say key, "Public key for #{color(repository.slug, :info)}:\n\n%s", :bold
       end
@@ -11,7 +13,8 @@ module Travis
       private
 
         def key
-          repository.public_key.to_s
+          key = repository.public_key
+          pem? ? key.to_s : key.to_ssh
         end
     end
   end

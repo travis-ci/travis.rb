@@ -424,11 +424,17 @@ Outputs the public key for a repository.
     $ travis pubkey
     Public key for travis-ci/travis:
     
+    ssh-rsa ...
+    $ travis pubkey -r rails/rails > rails.key
+
+The `--pem` flag will print out the key PEM encoded:
+
+    $ travis pubkey --pem
+    Public key for travis-ci/travis:
+
     -----BEGIN PUBLIC KEY-----
     ...
     -----END PUBLIC KEY-----
-    
-    $ travis pubkey -r rails/rails > rails.key
 
 #### `restart`
 
