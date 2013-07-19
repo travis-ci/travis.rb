@@ -7,6 +7,9 @@ module Travis
       def run
         say Travis::VERSION
       end
+
+      def check_version
+      end
     end
   end
 end
