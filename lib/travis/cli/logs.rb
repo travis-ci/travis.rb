@@ -4,7 +4,7 @@ module Travis
   module CLI
     class Logs < RepoCommand
       def run(number = last_build.number)
-        error "##{number} is not a job" unless job = job(number)
+        error "##{number} is not a job, try #{number}.1" unless job = job(number)
         say log(job)
       end
 
