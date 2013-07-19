@@ -36,7 +36,7 @@ module Travis
             color("##{build.number} #{build.state}:".ljust(16), [build.color, :bold]),
             color("#{build.branch_info} ", :info),
             build.commit.subject
-          ].join.strip
+          ].join.strip + "\n"
         end
     end
   end
