@@ -1,9 +1,11 @@
 require 'travis/cli'
 require 'travis/tools/formatter'
+require 'travis/version'
 
 require 'highline'
 require 'forwardable'
 require 'yaml'
+require 'timeout'
 
 module Travis
   module CLI
@@ -33,6 +35,7 @@ module Travis
       end
 
       on('-E', '--[no-]explode', "don't rescue exceptions")
+      on('--skip-version-check')
 
       def self.command_name
         name[/[^:]*$/].downcase
@@ -95,9 +98,30 @@ module Travis
       def setup
       end
 
+      def check_version
+        return if skip_version_check?
+        return if Time.now.to_i - config['last_version_check'].to_i < 3600
+        version = Travis::VERSION
+
+        Timeout.timeout 1.0 do
+          response       = Faraday.get('https://rubygems.org/api/v1/gems/travis.json', {}, 'If-None-Match' => config['etag'].to_s)
+          config['etag'] = response.headers['etag']
+          version        = JSON.parse(response.body)['version'] if response.status == 200
+        end
+
+        if Travis::VERSION >= version
+          config['last_version_check'] = Time.now.to_i
+        else
+          error "Outdated CLI version (#{Travis::VERSION}, current is #{version}), " \
+            "run `gem install travis -v #{version}` or use --skip-version-check."
+        end
+      rescue Timeout::Error, Faraday::Error::ClientError
+      end
+
       def execute
         check_arity(method(:run), *arguments)
         load_config
+        check_version
         setup
         run(*arguments)
         store_config
