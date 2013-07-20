@@ -509,6 +509,25 @@ Any other build:
     #1.5 failed:     38 sec         rvm: jruby
     #1.6 failed:     27 sec         rvm: rbx
 
+The last build for a given branch:
+
+    $ travis show rkh-debug
+    Build #75: what?
+    State:         passed
+    Type:          push
+    Branch:        rkh-debug
+    Compare URL:   https://github.com/travis-ci/travis/compare/8d4aa5254359...7ef33d5e5993
+    Duration:      6 min 16 sec
+    Started:       2013-01-19 18:51:17
+    Finished:      2013-01-19 18:52:43
+
+    #75.1 passed:    1 min 10 sec   rvm: 1.8.7
+    #75.2 passed:    51 sec         rvm: 1.9.2
+    #75.3 passed:    36 sec         rvm: 1.9.3
+    #75.4 passed:    48 sec         rvm: 2.0.0
+    #75.5 failed:    1 min 26 sec   rvm: jruby (failure allowed)
+    #75.6 passed:    1 min 25 sec   rvm: rbx
+
 Or a job:
 
     $ travis show 77.3
