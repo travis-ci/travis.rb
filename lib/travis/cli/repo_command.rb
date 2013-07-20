@@ -1,4 +1,5 @@
 require 'travis/cli'
+require 'yaml'
 
 module Travis
   module CLI
@@ -67,6 +68,31 @@ module Travis
               Travis::Client::PRO_URI
             end
           end
+        end
+
+        def travis_config
+          @travis_config ||= begin
+            payload = YAML.load_file(travis_yaml)
+            payload.respond_to?(:to_hash) ? payload.to_hash : {}
+          end
+        end
+
+        def travis_yaml(dir = Dir.pwd)
+          path = File.expand_path('.travis.yml', dir)
+          if File.exist? path
+            path
+          else
+            parent = File.expand_path('..', dir)
+            error "no .travis.yml found" if parent == dir
+            travis_yaml(parent)
+          end
+        end
+
+        def save_travis_config
+          yaml = travis_config.to_yaml
+          yaml.gsub! /^(\s+)('on'|true):/, "\\1on:"
+          yaml.gsub! /\A---\n/, ''
+          File.write(travis_yaml, yaml)
         end
     end
   end

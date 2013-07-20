@@ -1,6 +1,5 @@
 # encoding: utf-8
 require 'travis/cli'
-require 'yaml'
 
 module Travis
   module CLI
@@ -33,7 +32,7 @@ module Travis
 
         if config_key
           set_config encrypted.map { |e| { 'secure' => e } }
-          File.write(travis_yaml, travis_config.to_yaml)
+          save_travis_config
         else
           list = encrypted.map { |data| format(data.inspect, "  secure: %s") }
           say(list.join("\n"), template(__FILE__), :none)
@@ -41,13 +40,6 @@ module Travis
       end
 
       private
-
-        def travis_config
-          @travis_config ||= begin
-            payload = YAML.load_file(travis_yaml)
-            payload.respond_to?(:to_hash) ? payload.to_hash : {}
-          end
-        end
 
         def set_config(result)
           parent_config[last_key] = merge_config(result)
@@ -86,17 +78,6 @@ module Travis
                       end
 
           traverse_config(hash[key], *rest)
-        end
-
-        def travis_yaml(dir = Dir.pwd)
-          path = File.expand_path('.travis.yml', dir)
-          if File.exist? path
-            path
-          else
-            parent = File.expand_path('..', dir)
-            error "no .travis.yml found" if parent == dir
-            travis_yaml(parent)
-          end
         end
     end
   end

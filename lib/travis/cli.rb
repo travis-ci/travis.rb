@@ -33,6 +33,7 @@ module Travis
     autoload :Raw,          'travis/cli/raw'
     autoload :RepoCommand,  'travis/cli/repo_command'
     autoload :Restart,      'travis/cli/restart'
+    autoload :Setup,        'travis/cli/setup'
     autoload :Show,         'travis/cli/show'
     autoload :Status,       'travis/cli/status'
     autoload :Sync,         'travis/cli/sync'

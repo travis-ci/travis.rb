@@ -64,6 +64,10 @@ module Travis
         end
       end
 
+      def name
+        slug[/[^\/]+$/]
+      end
+
       def public_key=(key)
         key = Key.new(key) unless key.is_a? Key
         set_attribute(:public_key, key)

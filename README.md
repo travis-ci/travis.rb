@@ -29,6 +29,7 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a command line 
         * [`open`](#open)
         * [`pubkey`](#pubkey)
         * [`restart`](#restart)
+        * [`setup`](#setup)
         * [`show`](#show)
         * [`status`](#status)
 * [Ruby Library](#ruby-library)
@@ -470,6 +471,33 @@ Or a single job:
 
     $ travis restart 57.1
     job #57.1 has been restarted
+
+#### `setup`
+
+Helps you configure Travis addons.
+
+    Usage: bin/travis setup service [options]
+        -h, --help                       Display help
+        -i, --[no-]interactive           be interactive and colorful
+        -E, --[no-]explode               don't rescue exceptions
+            --skip-version-check         don't check if travis client is up to date
+        -e, --api-endpoint URL           Travis API server to talk to
+            --pro                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
+            --org                        short-cut for --api-endpoint 'https://api.travis-ci.org/'
+            --staging                    talks to staging system
+        -t, --token [ACCESS_TOKEN]       access token to use
+            --debug                      show API requests
+            --adapter ADAPTER            Faraday adapter to use for HTTP requests
+        -r, --repo SLUG                  repository to use (will try to detect from current git clone)
+        -f, --force                      override config section if it already exists
+
+Available services: `heroku`, `nodejitsu`, `openshift` and `sauce_connect`.
+
+Example:
+
+    $ travis setup heroku
+    Deploy only from travis-ci/travis-chat? |yes|
+    Encrypt API key? |yes|
 
 #### `show`
 
