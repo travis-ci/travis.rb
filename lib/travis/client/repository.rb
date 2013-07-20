@@ -104,6 +104,19 @@ module Travis
         builds({})
       end
 
+      def last_on_branch(name = nil)
+        return branch(name) if name
+        attributes['last_on_branch'] ||= session.get('branches', :repository_id => id)['branches']
+      end
+
+      def branches
+        last_on_branch.map { |b| { b.commit.branch => b } }.inject(:merge)
+      end
+
+      def branch(name)
+        last_on_branch.detect { |b| b.commit.branch == name.to_s }
+      end
+
       def each_build(params = nil, &block)
         return enum_for(__method__, params) unless block_given?
         params ||= {}

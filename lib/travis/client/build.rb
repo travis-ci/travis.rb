@@ -16,6 +16,7 @@ module Travis
 
       one :build
       many :builds
+      aka :branches
 
       def restart
         session.restart(self)

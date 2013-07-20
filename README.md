@@ -731,6 +731,17 @@ You can restart a build, if the current user has sufficient permissions on the r
 rails.last_build.restart
 ```
 
+You can also retrieve a Hash mapping branch names to the latest build on that given branch via `branches` or use the `branch` method to get the last build for a specific branch:
+
+``` ruby
+if rails.branch('4-0-stable').green?
+  puts "Time for another 4.0.x release!"
+end
+
+count = rails.branches.size
+puts "#{count} rails branches tested on travis"
+```
+
 #### Jobs
 
 Jobs behave a lot like [builds](#builds), and similar to them, you probably don't have the id ready. You can get the jobs from a build:
