@@ -35,7 +35,7 @@ module Travis
       end
 
       on('-E', '--[no-]explode', "don't rescue exceptions")
-      on('--skip-version-check')
+      on('--skip-version-check', "don't check if travis client is up to date")
 
       def self.command_name
         name[/[^:]*$/].downcase
