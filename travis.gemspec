@@ -2,7 +2,7 @@
 Gem::Specification.new do |s|
   # general infos
   s.name        = "travis"
-  s.version     = "1.2.8"
+  s.version     = "1.3.0"
   s.description = "CLI and Ruby client library for Travis CI"
   s.homepage    = "https://github.com/travis-ci/travis"
   s.summary     = "Travis CI client"
@@ -46,6 +46,7 @@ Gem::Specification.new do |s|
     "lib/travis/cacert.pem",
     "lib/travis/cli.rb",
     "lib/travis/cli/api_command.rb",
+    "lib/travis/cli/branches.rb",
     "lib/travis/cli/command.rb",
     "lib/travis/cli/console.rb",
     "lib/travis/cli/disable.rb",
@@ -62,6 +63,7 @@ Gem::Specification.new do |s|
     "lib/travis/cli/raw.rb",
     "lib/travis/cli/repo_command.rb",
     "lib/travis/cli/restart.rb",
+    "lib/travis/cli/setup.rb",
     "lib/travis/cli/show.rb",
     "lib/travis/cli/status.rb",
     "lib/travis/cli/sync.rb",

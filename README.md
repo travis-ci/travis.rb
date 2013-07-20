@@ -984,6 +984,15 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
+**1.3.0** (July 20, 2013)
+
+* Add `travis setup [heroku|openshift|nodejitsu|sauce_connect]`
+* Add `travis branches`
+* Add Repository#branch and Repository#branches
+* Improve `--help`
+* Improve error message when calling `travis logs` with a matrix build number
+* Check if travis gem is up to date from time to time (CLI only, not when used as library)
+
 **1.2.8** (July 19, 2013)
 
 * Make pubkey print out key in ssh encoding, add --pem flag for old format
