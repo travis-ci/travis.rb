@@ -20,6 +20,7 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a command line 
         * [`whatsup`](#whatsup)
         * [`whoami`](#whoami)
     * [Repository Commands](#repository-commands)
+        * [`branches`](#branches)
         * [`disable`](#disable)
         * [`enable`](#enable)
         * [`encrypt`](#encrypt)
@@ -259,6 +260,23 @@ Repository commands have all the options [General API Commands](#general-api-com
 Additionally, you can specify the Repository to talk to by providing `--repo owner/name`. However, if you invoke the command inside a clone of the project, the client will figure out this option on its own. Note that it uses the tracked [git remote](http://www.kernel.org/pub/software/scm/git/docs/git-remote.html) for the current branch (and defaults to 'origin' if no tracking is set) to do so.
 
 It will also automatically pick [Travis Pro](https://travis-ci.com) if it is a private project. You can of course override this decission with `--pro`, `--org` or `--api-endpoint URL`
+
+#### `branches`
+
+Displays the most recent build for each branch:
+
+    $ travis branches
+    hh-add-warning-old-style:                  #35   passed     Add a warning if old-style encrypt is being used
+    hh-multiline-encrypt:                      #55   passed     Merge branch 'master' into hh-multiline-encrypt
+    rkh-show-logs-history:                     #72   passed     regenerate gemspec
+    rkh-debug:                                 #75   passed     what?
+    hh-add-clear-cache-to-global-session:      #135  passed     Add clear_cache(!) to Travis::Namespace
+    hh-annotations:                            #146  passed     Initial annotation support
+    hh-remove-newlines-from-encrypted-string:  #148  errored    Remove all whitespace from an encrypted string
+    version-check:                             #157  passed     check travis version for updates from time to time
+    master:                                    #163  passed     add Repository#branches and Repository#branch(name)
+
+For more fine grained control and older builds on a specific branch, see [`history`](#history).
 
 #### `disable`
 
