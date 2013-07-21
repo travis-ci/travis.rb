@@ -304,18 +304,23 @@ If you don't want the sync to be triggered, use `--skip-sync`.
 
 #### `encrypt`
 
-    Usage: travis encrypt [args..] [options]
+    Usage: bin/travis encrypt [args..] [options]
         -h, --help                       Display help
         -i, --[no-]interactive           be interactive and colorful
         -E, --[no-]explode               don't rescue exceptions
+            --skip-version-check         don't check if travis client is up to date
         -e, --api-endpoint URL           Travis API server to talk to
             --pro                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
             --org                        short-cut for --api-endpoint 'https://api.travis-ci.org/'
+            --staging                    talks to staging system
         -t, --token [ACCESS_TOKEN]       access token to use
             --debug                      show API requests
-        -r, --repo SLUG
-            --add [KEY]                  adds it to .travis.yml under KEY (default: env.global)
+            --adapter ADAPTER            Faraday adapter to use for HTTP requests
+        -r, --repo SLUG                  repository to use (will try to detect from current git clone)
+        -a, --add [KEY]                  adds it to .travis.yml under KEY (default: env.global)
         -s, --[no-]split                 treat each line as a separate input
+        -p, --append                     don't override existing values, instead treat as list
+        -x, --override                   override existing value
 
 This command is useful to encrypt [environment variables](http://about.travis-ci.org/docs/user/encryption-keys/) or deploy keys for private dependencies.
 
@@ -347,6 +352,11 @@ As suggested, the client can also add them to your `.travis.yml` for you:
 This will by default add it as global variables for every job. You can also add it as matrix entries by providing a key:
 
     $ travis encrypt FOO=bar --add env.matrix
+
+There are two ways the client can treat existing values:
+
+* Turn existing value into a list if it isn't already, append new value to that list. This is the default behavior for keys that start with `env.` and can be enforced with `--append`.
+* Replace existing value. This is the default behavior for keys that do not start with `env.` and can be enforced with `--override`.
 
 #### `history`
 

@@ -6,13 +6,20 @@ module Travis
     class Encrypt < RepoCommand
       attr_accessor :config_key
 
-      on('--add [KEY]', 'adds it to .travis.yml under KEY (default: env.global)') do |c, value|
+      on('-a', '--add [KEY]', 'adds it to .travis.yml under KEY (default: env.global)') do |c, value|
         c.config_key = value || 'env.global'
       end
 
-      on('-s', '--[no-]split', 'treat each line as a separate input')
+      on('-s', '--[no-]split', "treat each line as a separate input")
+      on('-p', '--append',     "don't override existing values, instead treat as list")
+      on('-x', '--override',   "override existing value")
 
       def run(*args)
+        error "cannot combine --override and --append"   if append?   and override?
+        error "--append without --add makes no sense"    if append?   and not add?
+        error "--override without --add makes no sense"  if override? and not add?
+        self.override |= !config_key.start_with?('env.') if add?      and not append?
+
         if args.first =~ %r{\w+/\w+}
           warn "WARNING: The name of the repository is now passed to the command with the -r option:"
           warn "    #{command("encrypt [...] -r #{args.first}")}"
@@ -41,12 +48,16 @@ module Travis
 
       private
 
+        def add?
+          !!config_key
+        end
+
         def set_config(result)
           parent_config[last_key] = merge_config(result)
         end
 
         def merge_config(result)
-          case subconfig = parent_config[last_key]
+          case subconfig = (parent_config[last_key] unless override?)
           when nil   then result.size == 1 ? result.first : result
           when Array then subconfig + result
           else            result.unshift(subconfig)
