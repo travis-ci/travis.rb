@@ -1006,6 +1006,13 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
+**1.3.1** (July 21, 2013)
+
+* Add `travis whatsup --my-repos`, which corresponds to the "My Repositories" tab in the web interface
+* It is now recommended to use Ruby 2.0, any Ruby version prior to 1.9.3 will lead to a warning being displayed. Disable with `--skip-version-check`.
+* Add `--override` and `--append` to `travis encrypt`, make default behavior depend on key.
+* Add shorthand for `travis encrypt --add`.
+
 **1.3.0** (July 20, 2013)
 
 * Add `travis setup [heroku|openshift|nodejitsu|sauce_connect]`
