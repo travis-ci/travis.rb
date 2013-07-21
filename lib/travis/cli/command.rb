@@ -118,7 +118,13 @@ module Travis
       rescue Timeout::Error, Faraday::Error::ClientError
       end
 
+      def check_ruby
+        return if RUBY_VERSION > '1.9.2' or skip_version_check?
+        warn "Your Ruby version is outdated, please consider upgrading, as we will drop support for #{RUBY_VERSION} soon!"
+      end
+
       def execute
+        check_ruby
         check_arity(method(:run), *arguments)
         load_config
         check_version
