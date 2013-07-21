@@ -984,7 +984,7 @@ MyTravis::Repository.find('rails/rails')
 
 ## Installation
 
-Make sure you have at least [Ruby](http://www.ruby-lang.org/en/downloads/) 1.8.7 (1.9.3 recommended) installed. Then run:
+Make sure you have at least [Ruby](http://www.ruby-lang.org/en/downloads/) 1.8.7 (2.0.0 recommended) installed. Then run:
 
     $ gem install travis --no-rdoc --no-ri
 
