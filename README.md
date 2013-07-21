@@ -233,6 +233,18 @@ It's just a tiny feature, but it allows you to take a look at repositories that 
     qcubed/framework failed: #21
     ...
 
+If you only want to see what happened in your repositories, add the `--my-repos` flag (short: `-m`):
+
+    $ travis whatsup -m
+    travis-ci/travis passed: #169
+    rkh/dpl passed: #50
+    rubinius/rubinius passed: #3235
+    sinatra/sinatra errored: #619
+    rtomayko/tilt failed: #162
+    ruby-no-kai/rubykaigi2013 passed: #50
+    rack/rack passed: #519
+    ...
+
 #### `whoami`
 
 This command is useful to verify that you're in fact logged in:
