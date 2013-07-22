@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/travis-ci/travis.png?branch=master)](https://travis-ci.org/travis-ci/travis)
 
-The [travis gem](https://rubygems.org/gems/travis) includes both a command line client and a Ruby library to interface with a Travis CI service. Both work with [travis-ci.org](https://travis-ci.org), [travis-ci.com](https://travis-ci.com) or any custom Travis CI setup you might have.
+The [travis gem](https://rubygems.org/gems/travis) includes both a [command line client](#command-line-client) and a [Ruby library](#ruby-library) to interface with a Travis CI service. Both work with [travis-ci.org](https://travis-ci.org), [travis-ci.com](https://travis-ci.com) or any custom Travis CI setup you might have. Check out the [installation instructions](#installation) to get it running in no time.
 
 ## Table of Contents
 
@@ -47,6 +47,11 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a command line 
     * [Dealing with Sessions](#dealing-with-sessions)
     * [Using Namespaces](#using-namespaces)
 * [Installation](#installation)
+    * [Updating your Ruby](#updating-your-ruby)
+        * [Mac OSX via Homebrew](#mac-osx-via-homebrew)
+        * [Windows](#windows)
+        * [Other Unix systems](#other-unix-systems)
+        * [Ruby versioning tools](#ruby-versioning-tools)
     * [Upgrading from travis-cli](#upgrading-from-travis-cli)
 * [Version History](#version-history)
 
@@ -996,9 +1001,60 @@ MyTravis::Repository.find('rails/rails')
 
 ## Installation
 
-Make sure you have at least [Ruby](http://www.ruby-lang.org/en/downloads/) 1.8.7 (2.0.0 recommended) installed. Then run:
+Make sure you have at least [Ruby](http://www.ruby-lang.org/en/downloads/) 1.9.3 (2.0.0 recommended) installed.
 
-    $ gem install travis --no-rdoc --no-ri
+You can check your Ruby version by running `ruby -v`:
+
+    $ ruby -v
+    ruby 2.0.0p195 (2013-05-14 revision 40734) [x86_64-darwin12.3.0]
+
+Then run:
+
+    $ gem install travis -v 1.3.1 --no-rdoc --no-ri
+
+Now make sure everything is working:
+
+    $ travis verision
+    1.3.1
+
+### Updating your Ruby
+
+If you have an outdated Ruby version, you should use your package system or a Ruby Installer to install a recent Ruby.
+
+#### Mac OSX via Homebrew
+
+Mac OSX prior to 10.9 ships with a very dated Ruby version. You can use [Homebrew](http://mxcl.github.io/homebrew/) to install a recent version:
+
+    $ brew install ruby
+    $ gem update --system
+
+#### Windows
+
+On Windows, we recommend using the [RubyInstaller](http://rubyinstaller.org/), which includes the latest version of Ruby.
+
+#### Other Unix systems
+
+On other Unix systems, like Linux, use your package system to install Ruby. Please inquire before hand which package you might actually want to install, as for some distributions `ruby` might actually still be 1.8.7 or older.
+
+Ubuntu and Debian:
+
+    $ sudo apt-get install ruby1.9.3 ruby-switch
+    $ sudo ruby-switch --set ruby1.9.3
+
+Fedora Core:
+
+    $ sudo yum install ruby
+
+Arch Linux:
+
+    $ sudo pacman -S ruby
+
+
+#### Ruby versioning tools
+
+Alternatively, you can use a Ruby version management tool such as [rvm](https://rvm.io/rvm/install/), [rbenv](http://rbenv.org/) or [https://github.com/postmodern/chruby](chruby). This is only recommended if you need to run multiple versions of Ruby.
+
+You can of course always compile Ruby from source, though then you are left with the hassle of keeping it up to date and making sure that everything is set up properly.
 
 ### Upgrading from travis-cli
 
