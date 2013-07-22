@@ -27,6 +27,6 @@ describe Travis::CLI::Init do
     File.open(".travis.yml", "w") {}
     run_cli('init'){ |i| i.puts('no') }.should_not be_success
     stdout.should be == ".travis.yml already exists, do you want to overwrite?\n"
-    stderr.should match("You chose not to overwrite, task cancelled.")
+    stderr.should be == "You chose not to overwrite, task cancelled.\n"
   end
 end
