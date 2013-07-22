@@ -12,6 +12,7 @@ require 'travis/client/commit'
 require 'travis/client/job'
 require 'travis/client/worker'
 require 'travis/client/namespace'
+require 'travis/client/account'
 
 module Travis
   module Client
