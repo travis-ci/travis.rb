@@ -25,6 +25,7 @@ module Travis
     autoload :Endpoint,     'travis/cli/endpoint'
     autoload :Help,         'travis/cli/help'
     autoload :History,      'travis/cli/history'
+    autoload :Init,         'travis/cli/init'
     autoload :Login,        'travis/cli/login'
     autoload :Logs,         'travis/cli/logs'
     autoload :Open,         'travis/cli/open'
