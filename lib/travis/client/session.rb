@@ -22,7 +22,7 @@ module Travis
         options.each_pair { |key, value| public_send("#{key}=", value) }
 
         raise ArgumentError, "neither :uri nor :connection specified" unless connection
-        headers['Accept'] ||= 'application/vnd.travis-ci.2+json, */*; q=0.01'
+        headers['Accept'] ||= 'application/json; version=2'
       end
 
       def uri
