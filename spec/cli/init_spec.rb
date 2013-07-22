@@ -9,7 +9,7 @@ describe Travis::CLI::Init do
 
   after(:each) do
     Dir.chdir ".."
-    FileUtils.rm('.travis.yml') if File.exist?('.travis.yml')
+    FileUtils.rm('tmp/.travis.yml') if File.exist?('tmp/.travis.yml')
   end
 
   example "travis init (empty directory)" do
