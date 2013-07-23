@@ -133,7 +133,9 @@ module Travis
         store_config
       rescue StandardError => e
         raise(e) if explode?
-        error e.message
+        message = e.message
+        message += " - need to run `travis login` again?" if Travis::Client::Error === e and message == 'access denied'
+        error message
       end
 
       def command_name
