@@ -100,6 +100,10 @@ module Travis
           end
         end
 
+        def travis_config_template(language)
+          payload = YAML::load_file(File.join(File.dirname(File.expand_path(__FILE__)), "templates/#{language}.yml"))
+        end
+
         def save_travis_config
           yaml = travis_config.to_yaml
           yaml.gsub! /^(\s+)('on'|true):/, "\\1on:"
