@@ -656,7 +656,7 @@ module Travis
               "$ export GEM=railties\n"}}.to_json
         end
 
-        get '/repos/travis-ci/travis' do
+        get '/repos/*/travis' do
           # hack hack
           request.path_info = '/repos/rails/rails'
           pass
@@ -703,6 +703,16 @@ module Travis
               'host' => 'ruby-1.worker.travis-ci.org',
               'state' => 'ready',
               'payload' => nil}}.to_json
+        end
+
+        get '/accounts/' do
+          {"accounts"=>
+          [{'id' => 123,
+            'name' => "Konstantin Haase",
+            'login' => 'rkh',
+            'type' => 'user',
+            'repos_count' => 200
+          }]}.to_json
         end
 
         post '/requests' do
