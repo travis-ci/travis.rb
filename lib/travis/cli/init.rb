@@ -2,26 +2,15 @@ require 'travis/cli'
 
 module Travis
   module CLI
-    class Init < Command
-      def run
-        check_already_exists
-        create_travis_file
+    class Init < RepoCommand
+      def run(language = nil)
+        error "no language given." if language.nil?
+        error "unknown language #{language}" unless respond_to? "create_travis_file_for_#{language}"
+        travis_yaml_exists_and_overwrite
+        public_send "create_travis_file_for_#{language}"
       end
 
-      private
-
-      def check_already_exists
-        if File.exist?('.travis.yml')
-          if agree(".travis.yml already exists, do you want to overwrite?")
-            File.delete('.travis.yml')
-            say "File overwritten!"
-          else
-            error "You chose not to overwrite, task cancelled."
-          end
-        end
-      end
-
-      def create_travis_file
+      def create_travis_file_for_ruby
         content = <<-EOF
         language: ruby
         rvm:
@@ -34,6 +23,19 @@ module Travis
         end
         say ".travis.yml file created!"
       end
+
+      # private
+
+      # def check_already_exists
+      #   if File.exist?('.travis.yml')
+      #     if agree(".travis.yml already exists, do you want to overwrite?")
+      #       File.delete('.travis.yml')
+      #       say "File overwritten!"
+      #     else
+      #       error "You chose not to overwrite, task cancelled."
+      #     end
+      #   end
+      # end
 
     end
   end

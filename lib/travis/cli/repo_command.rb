@@ -88,6 +88,18 @@ module Travis
           end
         end
 
+        def travis_yaml_exists_and_overwrite(dir = Dir.pwd)
+          path = File.expand_path('.travis.yml', dir)
+          if File.exist? path
+            if agree(".travis.yml already exists, do you want to overwrite?")
+              File.delete(path)
+              say "File overwritten!"
+            else
+              error "You chose not to overwrite, task cancelled."
+            end
+          end
+        end
+
         def save_travis_config
           yaml = travis_config.to_yaml
           yaml.gsub! /^(\s+)('on'|true):/, "\\1on:"
