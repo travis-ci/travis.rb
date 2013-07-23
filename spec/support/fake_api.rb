@@ -656,7 +656,7 @@ module Travis
               "$ export GEM=railties\n"}}.to_json
         end
 
-        get '/repos/travis-ci/travis' do
+        get '/repos/*/travis' do
           # hack hack
           request.path_info = '/repos/rails/rails'
           pass

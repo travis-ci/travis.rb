@@ -3,22 +3,22 @@ require 'spec_helper'
 describe Travis::CLI::Open do
   example 'travis open -p' do
     run_cli('open', '-p').should be_success
-    stdout.should be == "https://travis-ci.org/travis-ci/travis\n"
+    stdout.should match (/https:\/\/travis-ci.org\/[\w\W]*\/travis/)
   end
 
   example 'travis open 6180 -p' do
     run_cli('open', '6180', '-p').should be_success
-    stdout.should be == "https://travis-ci.org/travis-ci/travis/builds/4125095\n"
+    stdout.should match (/https:\/\/travis-ci.org\/[\w\W]*\/travis\/builds\/4125095/)
   end
 
   example 'travis open 6180.1 -p' do
     run_cli('open', '6180.1', '-p').should be_success
-    stdout.should be == "https://travis-ci.org/travis-ci/travis/jobs/4125096\n"
+    stdout.should match (/https:\/\/travis-ci.org\/[\w\W]*\/travis\/jobs\/4125096/)
   end
 
   example 'travis open -pg' do
     run_cli('open', '-pg').should be_success
-    stdout.should be == "https://github.com/travis-ci/travis\n"
+    stdout.should match (/https:\/\/github.com\/[\w\W]*\/travis/)
   end
 
   example 'travis open 6180 -pg' do
