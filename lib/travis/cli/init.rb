@@ -12,8 +12,7 @@ module Travis
 
       def check_already_exists
         if File.exist?('.travis.yml')
-          answer = ask(".travis.yml already exists, do you want to overwrite?")
-          if answer =~ (/(true|t|yes|y|1)$/i)
+          if agree(".travis.yml already exists, do you want to overwrite?")
             File.delete('.travis.yml')
             say "File overwritten!"
           else
