@@ -2,4 +2,3 @@
 Gemfile.lock
 spec/tmp
 doc
-tmp/.travis.yml
