@@ -3,40 +3,27 @@ require 'travis/cli'
 module Travis
   module CLI
     class Init < RepoCommand
-
-      LANGUAGES = ['ruby']
+      on('-f', '--force', 'override .travis.yml if it already exists')
+      attr_writer :travis_config
 
       def run(language = nil)
-        error "no language given." if language.nil?
-        error "unknown language #{language}" unless LANGUAGES.include?(language)
-        travis_yaml_exists_and_overwrite
-        create_travis_file(language)
-      end
-
-      def create_travis_file(language)
-        content = travis_config_template(language)
-        File.open(".travis.yml", 'w') do |f|
-          f.puts content
-        end
-        say ".travis.yml file created!"
+        error ".travis.yml already exists, use --force to override" if File.exist?('.travis.yml') and not force?
+        language ||= ask('Main programming language used: ') { |q| q.default = detect_language }
+        self.travis_config = template(language)
+        save_travis_config('.travis.yml')
+        say(".travis.yml file created!")
       end
 
       private
 
-        def travis_yaml_exists_and_overwrite(dir = Dir.pwd)
-          path = File.expand_path('.travis.yml', dir)
-          if File.exist? path
-            if agree(".travis.yml already exists, do you want to overwrite?")
-              File.delete(path)
-              say "File overwritten!"
-            else
-              error "You chose not to overwrite, task cancelled."
-            end
-          end
+        def template(language)
+          file = File.expand_path("../init/#{language}.yml", __FILE__)
+          error "unknown language #{language}" unless File.exist? file
+          YAML.load_file(file)
         end
 
-        def travis_config_template(language)
-          payload = YAML::load_file(File.join(File.dirname(File.expand_path(__FILE__)), "init/#{language}.yml"))
+        def detect_language
+          'ruby'
         end
     end
   end
