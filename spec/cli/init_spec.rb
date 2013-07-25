@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe Travis::CLI::Init do
-  all_languages = ['ruby']
-
   before(:each) do
     FileUtils.mkdir_p "spec/tmp"
     Dir.chdir "spec/tmp"
@@ -19,22 +17,18 @@ describe Travis::CLI::Init do
     stderr.should be == "unknown language fakelanguage\n"
   end
 
-  all_languages.each do | language |
+  shared_examples_for 'travis init' do |language|
     example "travis init #{language} (empty directory)" do
       run_cli('init', language).should be_success
       stdout.should be == ".travis.yml file created!\n"
     end
-  end
 
-  all_languages.each do | language |
     example "travis init #{language} (.travis.yml already exists, using --force)" do
       File.open(".travis.yml", "w") {}
       run_cli('init', language, '--force').should be_success
       stdout.should be == ".travis.yml file created!\n"
     end
-  end
 
-  all_languages.each do | language |
     example "travis init #{language} (.travis.yml already exists, not using --force)" do
       File.open(".travis.yml", "w") {}
       run_cli('init', 'ruby').should_not be_success
@@ -42,4 +36,7 @@ describe Travis::CLI::Init do
     end
   end
 
+  describe 'travis init ruby' do
+    it_should_behave_like 'travis init', 'ruby'
+  end
 end
