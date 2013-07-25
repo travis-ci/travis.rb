@@ -23,7 +23,7 @@ describe Travis::CLI::Init do
       run_cli('init', language).should be_success
       stdout.should be == ".travis.yml file created!\n"
       File.exist?('.travis.yml').should be_true
-      File.read('.travis.yml').should start_with("language: #{language}")
+      File.read('.travis.yml').should include("language: #{language}")
     end
 
     example "travis init #{language} (.travis.yml already exists, using --force)" do
