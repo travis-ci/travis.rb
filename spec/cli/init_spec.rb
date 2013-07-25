@@ -5,13 +5,14 @@ describe Travis::CLI::Init do
   all_languages = Travis::CLI::Init::LANGUAGES
 
   before(:each) do
-    Dir.chdir "tmp"
+    FileUtils.mkdir_p "spec/tmp"
+    Dir.chdir "spec/tmp"
     FileUtils.rm('.travis.yml') if File.exist?('.travis.yml')
   end
 
   after(:each) do
     Dir.chdir ".."
-    FileUtils.rm('tmp/.travis.yml') if File.exist?('tmp/.travis.yml')
+    FileUtils.rm('spec/tmp/.travis.yml') if File.exist?('spec/tmp/.travis.yml')
   end
 
   example "travis init" do
