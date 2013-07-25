@@ -36,7 +36,7 @@ module Travis
         end
 
         def travis_config_template(language)
-          payload = YAML::load_file(File.join(File.dirname(File.expand_path(__FILE__)), "templates/#{language}.yml"))
+          payload = YAML::load_file(File.join(File.dirname(File.expand_path(__FILE__)), "init/#{language}.yml"))
         end
     end
   end
