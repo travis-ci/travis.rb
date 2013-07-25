@@ -13,25 +13,29 @@ Gem::Specification.new do |s|
   s.authors = [
     "Konstantin Haase",
     "Henrik Hodne",
+    "petems",
     "Max Barnash",
     "Mario Visic",
     "Piotr Sarnacki",
-    "Adrien Brault",
     "Rapha\xC3\xABl Pinson",
+    "Laurent Petit",
+    "Adrien Brault",
     "Justin Lambert",
-    "Laurent Petit"
+    "Aaron Hill"
   ]
 
   # generated from git shortlog -sne
   s.email = [
     "konstantin.mailinglists@googlemail.com",
     "me@henrikhodne.com",
+    "p.morsou@gmail.com",
     "i.am@anhero.ru",
     "drogus@gmail.com",
-    "adrien.brault@gmail.com",
     "raphael.pinson@camptocamp.com",
-    "jlambert@eml.cc",
     "laurent.petit@gmail.com",
+    "adrien.brault@gmail.com",
+    "jlambert@eml.cc",
+    "aa1ronham@gmail.com",
     "mario@mariovisic.com"
   ]
 
@@ -55,6 +59,7 @@ Gem::Specification.new do |s|
     "lib/travis/cli/endpoint.rb",
     "lib/travis/cli/help.rb",
     "lib/travis/cli/history.rb",
+    "lib/travis/cli/init.rb",
     "lib/travis/cli/login.rb",
     "lib/travis/cli/logs.rb",
     "lib/travis/cli/open.rb",
@@ -67,11 +72,13 @@ Gem::Specification.new do |s|
     "lib/travis/cli/show.rb",
     "lib/travis/cli/status.rb",
     "lib/travis/cli/sync.rb",
+    "lib/travis/cli/templates/ruby.yml",
     "lib/travis/cli/token.rb",
     "lib/travis/cli/version.rb",
     "lib/travis/cli/whatsup.rb",
     "lib/travis/cli/whoami.rb",
     "lib/travis/client.rb",
+    "lib/travis/client/account.rb",
     "lib/travis/client/artifact.rb",
     "lib/travis/client/build.rb",
     "lib/travis/client/commit.rb",
@@ -93,6 +100,7 @@ Gem::Specification.new do |s|
     "spec/cli/endpoint_spec.rb",
     "spec/cli/help_spec.rb",
     "spec/cli/history_spec.rb",
+    "spec/cli/init_spec.rb",
     "spec/cli/login_spec.rb",
     "spec/cli/logs_spec.rb",
     "spec/cli/open_spec.rb",
@@ -102,6 +110,7 @@ Gem::Specification.new do |s|
     "spec/cli/token_spec.rb",
     "spec/cli/version_spec.rb",
     "spec/cli/whoami_spec.rb",
+    "spec/client/account_spec.rb",
     "spec/client/build_spec.rb",
     "spec/client/commit_spec.rb",
     "spec/client/job_spec.rb",
