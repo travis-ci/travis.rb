@@ -12,13 +12,14 @@ task 'update' do
 
   # fetch data
   fields = {
-    :authors => `git shortlog -sn`.b.scan(/[^\d\s].*/),
+    :authors => `git shortlog -sn`.b.scan(/[^\d\s].*/).map { |a| a == 'petems' ? 'Peter Souter' : a },
     :email   => `git shortlog -sne`.b.scan(/[^<]+@[^>]+/),
     :files   => `git ls-files`.b.split("\n").reject { |f| f =~ /^(\.|Gemfile)/ }
   }
 
   # :(
   fields[:email].delete("konstantin.haase@gmail.com")
+  fields[:authors]
 
   # insert data
   fields.each do |field, values|

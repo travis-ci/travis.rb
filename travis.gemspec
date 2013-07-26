@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.authors = [
     "Konstantin Haase",
     "Henrik Hodne",
-    "petems",
+    "Peter Souter",
     "Max Barnash",
     "Mario Visic",
     "Piotr Sarnacki",
