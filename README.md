@@ -1116,6 +1116,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 * Improve install documentation, especially for people from outside the Ruby community
 * Improve error message on an expired token
 * Add Account entity to library
+* Switch to Typhoeus as default HTTP adapter
 * Fix tests for forks
 
 **1.3.1** (July 21, 2013)

@@ -2,6 +2,8 @@ require 'travis/client'
 
 require 'faraday'
 require 'faraday_middleware'
+require 'typhoeus/adapters/faraday'
+
 require 'json'
 
 module Travis
@@ -16,7 +18,7 @@ module Travis
         @cache           = {}
         @instruments     = []
         @config          = nil
-        @faraday_adapter = :net_http_persistent
+        @faraday_adapter = :typhoeus
 
         options = { :uri => options } unless options.respond_to? :each_pair
         options.each_pair { |key, value| public_send("#{key}=", value) }
