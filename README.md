@@ -1060,12 +1060,12 @@ You can check your Ruby version by running `ruby -v`:
 
 Then run:
 
-    $ gem install travis -v 1.3.1 --no-rdoc --no-ri
+    $ gem install travis -v 1.4.0 --no-rdoc --no-ri
 
 Now make sure everything is working:
 
     $ travis verision
-    1.3.1
+    1.4.0
 
 ### Updating your Ruby
 
@@ -1112,7 +1112,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
-**Unreleased changes**
+**1.4.0** (July 26, 2013)
 
 * Add `travis init`
 * Improve install documentation, especially for people from outside the Ruby community
