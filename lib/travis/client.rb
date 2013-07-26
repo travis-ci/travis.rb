@@ -13,6 +13,7 @@ require 'travis/client/job'
 require 'travis/client/worker'
 require 'travis/client/namespace'
 require 'travis/client/account'
+require 'travis/client/broadcast'
 
 module Travis
   module Client
