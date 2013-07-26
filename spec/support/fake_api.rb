@@ -715,6 +715,13 @@ module Travis
           }]}.to_json
         end
 
+        get '/broadcasts/' do
+          {"broadcasts"=>
+          [{'id' => 1,
+            'message' => 'Hello!'
+          }]}.to_json
+        end
+
         post '/requests' do
           $params = params
           "{}"
