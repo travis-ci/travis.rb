@@ -450,12 +450,37 @@ Or a certain Pull Request:
         -s, --skip-sync                  don't trigger a sync if the repo is unknown
         -f, --force                      override .travis.yml if it already exists
         -k, --skip-enable                do not enable project, only add .travis.yml
+        -p, --print-conf                 print generated config instead of writing to file
+            --script VALUE               sets script option in .travis.yml (can be used more than once)
+            --before-script VALUE        sets before_script option in .travis.yml (can be used more than once)
+            --after-script VALUE         sets after_script option in .travis.yml (can be used more than once)
+            --after-success VALUE        sets after_success option in .travis.yml (can be used more than once)
+            --install VALUE              sets install option in .travis.yml (can be used more than once)
+            --before-install VALUE       sets before_install option in .travis.yml (can be used more than once)
+            --compiler VALUE             sets compiler option in .travis.yml (can be used more than once)
+            --otp-release VALUE          sets otp_release option in .travis.yml (can be used more than once)
+            --go VALUE                   sets go option in .travis.yml (can be used more than once)
+            --jdk VALUE                  sets jdk option in .travis.yml (can be used more than once)
+            --node-js VALUE              sets node_js option in .travis.yml (can be used more than once)
+            --perl VALUE                 sets perl option in .travis.yml (can be used more than once)
+            --php VALUE                  sets php option in .travis.yml (can be used more than once)
+            --python VALUE               sets python option in .travis.yml (can be used more than once)
+            --rvm VALUE                  sets rvm option in .travis.yml (can be used more than once)
+            --scala VALUE                sets scala option in .travis.yml (can be used more than once)
+            --env VALUE                  sets env option in .travis.yml (can be used more than once)
+            --gemfile VALUE              sets gemfile option in .travis.yml (can be used more than once)
 
 When setting up a new project, you can run `travis init` to generate a `.travis.yml` and [enable](#enable) the project:
 
     $ travis init java
     .travis.yml file created!
     travis-ci/java-example: enabled :)
+
+You can also set certain values via command line flags (see list above):
+
+    $ travis init c --compiler clang
+    .travis.yml file created!
+    travis-ci/c-example: enabled :)
 
 #### `logs`
 
