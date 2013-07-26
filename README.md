@@ -714,7 +714,7 @@ Or with your own client instance:
 ``` ruby
 require 'travis/client'
 
-client = Travis::Client.new
+client = Travis::Client.new(access_token: "...")
 puts "Hello #{client.user.name}"
 ```
 
