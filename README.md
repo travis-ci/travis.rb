@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/travis-ci/travis.png?branch=master)](https://travis-ci.org/travis-ci/travis)
 
+![The Travis Mascot](http://about.travis-ci.org/images/travis-mascot-200px.png)
+
 The [travis gem](https://rubygems.org/gems/travis) includes both a [command line client](#command-line-client) and a [Ruby library](#ruby-library) to interface with a Travis CI service. Both work with [travis-ci.org](https://travis-ci.org), [travis-ci.com](https://travis-ci.com) or any custom Travis CI setup you might have. Check out the [installation instructions](#installation) to get it running in no time.
 
 ## Table of Contents
@@ -57,6 +59,8 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a [command line
 * [Version History](#version-history)
 
 ## Command Line Client
+
+![](http://about.travis-ci.org/images/new-tricks.png)
 
 There are three types of commands: [Non-API Commands](#non-api-commands), [General API Commands](#general-api-commands) and [Repository Commands](#repository-commands). All commands take the form of `travis COMMAND [ARGUMENTS] [OPTIONS]`. You can get a list of commands by running [`help`](#help).
 
