@@ -25,6 +25,7 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a [command line
         * [`enable`](#enable)
         * [`encrypt`](#encrypt)
         * [`history`](#history)
+        * [`init`](#init)
         * [`logs`](#logs)
         * [`open`](#open)
         * [`pubkey`](#pubkey)
@@ -432,6 +433,31 @@ Or a certain Pull Request:
     #56 passed:   Pull Request #5 Merge branch 'master' into hh-multiline-encrypt
     #49 passed:   Pull Request #5 improve output
     #48 passed:   Pull Request #5 let it generate accessor for line splitting automatically
+
+#### `init`
+
+    Usage: travis init [language] [file] [options]
+        -h, --help                       Display help
+        -i, --[no-]interactive           be interactive and colorful
+        -E, --[no-]explode               don't rescue exceptions
+            --skip-version-check         don't check if travis client is up to date
+        -e, --api-endpoint URL           Travis API server to talk to
+            --pro                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
+            --org                        short-cut for --api-endpoint 'https://api.travis-ci.org/'
+            --staging                    talks to staging system
+        -t, --token [ACCESS_TOKEN]       access token to use
+            --debug                      show API requests
+            --adapter ADAPTER            Faraday adapter to use for HTTP requests
+        -r, --repo SLUG                  repository to use (will try to detect from current git clone)
+        -s, --skip-sync                  don't trigger a sync if the repo is unknown
+        -f, --force                      override .travis.yml if it already exists
+        -k, --skip-enable                do not enable project, only add .travis.yml
+
+When setting up a new project, you can run `travis init` to generate a `.travis.yml` and [enable](#enable) the project:
+
+    $ travis init java
+    .travis.yml file created!
+    travis-ci/java-example: enabled :)
 
 #### `logs`
 
