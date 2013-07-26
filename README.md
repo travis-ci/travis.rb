@@ -330,7 +330,6 @@ If you don't want the sync to be triggered, use `--skip-sync`.
         -e, --api-endpoint URL           Travis API server to talk to
             --pro                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
             --org                        short-cut for --api-endpoint 'https://api.travis-ci.org/'
-            --staging                    talks to staging system
         -t, --token [ACCESS_TOKEN]       access token to use
             --debug                      show API requests
             --adapter ADAPTER            Faraday adapter to use for HTTP requests
@@ -444,7 +443,6 @@ Or a certain Pull Request:
         -e, --api-endpoint URL           Travis API server to talk to
             --pro                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
             --org                        short-cut for --api-endpoint 'https://api.travis-ci.org/'
-            --staging                    talks to staging system
         -t, --token [ACCESS_TOKEN]       access token to use
             --debug                      show API requests
             --adapter ADAPTER            Faraday adapter to use for HTTP requests
@@ -537,7 +535,6 @@ Helps you configure Travis addons.
         -e, --api-endpoint URL           Travis API server to talk to
             --pro                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
             --org                        short-cut for --api-endpoint 'https://api.travis-ci.org/'
-            --staging                    talks to staging system
         -t, --token [ACCESS_TOKEN]       access token to use
             --debug                      show API requests
             --adapter ADAPTER            Faraday adapter to use for HTTP requests
