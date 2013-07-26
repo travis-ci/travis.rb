@@ -1110,7 +1110,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
-**Unreleased changes***
+**Unreleased changes**
 
 * Add `travis init`
 * Improve install documentation, especially for people from outside the Ruby community
