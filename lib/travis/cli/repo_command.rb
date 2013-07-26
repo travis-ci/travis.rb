@@ -88,11 +88,11 @@ module Travis
           end
         end
 
-        def save_travis_config
+        def save_travis_config(file = travis_yaml)
           yaml = travis_config.to_yaml
           yaml.gsub! /^(\s+)('on'|true):/, "\\1on:"
-          yaml.gsub! /\A---\n/, ''
-          File.write(travis_yaml, yaml)
+          yaml.gsub! /\A---\s*\n/, ''
+          File.write(file, yaml)
         end
     end
   end
