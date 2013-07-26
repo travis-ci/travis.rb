@@ -41,7 +41,184 @@ describe Travis::CLI::Init do
     end
   end
 
+  describe 'travis init c' do
+    it_should_behave_like 'travis init', 'c'
+
+    let :result do
+      run_cli('init', 'c')
+      YAML.load_file('.travis.yml')
+    end
+
+    it 'sets compiler' do
+      result.should include('compiler')
+      result['compiler'].should include('clang')
+      result['compiler'].should include('gcc')
+    end
+  end
+
+  describe 'travis init clojure' do
+    it_should_behave_like 'travis init', 'clojure'
+  end
+
+  describe 'travis init cpp' do
+    it_should_behave_like 'travis init', 'cpp'
+
+    let :result do
+      run_cli('init', 'cpp')
+      YAML.load_file('.travis.yml')
+    end
+
+    it 'sets compiler' do
+      result.should include('compiler')
+      result['compiler'].should include('clang')
+      result['compiler'].should include('gcc')
+    end
+  end
+
+  describe 'travis init erlang' do
+    it_should_behave_like 'travis init', 'erlang'
+
+    let :result do
+      run_cli('init', 'erlang')
+      YAML.load_file('.travis.yml')
+    end
+
+    it 'sets compiler' do
+      result.should include('otp_release')
+      result['otp_release'].should include('R16B')
+    end
+  end
+
+  describe 'travis init go' do
+    it_should_behave_like 'travis init', 'go'
+
+    let :result do
+      run_cli('init', 'go')
+      YAML.load_file('.travis.yml')
+    end
+
+    it 'sets compiler' do
+      result.should include('go')
+      result['go'].should include('1.0')
+      result['go'].should include('1.1')
+    end
+  end
+
+  describe 'travis init groovy' do
+    it_should_behave_like 'travis init', 'groovy'
+  end
+
+  describe 'travis init haskell' do
+    it_should_behave_like 'travis init', 'haskell'
+  end
+
+  describe 'travis init java' do
+    it_should_behave_like 'travis init', 'java'
+
+    let :result do
+      run_cli('init', 'java')
+      YAML.load_file('.travis.yml')
+    end
+
+    it 'sets compiler' do
+      result.should include('jdk')
+      result['jdk'].should include('oraclejdk7')
+      result['jdk'].should include('openjdk6')
+    end
+  end
+
+  describe 'travis init node_js' do
+    it_should_behave_like 'travis init', 'node_js'
+
+    let :result do
+      run_cli('init', 'node_js')
+      YAML.load_file('.travis.yml')
+    end
+
+    it 'sets compiler' do
+      result.should include('node_js')
+      result['node_js'].should include('0.11')
+      result['node_js'].should include('0.10')
+    end
+  end
+
+  describe 'travis init objective-c' do
+    it_should_behave_like 'travis init', 'objective-c'
+  end
+
+  describe 'travis init perl' do
+    it_should_behave_like 'travis init', 'perl'
+
+    let :result do
+      run_cli('init', 'perl')
+      YAML.load_file('.travis.yml')
+    end
+
+    it 'sets compiler' do
+      result.should include('perl')
+      result['perl'].should include('5.16')
+      result['perl'].should include('5.14')
+    end
+  end
+
+  describe 'travis init php' do
+    it_should_behave_like 'travis init', 'php'
+
+    let :result do
+      run_cli('init', 'php')
+      YAML.load_file('.travis.yml')
+    end
+
+    it 'sets compiler' do
+      result.should include('php')
+      result['php'].should include('5.5')
+      result['php'].should include('5.4')
+    end
+  end
+
+  describe 'travis init python' do
+    it_should_behave_like 'travis init', 'python'
+
+    let :result do
+      run_cli('init', 'python')
+      YAML.load_file('.travis.yml')
+    end
+
+    it 'sets compiler' do
+      result.should include('python')
+      result['python'].should include('2.7')
+      result['python'].should include('3.3')
+    end
+  end
+
   describe 'travis init ruby' do
     it_should_behave_like 'travis init', 'ruby'
+
+    let :result do
+      run_cli('init', 'ruby')
+      YAML.load_file('.travis.yml')
+    end
+
+    it 'sets compiler' do
+      result.should include('rvm')
+      result['rvm'].should     include('1.9.3')
+      result['rvm'].should     include('2.0.0')
+      result['rvm'].should_not include('1.8.7')
+    end
+  end
+
+  describe 'travis init scala' do
+    it_should_behave_like 'travis init', 'scala'
+
+    let :result do
+      run_cli('init', 'scala')
+      YAML.load_file('.travis.yml')
+    end
+
+    it 'sets compiler' do
+      result.should include('scala')
+      result['scala'].should include('2.10.1')
+      result['scala'].should include('2.9.3')
+    end
   end
 end
