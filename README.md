@@ -1110,6 +1110,14 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
+**Unreleased changes***
+
+* Add `travis init`
+* Improve install documentation, especially for people from outside the Ruby community
+* Improve error message on an expired token
+* Add Account entity to library
+* Fix tests for forks
+
 **1.3.1** (July 21, 2013)
 
 * Add `travis whatsup --my-repos`, which corresponds to the "My Repositories" tab in the web interface
