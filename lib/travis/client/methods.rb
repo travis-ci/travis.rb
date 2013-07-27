@@ -67,6 +67,10 @@ module Travis
         session.find_many(Account)
       end
 
+      def broadcasts
+        session.find_many(Broadcast)
+      end
+
       def restart(entity)
         # btw, internally we call this reset, not restart, as it resets the state machine
         # but we thought that would be too confusing
