@@ -38,7 +38,7 @@ task 'update' do
   File.open('travis.gemspec', 'w') { |f| f << content }
 
   readme = File.read('README.md').b
-  readme.gsub! /^(\s+\$ travis verision\n\s+).*$/, "\\1#{Travis::VERSION}"
+  readme.gsub! /^(\s+\$ travis version\n\s+).*$/, "\\1#{Travis::VERSION}"
   readme.gsub! /(gem install travis -v )\S+/, "\\1#{Travis::VERSION}"
   File.write('README.md', readme)
 end
