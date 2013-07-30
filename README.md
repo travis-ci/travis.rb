@@ -1064,7 +1064,7 @@ Then run:
 
 Now make sure everything is working:
 
-    $ travis verision
+    $ travis version
     1.4.0
 
 ### Updating your Ruby
