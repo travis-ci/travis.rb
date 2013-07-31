@@ -33,6 +33,20 @@ module Travis
         end
       end
 
+      def setup_rubygems
+        configure 'deploy', 'provider' => 'rubygems' do |config|
+          rubygems_file = File.expand_path('.rubygems/authorization', ENV['HOME'])
+
+          if File.exist? rubygems_file
+            config['api_key'] = File.read(rubygems_file)
+          end
+
+          config['api_key'] ||= ask("RubyGems API token: ") { |q| q.echo = "*" }.to_s
+          config['on']        = { 'repo' => repository.slug } if agree("Deploy only from #{repository.slug}? ") { |q| q.default = 'yes' }
+          encrypt(config, 'api_key') if agree("Encrypt API key? ") { |q| q.default = 'yes' }
+        end
+      end
+
       def setup_nodejitsu
         configure 'deploy', 'provider' => 'nodejitsu' do |config|
           jitsu_file = File.expand_path('.jitsuconf', ENV['HOME'])
