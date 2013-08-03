@@ -7,9 +7,10 @@ module Travis
       PUSHER_KEY = "5df8ac576dcccf4fd076"
       JOB_PREFIX = "job-"
 
-      def initialize()
+      def initialize(api_key=nil)
+        api_key ||= PUSHER_KEY
         PusherClient.logger.level = Logger::ERROR
-        @socket = PusherClient::Socket.new(PUSHER_KEY)
+        @socket = PusherClient::Socket.new(api_key)
       end
 
       def on_data(p)
