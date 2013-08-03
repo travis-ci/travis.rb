@@ -26,12 +26,16 @@ module Travis
           @receive.call(data)
         end
 
-        @socket["#{JOB_PREFIX}#{id}"].bind('job:finished') do |data|
-          @finished.call(data)
-          @socket.unsubscribe("#{JOB_PREFIX}#{id}")
+        @socket["common"].bind('job:finished') do |data|
+          if data['id'] == id
+           @finished.call(data)
+           @socket.unsubscribe("#{JOB_PREFIX}#{id}")
+           @socket.unsubscribe("common")
+          end
         end
 
         @socket.subscribe("#{JOB_PREFIX}#{id}")
+        @socket.subscribe("common")
         @socket.connect(async=true)
       end
     end
