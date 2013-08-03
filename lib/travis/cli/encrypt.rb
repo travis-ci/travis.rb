@@ -20,7 +20,7 @@ module Travis
         error "--override without --add makes no sense"  if override? and not add?
         self.override |= !config_key.start_with?('env.') if add?      and not append?
 
-        if args.first =~ %r{\w+/\w+}
+        if args.first =~ %r{\w+/\w+} && !args.first.include?("=")
           warn "WARNING: The name of the repository is now passed to the command with the -r option:"
           warn "    #{command("encrypt [...] -r #{args.first}")}"
           warn "  If you tried to pass the name of the repository as the first argument, you"
@@ -100,4 +100,3 @@ Please add the following to your <[[ color('.travis.yml', :info) ]]> file:
 %s
 
 Pro Tip: You can add it automatically by running with <[[ color('--add', :info) ]]>.
-

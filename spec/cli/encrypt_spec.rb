@@ -35,4 +35,9 @@ describe Travis::CLI::Endpoint do
     run_cli('encrypt', 'rails/rails', 'foo').should be_success
     stderr.should match(/WARNING/)
   end
+
+  example "travis encrypt foo=foo/bar" do
+    run_cli("encrypt", "foo=foo/bar").should be_success
+    stderr.should_not match(/WARNING/)
+  end
 end
