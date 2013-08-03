@@ -94,6 +94,7 @@ Gem::Specification.new do |s|
     "lib/travis/client.rb",
     "lib/travis/client/account.rb",
     "lib/travis/client/artifact.rb",
+    "lib/travis/client/broadcast.rb",
     "lib/travis/client/build.rb",
     "lib/travis/client/commit.rb",
     "lib/travis/client/entity.rb",
@@ -108,6 +109,7 @@ Gem::Specification.new do |s|
     "lib/travis/client/worker.rb",
     "lib/travis/pro.rb",
     "lib/travis/tools/formatter.rb",
+    "lib/travis/tools/stream.rb",
     "lib/travis/tools/token_finder.rb",
     "lib/travis/version.rb",
     "spec/cli/encrypt_spec.rb",
@@ -125,6 +127,8 @@ Gem::Specification.new do |s|
     "spec/cli/version_spec.rb",
     "spec/cli/whoami_spec.rb",
     "spec/client/account_spec.rb",
+    "spec/client/artifact_spec.rb",
+    "spec/client/broadcast_spec.rb",
     "spec/client/build_spec.rb",
     "spec/client/commit_spec.rb",
     "spec/client/job_spec.rb",
@@ -154,6 +158,7 @@ Gem::Specification.new do |s|
   s.add_dependency "launchy",               "~> 2.1"
   s.add_dependency "pry",                   "~> 0.9"
   s.add_dependency "typhoeus",              "~> 0.5"
+  s.add_dependency "pusher-client",         "~> 0.3.1"
   s.add_development_dependency "rspec",     "~> 2.12"
   s.add_development_dependency "sinatra",   "~> 1.3"
   s.add_development_dependency "rack-test", "~> 0.6"
