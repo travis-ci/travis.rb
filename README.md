@@ -14,6 +14,7 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a [command line
         * [`console`](#console)
         * [`endpoint`](#endpoint)
         * [`login`](#login)
+        * [`monitor`](#monitor)
         * [`raw`](#raw)
         * [`sync`](#sync)
         * [`token`](#token)
@@ -166,6 +167,33 @@ As you can see above, it will ask you for your GitHub user name and password, bu
 If you don't want it to send your credentials to GitHub, you can create a GitHub token on your own and supply it via `--github-token`. In that case, the client will not delete the GitHub token (as it can't, it needs your password to do this). Travis CI will not store the token, though - after all, it already should have a valid token for you in the database.
 
 A third option is for the really lazy: `--auto`. In this mode the client will try to find a GitHub token for you and just use that. This will only work if you have a [global GitHub token](https://help.github.com/articles/git-over-https-using-oauth-token) stored in your [.netrc](http://blogdown.io/c4d42f87-80dd-45d5-8927-4299cbdf261c/posts/574baa68-f663-4dcf-88b9-9d41310baf2f). If you haven't heard of this, it's worth looking into in general. Again: Travis CI will not store that token.
+
+#### `monitor`
+
+    Usage: travis monitor [options]
+        -h, --help                       Display help
+        -i, --[no-]interactive           be interactive and colorful
+        -E, --[no-]explode               don't rescue exceptions
+            --skip-version-check         don't check if travis client is up to date
+        -e, --api-endpoint URL           Travis API server to talk to
+            --pro                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
+            --org                        short-cut for --api-endpoint 'https://api.travis-ci.org/'
+        -t, --token [ACCESS_TOKEN]       access token to use
+            --debug                      show API requests
+        -m, --my-repos                   Only monitor my own repositories
+        -r, --repo SLUG                  monitor given repository (can be used more than once)
+
+With `monitor` you can watch a live stream of what's going on:
+
+    $ travis monitor
+    Monitoring travis-ci.org:
+    2013-08-05 01:22:40 questmaster/FATpRemote#45 started
+    2013-08-05 01:22:40 questmaster/FATpRemote#45.1 started
+    2013-08-05 01:22:41 grangier/python-goose#33.1 passed
+    2013-08-05 01:22:42 plataformatec/simple_form#666 passed
+    ...
+
+You can limit the repositories to monitor with `--my-repos` and `--repo SLUG`.
 
 #### `raw`
 
