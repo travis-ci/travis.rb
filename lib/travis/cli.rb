@@ -16,6 +16,7 @@ module Travis
   module CLI
     autoload :Token,        'travis/cli/token'
     autoload :ApiCommand,   'travis/cli/api_command'
+    autoload :Accounts,     'travis/cli/accounts'
     autoload :Branches,     'travis/cli/branches'
     autoload :Command,      'travis/cli/command'
     autoload :Console,      'travis/cli/console'
