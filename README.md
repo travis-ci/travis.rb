@@ -1179,6 +1179,19 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
+**Unreleased Changes**
+
+* Add `travis setup rubygems`.
+* Add `travis accounts`.
+* Add `travis monitor`.
+* Make `travis logs` stream.
+* Add Broadcast entity.
+* Add streaming body API.
+* Add event listener API.
+* Add simple plugin system (will load any ~/.travis/*/init.rb when running cli).
+* Be smarter about warnings when running `travis encrypt`.
+* Improve documentation.
+
 **1.4.0** (July 26, 2013)
 
 * Add `travis init`
