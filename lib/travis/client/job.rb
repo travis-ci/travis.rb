@@ -48,6 +48,10 @@ module Travis
         end
       end
 
+      def pusher_channels
+        build.pusher_channels + ["job-#{id}"]
+      end
+
       def inspect_info
         "#{repository.slug}##{number}"
       end

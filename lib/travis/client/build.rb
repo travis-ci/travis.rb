@@ -34,6 +34,10 @@ module Travis
         pull_request? ? "Pull Request ##{pr_number}" : commit.branch
       end
 
+      def pusher_channels
+        repository.pusher_channels
+      end
+
       def inspect_info
         "#{repository.slug}##{number}"
       end

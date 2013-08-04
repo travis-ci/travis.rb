@@ -21,8 +21,8 @@ module Travis
         MAP.fetch(key)
       end
 
-      def self.aka(name)
-        MAP[name.to_s] = self
+      def self.aka(*names)
+        names.each { |n| MAP[n.to_s] = self }
       end
 
       def self.one(key = nil)

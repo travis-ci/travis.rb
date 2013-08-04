@@ -77,6 +77,12 @@ module Travis
         session.post_raw('/requests', "#{entity.class.one}_id" => entity.id)
         entity.reload
       end
+
+      def listen(*entities, &block)
+        listener = Listener.new(session)
+        listener.subscribe(*entities, &block)
+        listener.listen
+      end
     end
   end
 end

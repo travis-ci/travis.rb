@@ -79,6 +79,13 @@ module Travis
 
       private
 
+        def listen(*args)
+          super(*args) do |listener|
+            on_signal { listener.disconnect }
+            yield listener
+          end
+        end
+
         def detected_endpoint
           Travis::Client::ORG_URI
         end

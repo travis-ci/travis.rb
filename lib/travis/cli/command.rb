@@ -58,6 +58,7 @@ module Travis
       attr_reader :input, :output
 
       def initialize(options = {})
+        @on_signal  = []
         @formatter  = Travis::Tools::Formatter.new
         self.output = $stdout
         self.input  = $stdin
@@ -124,6 +125,7 @@ module Travis
       end
 
       def execute
+        setup_trap
         check_ruby
         check_arity(method(:run), *arguments)
         load_config
@@ -173,7 +175,20 @@ module Travis
         end
       end
 
+      def on_signal(&block)
+        @on_signal << block
+      end
+
       private
+
+        def setup_trap
+          [:INT, :TERM].each do |signal|
+            trap signal do
+              @on_signal.each { |c| c.call }
+              exit 1
+            end
+          end
+        end
 
         def format(data, format = nil, style = nil)
           style ||= :important

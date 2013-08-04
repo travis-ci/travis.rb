@@ -29,6 +29,7 @@ module Travis
     autoload :Init,         'travis/cli/init'
     autoload :Login,        'travis/cli/login'
     autoload :Logs,         'travis/cli/logs'
+    autoload :Monitor,      'travis/cli/monitor'
     autoload :Open,         'travis/cli/open'
     autoload :Parser,       'travis/cli/parser'
     autoload :Pubkey,       'travis/cli/pubkey'

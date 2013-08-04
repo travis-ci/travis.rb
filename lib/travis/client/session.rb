@@ -170,6 +170,10 @@ module Travis
         instruments << block
       end
 
+      def private_channels?
+        access_token and user.channels != ['common']
+      end
+
       private
 
         def instrumented(name, *args)
@@ -182,6 +186,7 @@ module Travis
         end
 
         def create_entity(type, data)
+          data   = { "id" => data } if Integer === data or String === data
           id     = type.cast_id(data.fetch('id'))
           entity = cached(type, :id, id) { type.new(self, id) }
           entity.update_attributes(data)

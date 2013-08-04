@@ -55,7 +55,7 @@ module Travis
 
       one  :repo
       many :repos
-      aka  :repository
+      aka  :repository, :permissions
 
       def public_key
         attributes["public_key"] ||= begin
@@ -152,6 +152,14 @@ module Travis
 
       def enable
         set_hook(true)
+      end
+
+      def pusher_channels
+        attributes['pusher_channels'] ||= if session.private_channels?
+          ["user-#{session.user.id}", "repo-#{id}"]
+        else
+          ["common"]
+        end
       end
 
       private

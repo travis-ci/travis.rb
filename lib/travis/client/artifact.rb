@@ -1,9 +1,12 @@
 # encoding: utf-8
 require 'travis/client'
+require 'travis/tools/safe_string'
 
 module Travis
   module Client
     class Artifact < Entity
+      CHUNKED = "application/json; chunked=true; version=2, application/json; version=2"
+
       # @!parse attr_reader :job_id, :type, :body
       attributes :job_id, :type, :body
 
@@ -11,16 +14,49 @@ module Travis
       has :job
 
       def encoded_body
-        return body unless body.respond_to? :encode
-        body.encode 'utf-8'
+        Tools::SafeString.encoded(body)
       end
 
       def colorized_body
-        attributes['colorized_body'] ||= encoded_body.gsub(/[^[:print:]\e\n]/, '')
+        attributes['colorized_body'] ||= Tools::SafeString.colorized(body)
       end
 
       def clean_body
-        attributes['clean_body'] ||= colorized_body.gsub(/\e[^m]+m/, '')
+        attributes['clean_body'] ||= Tools::SafeString.clean(body)
+      end
+
+      def body(stream = block_given?)
+        return load_attribute('body') unless block_given? or stream
+        return yield(load_attribute('body')) unless stream and job.pending?
+        number = 0
+
+        session.listen(self) do |listener|
+          listener.on 'job:log' do |event|
+            next unless event.payload['number'] > number
+            number = event.payload['number']
+            yield event.payload['_log']
+            listener.disconnect if event.payload['final']
+          end
+
+          listener.on 'job:finished' do |event|
+            listener.disconnect
+          end
+
+          listener.on_connect do
+            data = session.get_raw("/artifacts/#{id}", nil, "Accept" => CHUNKED)['log']
+            if data['parts']
+              data['parts'].each { |p| yield p['content'] }
+              number = data['parts'].last['number'] if data['parts'].any?
+            else
+              yield data['body']
+              listener.disconnect
+            end
+          end
+        end
+      end
+
+      def pusher_entity
+        job
       end
 
       one :log
