@@ -4,5 +4,12 @@ $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 # :(
 Encoding.default_external = Encoding::UTF_8 if defined? Encoding
 
+# load travis library
 require 'travis/cli'
+
+# load plugins
+config_path = ENV.fetch('TRAVIS_CONFIG_PATH') { File.expand_path('.travis', Dir.home) }
+Dir.glob(File.expand_path('*/init.rb', config_path)) { |file| load(file) }
+
+# and off we go then
 Travis::CLI.run(ARGV)
