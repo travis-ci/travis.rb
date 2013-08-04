@@ -15,13 +15,15 @@ Gem::Specification.new do |s|
     "Henrik Hodne",
     "Peter Souter",
     "Max Barnash",
-    "Mario Visic",
+    "Aaron Hill",
+    "Justin Lambert",
+    "Adrien Brault",
+    "Laurent Petit",
+    "Daniel Chatfield",
     "Piotr Sarnacki",
     "Rapha\xC3\xABl Pinson",
-    "Laurent Petit",
-    "Adrien Brault",
-    "Justin Lambert",
-    "Aaron Hill"
+    "Mario Visic",
+    "Benjamin Manns"
   ]
 
   # generated from git shortlog -sne
@@ -30,13 +32,15 @@ Gem::Specification.new do |s|
     "me@henrikhodne.com",
     "p.morsou@gmail.com",
     "i.am@anhero.ru",
+    "aa1ronham@gmail.com",
+    "benmanns@gmail.com",
+    "adrien.brault@gmail.com",
+    "laurent.petit@gmail.com",
+    "chatfielddaniel@gmail.com",
     "drogus@gmail.com",
     "raphael.pinson@camptocamp.com",
-    "laurent.petit@gmail.com",
-    "adrien.brault@gmail.com",
-    "jlambert@eml.cc",
-    "aa1ronham@gmail.com",
-    "mario@mariovisic.com"
+    "mario@mariovisic.com",
+    "jlambert@eml.cc"
   ]
 
   # generated from git ls-files
@@ -49,6 +53,7 @@ Gem::Specification.new do |s|
     "lib/travis.rb",
     "lib/travis/cacert.pem",
     "lib/travis/cli.rb",
+    "lib/travis/cli/accounts.rb",
     "lib/travis/cli/api_command.rb",
     "lib/travis/cli/branches.rb",
     "lib/travis/cli/command.rb",
@@ -77,6 +82,7 @@ Gem::Specification.new do |s|
     "lib/travis/cli/init/scala.yml",
     "lib/travis/cli/login.rb",
     "lib/travis/cli/logs.rb",
+    "lib/travis/cli/monitor.rb",
     "lib/travis/cli/open.rb",
     "lib/travis/cli/parser.rb",
     "lib/travis/cli/pubkey.rb",
@@ -94,11 +100,13 @@ Gem::Specification.new do |s|
     "lib/travis/client.rb",
     "lib/travis/client/account.rb",
     "lib/travis/client/artifact.rb",
+    "lib/travis/client/broadcast.rb",
     "lib/travis/client/build.rb",
     "lib/travis/client/commit.rb",
     "lib/travis/client/entity.rb",
     "lib/travis/client/error.rb",
     "lib/travis/client/job.rb",
+    "lib/travis/client/listener.rb",
     "lib/travis/client/methods.rb",
     "lib/travis/client/namespace.rb",
     "lib/travis/client/repository.rb",
@@ -108,6 +116,7 @@ Gem::Specification.new do |s|
     "lib/travis/client/worker.rb",
     "lib/travis/pro.rb",
     "lib/travis/tools/formatter.rb",
+    "lib/travis/tools/safe_string.rb",
     "lib/travis/tools/token_finder.rb",
     "lib/travis/version.rb",
     "spec/cli/encrypt_spec.rb",
@@ -125,6 +134,7 @@ Gem::Specification.new do |s|
     "spec/cli/version_spec.rb",
     "spec/cli/whoami_spec.rb",
     "spec/client/account_spec.rb",
+    "spec/client/broadcast_spec.rb",
     "spec/client/build_spec.rb",
     "spec/client/commit_spec.rb",
     "spec/client/job_spec.rb",
