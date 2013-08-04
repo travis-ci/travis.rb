@@ -47,6 +47,7 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a [command line
         * [Users](#users)
         * [Commits](#commits)
         * [Workers](#workers)
+    * [Listening for Events](#listening-for-events)
     * [Dealing with Sessions](#dealing-with-sessions)
     * [Using Namespaces](#using-namespaces)
 * [Installation](#installation)
@@ -1070,6 +1071,26 @@ session.reset(rails)  # lazy reload
 session.clear_cache   # empty cached attributes
 session.clear_cache!  # empty identity map
 ```
+
+### Listening for Events
+
+You can use the `listen` method to listen for events on repositories, builds or jobs:
+
+``` ruby
+require 'travis'
+
+rails   = Travis::Repository.find("rails/rails")
+sinatra = Travis::Repository.find("sinatra/sinatra")
+
+Travis.listen(rails, sinatra) do |stream|
+  stream.on('build:started', 'build:finished') do |event|
+    # ie "rails/rails just passed"
+    puts "#{event.repository.slug} just #{event.build.state}"
+  end
+end
+```
+
+Current events are `build:created`, `build:started`, `build:finished`, `job:created`, `job:started`, `job:finished` and `job:log` (the last one only when subscribing to jobs explicitly). Not passing any arguments to `listen` will monitor the global stream.
 
 ### Using Namespaces
 
