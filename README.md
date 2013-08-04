@@ -11,6 +11,7 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a [command line
         * [`help`](#help)
         * [`version`](#version)
     * [General API Commands](#general-api-commands)
+        * [`accounts`](#accounts)
         * [`console`](#console)
         * [`endpoint`](#endpoint)
         * [`login`](#login)
@@ -119,6 +120,17 @@ There are many libraries out there to do HTTP requests in Ruby. You can switch a
     $ gem install excon
     ...
     $ travis show --adapter excon
+    ...
+
+#### `accounts`
+
+The accounts command can be used to list all the accounts you can set up repositories for.
+
+    $ travis accounts
+    rkh (Konstantin Haase): subscribed, 160 repositories
+    sinatra (Sinatra): subscribed, 9 repositories
+    rack (Official Rack repositories): subscribed, 3 repositories
+    travis-ci (Travis CI): subscribed, 57 repositories
     ...
 
 #### `console`
