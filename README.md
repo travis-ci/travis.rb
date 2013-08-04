@@ -964,6 +964,12 @@ If you plan to print our the body, be aware that it might contain malicious esca
 puts job.log.colorized_body
 ````
 
+You can stream a body for a job that is currently running by passing a block:
+
+``` ruby
+job.log.body { |chunk| print chunk }
+```
+
 #### Users
 
 The only user you usually get access to is the currently authenticated one.
