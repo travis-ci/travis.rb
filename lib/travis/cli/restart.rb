@@ -4,6 +4,7 @@ module Travis
   module CLI
     class Restart < RepoCommand
       def run(number = last_build.number)
+        authenticate
         entity = job(number) || build(number)
         entity.restart
 
