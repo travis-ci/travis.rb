@@ -3,7 +3,7 @@ require 'travis/cli'
 module Travis
   module CLI
     class Whatsup < ApiCommand
-      on('-m', '--my-repos')
+      on('-m', '--my-repos', 'Only display my own repositories')
 
       def run
         recent.each do |repo|
