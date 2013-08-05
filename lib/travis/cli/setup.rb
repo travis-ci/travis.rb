@@ -73,8 +73,8 @@ module Travis
         end
       end
 
-      alias setup_sauce_lab setup_sauce_connect
-      alias setup_sauce     setup_sauce_connect
+      alias setup_sauce_labs setup_sauce_connect
+      alias setup_sauce      setup_sauce_connect
 
       private
 

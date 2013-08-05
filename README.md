@@ -1189,6 +1189,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 * Add streaming body API.
 * Add event listener API.
 * Add simple plugin system (will load any ~/.travis/*/init.rb when running cli).
+* Implement shell completion for bash and zsh.
 * Be smarter about warnings when running `travis encrypt`.
 * Improve documentation.
 

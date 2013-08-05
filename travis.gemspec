@@ -8,6 +8,7 @@ Gem::Specification.new do |s|
   s.summary     = "Travis CI client"
   s.license     = "MIT"
   s.executables = ["travis"]
+  s.extensions  = ["completion/extconf.rb"]
 
   # generated from git shortlog -sn
   s.authors = [
@@ -49,6 +50,8 @@ Gem::Specification.new do |s|
     "README.md",
     "Rakefile",
     "bin/travis",
+    "completion/extconf.rb",
+    "completion/travis.sh",
     "example/org_overview.rb",
     "lib/travis.rb",
     "lib/travis/cacert.pem",
