@@ -471,6 +471,7 @@ completions="--help
 ;;
 setup)
 completions="heroku
+engineyard
 openshift
 rubygems
 nodejitsu
@@ -1130,6 +1131,7 @@ completions="--help
 ;;
 setup)
 completions="heroku
+engineyard
 openshift
 rubygems
 nodejitsu

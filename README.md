@@ -609,7 +609,7 @@ Helps you configure Travis addons.
         -r, --repo SLUG                  repository to use (will try to detect from current git clone)
         -f, --force                      override config section if it already exists
 
-Available services: `heroku`, `nodejitsu`, `openshift`, `rubygems` and `sauce_connect`.
+Available services: `engineyard`, `heroku`, `nodejitsu`, `openshift`, `rubygems` and `sauce_connect`.
 
 Example:
 
