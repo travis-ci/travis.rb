@@ -1179,6 +1179,10 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
+**unreleased changes**
+
+* Add `travis setup engineyard`
+
 **1.5.0** (August 7, 2013)
 
 * Add `travis setup rubygems`.
