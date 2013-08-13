@@ -6,7 +6,7 @@ module Travis
     class Console < ApiCommand
       def run
         Object.send(:include, Client::Namespace.new(session))
-        binding.pry(:quiet => true, :prompt => Pry::SIMPLE_PROMPT)
+        binding.pry(:quiet => true, :prompt => Pry::SIMPLE_PROMPT, :output => $stdout)
       end
     end
   end
