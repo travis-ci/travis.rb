@@ -932,6 +932,12 @@ You can restart a build, if the current user has sufficient permissions on the r
 rails.last_build.restart
 ```
 
+Same goes for canceling it:
+
+``` ruby
+rails.last_build.cancel
+```
+
 You can also retrieve a Hash mapping branch names to the latest build on that given branch via `branches` or use the `branch` method to get the last build for a specific branch:
 
 ``` ruby
@@ -963,6 +969,12 @@ Like builds, you can also restart singe jobs:
 
 ``` ruby
 rails.job('5000.1').restart
+```
+
+Same goes for canceling it:
+
+``` ruby
+rails.job('5000.1').cancel
 ```
 
 #### Artifacts
@@ -1056,6 +1068,7 @@ session.artifact(42)                            # artifact with id 42
 session.log(42)                                 # same as above
 session.user                                    # the current user, if logged in
 session.restart(session.build(4266036))         # restart some build
+session.cancel(session.build(4266036))          # cancel some build
 ```
 
 You can add these methods to any object responding to `session` via said mixin.
