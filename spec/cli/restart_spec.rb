@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Travis::CLI::Open do
+describe Travis::CLI::Restart do
   example 'travis restart' do
     run_cli('restart', '-t', 'token').should be_success
     $params['build_id'].should be == "4125095"

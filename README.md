@@ -23,6 +23,7 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a [command line
         * [`whoami`](#whoami)
     * [Repository Commands](#repository-commands)
         * [`branches`](#branches)
+        * [`cancel`](#cancel)
         * [`disable`](#disable)
         * [`enable`](#enable)
         * [`encrypt`](#encrypt)
@@ -339,6 +340,23 @@ Displays the most recent build for each branch:
     master:                                    #163  passed     add Repository#branches and Repository#branch(name)
 
 For more fine grained control and older builds on a specific branch, see [`history`](#history).
+
+#### `cancel`
+
+This command will cancel the latest build:
+
+    $ travis cancel
+    build #85 has been canceled
+
+You can also cancel any build by giving a build number:
+
+    $ travis cancel 57
+    build #57 has been canceled
+
+Or a single job:
+
+    $ travis cancel 57.1
+    job #57.1 has been canceled
 
 #### `disable`
 
@@ -1181,7 +1199,9 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 **unreleased changes**
 
+* Add `travis cancel`.
 * Add `travis setup engineyard`.
+* Add `Build#cancel` and `Job#cancel` to Ruby API.
 * Silence warnings when running `travis help` or `travis console`.
 
 **1.5.0** (August 7, 2013)

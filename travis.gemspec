@@ -17,13 +17,14 @@ Gem::Specification.new do |s|
     "Peter Souter",
     "Max Barnash",
     "Aaron Hill",
+    "Jacob Burkhart",
     "Justin Lambert",
     "Adrien Brault",
-    "Laurent Petit",
     "Daniel Chatfield",
+    "Mario Visic",
     "Piotr Sarnacki",
     "Rapha\xC3\xABl Pinson",
-    "Mario Visic",
+    "Laurent Petit",
     "Benjamin Manns"
   ]
 
@@ -34,14 +35,15 @@ Gem::Specification.new do |s|
     "p.morsou@gmail.com",
     "i.am@anhero.ru",
     "aa1ronham@gmail.com",
+    "jlambert@eml.cc",
     "benmanns@gmail.com",
     "adrien.brault@gmail.com",
-    "laurent.petit@gmail.com",
     "chatfielddaniel@gmail.com",
+    "mario@mariovisic.com",
     "drogus@gmail.com",
     "raphael.pinson@camptocamp.com",
-    "mario@mariovisic.com",
-    "jlambert@eml.cc"
+    "laurent.petit@gmail.com",
+    "jburkhart@engineyard.com"
   ]
 
   # generated from git ls-files
@@ -59,6 +61,7 @@ Gem::Specification.new do |s|
     "lib/travis/cli/accounts.rb",
     "lib/travis/cli/api_command.rb",
     "lib/travis/cli/branches.rb",
+    "lib/travis/cli/cancel.rb",
     "lib/travis/cli/command.rb",
     "lib/travis/cli/console.rb",
     "lib/travis/cli/disable.rb",
@@ -113,6 +116,7 @@ Gem::Specification.new do |s|
     "lib/travis/client/methods.rb",
     "lib/travis/client/namespace.rb",
     "lib/travis/client/repository.rb",
+    "lib/travis/client/restartable.rb",
     "lib/travis/client/session.rb",
     "lib/travis/client/states.rb",
     "lib/travis/client/user.rb",
@@ -122,6 +126,7 @@ Gem::Specification.new do |s|
     "lib/travis/tools/safe_string.rb",
     "lib/travis/tools/token_finder.rb",
     "lib/travis/version.rb",
+    "spec/cli/cancel_spec.rb",
     "spec/cli/encrypt_spec.rb",
     "spec/cli/endpoint_spec.rb",
     "spec/cli/help_spec.rb",
