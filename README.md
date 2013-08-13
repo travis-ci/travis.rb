@@ -1181,7 +1181,8 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 **unreleased changes**
 
-* Add `travis setup engineyard`
+* Add `travis setup engineyard`.
+* Silence warnings when running `travis help` or `travis console`.
 
 **1.5.0** (August 7, 2013)
 

@@ -1,5 +1,5 @@
 require 'travis/cli'
-require 'pry'
+Travis::CLI.silent { require 'pry' }
 
 module Travis
   module CLI

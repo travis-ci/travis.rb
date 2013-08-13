@@ -12,6 +12,8 @@ end
 require 'gh'
 GH.set(:ssl => Travis::Client::Session::SSL_OPTIONS)
 
+require 'stringio'
+
 module Travis
   module CLI
     autoload :Token,        'travis/cli/token'
@@ -73,7 +75,21 @@ module Travis
       CLI.constants.map { |n| CLI.const_get(n) }.select { |c| command? c }
     end
 
+    def silent
+      stderr, $stderr = $stderr, dummy_io
+      stdout, $stdout = $stdout, dummy_io
+      yield
+    ensure
+      $stderr = stderr if stderr
+      $stdout = stdout if stdout
+    end
+
     private
+
+      def dummy_io
+        return StringIO.new unless defined? IO::NULL and IO::NULL
+        File.open(IO::NULL, 'w')
+      end
 
       def command?(constant)
         constant and constant < Command and not constant.abstract?
