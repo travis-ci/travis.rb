@@ -23,6 +23,7 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a [command line
         * [`whoami`](#whoami)
     * [Repository Commands](#repository-commands)
         * [`branches`](#branches)
+        * [`cancel`](#cancel)
         * [`disable`](#disable)
         * [`enable`](#enable)
         * [`encrypt`](#encrypt)
@@ -339,6 +340,23 @@ Displays the most recent build for each branch:
     master:                                    #163  passed     add Repository#branches and Repository#branch(name)
 
 For more fine grained control and older builds on a specific branch, see [`history`](#history).
+
+#### `cancel`
+
+This command will cancel the latest build:
+
+    $ travis cancel
+    build #85 has been canceled
+
+You can also cancel any build by giving a build number:
+
+    $ travis cancel 57
+    build #57 has been canceled
+
+Or a single job:
+
+    $ travis cancel 57.1
+    job #57.1 has been canceled
 
 #### `disable`
 
@@ -914,6 +932,12 @@ You can restart a build, if the current user has sufficient permissions on the r
 rails.last_build.restart
 ```
 
+Same goes for canceling it:
+
+``` ruby
+rails.last_build.cancel
+```
+
 You can also retrieve a Hash mapping branch names to the latest build on that given branch via `branches` or use the `branch` method to get the last build for a specific branch:
 
 ``` ruby
@@ -945,6 +969,12 @@ Like builds, you can also restart singe jobs:
 
 ``` ruby
 rails.job('5000.1').restart
+```
+
+Same goes for canceling it:
+
+``` ruby
+rails.job('5000.1').cancel
 ```
 
 #### Artifacts
@@ -1038,6 +1068,7 @@ session.artifact(42)                            # artifact with id 42
 session.log(42)                                 # same as above
 session.user                                    # the current user, if logged in
 session.restart(session.build(4266036))         # restart some build
+session.cancel(session.build(4266036))          # cancel some build
 ```
 
 You can add these methods to any object responding to `session` via said mixin.
@@ -1181,6 +1212,8 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 **unreleased changes**
 
+* Add `travis cancel`.
+* Add `Build#cancel` and `Job#cancel` to Ruby API.
 * Improve `travis setup cloudcontrol`.
 
 **1.5.1** (August 15, 2013)

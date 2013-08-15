@@ -129,6 +129,14 @@ module Travis
         self.class.relations.map { |r| public_send(r) }.flatten(1)
       end
 
+      def restartable?
+        false
+      end
+
+      def cancelable?
+        false
+      end
+
       private
 
         def relation(name)

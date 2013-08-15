@@ -3,7 +3,7 @@ require 'travis/client'
 module Travis
   module Client
     class Build < Entity
-      include States
+      include States, Restartable
 
       # @!parse attr_reader :repository_id, :commit_id, :number, :pull_request, :config, :state, :started_at, :finished_at, :duration, :job_ids
       attributes :repository_id, :commit_id, :number, :pull_request, :config, :state, :started_at, :finished_at, :duration, :job_ids
@@ -17,10 +17,6 @@ module Travis
       one :build
       many :builds
       aka :branches
-
-      def restart
-        session.restart(self)
-      end
 
       def push?
         not pull_request?

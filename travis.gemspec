@@ -18,16 +18,17 @@ Gem::Specification.new do |s|
     "Max Barnash",
     "Aaron Hill",
     "Mathias Meyer",
+    "Josh Kalderimis",
     "Justin Lambert",
-    "Daniel Chatfield",
+    "Adrien Brault",
     "Laurent Petit",
-    "Mario Visic",
-    "Benjamin Manns",
+    "Daniel Chatfield",
     "Piotr Sarnacki",
     "Rapha\xC3\xABl Pinson",
     "Tobias Wilken",
-    "Jacob Burkhart",
-    "Adrien Brault"
+    "Mario Visic",
+    "Benjamin Manns",
+    "Jacob Burkhart"
   ]
 
   # generated from git shortlog -sne
@@ -38,6 +39,7 @@ Gem::Specification.new do |s|
     "i.am@anhero.ru",
     "aa1ronham@gmail.com",
     "meyer@paperplanes.de",
+    "jlambert@eml.cc",
     "benmanns@gmail.com",
     "adrien.brault@gmail.com",
     "laurent.petit@gmail.com",
@@ -47,12 +49,14 @@ Gem::Specification.new do |s|
     "tw@cloudcontrol.de",
     "mario@mariovisic.com",
     "jburkhart@engineyard.com",
-    "jlambert@eml.cc"
+    "josh.kalderimis@gmail.com"
   ]
 
   # generated from git ls-files
   s.files = [
     "LICENSE",
+    "README.md",
+    "README.md",
     "README.md",
     "Rakefile",
     "bin/travis",
@@ -65,6 +69,7 @@ Gem::Specification.new do |s|
     "lib/travis/cli/accounts.rb",
     "lib/travis/cli/api_command.rb",
     "lib/travis/cli/branches.rb",
+    "lib/travis/cli/cancel.rb",
     "lib/travis/cli/command.rb",
     "lib/travis/cli/console.rb",
     "lib/travis/cli/disable.rb",
@@ -119,6 +124,7 @@ Gem::Specification.new do |s|
     "lib/travis/client/methods.rb",
     "lib/travis/client/namespace.rb",
     "lib/travis/client/repository.rb",
+    "lib/travis/client/restartable.rb",
     "lib/travis/client/session.rb",
     "lib/travis/client/states.rb",
     "lib/travis/client/user.rb",
@@ -128,6 +134,7 @@ Gem::Specification.new do |s|
     "lib/travis/tools/safe_string.rb",
     "lib/travis/tools/token_finder.rb",
     "lib/travis/version.rb",
+    "spec/cli/cancel_spec.rb",
     "spec/cli/encrypt_spec.rb",
     "spec/cli/endpoint_spec.rb",
     "spec/cli/help_spec.rb",
@@ -161,6 +168,8 @@ Gem::Specification.new do |s|
     "spec/support/fake_github.rb",
     "spec/support/helpers.rb",
     "spec/travis_spec.rb",
+    "travis.gemspec",
+    "travis.gemspec",
     "travis.gemspec"
   ]
 
