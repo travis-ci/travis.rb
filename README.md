@@ -1214,6 +1214,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 * Add `travis cancel`.
 * Add `Build#cancel` and `Job#cancel` to Ruby API.
+* Improve `travis setup cloudcontrol`.
 
 **1.5.1** (August 15, 2013)
 
