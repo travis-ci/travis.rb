@@ -17,15 +17,18 @@ Gem::Specification.new do |s|
     "Peter Souter",
     "Max Barnash",
     "Aaron Hill",
-    "Jacob Burkhart",
+    "Mathias Meyer",
+    "Josh Kalderimis",
     "Justin Lambert",
     "Adrien Brault",
+    "Laurent Petit",
     "Daniel Chatfield",
-    "Mario Visic",
     "Piotr Sarnacki",
     "Rapha\xC3\xABl Pinson",
-    "Laurent Petit",
-    "Benjamin Manns"
+    "Tobias Wilken",
+    "Mario Visic",
+    "Benjamin Manns",
+    "Jacob Burkhart"
   ]
 
   # generated from git shortlog -sne
@@ -35,15 +38,18 @@ Gem::Specification.new do |s|
     "p.morsou@gmail.com",
     "i.am@anhero.ru",
     "aa1ronham@gmail.com",
+    "meyer@paperplanes.de",
     "jlambert@eml.cc",
     "benmanns@gmail.com",
     "adrien.brault@gmail.com",
+    "laurent.petit@gmail.com",
     "chatfielddaniel@gmail.com",
-    "mario@mariovisic.com",
     "drogus@gmail.com",
     "raphael.pinson@camptocamp.com",
-    "laurent.petit@gmail.com",
-    "jburkhart@engineyard.com"
+    "tw@cloudcontrol.de",
+    "mario@mariovisic.com",
+    "jburkhart@engineyard.com",
+    "josh.kalderimis@gmail.com"
   ]
 
   # generated from git ls-files
@@ -160,8 +166,6 @@ Gem::Specification.new do |s|
     "spec/support/fake_github.rb",
     "spec/support/helpers.rb",
     "spec/travis_spec.rb",
-    "travis.gemspec",
-    "travis.gemspec",
     "travis.gemspec"
   ]
 
