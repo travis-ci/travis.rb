@@ -1179,6 +1179,10 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
+**unreleased changes**
+
+* Improve `travis setup cloudcontrol`.
+
 **1.5.1** (August 15, 2013)
 
 * Add `travis setup engineyard`.

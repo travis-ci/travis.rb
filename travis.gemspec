@@ -17,17 +17,17 @@ Gem::Specification.new do |s|
     "Peter Souter",
     "Max Barnash",
     "Aaron Hill",
-    "Adrien Brault",
+    "Mathias Meyer",
     "Justin Lambert",
     "Daniel Chatfield",
     "Laurent Petit",
     "Mario Visic",
-    "Mathias Meyer",
     "Benjamin Manns",
     "Piotr Sarnacki",
     "Rapha\xC3\xABl Pinson",
     "Tobias Wilken",
-    "Jacob Burkhart"
+    "Jacob Burkhart",
+    "Adrien Brault"
   ]
 
   # generated from git shortlog -sne
@@ -37,17 +37,17 @@ Gem::Specification.new do |s|
     "p.morsou@gmail.com",
     "i.am@anhero.ru",
     "aa1ronham@gmail.com",
-    "jlambert@eml.cc",
+    "meyer@paperplanes.de",
     "benmanns@gmail.com",
     "adrien.brault@gmail.com",
     "laurent.petit@gmail.com",
     "chatfielddaniel@gmail.com",
-    "meyer@paperplanes.de",
     "drogus@gmail.com",
     "raphael.pinson@camptocamp.com",
     "tw@cloudcontrol.de",
     "mario@mariovisic.com",
-    "jburkhart@engineyard.com"
+    "jburkhart@engineyard.com",
+    "jlambert@eml.cc"
   ]
 
   # generated from git ls-files
