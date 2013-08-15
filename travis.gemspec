@@ -2,7 +2,7 @@
 Gem::Specification.new do |s|
   # general infos
   s.name        = "travis"
-  s.version     = "1.5.0"
+  s.version     = "1.5.1"
   s.description = "CLI and Ruby client library for Travis CI"
   s.homepage    = "https://github.com/travis-ci/travis"
   s.summary     = "Travis CI client"
@@ -136,6 +136,7 @@ Gem::Specification.new do |s|
     "spec/cli/logs_spec.rb",
     "spec/cli/open_spec.rb",
     "spec/cli/restart_spec.rb",
+    "spec/cli/setup_spec.rb",
     "spec/cli/show_spec.rb",
     "spec/cli/status_spec.rb",
     "spec/cli/token_spec.rb",
@@ -159,6 +160,8 @@ Gem::Specification.new do |s|
     "spec/support/fake_github.rb",
     "spec/support/helpers.rb",
     "spec/travis_spec.rb",
+    "travis.gemspec",
+    "travis.gemspec",
     "travis.gemspec"
   ]
 

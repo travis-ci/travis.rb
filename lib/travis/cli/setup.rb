@@ -90,6 +90,18 @@ module Travis
       alias setup_sauce_labs setup_sauce_connect
       alias setup_sauce      setup_sauce_connect
 
+      def setup_cloudcontrol
+        configure 'deploy', 'provider' => 'cloudcontrol' do |config|
+          config['email'] = ask("cloudControl email: ").to_s
+          config['password'] = ask("cloudControl password: ") { |q| q.echo = "*" }.to_s
+          app = ask("cloudControl application: ").to_s
+          dep = ask("cloudControl deployment: ").to_s
+          config['deployment'] = "#{app}/#{dep}"
+          config['on']      = { 'repo' => repository.slug } if agree("Deploy only from #{repository.slug}? ") { |q| q.default = 'yes' }
+          encrypt(config, 'password') if agree("Encrypt password key? ") { |q| q.default = 'yes' }
+        end
+      end
+      
       private
 
         def encrypt(config, key)

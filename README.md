@@ -627,7 +627,7 @@ Helps you configure Travis addons.
         -r, --repo SLUG                  repository to use (will try to detect from current git clone)
         -f, --force                      override config section if it already exists
 
-Available services: `engineyard`, `heroku`, `nodejitsu`, `openshift`, `rubygems` and `sauce_connect`.
+Available services: `cloudcontrol`, `engineyard`, `heroku`, `nodejitsu`, `openshift`, `rubygems` and `sauce_connect`.
 
 Example:
 
@@ -1158,12 +1158,12 @@ You can check your Ruby version by running `ruby -v`:
 
 Then run:
 
-    $ gem install travis -v 1.5.0 --no-rdoc --no-ri
+    $ gem install travis -v 1.5.1 --no-rdoc --no-ri
 
 Now make sure everything is working:
 
     $ travis version
-    1.5.0
+    1.5.1
 
 ### Updating your Ruby
 
@@ -1213,9 +1213,13 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 **unreleased changes**
 
 * Add `travis cancel`.
-* Add `travis setup engineyard`.
 * Add `Build#cancel` and `Job#cancel` to Ruby API.
+
+**1.5.1** (August 15, 2013)
+
+* Add `travis setup engineyard`.
 * Silence warnings when running `travis help` or `travis console`.
+* Add `travis setup cloudcontrol`
 
 **1.5.0** (August 7, 2013)
 

@@ -502,6 +502,7 @@ nodejitsu
 sauce_connect
 sauce_labs
 sauce
+cloudcontrol
 --help
 -h
 --interactive
@@ -1186,6 +1187,7 @@ nodejitsu
 sauce_connect
 sauce_labs
 sauce
+cloudcontrol
 --help
 -h
 --interactive
