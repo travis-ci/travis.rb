@@ -194,10 +194,14 @@ module Travis
         end
 
         def handle_error(e)
-          message = e.response[:body].to_str rescue e.message
           klass   = Travis::Client::NotFound if e.is_a? Faraday::Error::ResourceNotFound
           klass ||= Travis::Client::Error
-          raise klass, message, e.backtrace
+          raise klass, error_message(e), e.backtrace
+        end
+
+        def error_message(e)
+          message = e.response[:body].to_str rescue e.message
+          JSON.parse(message).fetch('error').fetch('message') rescue message
         end
 
         def reset_entities
