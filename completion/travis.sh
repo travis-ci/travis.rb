@@ -211,7 +211,9 @@ completions="--help
 --token
 -t
 --debug
---adapter"
+--adapter
+--drop-default
+--set-default"
 ;;
 help)
 completions="accounts
@@ -897,7 +899,9 @@ completions="--help
 --token
 -t
 --debug
---adapter"
+--adapter
+--drop-default
+--set-default"
 ;;
 help)
 completions="accounts
