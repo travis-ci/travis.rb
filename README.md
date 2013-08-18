@@ -36,6 +36,7 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a [command line
         * [`setup`](#setup)
         * [`show`](#show)
         * [`status`](#status)
+    * [Environment Variables](#environment-variables)
 * [Ruby Library](#ruby-library)
     * [Authentication](#authentication)
     * [Using Pro](#using-pro)
