@@ -25,7 +25,6 @@ RSpec.configure do |c|
   end
 
   c.after do
-    ENV.delete_if { |k,v| k.start_with? "TRAVIS_" }
     FileUtils.rm_rf(temp_dir)
   end
 end
