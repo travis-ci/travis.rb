@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Travis::CLI::Endpoint do
+describe Travis::CLI::Encrypt do
   example "travis encrypt foo" do
     run_cli('encrypt', 'foo').should be_success
     stdout.should match(/^".{60,}"\n$/)
