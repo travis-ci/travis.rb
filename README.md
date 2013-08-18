@@ -725,6 +725,14 @@ Outputs a one line status message about the project's last build. With `-q` that
 
     $ travis status -qpx && cap deploy
 
+### Environment Variables
+
+You can set the following environment variables to influence the travis behavior:
+
+* `$TRAVIS_TOKEN` - access token to use when the `--token` flag is not user
+* `$TRAVIS_ENDPOINT` - API endpoint to use when the `--api-endpoint`, `--org` or `--pro` flag is not used
+* `$TRAVIS_CONFIG_PATH` - directory to store configuration in (defaults to ~/.travis)
+
 ## Ruby Library
 
 There are two approaches of using the Ruby library, one straight forward with one global session:
@@ -1215,6 +1223,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 * Add `travis cancel`.
 * Add `Build#cancel` and `Job#cancel` to Ruby API.
 * Add `travis setup cloudfoundry`.
+* Make it possible to configure cli via env variables (`$TRAVIS_TOKEN`, `$TRAVIS_ENDPOINT` and `$TRAVIS_CONFIG_PATH`).
 * Improve `travis setup cloudcontrol`.
 
 **1.5.1** (August 15, 2013)

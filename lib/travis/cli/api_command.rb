@@ -41,6 +41,7 @@ module Travis
       end
 
       def setup
+        self.api_endpoint = default_endpoint if default_endpoint and not explicit_api_endpoint?
         self.access_token               ||= fetch_token
         endpoint_config['access_token'] ||= access_token
         authenticate if pro?
@@ -86,8 +87,12 @@ module Travis
           end
         end
 
+        def default_endpoint
+          ENV['TRAVIS_ENDPOINT'] || config['default_endpoint']
+        end
+
         def detected_endpoint
-          Travis::Client::ORG_URI
+          default_endpoint || Travis::Client::ORG_URI
         end
 
         def endpoint_option
@@ -98,7 +103,7 @@ module Travis
         end
 
         def fetch_token
-          return endpoint_config['access_token'] if endpoint_config['access_token']
+          ENV['TRAVIS_TOKEN'] || endpoint_config['access_token']
         end
     end
   end

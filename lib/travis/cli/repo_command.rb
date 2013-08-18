@@ -60,6 +60,8 @@ module Travis
         def detect_api_endpoint
           if explicit_api_endpoint?
             repo_config['endpoint'] = api_endpoint
+          elsif ENV['TRAVIS_ENDPOINT']
+            ENV['TRAVIS_ENDPOINT']
           else
             repo_config['endpoint'] ||= begin
               GH.head("/repos/#{slug}")

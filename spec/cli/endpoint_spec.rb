@@ -16,6 +16,12 @@ describe Travis::CLI::Endpoint do
     stdout.should be == "http://localhost:3000/\n"
   end
 
+  example "TRAVIS_ENDPOINT=http://localhost:3000/ travis endpoint" do
+    ENV['TRAVIS_ENDPOINT'] = "http://localhost:3000/"
+    run_cli('endpoint').should be_success
+    stdout.should be == "http://localhost:3000/\n"
+  end
+
   example "travis endpoint -i" do
     run_cli('endpoint', '-i').should be_success
     stdout.should be == "API endpoint: https://api.travis-ci.org/\n"
