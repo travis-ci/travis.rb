@@ -152,7 +152,7 @@ But why use this over just `irb -r travis`? For one, it will take care of authen
 
 #### `endpoint`
 
-Just prints out the API endpoint you're talking to.
+Prints out the API endpoint you're talking to.
 
     $ travis endpoint
     API endpoint: https://api.travis-ci.org/
@@ -160,6 +160,16 @@ Just prints out the API endpoint you're talking to.
 Handy for using it when working with shell scripts:
 
     $ curl "$(travis endpoint)/docs" > docs.html
+
+It can also be used to set the default API endpoint used for [General API Commands](#general-api-commands):
+
+    $ travis endpoint --pro --set-default
+    API endpoint: https://api.travis-ci.com/ (stored as default)
+
+You can use `--drop-default` to remove the setting again:
+
+    $ travis endpoint --drop-default
+    default API endpoint dropped (was https://api.travis-ci.com/)
 
 #### `login`
 
@@ -1224,6 +1234,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 * Add `travis cancel`.
 * Add `Build#cancel` and `Job#cancel` to Ruby API.
 * Add `travis setup cloudfoundry`.
+* Add `--set-default` and `--drop-default` to `travis endpoint`.
 * Make it possible to configure cli via env variables (`$TRAVIS_TOKEN`, `$TRAVIS_ENDPOINT` and `$TRAVIS_CONFIG_PATH`).
 * Improve `travis setup cloudcontrol`.
 
