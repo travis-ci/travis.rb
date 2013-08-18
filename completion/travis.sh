@@ -503,6 +503,7 @@ sauce_connect
 sauce_labs
 sauce
 cloudcontrol
+cloudfoundry
 --help
 -h
 --interactive
@@ -1188,6 +1189,7 @@ sauce_connect
 sauce_labs
 sauce
 cloudcontrol
+cloudfoundry
 --help
 -h
 --interactive

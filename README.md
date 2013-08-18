@@ -627,7 +627,7 @@ Helps you configure Travis addons.
         -r, --repo SLUG                  repository to use (will try to detect from current git clone)
         -f, --force                      override config section if it already exists
 
-Available services: `cloudcontrol`, `engineyard`, `heroku`, `nodejitsu`, `openshift`, `rubygems` and `sauce_connect`.
+Available services: `cloudcontrol`, `cloudfoundry`, `engineyard`, `heroku`, `nodejitsu`, `openshift`, `rubygems` and `sauce_connect`.
 
 Example:
 
@@ -1214,13 +1214,14 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 * Add `travis cancel`.
 * Add `Build#cancel` and `Job#cancel` to Ruby API.
+* Add `travis setup cloudfoundry`.
 * Improve `travis setup cloudcontrol`.
 
 **1.5.1** (August 15, 2013)
 
 * Add `travis setup engineyard`.
+* Add `travis setup cloudcontrol`.
 * Silence warnings when running `travis help` or `travis console`.
-* Add `travis setup cloudcontrol`
 
 **1.5.0** (August 7, 2013)
 

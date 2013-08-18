@@ -56,8 +56,6 @@ Gem::Specification.new do |s|
   s.files = [
     "LICENSE",
     "README.md",
-    "README.md",
-    "README.md",
     "Rakefile",
     "bin/travis",
     "completion/extconf.rb",
@@ -168,8 +166,6 @@ Gem::Specification.new do |s|
     "spec/support/fake_github.rb",
     "spec/support/helpers.rb",
     "spec/travis_spec.rb",
-    "travis.gemspec",
-    "travis.gemspec",
     "travis.gemspec"
   ]
 
