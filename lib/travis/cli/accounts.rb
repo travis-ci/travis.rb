@@ -3,6 +3,8 @@ require 'travis/cli'
 module Travis
   module CLI
     class Accounts < ApiCommand
+      description "displays accounts and their subscription status"
+
       def run
         authenticate
         accounts.each do |account|

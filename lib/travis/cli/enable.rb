@@ -3,6 +3,7 @@ require 'travis/cli'
 module Travis
   module CLI
     class Enable < RepoCommand
+      description "enables a project"
       on('-s', '--skip-sync', "don't trigger a sync if the repo is unknown")
 
       def run

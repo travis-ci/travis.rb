@@ -3,6 +3,7 @@ require 'travis/cli'
 module Travis
   module CLI
     class Whatsup < ApiCommand
+      description "lists most recent builds"
       on('-m', '--my-repos', 'Only display my own repositories')
 
       def run

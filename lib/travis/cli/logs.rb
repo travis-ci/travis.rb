@@ -4,6 +4,8 @@ require 'travis/tools/safe_string'
 module Travis
   module CLI
     class Logs < RepoCommand
+      description "streams test logs"
+
       include Tools::SafeString
       def run(number = last_build.number)
         error "##{number} is not a job, try #{number}.1" unless job = job(number)

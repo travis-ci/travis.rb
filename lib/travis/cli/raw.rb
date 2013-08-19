@@ -4,6 +4,8 @@ require 'pp'
 module Travis
   module CLI
     class Raw < ApiCommand
+      description "makes an (authenticated) API call and prints out the result"
+
       skip :authenticate
       on('--[no-]json', 'display as json')
 

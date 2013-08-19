@@ -3,12 +3,14 @@ require 'travis/cli'
 module Travis
   module CLI
     class Help < Command
+      description "helps you out when in dire need of information"
+
       def run(command = nil)
         if command
           say CLI.command(command).new.help
         else
-          say "Usage: #$0 COMMAND ...\n\nAvailable commands:\n\n"
-          commands.each { |c| say "\t#{c.command_name}" }
+          say "Usage: travis COMMAND ...\n\nAvailable commands:\n\n"
+          commands.each { |c| say "\t#{color(c.command_name, :command).ljust(20)} #{color(c.description, :info)}" }
           say "\nrun `#$0 help COMMAND` for more infos"
         end
       end

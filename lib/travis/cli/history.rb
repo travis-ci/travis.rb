@@ -3,6 +3,8 @@ require 'travis/cli'
 module Travis
   module CLI
     class History < RepoCommand
+      description "displays a projects build history"
+
       on('-a', '--after BUILD', 'Only show history after a given build number')
       on('-p', '--pull-request NUMBER', 'Only show history for the given Pull Request')
       on('-b', '--branch BRANCH', 'Only show history for the given branch')

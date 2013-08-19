@@ -54,6 +54,11 @@ module Travis
         define_method(name) {}
       end
 
+      def self.description(description = nil)
+        @description = description if description
+        @description ||= ""
+      end
+
       attr_accessor :arguments, :config, :force_interactive, :formatter
       attr_reader :input, :output
 
@@ -150,7 +155,7 @@ module Travis
       end
 
       def usage
-        usage  = "#$0 #{command_name}"
+        usage  = "travis #{command_name}"
         method = method(:run)
         if method.respond_to? :parameters
           method.parameters.each do |type, name|
@@ -167,7 +172,7 @@ module Travis
 
       def help
         parser.banner = usage
-        parser.to_s
+        self.class.description.sub(/./) { |c| c.upcase } + ".\n" + parser.to_s
       end
 
       def say(data, format = nil, style = nil)

@@ -3,6 +3,8 @@ require 'travis/cli'
 module Travis
   module CLI
     class Show < RepoCommand
+      description "displays a build or job"
+
       def run(number = last_build.number)
         number = repository.branch(number).number if number !~ /^\d+(\.\d+)?$/ and repository.branch(number)
         entity = job(number) || build(number)

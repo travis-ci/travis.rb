@@ -4,6 +4,7 @@ require 'travis/cli'
 module Travis
   module CLI
     class Pubkey < RepoCommand
+      description "prints out a repository's public key"
       on('-p', '--[no-]pem', 'encode in format used by pem')
 
       def run

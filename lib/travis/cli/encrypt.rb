@@ -4,6 +4,7 @@ require 'travis/cli'
 module Travis
   module CLI
     class Encrypt < RepoCommand
+      description "encrypts values for the .travis.yml"
       attr_accessor :config_key
 
       on('-a', '--add [KEY]', 'adds it to .travis.yml under KEY (default: env.global)') do |c, value|

@@ -3,6 +3,8 @@ require 'travis/cli'
 module Travis
   module CLI
     class Monitor < ApiCommand
+      description "live monitor for what's going on"
+
       on('-m', '--my-repos', 'Only monitor my own repositories')
       on('-r', '--repo SLUG', 'monitor given repository (can be used more than once)') do |c, slug|
         c.repos << slug

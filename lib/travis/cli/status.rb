@@ -3,6 +3,8 @@ require 'travis/cli'
 module Travis
   module CLI
     class Status < RepoCommand
+      description "checks status of the latest build"
+
       on '-x', '--[no-]exit-code',    'sets the exit code to 1 if the build failed'
       on '-q', '--[no-]quiet',        'does not print anything'
       on '-p', '--[no-]fail-pending', 'sets the status code to 1 if the build is pending'

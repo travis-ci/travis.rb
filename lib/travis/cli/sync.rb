@@ -3,6 +3,8 @@ require 'travis/cli'
 module Travis
   module CLI
     class Sync < ApiCommand
+      description "triggers a new sync with GitHub"
+
       on '-c', '--check',      'only check the sync status'
       on '-b', '--background', 'will trigger sync but not block until sync is done'
       on '-f', '--force',      'will force sync, even if one is already running'

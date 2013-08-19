@@ -3,6 +3,8 @@ require 'travis/cli'
 module Travis
   module CLI
     class Branches < RepoCommand
+      description "displays the most recent build for each branch"
+
       def run
         repository.last_on_branch.each do |build|
           say [

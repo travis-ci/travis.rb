@@ -3,6 +3,8 @@ require 'travis/cli'
 module Travis
   module CLI
     class Init < Enable
+      description "generates a .travis.yml and enables the project"
+
       on('-f', '--force', 'override .travis.yml if it already exists')
       on('-k', '--skip-enable', 'do not enable project, only add .travis.yml')
       on('-p', '--print-conf', 'print generated config instead of writing to file')

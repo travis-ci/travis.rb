@@ -3,6 +3,8 @@ require 'travis/cli'
 module Travis
   module CLI
     class Endpoint < ApiCommand
+      description "displays or changes the API endpoint"
+
       skip :authenticate
       on '--drop-default', 'delete stored default endpoint'
       on '--set-default', 'store endpoint as global default'

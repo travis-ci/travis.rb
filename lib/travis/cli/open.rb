@@ -4,6 +4,8 @@ require 'launchy'
 module Travis
   module CLI
     class Open < RepoCommand
+      description "opens a build or job in the browser"
+
       on('-g', '--github', 'Open the corresponding project, compare view or pull request on GitHub')
       on('-p', '--print',  'Print out the URL instead of opening it in a browser')
 

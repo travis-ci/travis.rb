@@ -5,6 +5,8 @@ require 'json'
 module Travis
   module CLI
     class Login < ApiCommand
+      description "authenticates against the API and stores the token"
+
       skip :authenticate
       attr_accessor :github_login, :github_password, :github_token, :callback
 

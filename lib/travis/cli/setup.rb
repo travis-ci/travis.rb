@@ -4,6 +4,7 @@ require 'json'
 module Travis
   module CLI
     class Setup < RepoCommand
+      description "sets up an addon or deploy target"
       on('-f', '--force', 'override config section if it already exists')
 
       def run(service)

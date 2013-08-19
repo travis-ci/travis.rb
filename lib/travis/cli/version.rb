@@ -4,6 +4,8 @@ require 'travis/version'
 module Travis
   module CLI
     class Version < Command
+      description "outputs the client version"
+
       def run
         say Travis::VERSION
       end
