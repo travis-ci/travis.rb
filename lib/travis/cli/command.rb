@@ -99,23 +99,28 @@ module Travis
       def setup
       end
 
+      def last_check
+        config['last_check'] ||= {
+          # migrate from old values
+          'at'   => config.delete('last_version_check'),
+          'etag' => config.delete('etag')
+        }
+      end
+
       def check_version
+        last_check.clear if last_check['version'] != Travis::VERSION
+
         return if skip_version_check?
-        return if Time.now.to_i - config['last_version_check'].to_i < 3600
-        version = Travis::VERSION
+        return if Time.now.to_i - last_check['at'].to_i < 3600
 
         Timeout.timeout 1.0 do
-          response       = Faraday.get('https://rubygems.org/api/v1/gems/travis.json', {}, 'If-None-Match' => config['etag'].to_s)
-          config['etag'] = response.headers['etag']
-          version        = JSON.parse(response.body)['version'] if response.status == 200
+          response              = Faraday.get('https://rubygems.org/api/v1/gems/travis.json', {}, 'If-None-Match' => last_check['etag'].to_s)
+          last_check['etag']    = response.headers['etag']
+          last_check['version'] = JSON.parse(response.body)['version'] if response.status == 200
         end
 
-        if Travis::VERSION >= version
-          config['last_version_check'] = Time.now.to_i
-        else
-          error "Outdated CLI version (#{Travis::VERSION}, current is #{version}), " \
-            "run `gem install travis -v #{version}` or use --skip-version-check."
-        end
+        last_check['at'] = Time.now.to_i
+        error "Outdated CLI version, run `gem install travis` or use --skip-version-check." if Travis::VERSION < last_check['version']
       rescue Timeout::Error, Faraday::Error::ClientError
       end
 
