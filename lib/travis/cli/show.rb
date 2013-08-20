@@ -9,7 +9,7 @@ module Travis
         number = repository.branch(number).number if number !~ /^\d+(\.\d+)?$/ and repository.branch(number)
         entity = job(number) || build(number)
 
-        error "unknown build or job #{number}" unless entity
+        error "could not find job or build #{repository.slug}##{number}" unless entity
 
         say template(__FILE__) % [
           entity.class.one.capitalize,

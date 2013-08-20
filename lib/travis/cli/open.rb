@@ -23,6 +23,7 @@ module Travis
         def url_for(number)
           return repo_url unless number
           entity = job(number) || build(number)
+          error "could not find job or build #{repository.slug}##{number}" unless entity
           github ? entity.commit.compare_url : "#{repo_url}/#{entity.class.many}/#{entity.id}"
         end
 
