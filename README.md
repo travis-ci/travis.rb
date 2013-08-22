@@ -1229,6 +1229,13 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
+**unreleased changes**
+
+* Improve `travis setup rubygems` (automatically figure out API token for newer RubyGems versions, offer to only release tagged commits, allow changing gem name).
+* Add command descriptions to help pages.
+* Smarter check if travis gem is outdated.
+* Better error messages for non-existing build/job numbers.
+
 **1.5.2** (August 18, 2013)
 
 * Add `travis cancel`.
