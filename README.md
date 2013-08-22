@@ -1231,6 +1231,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 **unreleased changes**
 
+* Fix issues on Windows.
 * Improve `travis setup rubygems` (automatically figure out API token for newer RubyGems versions, offer to only release tagged commits, allow changing gem name).
 * Add command descriptions to help pages.
 * Smarter check if travis gem is outdated.

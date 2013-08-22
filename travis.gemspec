@@ -180,7 +180,6 @@ Gem::Specification.new do |s|
   s.add_dependency "pry",                   "~> 0.9"
   s.add_dependency "typhoeus",              "~> 0.5"
   s.add_dependency "pusher-client",         "~> 0.3", ">= 0.3.1"
-  s.add_dependency "websocket-native",      "~> 1.0"
   s.add_development_dependency "rspec",     "~> 2.12"
   s.add_development_dependency "sinatra",   "~> 1.3"
   s.add_development_dependency "rack-test", "~> 0.6"

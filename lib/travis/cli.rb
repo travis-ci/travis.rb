@@ -49,10 +49,6 @@ module Travis
 
     extend self
 
-    def windows?
-      File::ALT_SEPARATOR == "\\"
-    end
-
     def run(*args)
       args, opts = preparse(args)
       name       = args.shift unless args.empty?

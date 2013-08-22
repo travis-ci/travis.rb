@@ -2,7 +2,12 @@ require 'travis/client'
 
 require 'faraday'
 require 'faraday_middleware'
-require 'typhoeus/adapters/faraday'
+require 'travis/tools/system'
+
+begin
+  require 'typhoeus/adapters/faraday' unless Travis::Tools::System.windows?
+rescue LoadError
+end
 
 require 'json'
 
@@ -18,7 +23,7 @@ module Travis
         @cache           = {}
         @instruments     = []
         @config          = nil
-        @faraday_adapter = :typhoeus
+        @faraday_adapter = defined?(Typhoeus) ? :typhoeus : :net_http
 
         options = { :uri => options } unless options.respond_to? :each_pair
         options.each_pair { |key, value| public_send("#{key}=", value) }

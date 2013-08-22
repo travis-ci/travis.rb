@@ -25,7 +25,7 @@ module Travis
       attr_writer :travis_config
 
       def run(language = nil, file = '.travis.yml')
-        error ".travis.yml already exists, use --force to override" if File.exist?(file) and not force? and not print_conf?
+        error "#{file} already exists, use --force to override" if File.exist?(file) and not force? and not print_conf?
         language ||= ask('Main programming language used: ') { |q| q.default = detect_language }
         self.travis_config = template(language).merge(custom_config)
 

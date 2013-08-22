@@ -1,4 +1,5 @@
 require 'travis/cli'
+require 'travis/tools/system'
 require 'travis/tools/formatter'
 require 'travis/version'
 
@@ -14,7 +15,7 @@ module Travis
       extend Forwardable
       def_delegators :terminal, :agree, :ask, :choose
 
-      HighLine.use_color = !CLI.windows? && $stdout.tty?
+      HighLine.use_color = !Tools::System.windows? && $stdout.tty?
       HighLine.color_scheme = HighLine::ColorScheme.new do |cs|
         cs[:command]   = [ :bold             ]
         cs[:error]     = [ :red              ]
@@ -30,7 +31,7 @@ module Travis
       end
 
       on('-i', '--[no-]interactive', "be interactive and colorful") do |c, v|
-        HighLine.use_color = v unless CLI.windows?
+        HighLine.use_color = v unless Tools::System.windows?
         c.force_interactive = v
       end
 
