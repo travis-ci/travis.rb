@@ -1229,6 +1229,10 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
+**unreleased changes**
+
+* List available templates on `travis init --help`.
+
 **1.5.3** (August 22, 2013)
 
 * Fix issues on Windows.

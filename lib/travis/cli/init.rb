@@ -24,6 +24,15 @@ module Travis
 
       attr_writer :travis_config
 
+      def self.languages
+        pattern = File.expand_path("../init/*.yml", __FILE__)
+        Dir[pattern].map { |f| File.basename(f, '.yml') }.sort
+      end
+
+      def help
+        super("Available languages: #{self.class.languages.join(", ")}\n\n")
+      end
+
       def run(language = nil, file = '.travis.yml')
         error "#{file} already exists, use --force to override" if File.exist?(file) and not force? and not print_conf?
         language ||= ask('Main programming language used: ') { |q| q.default = detect_language }
