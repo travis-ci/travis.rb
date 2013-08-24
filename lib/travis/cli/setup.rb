@@ -5,6 +5,8 @@ require 'yaml'
 module Travis
   module CLI
     class Setup < RepoCommand
+      TARGETS = {}
+
       description "sets up an addon or deploy target"
       on('-f', '--force', 'override config section if it already exists')
 
@@ -13,6 +15,12 @@ module Travis
         public_send "setup_#{service}"
       end
 
+      def help
+        targets = TARGETS.map { |name, description| "\t" << color(name.ljust(20), :command) << color(description, :info) }.join("\n")
+        super("\n\nAvailable services:\n\n#{targets}\n\n")
+      end
+
+      TARGETS['heroku'] = "automatic deployment to Heroku"
       def setup_heroku
         configure 'deploy', 'provider' => 'heroku' do |config|
           config['api_key'] = `heroku auth:token 2>/dev/null`.strip
@@ -24,6 +32,7 @@ module Travis
         end
       end
 
+      TARGETS['engineyard'] = "automatic deployment to Engine Yard"
       def setup_engineyard
         configure 'deploy', 'provider' => 'engineyard' do |config|
           eyrc                  = File.expand_path(".eyrc", Dir.home)
@@ -38,6 +47,7 @@ module Travis
         end
       end
 
+      TARGETS['openshift'] = "automatic deployment to OpenShift"
       def setup_openshift
         configure 'deploy', 'provider' => 'openshift' do |config|
           config['user']     = ask("OpenShift user: ").to_s
@@ -49,6 +59,7 @@ module Travis
         end
       end
 
+      TARGETS['rubygems'] = "automatic release to RubyGems"
       def setup_rubygems
         configure 'deploy', 'provider' => 'rubygems' do |config|
           authorization_file  = File.expand_path('.rubygems/authorization', ENV['HOME'])
@@ -65,6 +76,7 @@ module Travis
         end
       end
 
+      TARGETS['nodejitsu'] = "automatic deployment to Nodejitsu"
       def setup_nodejitsu
         configure 'deploy', 'provider' => 'nodejitsu' do |config|
           jitsu_file = File.expand_path('.jitsuconf', ENV['HOME'])
@@ -82,6 +94,7 @@ module Travis
         end
       end
 
+      TARGETS['sauce_connect'] = "Sauce Connet addon for Sauce Labs integration"
       def setup_sauce_connect
         travis_config['addons'] ||= {}
         configure 'sauce_connect', {}, travis_config['addons'] do |config|
@@ -94,6 +107,7 @@ module Travis
       alias setup_sauce_labs setup_sauce_connect
       alias setup_sauce      setup_sauce_connect
 
+      TARGETS['cloudcontrol'] = "automatic deployment to cloudControl"
       def setup_cloudcontrol
         configure 'deploy', 'provider' => 'cloudcontrol' do |config|
           config['email']      = ask("cloudControl email: ").to_s
@@ -106,6 +120,7 @@ module Travis
         end
       end
 
+      TARGETS['cloudfoundry'] = "automatic deployment to Cloud Foundry"
       def setup_cloudfoundry
         configure 'deploy', 'provider' => 'cloudfoundry' do |config|
           config['target']       = ask("Cloud Foundry target: ").to_s

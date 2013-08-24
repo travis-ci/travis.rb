@@ -1232,6 +1232,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 **unreleased changes**
 
 * List available templates on `travis init --help`.
+* List available services on `travis setup --help`.
 
 **1.5.3** (August 22, 2013)
 
