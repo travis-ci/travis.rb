@@ -1233,6 +1233,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 * List available templates on `travis init --help`.
 * List available services on `travis setup --help`.
+* Give autocompletion on zsh superpowers.
 
 **1.5.3** (August 22, 2013)
 

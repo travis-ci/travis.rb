@@ -171,9 +171,9 @@ module Travis
         "Usage: " << color(usage, :command)
       end
 
-      def help
+      def help(info = "")
         parser.banner = usage
-        self.class.description.sub(/./) { |c| c.upcase } + ".\n" + parser.to_s
+        self.class.description.sub(/./) { |c| c.upcase } + ".\n" + info + parser.to_s
       end
 
       def say(data, format = nil, style = nil)
