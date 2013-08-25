@@ -80,13 +80,6 @@ module Travis
 
     private
 
-      def load_gh
-        unless defined? GH
-          require 'gh'
-          GH.set(:ssl => Travis::Client::Session::SSL_OPTIONS)
-        end
-      end
-
       def dummy_io
         return StringIO.new unless defined? IO::NULL and IO::NULL
         File.open(IO::NULL, 'w')
