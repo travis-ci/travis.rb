@@ -44,11 +44,10 @@ module Travis
         end
 
         def find_slug
-          git_head = `git name-rev --name-only HEAD 2>&1`.chomp
-          git_remote = `git config --get branch.#{git_head}.remote 2>&1`.chomp
-          # Default to 'origin' if no tracking is set
+          git_head   = `git name-rev --name-only HEAD 2>#{IO::NULL}`.chomp
+          git_remote = `git config --get branch.#{git_head}.remote 2>#{IO::NULL}`.chomp
           git_remote = 'origin' if git_remote.empty?
-          git_info = `git config --get remote.#{git_remote}.url 2>&1`.chomp
+          git_info   = `git config --get remote.#{git_remote}.url 2>#{IO::NULL}`.chomp
           $1 if git_info =~ GIT_REGEX
         end
 
