@@ -28,6 +28,7 @@ module Travis
 
         def generate_github_token
           ask_info
+          load_gh
 
           gh    = GH.with(:username => github_login, :password => github_password)
           reply = gh.post('/authorizations', :scopes => github_scopes, :note => "temporary token to identify on #{api_endpoint}")

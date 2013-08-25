@@ -63,6 +63,7 @@ module Travis
             ENV['TRAVIS_ENDPOINT']
           else
             repo_config['endpoint'] ||= begin
+              load_gh
               GH.head("/repos/#{slug}")
               Travis::Client::ORG_URI
             rescue GH::Error
