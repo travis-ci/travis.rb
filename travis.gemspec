@@ -60,6 +60,7 @@ Gem::Specification.new do |s|
     "bin/travis",
     "completion/extconf.rb",
     "completion/travis.sh",
+    "completion/travis.sh.erb",
     "example/org_overview.rb",
     "lib/travis.rb",
     "lib/travis/cacert.pem",
