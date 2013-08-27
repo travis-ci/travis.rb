@@ -678,7 +678,8 @@ module Travis
              "last_build_duration"=>5019,
              "last_build_language"=>nil,
              "last_build_started_at"=>"2013-01-13T15:55:17Z",
-             "last_build_finished_at"=>nil}}.to_json
+             "last_build_finished_at"=>nil,
+             "github_language"=>"Ruby"}}.to_json
         end
 
         get '/repos/891/key' do

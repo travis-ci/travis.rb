@@ -14,6 +14,7 @@ describe Travis::Client::Repository do
   its(:key) { should be_a(Travis::Client::Repository::Key) }
   its(:last_build) { should be_a(Travis::Client::Build) }
   its(:color) { should be == 'red' }
+  its(:github_language) { should be == 'Ruby' }
 
   it { should_not be_pending  }
   it { should     be_started  }
