@@ -20,7 +20,7 @@ if type compdef 1>/dev/null 2>/dev/null; then
   compdef _travis travis
   _travis()          { _travis_complete $((${#words} - 1)) "${words[2]}"; }
   _travis_commands() { list=(accounts:"displays accounts and their subscription status" branches:"displays the most recent build for each branch" cancel:"cancels a job or build" console:"interactive shell" disable:"disables a project" enable:"enables a project" encrypt:"encrypts values for the .travis.yml" endpoint:"displays or changes the API endpoint" help:"helps you out when in dire need of information" history:"displays a projects build history" init:"generates a .travis.yml and enables the project" login:"authenticates against the API and stores the token" logs:"streams test logs" monitor:"live monitor for what's going on" open:"opens a build or job in the browser" pubkey:"prints out a repository's public key" raw:"makes an (authenticated) API call and prints out the result" restart:"restarts a build or job" setup:"sets up an addon or deploy target" show:"displays a build or job" status:"checks status of the latest build" sync:"triggers a new sync with GitHub" token:"outputs the secret API token" version:"outputs the client version" whatsup:"lists most recent builds" whoami:"outputs the current user") _describe -t common-commands 'common commands' list; }
-  _travis_setup()    { list=(heroku:"automatic deployment to Heroku" engineyard:"automatic deployment to Engine Yard" openshift:"automatic deployment to OpenShift" rubygems:"automatic release to RubyGems" nodejitsu:"automatic deployment to Nodejitsu" sauce_connect:"Sauce Connet addon for Sauce Labs integration" cloudcontrol:"automatic deployment to cloudControl" cloudfoundry:"automatic deployment to Cloud Foundry") _describe -t common-commands 'common commands' list; }
+  _travis_setup()    { list=(cloudcontrol:"automatic deployment to cloudControl" cloudfoundry:"automatic deployment to Cloud Foundry" engineyard:"automatic deployment to Engine Yard" heroku:"automatic deployment to Heroku" nodejitsu:"automatic deployment to Nodejitsu" openshift:"automatic deployment to OpenShfit" rubygems:"automatic release to RubyGems" sauce_connect:"Sauce Connet addon for Sauce Labs integration") _describe -t common-commands 'common commands' list; }
   _travis_init()     { list=(c:'initialize c project' clojure:'initialize clojure project' cpp:'initialize cpp project' erlang:'initialize erlang project' go:'initialize go project' groovy:'initialize groovy project' haskell:'initialize haskell project' java:'initialize java project' node_js:'initialize node_js project' objective-c:'initialize objective-c project' perl:'initialize perl project' php:'initialize php project' python:'initialize python project' ruby:'initialize ruby project' scala:'initialize scala project') _describe -t common-commands 'common commands' list; }
   _travis_option()   {
     case "${words[2]}" in
@@ -56,7 +56,7 @@ elif type compctl 1>/dev/null 2>/dev/null; then
   compctl -K _travis travis
   _travis()          { read -cA words && _travis_complete $((${#words} - 1)) "${words[2]}"; }
   _travis_commands() { reply=("accounts" "branches" "cancel" "console" "disable" "enable" "encrypt" "endpoint" "help" "history" "init" "login" "logs" "monitor" "open" "pubkey" "raw" "restart" "setup" "show" "status" "sync" "token" "version" "whatsup" "whoami"); }
-  _travis_setup()    { reply=("heroku" "engineyard" "openshift" "rubygems" "nodejitsu" "sauce_connect" "cloudcontrol" "cloudfoundry"); }
+  _travis_setup()    { reply=("cloudcontrol" "cloudfoundry" "engineyard" "heroku" "nodejitsu" "openshift" "rubygems" "sauce_connect"); }
   _travis_init()     { reply=("c" "clojure" "cpp" "erlang" "go" "groovy" "haskell" "java" "node_js" "objective-c" "perl" "php" "python" "ruby" "scala"); }
   _travis_option()   {
     case "${words[2]}" in
@@ -92,7 +92,7 @@ elif type complete 1>/dev/null 2>/dev/null; then
   complete -F _travis travis
   _travis()          { _travis_complete "$COMP_CWORD" "${COMP_WORDS[1]}"; }
   _travis_commands() { COMPREPLY=( $(compgen -W "accounts branches cancel console disable enable encrypt endpoint help history init login logs monitor open pubkey raw restart setup show status sync token version whatsup whoami" -- "${COMP_WORDS[COMP_CWORD]}") ); }
-  _travis_setup()    { COMPREPLY=( $(compgen -W "heroku engineyard openshift rubygems nodejitsu sauce_connect cloudcontrol cloudfoundry" -- "${COMP_WORDS[COMP_CWORD]}") ); }
+  _travis_setup()    { COMPREPLY=( $(compgen -W "cloudcontrol cloudfoundry engineyard heroku nodejitsu openshift rubygems sauce_connect" -- "${COMP_WORDS[COMP_CWORD]}") ); }
   _travis_init()     { COMPREPLY=( $(compgen -W "c clojure cpp erlang go groovy haskell java node_js objective-c perl php python ruby scala" -- "${COMP_WORDS[COMP_CWORD]}") ); }
   _travis_option()   {
     local options
