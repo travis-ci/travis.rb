@@ -33,6 +33,26 @@ module Travis
         def method_missing(*args, &block)
           @command.send(*args, &block)
         end
+
+        private
+
+          def on(question, config, condition)
+            return unless agree(question) { |q| q.default = 'yes' }
+            config['on'] ||= {}
+            config['on'].merge! condition
+          end
+
+          def encrypt(config, key)
+            encrypted   = repository.encrypt(config.fetch(key))
+            config[key] = { 'secure' => encrypted }
+          end
+
+          def configure(key, value = {}, config = travis_config)
+            error "#{key} section already exists in .travis.yml, run with --force to override" if config.include? key and not force?
+            result = yield(config[key] = value)
+            save_travis_config
+            result
+          end
       end
     end
   end
