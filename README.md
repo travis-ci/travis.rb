@@ -1233,6 +1233,8 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 * List available templates on `travis init --help`.
 * List available services on `travis setup --help`.
+* Make `travis setup cloudfoundry` detect the target automatically if possible
+* Have `travis setup` ask if you want to deploy/release from current branch if not on master.
 * Give autocompletion on zsh [superpowers](http://ascii.io/a/5139).
 * Add `Repository#github_language`.
 
