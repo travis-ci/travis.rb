@@ -31,7 +31,7 @@ module Travis
       end
 
       def initialize(*)
-        @session = Travis::Client.new
+        @session = Travis::Client.new(:agent_info => "command #{command_name}")
         super
       end
 

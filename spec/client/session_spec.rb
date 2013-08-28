@@ -54,6 +54,22 @@ describe Travis::Client::Session do
       Travis::Client::Session.new(:headers => {'foo' => 'bar'}, :uri => 'http://localhost:3000/').
         connection.headers['foo'].should be == 'bar'
     end
+
+    it 'sets a User-Agent' do
+      subject.headers['User-Agent'].should include("Travis/#{Travis::VERSION}")
+      subject.headers['User-Agent'].should include("Faraday/#{Faraday::VERSION}")
+      subject.headers['User-Agent'].should include("Rack/#{Rack.version}")
+      subject.headers['User-Agent'].should include("Ruby #{RUBY_VERSION}")
+    end
+
+    it 'allows adding custom infos to the User-Agent' do
+      subject.agent_info = "foo"
+      subject.headers['User-Agent'].should include("foo")
+      subject.headers['User-Agent'].should include("Travis/#{Travis::VERSION}")
+      subject.headers['User-Agent'].should include("Faraday/#{Faraday::VERSION}")
+      subject.headers['User-Agent'].should include("Rack/#{Rack.version}")
+      subject.headers['User-Agent'].should include("Ruby #{RUBY_VERSION}")
+    end
   end
 
   describe "find_one" do

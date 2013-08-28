@@ -1,4 +1,5 @@
 require 'travis/client'
+require 'travis/version'
 
 require 'faraday'
 require 'faraday_middleware'
@@ -16,12 +17,13 @@ module Travis
     class Session
       SSL_OPTIONS = { :ca_file => File.expand_path("../../cacert.pem", __FILE__) }
       include Methods
-      attr_reader :connection, :headers, :access_token, :instruments, :faraday_adapter
+      attr_reader :connection, :headers, :access_token, :instruments, :faraday_adapter, :agent_info
 
       def initialize(options = Travis::Client::ORG_URI)
         @headers         = {}
         @cache           = {}
         @instruments     = []
+        @agent_info      = []
         @config          = nil
         @faraday_adapter = defined?(Typhoeus) ? :typhoeus : :net_http
 
@@ -29,11 +31,17 @@ module Travis
         options.each_pair { |key, value| public_send("#{key}=", value) }
 
         raise ArgumentError, "neither :uri nor :connection specified" unless connection
-        headers['Accept'] ||= 'application/json; version=2'
+        headers['Accept'] = 'application/json; version=2'
+        set_user_agent
       end
 
       def uri
         connection.url_prefix.to_s if connection
+      end
+
+      def agent_info=(info)
+        @agent_info = [info].flatten.freeze
+        set_user_agent
       end
 
       def uri=(uri)
@@ -50,6 +58,7 @@ module Travis
       def faraday_adapter=(adapter)
         @faraday_adapter = adapter
         self.uri &&= uri
+        set_user_agent
       end
 
       def access_token=(token)
@@ -180,6 +189,19 @@ module Travis
       end
 
       private
+
+        def set_user_agent
+          adapter = Array === faraday_adapter ? faraday_adapter.first : faraday_adapter
+          adapter = adapter.to_s.capitalize.gsub(/_http_(.)/) { "::HTTP::#{$1.upcase}" }.gsub(/_http/, '::HTTP')
+          headers['User-Agent'] = "Travis/#{Travis::VERSION} (#{Travis::Tools::System.description(agent_info)}) Faraday/#{Faraday::VERSION} #{adapter}/#{adapter_version(adapter)}"
+        end
+
+        def adapter_version(adapter)
+          version = Object.const_get(adapter).const_get("VERSION")
+          [*version].join('.')
+        rescue Exception
+          "unknown"
+        end
 
         def instrumented(name, *args)
           name   = [name, *args.map(&:inspect)].join(" ") if args.any?
