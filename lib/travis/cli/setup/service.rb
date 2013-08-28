@@ -49,9 +49,23 @@ module Travis
 
           def configure(key, value = {}, config = travis_config)
             error "#{key} section already exists in .travis.yml, run with --force to override" if config.include? key and not force?
-            result = yield(config[key] = value)
-            save_travis_config
-            result
+            yield(config[key] = value)
+          end
+
+          def branch
+            @branch ||= `git rev-parse --symbolic-full-name --abbrev-ref HEAD`.chomp
+          end
+
+          def deploy(provider, verb = "deploy")
+            configure('deploy', 'provider' => provider) do |config|
+              yield config
+
+              on("#{verb.capitalize} only from #{repository.slug}? ", config, 'repo' => repository.slug)
+              on("#{verb.capitalize} from #{branch} branch? ", config, 'branch' => branch) if branch != 'master' and branch != 'HEAD'
+
+              encrypt(config, 'password') if config['password'] and agree("Encrypt Password? ") { |q| q.default = 'yes' }
+              encrypt(config, 'api_key')  if config['api_key']  and agree("Encrypt API key? ") { |q| q.default = 'yes' }
+            end
           end
       end
     end

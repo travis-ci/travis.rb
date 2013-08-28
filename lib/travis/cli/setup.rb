@@ -32,8 +32,9 @@ module Travis
         super("\nAvailable services:\n\n#{services}\n\n")
       end
 
-      def run(service)
+      def run(service, file = travis_yaml)
         service(service).run
+        save_travis_config(file)
       end
 
       def service(name)

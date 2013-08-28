@@ -7,7 +7,7 @@ module Travis
         description "automatic release to RubyGems"
 
         def run
-          configure 'deploy', 'provider' => 'rubygems' do |config|
+          deploy 'rubygems', 'release' do |config|
             authorization_file  = File.expand_path('.rubygems/authorization', ENV['HOME'])
             credentials_file    = File.expand_path('.gem/credentials', ENV['HOME'])
 
@@ -16,9 +16,7 @@ module Travis
             config['api_key'] ||= ask("RubyGems API token: ") { |q| q.echo = "*" }.to_s
             config['gem']     ||= ask("Gem name: ") { |q| q.default = repository.name }.to_s
 
-            on("Release only from #{repository.slug}? ", config, 'repo' => repository.slug)
-            on("Release only tagged commits? ",          config, 'tags' => true)
-            encrypt(config, 'api_key') if agree("Encrypt API key? ") { |q| q.default = 'yes' }
+            on("Release only tagged commits? ", config, 'tags' => true)
           end
         end
       end
