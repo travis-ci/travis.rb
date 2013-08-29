@@ -16,6 +16,11 @@ module Travis
         c.github_token ||= Travis::Tools::TokenFinder.find(:explode => c.explode?)
       end
 
+      on('--github-endpoint URL', 'force override GitHub API endpoint') do |c, url|
+        require 'gh'
+        GH.set(:api_url => url, :ssl => { :verify => false })
+      end
+
       def run
         generate_github_token unless github_token
         endpoint_config['access_token'] = github_auth(github_token)
