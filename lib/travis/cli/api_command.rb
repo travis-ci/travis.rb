@@ -80,6 +80,19 @@ module Travis
 
       private
 
+        def load_gh
+          return if defined? GH
+          require 'gh'
+
+          gh_config       = session.config['github']
+          gh_config     &&= gh_config.inject({}) { |h,(k,v)| h.update(k.to_sym => v) }
+          gh_config     ||= {}
+          gh_config[:ssl] = Travis::Client::Session::SSL_OPTIONS
+          gh_config[:ssl] = { :verify => false } if gh_config[:api_url] and gh_config[:api_url] != "https://api.github.com"
+
+          GH.set(gh_config)
+        end
+
         def listen(*args)
           super(*args) do |listener|
             on_signal { listener.disconnect }
