@@ -27,8 +27,8 @@ module Travis
       private
 
         def generate_github_token
-          ask_info
           load_gh
+          ask_info
 
           gh    = GH.with(:username => github_login, :password => github_password)
           reply = gh.post('/authorizations', :scopes => github_scopes, :note => "temporary token to identify on #{api_endpoint}")
@@ -46,7 +46,7 @@ module Travis
 
         def ask_info
           say "We need your #{color("GitHub login", :important)} to identify you."
-          say "This information will #{color("not be sent to Travis CI", :important)}, only to GitHub."
+          say "This information will #{color("not be sent to Travis CI", :important)}, only to #{color(GH.with({}).api_host.host, :info)}."
           say "The password will not be displayed."
           empty_line
           say "Try running with #{color("--github-token", :info)} or #{color("--auto", :info)} if you don't want to enter your password anyways."

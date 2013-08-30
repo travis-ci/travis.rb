@@ -22,6 +22,11 @@ describe Travis::CLI::Endpoint do
     stdout.should be == "http://localhost:3000/\n"
   end
 
+  example "travis endpoint --github" do
+    run_cli('endpoint', '--github').should be_success
+    stdout.should be == "https://api.github.com\n"
+  end
+
   example "travis endpoint -i" do
     run_cli('endpoint', '-i').should be_success
     stdout.should be == "API endpoint: https://api.travis-ci.org/\n"
