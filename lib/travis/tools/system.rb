@@ -7,6 +7,14 @@ module Travis
         File::ALT_SEPARATOR == "\\"
       end
 
+      def mac?
+        RUBY_PLATFORM =~ /darwin/i
+      end
+
+      def linux?
+        RUBY_PLATFORM =~ /linux/i
+      end
+
       def os
         @os ||= windows? ? "Windows" : `uname`.chomp
       end
