@@ -207,6 +207,7 @@ A third option is for the really lazy: `--auto`. In this mode the client will tr
             --debug                      show API requests
         -m, --my-repos                   Only monitor my own repositories
         -r, --repo SLUG                  monitor given repository (can be used more than once)
+        -n, --[no-]notify [TYPE]         send out desktop notifications (optional type: osx, growl, libnotify)
 
 With `monitor` you can watch a live stream of what's going on:
 
@@ -219,6 +220,14 @@ With `monitor` you can watch a live stream of what's going on:
     ...
 
 You can limit the repositories to monitor with `--my-repos` and `--repo SLUG`.
+
+The monitor command can also send out desktop notifications (OSX, Growl or libnotify):
+
+    $ travis montior --pro -n
+    Monitoring travis-ci.com:
+    ...
+
+When monitoring specific repositories, notifications will be turned on by default. Disable with `--no-notify`.
 
 #### `raw`
 
@@ -1231,6 +1240,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 **unreleased changes**
 
+* Make `travis monitor` send out desktop notifications.
 * List available templates on `travis init --help`.
 * List available services on `travis setup --help`.
 * Make `travis setup cloudfoundry` detect the target automatically if possible
