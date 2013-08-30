@@ -198,12 +198,6 @@ module Travis
 
       private
 
-        def load_gh
-          return defined? GH
-          require 'gh'
-          GH.set(:ssl => Travis::Client::Session::SSL_OPTIONS)
-        end
-
         def setup_trap
           [:INT, :TERM].each do |signal|
             trap signal do
