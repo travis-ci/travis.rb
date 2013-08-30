@@ -1237,6 +1237,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 * Have `travis setup` ask if you want to deploy/release from current branch if not on master.
 * Give autocompletion on zsh [superpowers](http://ascii.io/a/5139).
 * Add `Repository#github_language`.
+* Make `travis login` work with different GitHub Enterprise.
 * Add `travis endpoint --github`.
 
 **1.5.3** (August 22, 2013)
