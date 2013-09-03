@@ -1249,6 +1249,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 * Add `Repository#github_language`.
 * Make `travis login` work with GitHub Enterprise.
 * Add `travis endpoint --github`.
+* Make `travis accounts` handle accounts without name better.
 
 **1.5.3** (August 22, 2013)
 
