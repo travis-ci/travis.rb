@@ -11,7 +11,7 @@ module Travis
           color = account.subscribed? ? :green : :info
           say [
             color(account.login, [color, :bold]),
-            color("(#{account.name}):", color),
+            color("(#{account.name || account.login.capitalize}):", color),
             account.subscribed?      ? "subscribed,"  : "not subscribed,",
             account.repos_count == 1 ? "1 repository" : "#{account.repos_count} repositories"
           ].join(" ")
