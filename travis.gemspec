@@ -189,7 +189,7 @@ Gem::Specification.new do |s|
   s.add_dependency "gh",                    "~> 0.12"
   s.add_dependency "launchy",               "~> 2.1"
   s.add_dependency "pry",                   "~> 0.9"
-  s.add_dependency "typhoeus",              "~> 0.5"
+  s.add_dependency "typhoeus",              "~> 0.6"
   s.add_dependency "pusher-client",         "~> 0.3", ">= 0.3.1"
   s.add_dependency "terminal-notifier",     ">= 1.4.2"
   s.add_development_dependency "rspec",     "~> 2.12"
