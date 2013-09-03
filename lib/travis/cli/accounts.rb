@@ -16,7 +16,9 @@ module Travis
             account.repos_count == 1 ? "1 repository" : "#{account.repos_count} repositories"
           ].join(" ")
         end
-        say session.config['host'], "To set up a subscription, please visit %s." unless accounts.all?(&:subscribed?)
+        unless accounts.all?(&:subscribed?) or session.config['host'].nil?
+          say session.config['host'], "To set up a subscription, please visit %s."
+        end
       end
     end
   end
