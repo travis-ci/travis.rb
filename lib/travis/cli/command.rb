@@ -220,8 +220,8 @@ module Travis
         end
 
         def color(line, style)
-          return line unless interactive?
-          terminal.color(line, Array(style).map(&:to_sym))
+          return line.to_s unless interactive?
+          terminal.color(line.to_s, Array(style).map(&:to_sym))
         end
 
         def interactive?(io = output)
