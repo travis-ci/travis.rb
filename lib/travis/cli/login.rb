@@ -30,23 +30,21 @@ module Travis
           load_gh
           ask_info
 
-          if github_otp.nil?
-            gh = GH.with(:username => github_login, :password => github_password)
-          else
-            gh = GH.with(:username => github_login, :password => github_password, :headers => {"X-GitHub-OTP" => github_otp})
-          end
+          options = { :username => github_login, :password => github_password }
+          options[:headers] = { "X-GitHub-OTP" => github_otp } if github_otp
+          gh = GH.with(options)
 
           reply = gh.post('/authorizations', :scopes => github_scopes, :note => "temporary token to identify on #{api_endpoint}")
 
           self.github_token = reply['token']
           self.callback     = proc { gh.delete reply['_links']['self']['href'] }
-        rescue GH::Error => e
-          raise e if explode?
-          if e.info[:response_status] == 401
+        rescue GH::Error => error
+          if error.info[:response_status] == 401
             ask_2fa
             generate_github_token
           else
-            error JSON.parse(e.info[:response_body])["message"]
+            raise error if explode?
+            error(JSON.parse(error.info[:response_body])["message"])
           end
         end
 
