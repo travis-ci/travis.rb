@@ -3,6 +3,15 @@ require 'travis/cli'
 module Travis
   module CLI
     class Init < Enable
+      LANGUAGE_MAPPING = {
+        "node"         => "node_js",
+        "node.js"      => "node_js",
+        "javascript"   => "node_js",
+        "coffeescript" => "node_js",
+        "c++"          => "cpp",
+        "obj-c"        => "objective-c"
+      }
+
       description "generates a .travis.yml and enables the project"
 
       on('-f', '--force', 'override .travis.yml if it already exists')
@@ -54,8 +63,14 @@ module Travis
 
       private
 
+        def template_name(language)
+          File.expand_path("../init/#{language}.yml", __FILE__)
+        end
+
         def template(language)
-          file = File.expand_path("../init/#{language}.yml", __FILE__)
+          language = language.to_s.downcase
+          language = LANGUAGE_MAPPING[language] || language
+          file = template_name(language)
           error "unknown language #{language}" unless File.exist? file
           YAML.load_file(file)
         end

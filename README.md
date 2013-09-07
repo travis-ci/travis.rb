@@ -1241,6 +1241,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 **unreleased changes**
 
 * Make `travis monitor` send out desktop notifications.
+* `travis init` now is smarter when it comes to detecting the template to use (ie, "CoffeeScript" will be mapped to "node_js")
 * List available templates on `travis init --help`.
 * List available services on `travis setup --help`.
 * Make `travis setup cloudfoundry` detect the target automatically if possible
