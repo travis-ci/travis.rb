@@ -1186,12 +1186,12 @@ You can check your Ruby version by running `ruby -v`:
 
 Then run:
 
-    $ gem install travis -v 1.5.3 --no-rdoc --no-ri
+    $ gem install travis -v 1.5.4 --no-rdoc --no-ri
 
 Now make sure everything is working:
 
     $ travis version
-    1.5.3
+    1.5.4
 
 ### Updating your Ruby
 
@@ -1238,7 +1238,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
-**unreleased changes**
+**1.5.4** (September 7, 2013)
 
 * Make `travis monitor` send out desktop notifications.
 * List available templates on `travis init --help`.
