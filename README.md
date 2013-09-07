@@ -1241,13 +1241,14 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 **unreleased changes**
 
 * Make `travis monitor` send out desktop notifications.
-* `travis init` now is smarter when it comes to detecting the template to use (ie, "CoffeeScript" will be mapped to "node_js")
 * List available templates on `travis init --help`.
 * List available services on `travis setup --help`.
 * Make `travis setup cloudfoundry` detect the target automatically if possible
 * Have `travis setup` ask if you want to deploy/release from current branch if not on master.
 * Give autocompletion on zsh [superpowers](http://ascii.io/a/5139).
 * Add `Repository#github_language`.
+* `travis init` now is smarter when it comes to detecting the template to use (ie, "CoffeeScript" will be mapped to "node_js")
+* Running `travis init` without a language will now use `Repository#github_language` as default language rather than ruby.
 * Make `travis login` and `travis login --auto` work with GitHub Enterprise.
 * Make `travis login` work with two factor authentication.
 * Add `travis endpoint --github`.

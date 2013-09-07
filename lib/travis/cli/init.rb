@@ -76,7 +76,7 @@ module Travis
         end
 
         def detect_language
-          'ruby'
+          repository.github_language || "Ruby"
         end
     end
   end
