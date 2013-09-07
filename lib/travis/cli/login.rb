@@ -6,17 +6,14 @@ module Travis
   module CLI
     class Login < ApiCommand
       description "authenticates against the API and stores the token"
+      on '--github-token TOKEN', 'identify by GitHub token'
+      on '--auto', 'try to figure out who you are automatically (might send another apps token to Travis, token will not be stored)'
 
       skip :authenticate
       attr_accessor :github_login, :github_password, :github_token, :github_otp, :callback
 
-      on('--github-token TOKEN', 'identify by GitHub token')
-
-      on('--auto', 'try to figure out who you are automatically (might send another apps token to Travis, token will not be stored)') do |c|
-        c.github_token ||= Travis::Tools::TokenFinder.find(:explode => c.explode?)
-      end
-
       def run
+        self.github_token ||= Travis::Tools::TokenFinder.find(:explode => explode?, :github => github_endpoint.host) if auto?
         generate_github_token unless github_token
         endpoint_config['access_token'] = github_auth(github_token)
         success("Successfully logged in!")
@@ -55,7 +52,7 @@ module Travis
         def ask_info
           return if !github_login.nil?
           say "We need your #{color("GitHub login", :important)} to identify you."
-          say "This information will #{color("not be sent to Travis CI", :important)}, only to #{color(GH.with({}).api_host.host, :info)}."
+          say "This information will #{color("not be sent to Travis CI", :important)}, only to #{color(github_endpoint.host, :info)}."
           say "The password will not be displayed."
           empty_line
           say "Try running with #{color("--github-token", :info)} or #{color("--auto", :info)} if you don't want to enter your password anyways."

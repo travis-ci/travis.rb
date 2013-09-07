@@ -14,7 +14,7 @@ module Travis
         error "--github cannot be combined with --drop-default" if drop_default?
         error "--github cannot be combined with --set-default" if set_default?
         load_gh
-        say GH.with({}).api_host.to_s, "GitHub endpoint: %s"
+        say github_endpoint.to_s, "GitHub endpoint: %s"
       end
 
       def run_travis

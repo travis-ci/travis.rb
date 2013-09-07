@@ -93,6 +93,11 @@ module Travis
           GH.set(gh_config)
         end
 
+        def github_endpoint
+          load_gh
+          GH.with({}).api_host
+        end
+
         def listen(*args)
           super(*args) do |listener|
             on_signal { listener.disconnect }
