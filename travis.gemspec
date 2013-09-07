@@ -198,4 +198,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rspec",     "~> 2.12"
   s.add_development_dependency "sinatra",   "~> 1.3"
   s.add_development_dependency "rack-test", "~> 0.6"
+
+  # Prereleasing on Travis CI
+  s.version = s.version.succ + "-travis-#{ENV['TRAVIS_JOB_NUMBER']}" if ENV['CI']
 end

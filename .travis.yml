@@ -6,3 +6,10 @@ rvm:
 - 2.0.0
 - jruby
 - rbx
+deploy:
+  provider: rubygems
+  api_key:
+  gem: travis
+  on:
+    repo: travis-ci/travis
+    ruby: 2.0.0
