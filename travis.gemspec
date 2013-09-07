@@ -189,7 +189,7 @@ Gem::Specification.new do |s|
   s.add_dependency "highline",              "~> 1.6"
   s.add_dependency "netrc",                 "~> 0.7"
   s.add_dependency "backports"
-  s.add_dependency "gh",                    "~> 0.12"
+  s.add_dependency "gh",                    "~> 0.13"
   s.add_dependency "launchy",               "~> 2.1"
   s.add_dependency "pry",                   "~> 0.9"
   s.add_dependency "typhoeus",              "~> 0.6"
