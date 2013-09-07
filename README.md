@@ -1248,6 +1248,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 * Give autocompletion on zsh [superpowers](http://ascii.io/a/5139).
 * Add `Repository#github_language`.
 * Make `travis login` work with GitHub Enterprise.
+* Make `travis login` work with two factor authentication.
 * Add `travis endpoint --github`.
 * Make `travis accounts` handle accounts without name better.
 
