@@ -18,17 +18,18 @@ Gem::Specification.new do |s|
     "Max Barnash",
     "Aaron Hill",
     "Mathias Meyer",
+    "Jacob Burkhart",
     "Josh Kalderimis",
     "Justin Lambert",
-    "Adrien Brault",
-    "Laurent Petit",
-    "Daniel Chatfield",
+    "Adam Lavin",
+    "Benjamin Manns",
+    "Mario Visic",
     "Piotr Sarnacki",
     "Rapha\xC3\xABl Pinson",
     "Tobias Wilken",
-    "Mario Visic",
-    "Benjamin Manns",
-    "Jacob Burkhart"
+    "Laurent Petit",
+    "Daniel Chatfield",
+    "Adrien Brault"
   ]
 
   # generated from git shortlog -sne
@@ -39,17 +40,18 @@ Gem::Specification.new do |s|
     "i.am@anhero.ru",
     "aa1ronham@gmail.com",
     "meyer@paperplanes.de",
+    "josh.kalderimis@gmail.com",
     "jlambert@eml.cc",
-    "benmanns@gmail.com",
     "adrien.brault@gmail.com",
-    "laurent.petit@gmail.com",
+    "adam@lavoaster.co.uk",
     "chatfielddaniel@gmail.com",
+    "mario@mariovisic.com",
     "drogus@gmail.com",
     "raphael.pinson@camptocamp.com",
     "tw@cloudcontrol.de",
-    "mario@mariovisic.com",
-    "jburkhart@engineyard.com",
-    "josh.kalderimis@gmail.com"
+    "laurent.petit@gmail.com",
+    "benmanns@gmail.com",
+    "jburkhart@engineyard.com"
   ]
 
   # generated from git ls-files
@@ -139,6 +141,7 @@ Gem::Specification.new do |s|
     "lib/travis/client/worker.rb",
     "lib/travis/pro.rb",
     "lib/travis/tools/formatter.rb",
+    "lib/travis/tools/notification.rb",
     "lib/travis/tools/safe_string.rb",
     "lib/travis/tools/system.rb",
     "lib/travis/tools/token_finder.rb",

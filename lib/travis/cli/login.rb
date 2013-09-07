@@ -8,7 +8,7 @@ module Travis
       description "authenticates against the API and stores the token"
 
       skip :authenticate
-      attr_accessor :github_login, :github_password, :github_token, :callback
+      attr_accessor :github_login, :github_password, :github_token, :github_otp, :callback
 
       on('--github-token TOKEN', 'identify by GitHub token')
 
@@ -30,14 +30,22 @@ module Travis
           load_gh
           ask_info
 
-          gh    = GH.with(:username => github_login, :password => github_password)
+          options = { :username => github_login, :password => github_password }
+          options[:headers] = { "X-GitHub-OTP" => github_otp } if github_otp
+          gh = GH.with(options)
+
           reply = gh.post('/authorizations', :scopes => github_scopes, :note => "temporary token to identify on #{api_endpoint}")
 
           self.github_token = reply['token']
           self.callback     = proc { gh.delete reply['_links']['self']['href'] }
-        rescue GH::Error => e
-          raise e if explode?
-          error JSON.parse(e.info[:response_body])["message"]
+        rescue GH::Error => error
+          if error.info[:response_status] == 401
+            ask_2fa
+            generate_github_token
+          else
+            raise error if explode?
+            error(JSON.parse(error.info[:response_body])["message"])
+          end
         end
 
         def github_scopes
@@ -45,6 +53,7 @@ module Travis
         end
 
         def ask_info
+          return if !github_login.nil?
           say "We need your #{color("GitHub login", :important)} to identify you."
           say "This information will #{color("not be sent to Travis CI", :important)}, only to #{color(GH.with({}).api_host.host, :info)}."
           say "The password will not be displayed."
@@ -53,6 +62,11 @@ module Travis
           empty_line
           self.github_login    = ask("Username: ")
           self.github_password = ask("Password: ") { |q| q.echo = "*" }
+          empty_line
+        end
+
+        def ask_2fa
+          self.github_otp = ask "Two-factor authentication code: "
           empty_line
         end
     end
