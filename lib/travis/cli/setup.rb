@@ -9,6 +9,7 @@ module Travis
       autoload :Heroku,       'travis/cli/setup/heroku'
       autoload :Nodejitsu,    'travis/cli/setup/nodejitsu'
       autoload :OpenShift,    'travis/cli/setup/open_shift'
+      autoload :PyPI,         'travis/cli/setup/pypi'
       autoload :RubyGems,     'travis/cli/setup/ruby_gems'
       autoload :SauceConnect, 'travis/cli/setup/sauce_connect'
       autoload :Service,      'travis/cli/setup/service'
