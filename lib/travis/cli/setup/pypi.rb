@@ -8,7 +8,7 @@ module Travis
 
         def run
           deploy 'pypi', 'release' do |config|
-            config['user']     ||= ask("Username: ") { |q| q.default = repository.name }.to_s
+            config['user']     ||= ask("Username: ").to_s
             config['password'] ||= ask("Password: ") { |q| q.echo = "*" }.to_s
 
             on("release only tagged commits? ", config, 'tags' => true)
