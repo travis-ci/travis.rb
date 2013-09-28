@@ -647,7 +647,7 @@ Helps you configure Travis addons.
         -r, --repo SLUG                  repository to use (will try to detect from current git clone)
         -f, --force                      override config section if it already exists
 
-Available services: `cloudcontrol`, `cloudfoundry`, `engineyard`, `heroku`, `nodejitsu`, `openshift`, `rubygems` and `sauce_connect`.
+Available services: `cloudcontrol`, `cloudfoundry`, `engineyard`, `heroku`, `nodejitsu`, `npm`, `openshift`, `pypi`, `rubygems` and `sauce_connect`.
 
 Example:
 
@@ -1237,6 +1237,11 @@ You can of course always compile Ruby from source, though then you are left with
 If you have the old `travis-cli` gem installed, you should `gem uninstall travis-cli`, just to be sure, as it ships with an executable that is also named `travis`.
 
 ## Version History
+
+**unreleased changes***
+
+* Add `travis setup pypi`
+* Add `travis setup npm`
 
 **1.5.4** (September 7, 2013)
 
