@@ -1242,6 +1242,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 * Add `travis setup pypi`
 * Add `travis setup npm`
+* When loading accounts, set all flag to true.
 
 **1.5.4** (September 7, 2013)
 

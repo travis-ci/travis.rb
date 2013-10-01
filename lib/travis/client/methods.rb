@@ -64,7 +64,7 @@ module Travis
       end
 
       def accounts
-        session.find_many(Account)
+        session.find_many(Account, :all => true)
       end
 
       def broadcasts
