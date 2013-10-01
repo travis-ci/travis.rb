@@ -1238,7 +1238,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
-**unreleased changes***
+**unreleased changes**
 
 * Add `travis setup pypi`
 * Add `travis setup npm`
