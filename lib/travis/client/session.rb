@@ -122,7 +122,7 @@ module Travis
       end
 
       def config
-        @config ||= get_raw('/config')['config']
+        @config ||= get_raw('/config')['config'] || {}
       end
 
       def load(data)
