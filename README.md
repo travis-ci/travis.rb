@@ -1193,6 +1193,14 @@ Now make sure everything is working:
     $ travis version
     1.5.5
 
+### Development Version
+
+You can also install the development version via RubyGems:
+
+    $ gem install --pre
+
+We automatically publish a new development version after every successful build.
+
 ### Updating your Ruby
 
 If you have an outdated Ruby version, you should use your package system or a Ruby Installer to install a recent Ruby.
@@ -1241,6 +1249,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 **unreleased changes**
 
 * Use new API for fetching a single branch for Repository#branch. This also circumvents the 25 branches limit.
+* Start publishing gem prereleases after successful builds.
 
 **1.5.5** (October 2, 2013)
 
