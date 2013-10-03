@@ -118,7 +118,11 @@ module Travis
       end
 
       def branch(name)
-        last_on_branch.detect { |b| b.commit.branch == name.to_s }
+        attributes['branches']       ||= {}
+        attributes['branches'][name] ||= begin
+          build = attributes['last_on_branch'].detect { |b| b.commit.branch == name.to_s } if attributes['last_on_branch']
+          build || session.get("/repos/#{id}/branches/#{name}")['branch']
+        end
       end
 
       def each_build(params = nil, &block)

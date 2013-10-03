@@ -1238,6 +1238,10 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
+**unreleased changes**
+
+* Use new API for fetching a single branch for Repository#branch. This also circumvents the 25 branches limit.
+
 **1.5.5** (October 2, 2013)
 
 * Add `travis setup pypi`

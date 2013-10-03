@@ -16,7 +16,7 @@ module Travis
 
       one :build
       many :builds
-      aka :branches
+      aka :branch, :branches
 
       def push?
         not pull_request?
