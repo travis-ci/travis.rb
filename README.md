@@ -403,7 +403,7 @@ If you don't want the sync to be triggered, use `--skip-sync`.
 
 #### `encrypt`
 
-    Usage: bin/travis encrypt [args..] [options]
+    Usage: travis encrypt [args..] [options]
         -h, --help                       Display help
         -i, --[no-]interactive           be interactive and colorful
         -E, --[no-]explode               don't rescue exceptions
@@ -633,7 +633,7 @@ Or a single job:
 
 Helps you configure Travis addons.
 
-    Usage: bin/travis setup service [options]
+    Usage: travis setup service [options]
         -h, --help                       Display help
         -i, --[no-]interactive           be interactive and colorful
         -E, --[no-]explode               don't rescue exceptions
