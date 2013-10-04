@@ -28,7 +28,7 @@ module Travis
       end
 
       def repositories
-        attributes['repositories'] ||= session.repos(owner_name: login)
+        attributes['repositories'] ||= session.repos(:owner_name => login)
       end
 
       def member?
