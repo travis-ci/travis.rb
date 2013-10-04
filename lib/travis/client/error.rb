@@ -7,5 +7,8 @@ module Travis
 
     class NotFound < Error
     end
+
+    class NotLoggedIn < NotFound
+    end
   end
 end

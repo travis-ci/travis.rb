@@ -708,8 +708,7 @@ module Travis
 
         get '/accounts/' do
           {"accounts"=>
-          [{'id' => 123,
-            'name' => "Konstantin Haase",
+          [{'name' => "Konstantin Haase",
             'login' => 'rkh',
             'type' => 'user',
             'repos_count' => 200

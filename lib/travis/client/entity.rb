@@ -18,7 +18,7 @@ module Travis
       end
 
       def self.subclass_for(key)
-        MAP.fetch(key)
+        MAP.fetch(key.to_s)
       end
 
       def self.aka(*names)
@@ -72,6 +72,17 @@ module Travis
       def self.cast_id(id)
         Integer(id)
       end
+
+      def self.id?(object)
+        object.is_a? Integer
+      end
+
+      def self.id_field(key = nil)
+        @id_field = key.to_s if key
+        @id_field || superclass.id_field
+      end
+
+      id_field :id
 
       def initialize(session, id)
         @attributes = {}

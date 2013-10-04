@@ -897,6 +897,9 @@ Travis::Repository.find('rails/rails')            # find by slug
 Travis::Repository.find(891)                      # find by id
 Travis::Repository.find_all(owner_name: 'rails')  # all repos in the rails organization
 Travis::Repository.current                        # repos that see some action right now
+
+# all repos with the same owner as the repo with id 891
+Travis::Repository.find(891).owner.repositories
 ```
 
 Once you have a repository, you can for instance encrypt some strings with its private key:
@@ -1250,6 +1253,11 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 * Use new API for fetching a single branch for Repository#branch. This also circumvents the 25 branches limit.
 * Start publishing gem prereleases after successful builds.
+* Add `account` method for fetching a single account to `Travis::Client::Methods`.
+* Allow creating account objects for any account, not just these the user is part of. Add `Account#member?` to check for membership.
+* Add `Account#repositories` to load all repos for a given account.
+* Add `Repository#owner_name` and `Repository#owner` to load the account owning a repository.
+* Add `Repository#member?` to check if the current user is a member of a repository.
 
 **1.5.5** (October 2, 2013)
 

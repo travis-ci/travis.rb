@@ -61,6 +61,12 @@ module Travis
 
       def user
         session.find_one(User)
+      rescue NotFound
+        raise NotLoggedIn, 'currently not logged in'
+      end
+
+      def account(name)
+        session.find_one(Account, name)
       end
 
       def accounts

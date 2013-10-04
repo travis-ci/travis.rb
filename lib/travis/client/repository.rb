@@ -166,6 +166,18 @@ module Travis
         end
       end
 
+      def member?
+        session.user.repositories.include? self
+      end
+
+      def owner_name
+        slug[/^[^\/]+/]
+      end
+
+      def owner
+        session.account(owner_name)
+      end
+
       private
 
         def state

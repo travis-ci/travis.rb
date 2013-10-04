@@ -83,18 +83,18 @@ module Travis
       end
 
       def find_one(entity, id = nil)
-        raise Travis::Error, "cannot fetch #{entity}" unless entity.respond_to?(:many) and entity.many
-        return create_entity(entity, "id" => id) if id.is_a? Integer
+        raise Travis::Client::Error, "cannot fetch #{entity}" unless entity.respond_to?(:many) and entity.many
+        return create_entity(entity, entity.id_field => id) if entity.id? id
         cached(entity, :by, id) { fetch_one(entity, id) }
       end
 
       def find_many(entity, args = {})
-        raise Travis::Error, "cannot fetch #{entity}" unless entity.respond_to?(:many) and entity.many
+        raise Travis::Client::Error, "cannot fetch #{entity}" unless entity.respond_to?(:many) and entity.many
         cached(entity, :many, args) { fetch_many(entity, args) }
       end
 
       def find_one_or_many(entity, args = nil)
-        raise Travis::Error, "cannot fetch #{entity}" unless entity.respond_to?(:many) and entity.many
+        raise Travis::Client::Error, "cannot fetch #{entity}" unless entity.respond_to?(:many) and entity.many
         cached(entity, :one_or_many, args) do
           path       = "/#{entity.many}"
           path, args = "#{path}/#{args}", {} unless args.is_a? Hash
@@ -213,8 +213,8 @@ module Travis
         end
 
         def create_entity(type, data)
-          data   = { "id" => data } if Integer === data or String === data
-          id     = type.cast_id(data.fetch('id'))
+          data   = { type.id_field => data } if type.id? data
+          id     = type.cast_id(data.fetch(type.id_field))
           entity = cached(type, :id, id) { type.new(self, id) }
           entity.update_attributes(data)
           entity

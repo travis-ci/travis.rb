@@ -1,7 +1,9 @@
 require 'spec_helper'
 
 describe Travis::Client::Repository do
-  subject { Travis::Client.new.repo('rails/rails') }
+  let(:session) { Travis::Client.new }
+  subject { session.repo('rails/rails') }
+
   its(:slug) { should be == 'rails/rails' }
   its(:description) { should_not be_empty }
   its(:last_build_id) { should be == 4125095 }
@@ -15,6 +17,8 @@ describe Travis::Client::Repository do
   its(:last_build) { should be_a(Travis::Client::Build) }
   its(:color) { should be == 'red' }
   its(:github_language) { should be == 'Ruby' }
+  its(:owner_name) { should be == 'rails' }
+  its(:owner) { should be == session.account("rails") }
 
   it { should_not be_pending  }
   it { should     be_started  }

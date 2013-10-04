@@ -16,6 +16,10 @@ module Travis
       one  :worker
       many :workers
 
+      def self.id?(object)
+        object.is_a? String
+      end
+
       def payload=(value)
         set_attribute(:payload, session.load(value))
       end
