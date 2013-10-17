@@ -1258,6 +1258,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 * Add `Account#repositories` to load all repos for a given account.
 * Add `Repository#owner_name` and `Repository#owner` to load the account owning a repository.
 * Add `Repository#member?` to check if the current user is a member of a repository.
+* Add `Build#pull_request_number` and `Build#pull_request_title`.
 
 **1.5.5** (October 2, 2013)
 
