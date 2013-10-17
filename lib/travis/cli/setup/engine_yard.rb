@@ -8,7 +8,7 @@ module Travis
         description "automatic deployment to Engine Yard"
 
         def run
-          deploy 'provider' => 'engineyard' do |config|
+          deploy 'engineyard' do |config|
             eyrc                  = File.expand_path(".eyrc", Dir.home)
             config['api_key']     = YAML.load_file(eyrc)["api_token"] if File.exists?(eyrc)
             config['api_key']     = ask("API token: ") { |q| q.echo = "*" }.to_s unless config['api_key']
