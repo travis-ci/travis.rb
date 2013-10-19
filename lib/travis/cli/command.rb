@@ -246,7 +246,7 @@ module Travis
         end
 
         def command(name)
-          color("#$0 #{name}", :command)
+          color("#{File.basename($0)} #{name}", :command)
         end
 
         def success(line)

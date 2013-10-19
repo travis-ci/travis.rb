@@ -4,13 +4,13 @@ describe Travis::CLI::Whoami do
   example "travis whoami" do
     run_cli('whoami').should_not be_success
     stdout.should be_empty
-    stderr.should be == "not logged in, please run #$0 login\n"
+    stderr.should be == "not logged in, please run #{File.basename $0} login\n"
   end
 
   example "travis whoami --pro" do
     run_cli('whoami', '--pro').should_not be_success
     stdout.should be_empty
-    stderr.should be == "not logged in, please run #$0 login --pro\n"
+    stderr.should be == "not logged in, please run #{File.basename $0} login --pro\n"
   end
 
   example "travis whoami -t token" do
