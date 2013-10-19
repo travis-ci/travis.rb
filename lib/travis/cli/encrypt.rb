@@ -35,7 +35,7 @@ module Travis
           data = $stdin.read
         end
 
-        data = split? ? data.split("\n") : [data]
+        data = split? ? data.split("\n") : [data.strip]
         encrypted = data.map { |data| repository.encrypt(data) }
 
         if config_key
