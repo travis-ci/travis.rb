@@ -223,7 +223,7 @@ You can limit the repositories to monitor with `--my-repos` and `--repo SLUG`.
 
 The monitor command can also send out desktop notifications (OSX, Growl or libnotify):
 
-    $ travis montior --pro -n
+    $ travis monitor --pro -n
     Monitoring travis-ci.com:
     ...
 
