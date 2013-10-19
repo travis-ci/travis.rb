@@ -47,7 +47,7 @@ end
 
 __END__
 
-<[[ color("%s #%s: %s", :bold) ]]>
+<[[ color("%s #%s: ", :bold) ]]> <[[ color(%p, :bold) ]]>
 <[[ color("State:         ", :info) ]]><[[ color(%p, :%s) ]]>
 <[[ color("Type:          ", :info) ]]>%s
 <[[ color("Branch:        ", :info) ]]>%s
