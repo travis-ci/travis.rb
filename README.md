@@ -193,6 +193,13 @@ If you don't want it to send your credentials to GitHub, you can create a GitHub
 
 A third option is for the really lazy: `--auto`. In this mode the client will try to find a GitHub token for you and just use that. This will only work if you have a [global GitHub token](https://help.github.com/articles/git-over-https-using-oauth-token) stored in your [.netrc](http://blogdown.io/c4d42f87-80dd-45d5-8927-4299cbdf261c/posts/574baa68-f663-4dcf-88b9-9d41310baf2f). If you haven't heard of this, it's worth looking into in general. Again: Travis CI will not store that token.
 
+#### `logout`
+
+This command makes Travis CI forget your access token.
+
+    $ travis logout --pro
+    Successfully logged out!
+
 #### `monitor`
 
     Usage: travis monitor [options]

@@ -28,6 +28,7 @@ module Travis
     autoload :History,      'travis/cli/history'
     autoload :Init,         'travis/cli/init'
     autoload :Login,        'travis/cli/login'
+    autoload :Logout,       'travis/cli/logout'
     autoload :Logs,         'travis/cli/logs'
     autoload :Monitor,      'travis/cli/monitor'
     autoload :Open,         'travis/cli/open'
