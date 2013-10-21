@@ -46,7 +46,7 @@ module Travis
         end
 
         def notify(title, body)
-          system "%s -m %p %p >/dev/null" % [@command, body, title]
+          system "%s -n Travis -m %p %p >/dev/null" % [@command, body, title]
         end
 
         def available?
