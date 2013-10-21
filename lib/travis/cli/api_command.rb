@@ -8,6 +8,7 @@ module Travis
       abstract
 
       on('-e', '--api-endpoint URL', 'Travis API server to talk to')
+      on('-I', '--[no-]insecure', 'do not verify SSL certificate of API endpoint')
       on('--pro', "short-cut for --api-endpoint '#{Travis::Client::PRO_URI}'") { |c,_| c.api_endpoint = Travis::Client::PRO_URI }
       on('--org', "short-cut for --api-endpoint '#{Travis::Client::ORG_URI}'") { |c,_| c.api_endpoint = Travis::Client::ORG_URI }
       on('--staging', 'talks to staging system') { |c,_| c.api_endpoint = c.api_endpoint.gsub(/api/, 'api-staging') }
@@ -44,6 +45,9 @@ module Travis
         self.api_endpoint = default_endpoint if default_endpoint and not explicit_api_endpoint?
         self.access_token               ||= fetch_token
         endpoint_config['access_token'] ||= access_token
+        endpoint_config['insecure']       = insecure unless insecure.nil?
+        self.insecure                     = endpoint_config['insecure']
+        session.ssl                       = { :verify => false } if insecure?
         authenticate if pro?
       end
 

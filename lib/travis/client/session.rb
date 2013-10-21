@@ -17,7 +17,7 @@ module Travis
     class Session
       SSL_OPTIONS = { :ca_file => File.expand_path("../../cacert.pem", __FILE__) }
       include Methods
-      attr_reader :connection, :headers, :access_token, :instruments, :faraday_adapter, :agent_info
+      attr_reader :connection, :headers, :access_token, :instruments, :faraday_adapter, :agent_info, :ssl
 
       def initialize(options = Travis::Client::ORG_URI)
         @headers         = {}
@@ -26,6 +26,7 @@ module Travis
         @agent_info      = []
         @config          = nil
         @faraday_adapter = defined?(Typhoeus) ? :typhoeus : :net_http
+        @ssl             = SSL_OPTIONS
 
         options = { :uri => options } unless options.respond_to? :each_pair
         options.each_pair { |key, value| public_send("#{key}=", value) }
@@ -44,9 +45,14 @@ module Travis
         set_user_agent
       end
 
+      def ssl=(options)
+        @ssl     = options.dup.freeze
+        self.uri = uri if uri
+      end
+
       def uri=(uri)
         clear_cache!
-        self.connection = Faraday.new(:url => uri, :ssl => SSL_OPTIONS) do |faraday|
+        self.connection = Faraday.new(:url => uri, :ssl => ssl) do |faraday|
           faraday.request  :url_encoded
           faraday.response :json
           faraday.response :follow_redirects
@@ -154,8 +160,11 @@ module Travis
         raw(:put, *args)
       end
 
-      def raw(verb, *args)
-        instrumented(verb.to_s.upcase, *args) { connection.public_send(verb, *args).body }
+      def raw(verb, url, *args)
+        url    = url.sub(/^\//, '')
+        result = instrumented(verb.to_s.upcase, url, *args) { connection.public_send(verb, url, *args) }
+        raise Travis::Client::Error, 'SSL error: could not verify peer' if result.status == 0
+        result.body
       rescue Faraday::Error::ClientError => e
         handle_error(e)
       end
