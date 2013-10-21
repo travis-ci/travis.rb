@@ -14,7 +14,8 @@ module Travis
       def initialize(options = {})
         self.netrc   = options[:netrc]  || Netrc.default_path
         self.hub     = options[:hub]    || ENV['HUB_CONFIG'] || '~/.config/hub'
-        self.github  = options[:github] || 'github.com'
+        self.github  = options[:github]
+        self.github  = 'github.com' if github.nil? or github == 'api.github.com'
         self.explode = options[:explode]
       end
 
