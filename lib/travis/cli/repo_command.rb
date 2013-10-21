@@ -35,6 +35,10 @@ module Travis
           repository.job(number_or_id)
         end
 
+        def branch(name)
+          repository.branch(name)
+        end
+
         def last_build
           repository.last_build or error("no build yet for #{slug}")
         end

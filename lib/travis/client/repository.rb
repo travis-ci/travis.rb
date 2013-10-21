@@ -138,8 +138,8 @@ module Travis
       end
 
       def job(number)
-        build_number = number.to_s[/^\d+/]
-        build        = build(build_number)
+        build_number = number.to_s[/^\d+/] or return nil
+        build        = build(build_number) or return nil
         job          = build.jobs.detect { |j| j.number == number } if number != build_number
         job        ||= build.jobs.first if build and build.jobs.size == 1
         job

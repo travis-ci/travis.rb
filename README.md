@@ -572,20 +572,43 @@ You can also set certain values via command line flags (see list above):
 
 #### `logs`
 
-Given a job number, logs simply prints out that job's logs.
+Given a job number, logs simply prints out that job's logs. By default it will display the first job of the latest build.
 
-    $ travis logs 77.1
+    $ travis logs
+    displaying logs for travis-ci/travis#317.1
     [... more logs ...]
     Your bundle is complete! Use `bundle show [gemname]` to see where a bundled gem is installed.
     $ bundle exec rake
     /home/travis/.rvm/rubies/ruby-1.8.7-p371/bin/ruby -S rspec spec -c
-    Faraday: you may want to install system_timer for reliable timeouts
-    ...................................................................................................................................................................
+    ..............................................................................................................................................................................................................................................................................
 
-    Finished in 6.48 seconds
-    163 examples, 0 failures
+    Finished in 4.46 seconds
+    270 examples, 0 failures
 
     Done. Build script exited with: 0
+
+The info line about the job being displayed is written to stderr, the logs itself are written to stdout.
+
+It takes an optional argument that can be a job number:
+
+    $ travis logs 100.3
+    displaying logs for travis-ci/travis#100.3
+
+A build number (in which case it will pick the build's first job):
+
+    $ travis logs 100
+    displaying logs for travis-ci/travis#100.1
+
+Just the job suffix, which will pick the corresponding job from the latest build:
+
+    $ travis logs .2
+    displaying logs for travis-ci/travis#317.2
+
+A branch name:
+
+    $ travis logs ghe
+    displaying logs for travis-ci/travis#270.1
+
 
 #### `open`
 
@@ -1260,6 +1283,10 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 * Use new API for fetching a single branch for Repository#branch. This also circumvents the 25 branches limit.
 * Start publishing gem prereleases after successful builds.
+* Have `travis logs` display first job for a build if a build number is given (or for the last build if called without arguments)
+* Add support for branch names to `travis logs`.
+* Add support for just using the job suffix with `travis logs`.
+* Improve error message if job cannot be found/identified by `travis logs`.
 * Add `travis logout` for removing access token.
 * Improve error message for commands that require user to be logged in.
 * Add `account` method for fetching a single account to `Travis::Client::Methods`.
