@@ -14,44 +14,51 @@ Gem::Specification.new do |s|
   s.authors = [
     "Konstantin Haase",
     "Henrik Hodne",
-    "Peter Souter",
     "Aaron Hill",
+    "Peter Souter",
+    "Peter van Dijk",
     "Max Barnash",
     "Mathias Meyer",
-    "Jacob Burkhart",
     "Josh Kalderimis",
     "Justin Lambert",
-    "Adam Lavin",
-    "Benjamin Manns",
+    "Adrien Brault",
+    "Laurent Petit",
+    "Maarten van Vliet",
     "Mario Visic",
+    "Neamar",
     "Piotr Sarnacki",
     "Rapha\xC3\xABl Pinson",
     "Tobias Wilken",
-    "Laurent Petit",
     "Daniel Chatfield",
-    "Adrien Brault"
+    "Adam Lavin",
+    "Benjamin Manns",
+    "Jacob Burkhart"
   ]
 
   # generated from git shortlog -sne
   s.email = [
     "konstantin.mailinglists@googlemail.com",
+    "aa1ronham@gmail.com",
     "me@henrikhodne.com",
     "p.morsou@gmail.com",
-    "aa1ronham@gmail.com",
+    "henrik@hodne.io",
+    "peter.van.dijk@netherlabs.nl",
     "i.am@anhero.ru",
     "meyer@paperplanes.de",
-    "josh.kalderimis@gmail.com",
-    "jlambert@eml.cc",
-    "adrien.brault@gmail.com",
     "adam@lavoaster.co.uk",
-    "chatfielddaniel@gmail.com",
+    "laurent.petit@gmail.com",
+    "maartenvanvliet@gmail.com",
     "mario@mariovisic.com",
+    "neamar@neamar.fr",
     "drogus@gmail.com",
     "raphael.pinson@camptocamp.com",
     "tw@cloudcontrol.de",
-    "laurent.petit@gmail.com",
+    "chatfielddaniel@gmail.com",
     "benmanns@gmail.com",
-    "jburkhart@engineyard.com"
+    "jburkhart@engineyard.com",
+    "josh.kalderimis@gmail.com",
+    "jlambert@eml.cc",
+    "adrien.brault@gmail.com"
   ]
 
   # generated from git ls-files
