@@ -1323,6 +1323,10 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 * Only load auto-completions if available.
 * Fix and improve growl notifications.
 * Fix GitHub host detection `travis login --auto`.
+* API endpoint may now include a path all the requests will be prefixed with.
+* Allow overriding SSL options in Ruby client.
+* Add `--insecure` to turn off SSL verification.
+* Add `--enterprise`/`-X` option for Travis Enterprise integration.
 
 **1.5.5** (October 2, 2013)
 
