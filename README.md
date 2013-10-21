@@ -788,7 +788,7 @@ The custom `--api-endpoint` option is handy for local development:
     $ travis whatsup --api-endpoint http://localhost:3000
     ...
 
-If you have a Travis Enterprise setup in house, you can use the `--enterprise` (or short `-X`) option. It will ask you for the enterprise domain the first time it is used.
+If you have a Travis Enterprise setup in house, you can use the `--enterprise` option (or short `-X`). It will ask you for the enterprise domain the first time it is used.
 
     $ travis login -X
     Enterprise domain: travisci.example.com
@@ -796,7 +796,7 @@ If you have a Travis Enterprise setup in house, you can use the `--enterprise` (
     $ travis whatsup -X
     ...
 
-Note that currently [Repository Commands](#repository-commands) will not be able to detect Travis Enterprise automatically at the moment. You will have to use the `-X` flag at least once per repository. The command line tool will remember the API endpoint for subsequent commands issued against the same repository.
+Note that currently [Repository Commands](#repository-commands) will not be able to detect Travis Enterprise automatically. You will have to use the `-X` flag at least once per repository. The command line tool will remember the API endpoint for subsequent commands issued against the same repository.
 
 ### Environment Variables
 
