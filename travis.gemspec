@@ -59,6 +59,7 @@ Gem::Specification.new do |s|
     "LICENSE",
     "README.md",
     "Rakefile",
+    "assets/notification-icon.png",
     "bin/travis",
     "completion/extconf.rb",
     "completion/travis.sh",
