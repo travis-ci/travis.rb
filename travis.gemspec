@@ -96,6 +96,7 @@ Gem::Specification.new do |s|
     "lib/travis/cli/init/ruby.yml",
     "lib/travis/cli/init/scala.yml",
     "lib/travis/cli/login.rb",
+    "lib/travis/cli/logout.rb",
     "lib/travis/cli/logs.rb",
     "lib/travis/cli/monitor.rb",
     "lib/travis/cli/open.rb",
