@@ -17,6 +17,6 @@ describe Travis::CLI::Token do
     run_cli('token').should_not be_success
 
     stdout.should be_empty
-    stderr.should == "not logged in, please run #$0 login\n"
+    stderr.should == "not logged in, please run #{File.basename($0)} login\n"
   end
 end
