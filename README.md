@@ -36,6 +36,7 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a [command line
         * [`setup`](#setup)
         * [`show`](#show)
         * [`status`](#status)
+    * [Pro and Enterprise](#pro-and-enterprise)
     * [Environment Variables](#environment-variables)
 * [Ruby Library](#ruby-library)
     * [Authentication](#authentication)
@@ -109,8 +110,6 @@ Additionally, every API command understands the following options:
     -t, --token [ACCESS_TOKEN]       access token to use
         --debug                      show API requests
         --adapter ADAPTER            Faraday adapter to use for HTTP requests
-
-By default, [General API Commands](#general-api-commands) will talk to [api.travis-ci.org](https://api.travis-ci.org). You can change this by supplying `--pro` for [api.travis-ci.com](https://api.travis-ci.com) or `--api-endpoint` with your own endpoint. Note that all [Repository Commands](#repository-commands) will try to figure out the API endpoint to talk to automatically depending on the project's visibility on GitHub.
 
 You can supply an access token via `--token` if you want to make an authenticated call. If you don't have an access token stored for the API endpoint, it will remember it for subsequent requests. Keep in mind, this is not the "Travis token" used when setting up GitHub hooks (due to security). You probably don't have an access token handy right now. Don't worry, usually you won't use this option but instead just do a [`travis login`](#login).
 
@@ -774,6 +773,30 @@ Or a job:
 Outputs a one line status message about the project's last build. With `-q` that line will even not be printed out. How's that useful? Combine it with `-x` and the exit code will be 1 if the build failed, with `-p` and it will be 1 for a pending build.
 
     $ travis status -qpx && cap deploy
+
+### Pro and Enterprise
+
+By default, [General API Commands](#general-api-commands) will talk to [api.travis-ci.org](https://api.travis-ci.org). You can change this by supplying `--pro` for [api.travis-ci.com](https://api.travis-ci.com) or `--api-endpoint` with your own endpoint. Note that all [Repository Commands](#repository-commands) will try to figure out the API endpoint to talk to automatically depending on the project's visibility on GitHub.
+
+    $ travis login --pro
+    ...
+    $ travis monitor --pro -m
+    ...
+
+The custom `--api-endpoint` option is handy for local development:
+
+    $ travis whatsup --api-endpoint http://localhost:3000
+    ...
+
+If you have a Travis Enterprise setup in house, you can use the `--enterprise` (or short `-X`) option. It will ask you for the enterprise domain the first time it is used.
+
+    $ travis login -X
+    Enterprise domain: travisci.example.com
+    ...
+    $ travis whatsup -X
+    ...
+
+Note that currently [Repository Commands](#repository-commands) will not be able to detect Travis Enterprise automatically at the moment. You will have to use the `-X` flag at least once per repository. The command line tool will remember the API endpoint for subsequent commands issued against the same repository.
 
 ### Environment Variables
 

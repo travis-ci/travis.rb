@@ -4,6 +4,7 @@ module Travis
   module CLI
     class ApiCommand < Command
       include Travis::Client::Methods
+      attr_accessor :enterprise_name
       attr_reader :session
       abstract
 
@@ -24,6 +25,10 @@ module Travis
         end
       end
 
+      on('-X', '--enterprise [NAME]', 'use enterprise setup (optionally takes name for multiple setups)') do |c, name|
+        c.enterprise_name = name || 'default'
+      end
+
       on('--adapter ADAPTER', 'Faraday adapter to use for HTTP requests') do |c, adapter|
         adapter.gsub! '-', '_'
         require "faraday/adapter/#{adapter}"
@@ -42,6 +47,7 @@ module Travis
       end
 
       def setup
+        setup_enterprise if enterprise?
         self.api_endpoint = default_endpoint if default_endpoint and not explicit_api_endpoint?
         self.access_token               ||= fetch_token
         endpoint_config['access_token'] ||= access_token
@@ -83,6 +89,23 @@ module Travis
       end
 
       private
+
+        def setup_enterprise
+          c = config['enterprise'] ||= {}
+          c[enterprise_name] = api_endpoint if explicit_api_endpoint?
+          c[enterprise_name] ||= write_to($stderr) do
+            error "enterprise setup not configured" unless interactive?
+            user_input = ask(color("Enterprise domain: ", :bold)).to_s
+            domain     = user_input[%r{^(?:https?://)?(.*?)(?:/api/?)?$}, 1]
+            "https://#{domain}/api/"
+          end
+          self.api_endpoint = c[enterprise_name]
+          self.insecure     = true if insecure.nil?
+        end
+
+        def enterprise?
+          !!enterprise_name
+        end
 
         def load_gh
           return if defined? GH
