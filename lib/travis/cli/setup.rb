@@ -13,6 +13,7 @@ module Travis
       autoload :OpenShift,    'travis/cli/setup/open_shift'
       autoload :PyPI,         'travis/cli/setup/pypi'
       autoload :RubyGems,     'travis/cli/setup/ruby_gems'
+      autoload :S3,           'travis/cli/setup/s3'
       autoload :SauceConnect, 'travis/cli/setup/sauce_connect'
       autoload :Service,      'travis/cli/setup/service'
 
