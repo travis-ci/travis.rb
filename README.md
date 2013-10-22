@@ -676,7 +676,7 @@ Helps you configure Travis addons.
         -r, --repo SLUG                  repository to use (will try to detect from current git clone)
         -f, --force                      override config section if it already exists
 
-Available services: `appfog`, `cloudcontrol`, `cloudfoundry`, `engineyard`, `heroku`, `nodejitsu`, `npm`, `openshift`, `pypi`, `rubygems` and `sauce_connect`.
+Available services: `appfog`, `cloudcontrol`, `cloudfoundry`, `engineyard`, `heroku`, `nodejitsu`, `npm`, `openshift`, `pypi`, `rubygems`, `s3` and `sauce_connect`.
 
 Example:
 
@@ -1304,7 +1304,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 **unreleased changes**
 
-* Add `travis setup appfog`.
+* Add `travis setup appfog` and `travis setup s3`.
 * Use new API for fetching a single branch for Repository#branch. This also circumvents the 25 branches limit.
 * Start publishing gem prereleases after successful builds.
 * Have `travis logs` display first job for a build if a build number is given (or for the last build if called without arguments)
