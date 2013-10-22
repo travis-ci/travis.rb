@@ -1,10 +1,11 @@
 require 'travis/cli'
 require 'yaml'
+require "addressable/uri"
 
 module Travis
   module CLI
     class RepoCommand < ApiCommand
-      GIT_REGEX = %r{^(?:https://|git://|git@)github\.com[:/](.*/.+?)(\.git)?$}
+      GIT_REGEX = %r{/?(.*/.+?)(\.git)?$}
       on('-r', '--repo SLUG', 'repository to use (will try to detect from current git clone)') { |c, slug| c.slug = slug }
 
       attr_accessor :slug
@@ -12,6 +13,7 @@ module Travis
 
       def setup
         error "Can't figure out GitHub repo name. Ensure you're in the repo directory, or specify the repo name via the -r option (e.g. travis <command> -r <repo-name>)" unless self.slug ||= find_slug
+        error "GitHub repo name is invalid, it should be on the form 'owner/repo'" unless self.slug.include?("/")
         self.api_endpoint = detect_api_endpoint
         super
         repository.load # makes sure we actually have access to the repo
@@ -52,7 +54,7 @@ module Travis
           git_remote = `git config --get branch.#{git_head}.remote 2>#{IO::NULL}`.chomp
           git_remote = 'origin' if git_remote.empty?
           git_info   = `git config --get remote.#{git_remote}.url 2>#{IO::NULL}`.chomp
-          $1 if git_info =~ GIT_REGEX
+          $1 if Addressable::URI.parse(git_info).path =~ GIT_REGEX
         end
 
         def repo_config
