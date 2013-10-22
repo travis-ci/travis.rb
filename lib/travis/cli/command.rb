@@ -139,9 +139,12 @@ module Travis
         return if completion_config['ignore'] == true
 
         if !Tools::Completion.completion_installed?
-          answer = ask("You have not installed shell completion. Would you like to like to install it? ") { |q| q.default = "y" }
-          Tools::Completion.install_completion unless answer.strip.downcase == 'n'
-          config['completion']['ignore'] = true
+          if interactive?
+            answer = ask("You have not installed shell completion. Would you like to like to install it? ") { |q| q.default = "y" }
+            Tools::Completion.install_completion unless answer.strip.downcase == 'n'
+            config['completion']['ignore'] = true
+          else
+            warn "You have not installed shell completion"
         end
       end
 
