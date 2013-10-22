@@ -123,6 +123,7 @@ Gem::Specification.new do |s|
     "lib/travis/cli/setup/open_shift.rb",
     "lib/travis/cli/setup/pypi.rb",
     "lib/travis/cli/setup/ruby_gems.rb",
+    "lib/travis/cli/setup/s3.rb",
     "lib/travis/cli/setup/sauce_connect.rb",
     "lib/travis/cli/setup/service.rb",
     "lib/travis/cli/show.rb",
