@@ -1242,12 +1242,12 @@ You can check your Ruby version by running `ruby -v`:
 
 Then run:
 
-    $ gem install travis -v 1.5.5 --no-rdoc --no-ri
+    $ gem install travis -v 1.5.6 --no-rdoc --no-ri
 
 Now make sure everything is working:
 
     $ travis version
-    1.5.5
+    1.5.6
 
 ### Development Version
 
@@ -1302,7 +1302,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
-**unreleased changes**
+**1.5.6** (October 22, 2013)
 
 * Add `travis setup appfog` and `travis setup s3`.
 * Use new API for fetching a single branch for Repository#branch. This also circumvents the 25 branches limit.
