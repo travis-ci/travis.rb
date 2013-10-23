@@ -5,7 +5,7 @@ require 'json'
 if require 'pusher-client'
   # it's us that has been loading pusher-client
   # so let's assume we can mess with it - yay for global state
-  #PusherClient.logger.level = 2
+  PusherClient.logger.level = 2
 end
 
 module Travis
@@ -147,6 +147,7 @@ module Travis
           options[:wss_port]   = pusher_options['port'] if encrypted  and pusher_options['port']
           options[:ws_port]    = pusher_options['port'] if !encrypted and pusher_options['port']
           options[:ws_path]    = pusher_options['path'] if pusher_options['path']
+          options[:ws_path]    = '/' << options[:ws_path] unless options[:ws_path].nil? or options[:ws_path].start_with? '/'
           options[:ssl_verify] = session.ssl.fetch(:verify, true)
           options
         end
