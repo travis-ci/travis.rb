@@ -54,7 +54,11 @@ module Travis
         endpoint_config['insecure']       = insecure unless insecure.nil?
         self.insecure                     = endpoint_config['insecure']
         session.ssl                       = { :verify => false } if insecure?
-        authenticate if pro?
+        authenticate if pro? or enterprise?
+      end
+
+      def enterprise?
+        !!endpoint_config['enterprise']
       end
 
       def pro?
@@ -96,11 +100,12 @@ module Travis
           c[enterprise_name] ||= write_to($stderr) do
             error "enterprise setup not configured" unless interactive?
             user_input = ask(color("Enterprise domain: ", :bold)).to_s
-            domain     = user_input[%r{^(?:https?://)?(.*?)(?:/api/?)?$}, 1]
+            domain     = user_input[%r{^(?:https?://)?(.*?)/?(?:/api/?)?$}, 1]
             "https://#{domain}/api/"
           end
           self.api_endpoint = c[enterprise_name]
           self.insecure     = true if insecure.nil?
+          endpoint_config['enterprise'] = true
         end
 
         def enterprise?
