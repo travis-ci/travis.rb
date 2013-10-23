@@ -44,12 +44,8 @@ task :update => :completion do
 end
 
 task :completion do
-  require 'travis/cli'
-  require 'erb'
-  commands = Travis::CLI.commands.sort_by { |c| c.command_name }
-  template = File.read('completion/travis.sh.erb')
-  source   = ERB.new(template).result(binding).gsub(/^ +\n/, '')
-  File.write('completion/travis.sh', source)
+  require 'travis/tools/completion'
+  Travis::Tools::Completion.compile
 end
 
 task 'travis.gemspec' => :update

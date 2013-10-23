@@ -2,6 +2,7 @@ require 'travis/cli'
 require 'travis/tools/system'
 require 'travis/tools/formatter'
 require 'travis/tools/assets'
+require 'travis/tools/completion'
 require 'travis/version'
 
 require 'highline'
@@ -131,6 +132,16 @@ module Travis
       rescue Timeout::Error, Faraday::Error::ClientError
       end
 
+      def check_completion
+        return if config['checked_completion'] or !interactive?
+        write_to($stderr) do
+          next if Tools::Completion.completion_installed?
+          next unless agree('Shell completion not installed. Would you like to like to install it now? ') { |q| q.default = "y" }
+          Tools::Completion.install_completion
+        end
+        config['checked_completion'] = true
+      end
+
       def check_ruby
         return if RUBY_VERSION > '1.9.2' or skip_version_check?
         warn "Your Ruby version is outdated, please consider upgrading, as we will drop support for #{RUBY_VERSION} soon!"
@@ -142,6 +153,7 @@ module Travis
         check_arity(method(:run), *arguments)
         load_config
         check_version
+        check_completion
         setup
         run(*arguments)
         store_config
