@@ -5,7 +5,7 @@ require 'json'
 if require 'pusher-client'
   # it's us that has been loading pusher-client
   # so let's assume we can mess with it - yay for global state
-  PusherClient.logger.level = 2
+  #PusherClient.logger.level = 2
 end
 
 module Travis
@@ -70,7 +70,7 @@ module Travis
 
       def initialize(session)
         @session   = session
-        @socket    = Socket.new(pusher_key, :encrypted => true, :session => session)
+        @socket    = Socket.new(pusher_key, pusher_options)
         @channels  = []
         @callbacks = []
       end
@@ -137,6 +137,18 @@ module Travis
         def default_channels
           return ['common'] if session.access_token.nil?
           session.user.channels
+        end
+
+        def pusher_options
+          pusher_options       = session.config['pusher'] || {}
+          encrypted            = pusher_options['scheme'] != 'http'
+          options              = { :encrypted => encrypted, :session => session }
+          options[:ws_host]    = pusher_options['host'] if pusher_options['host']
+          options[:wss_port]   = pusher_options['port'] if encrypted  and pusher_options['port']
+          options[:ws_port]    = pusher_options['port'] if !encrypted and pusher_options['port']
+          options[:ws_path]    = pusher_options['path'] if pusher_options['path']
+          options[:ssl_verify] = session.ssl.fetch(:verify, true)
+          options
         end
 
         def pusher_key
