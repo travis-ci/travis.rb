@@ -47,7 +47,7 @@ module Travis
         end
 
         def notify(title, body)
-          system @command, '-n', 'Travis', '-m', body, title
+          system @command, '-n', 'Travis', '--image', File.join(Basedir, 'assets', 'notification-icon.png'), '-m', body, title
         end
 
         def available?
