@@ -115,10 +115,6 @@ module Travis
         }
       end
 
-      def completion_config
-        config['completion'] ||= {'ignore' => 'false' }
-      end
-
       def check_version
         last_check.clear if last_check['version'] != Travis::VERSION
 
@@ -137,16 +133,13 @@ module Travis
       end
 
       def check_completion
-        return if completion_config['ignore'] == true
-
-        if !Tools::Completion.completion_installed?
-          if interactive?
-            answer = ask("You have not installed shell completion. Would you like to like to install it? ") { |q| q.default = "y" }
-            Tools::Completion.install_completion unless answer.strip.downcase == 'n'
-            config['completion']['ignore'] = true
-          else
-            warn "You have not installed shell completion"
+        return if config['checked_completion'] or !interactive?
+        write_to($stderr) do
+          next if Tools::Completion.completion_installed?
+          next unless agree('Shell completion not installed. Would you like to like to install it now? ') { |q| q.default = "y" }
+          Tools::Completion.install_completion
         end
+        config['checked_completion'] = true
       end
 
       def check_ruby
