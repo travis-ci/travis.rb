@@ -47,7 +47,7 @@ module Travis
       end
 
       def setup
-        setup_enterprise if enterprise?
+        setup_enterprise
         self.api_endpoint = default_endpoint if default_endpoint and not explicit_api_endpoint?
         self.access_token               ||= fetch_token
         endpoint_config['access_token'] ||= access_token
@@ -95,6 +95,7 @@ module Travis
       private
 
         def setup_enterprise
+          return unless setup_enterprise?
           c = config['enterprise'] ||= {}
           c[enterprise_name] = api_endpoint if explicit_api_endpoint?
           c[enterprise_name] ||= write_to($stderr) do
@@ -108,10 +109,12 @@ module Travis
           self.api_endpoint             = c[enterprise_name]
           self.insecure                 = true if insecure.nil?
           endpoint_config['enterprise'] = true
+          @setup_ennterpise             = true
         end
 
-        def enterprise?
-          !!enterprise_name
+        def setup_enterprise?
+          @setup_ennterpise ||= false
+          !!enterprise_name and not @setup_ennterpise
         end
 
         def load_gh

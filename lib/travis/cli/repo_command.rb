@@ -6,12 +6,14 @@ module Travis
   module CLI
     class RepoCommand < ApiCommand
       GIT_REGEX = %r{/?(.*/.+?)(\.git)?$}
+      TRAVIS    = %r{^https://(staging-)?api\.travis-ci\.(org|com)}
       on('-r', '--repo SLUG', 'repository to use (will try to detect from current git clone)') { |c, slug| c.slug = slug }
 
       attr_accessor :slug
       abstract
 
       def setup
+        setup_enterprise
         error "Can't figure out GitHub repo name. Ensure you're in the repo directory, or specify the repo name via the -r option (e.g. travis <command> -r <repo-name>)" unless self.slug ||= find_slug
         error "GitHub repo name is invalid, it should be on the form 'owner/repo'" unless self.slug.include?("/")
         self.api_endpoint = detect_api_endpoint
@@ -63,10 +65,12 @@ module Travis
         end
 
         def detect_api_endpoint
-          if explicit_api_endpoint?
+          if explicit_api_endpoint? or enterprise?
             repo_config['endpoint'] = api_endpoint
           elsif ENV['TRAVIS_ENDPOINT']
             ENV['TRAVIS_ENDPOINT']
+          elsif config['default_endpoint'] and config['default_endpoint'] !~ TRAVIS
+            repo_config['endpoint'] ||= config['default_endpoint']
           else
             repo_config['endpoint'] ||= begin
               load_gh
