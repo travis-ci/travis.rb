@@ -1,3 +1,4 @@
+require "travis"
 require "travis/tools/system"
 require "terminal-notifier"
 require "cgi"
@@ -61,7 +62,7 @@ module Travis
         end
 
         def notify(title, body)
-          system @command, "--expire-time=#{@expire_time}", title, CGI.escapeHTML(body)
+          system @command, "--expire-time=#{@expire_time}", "-i", File.join(Basedir, 'assets', 'notification-icon.png'), title, CGI.escapeHTML(body)
         end
       end
     end
