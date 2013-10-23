@@ -64,7 +64,7 @@ module Travis
               color(entity.inspect_info, [entity.color, :bold]),
               color(entity.state, entity.color)
             ].join(" ")
-            notification.notify("Travis CI", "#{entity.inspect_info} #{entity.state}")
+            notification.notify(entity.repository.slug, "#{entity.class.name[/[^:]+$/]} ##{entity.number} #{entity.state}")
           end
         end
       end
