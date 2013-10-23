@@ -13,7 +13,7 @@ module Travis
   module CLI
     class Command
       include Tools::Assets
-      extend Parser, Forwardable
+      extend Parser, Forwardable, Tools::Assets
       def_delegators :terminal, :agree, :ask, :choose
 
       HighLine.use_color = !Tools::System.windows? && $stdout.tty?
