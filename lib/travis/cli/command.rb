@@ -1,6 +1,7 @@
 require 'travis/cli'
 require 'travis/tools/system'
 require 'travis/tools/formatter'
+require 'travis/tools/assets'
 require 'travis/version'
 
 require 'highline'
@@ -11,8 +12,8 @@ require 'timeout'
 module Travis
   module CLI
     class Command
-      extend Parser
-      extend Forwardable
+      include Tools::Assets
+      extend Parser, Forwardable
       def_delegators :terminal, :agree, :ask, :choose
 
       HighLine.use_color = !Tools::System.windows? && $stdout.tty?
@@ -253,28 +254,28 @@ module Travis
           say color(line, :success) if interactive?
         end
 
-        def asset_path(name)
+        def config_path(name)
           path = ENV.fetch('TRAVIS_CONFIG_PATH') { File.expand_path('.travis', Dir.home) }
           Dir.mkdir(path, 0700) unless File.directory? path
           File.join(path, name)
         end
 
-        def load_asset(name, default = nil)
-          path = asset_path(name)
+        def load_file(name, default = nil)
+          path = config_path(name)
           File.exist?(path) ? File.read(path) : default
         end
 
-        def save_asset(name, content)
-          File.write(asset_path(name), content.to_s)
+        def save_file(name, content)
+          File.write(config_path(name), content.to_s)
         end
 
         def load_config
-          @config = YAML.load load_asset('config.yml', '{}')
+          @config = YAML.load load_file('config.yml', '{}')
           @original_config = @config.dup
         end
 
         def store_config
-          save_asset('config.yml', @config.to_yaml)
+          save_file('config.yml', @config.to_yaml)
         end
 
         def check_arity(method, *args)

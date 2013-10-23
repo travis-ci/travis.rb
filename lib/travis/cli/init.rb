@@ -64,7 +64,7 @@ module Travis
       private
 
         def template_name(language)
-          File.expand_path("../init/#{language}.yml", __FILE__)
+          asset_path "init/#{language}.yml"
         end
 
         def template(language)
