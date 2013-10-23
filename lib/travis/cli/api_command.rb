@@ -99,9 +99,11 @@ module Travis
           c[enterprise_name] = api_endpoint if explicit_api_endpoint?
           c[enterprise_name] ||= write_to($stderr) do
             error "enterprise setup not configured" unless interactive?
-            user_input = ask(color("Enterprise domain: ", :bold)).to_s
-            domain     = user_input[%r{^(?:https?://)?(.*?)/?(?:/api/?)?$}, 1]
-            "https://#{domain}/api/"
+            user_input                  = ask(color("Enterprise domain: ", :bold)).to_s
+            domain                      = user_input[%r{^(?:https?://)?(.*?)/?(?:/api/?)?$}, 1]
+            endpoint                    = "https://#{domain}/api"
+            config['default_endpoint']  = endpoint if agree("Use #{color domain, :bold} as default endpoint? ") { |q| q.default = 'yes' }
+            endpoint
           end
           self.api_endpoint             = c[enterprise_name]
           self.insecure                 = true if insecure.nil?
