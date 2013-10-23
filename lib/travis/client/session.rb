@@ -4,6 +4,7 @@ require 'travis/version'
 require 'faraday'
 require 'faraday_middleware'
 require 'travis/tools/system'
+require 'travis/tools/assets'
 
 begin
   require 'typhoeus/adapters/faraday' unless Travis::Tools::System.windows?
@@ -15,7 +16,8 @@ require 'json'
 module Travis
   module Client
     class Session
-      SSL_OPTIONS = { :ca_file => File.expand_path("../../cacert.pem", __FILE__) }
+      SSL_OPTIONS = { :ca_file => Tools::Assets['cacert.pem'] }
+
       include Methods
       attr_reader :connection, :headers, :access_token, :instruments, :faraday_adapter, :agent_info, :ssl
 

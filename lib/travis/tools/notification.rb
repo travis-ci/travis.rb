@@ -1,5 +1,6 @@
+require "travis"
 require "travis/tools/system"
-require "terminal-notifier"
+require "travis/tools/assets"
 require "cgi"
 
 module Travis
@@ -7,6 +8,7 @@ module Travis
     module Notification
       extend self
       DEFAULT = [:osx, :growl, :libnotify]
+      ICON    = Assets['notifications/icon.png']
 
       def new(*list)
         list.concat(DEFAULT) if list.empty?
@@ -22,6 +24,7 @@ module Travis
       end
 
       class Dummy
+        BIN_PATH = Assets['Travis CI.app/Contents/MacOS/Travis CI']
         def notify(title, body)
         end
 
@@ -31,12 +34,14 @@ module Travis
       end
 
       class OSX
+        BIN_PATH = Assets["notifications/Travis CI.app/Contents/MacOS/Travis CI"]
+
         def notify(title, body)
-          TerminalNotifier.notify(body, :title => title)
+          system BIN_PATH, '-message', body.to_s, '-title', title.to_s
         end
 
         def available?
-          System.mac? and TerminalNotifier.available?
+          System.mac? and `sw_vers -productVersion`.strip >= '10.8'
         end
       end
 
@@ -46,7 +51,7 @@ module Travis
         end
 
         def notify(title, body)
-          system @command, '-n', 'Travis', '-m', body, title
+          system @command, '-n', 'Travis', '--image', ICON, '-m', body, title
         end
 
         def available?
@@ -61,7 +66,7 @@ module Travis
         end
 
         def notify(title, body)
-          system @command, "--expire-time=#{@expire_time}", title, CGI.escapeHTML(body)
+          system @command, "--expire-time=#{@expire_time}", "-i", ICON, title, CGI.escapeHTML(body)
         end
       end
     end
