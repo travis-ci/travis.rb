@@ -21,7 +21,7 @@ module Helpers
 
   def run_cli(*args)
     args << ENV['TRAVIS_OPTS'] if ENV['TRAVIS_OPTS']
-    args << '--skip-version-check'
+    args << '--skip-version-check' << '--skip-completion-check'
     capture do
       yield $stdin if block_given?
       $stdin.rewind

@@ -39,6 +39,7 @@ module Travis
 
       on('-E', '--[no-]explode', "don't rescue exceptions")
       on('--skip-version-check', "don't check if travis client is up to date")
+      on('--skip-completion-check', "don't check if auto-completion is set up")
 
       def self.command_name
         name[/[^:]*$/].downcase
@@ -133,7 +134,7 @@ module Travis
       end
 
       def check_completion
-        return if config['checked_completion'] or !interactive?
+        return if skip_completion_check? or config['checked_completion'] or !interactive?
         write_to($stderr) do
           next if Tools::Completion.completion_installed?
           next unless agree('Shell completion not installed. Would you like to like to install it now? ') { |q| q.default = "y" }

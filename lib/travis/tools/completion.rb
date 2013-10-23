@@ -6,17 +6,22 @@ require 'erb'
 module Travis
   module Tools
     module Completion
-      CONFIG_PATH = ENV.fetch('TRAVIS_CONFIG_PATH') { File.expand_path('.travis', ENV['HOME']) }
-      CMP_FILE    = File.expand_path('travis.sh', CONFIG_PATH)
-      RCS         = ['.zshrc', '.bashrc'].map { |f| File.expand_path(f, ENV['HOME']) }
-
+      RCS = ['.zshrc', '.bashrc'].map { |f| File.expand_path(f, ENV['HOME']) }
       include FileUtils
       extend self
 
+      def config_path
+        ENV.fetch('TRAVIS_CONFIG_PATH') { File.expand_path('.travis', ENV['HOME']) }
+      end
+
+      def cmp_file
+        File.expand_path('travis.sh', config_path)
+      end
+
       def install_completion
-        mkdir_p(CONFIG_PATH)
-        cp(Assets['travis.sh'], CMP_FILE)
-        source = "source " << CMP_FILE
+        mkdir_p(config_path)
+        cp(Assets['travis.sh'], cmp_file)
+        source = "source " << cmp_file
 
         RCS.each do |file|
           next unless File.exist? file and File.writable? file
@@ -26,7 +31,7 @@ module Travis
       end
 
       def completion_installed?
-        source = "source " << CMP_FILE
+        source = "source " << config_path
         RCS.each do |file|
           next unless File.exist? file and File.writable? file
           return false unless File.read(file).include? source
