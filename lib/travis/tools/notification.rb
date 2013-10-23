@@ -1,5 +1,6 @@
 require "travis"
 require "travis/tools/system"
+require "travis/tools/assets"
 require "terminal-notifier"
 require "cgi"
 
@@ -8,6 +9,7 @@ module Travis
     module Notification
       extend self
       DEFAULT = [:osx, :growl, :libnotify]
+      ICON    = Assets['notification-icon.png']
 
       def new(*list)
         list.concat(DEFAULT) if list.empty?
@@ -47,7 +49,7 @@ module Travis
         end
 
         def notify(title, body)
-          system @command, '-n', 'Travis', '--image', File.join(Basedir, 'assets', 'notification-icon.png'), '-m', body, title
+          system @command, '-n', 'Travis', '--image', ICON, '-m', body, title
         end
 
         def available?
@@ -62,7 +64,7 @@ module Travis
         end
 
         def notify(title, body)
-          system @command, "--expire-time=#{@expire_time}", "-i", File.join(Basedir, 'assets', 'notification-icon.png'), title, CGI.escapeHTML(body)
+          system @command, "--expire-time=#{@expire_time}", "-i", ICON, title, CGI.escapeHTML(body)
         end
       end
     end
