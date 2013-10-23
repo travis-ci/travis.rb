@@ -227,6 +227,14 @@ With `monitor` you can watch a live stream of what's going on:
 
 You can limit the repositories to monitor with `--my-repos` and `--repo SLUG`.
 
+By default, you will receive events for both builds and jobs, you can limit it to builds only via `--build` (short `-b`):
+
+    $ travis monitor
+    Monitoring travis-ci.org:
+    2013-08-05 01:22:40 questmaster/FATpRemote#45 started
+    2013-08-05 01:22:42 plataformatec/simple_form#666 passed
+    ...
+
 The monitor command can also send out desktop notifications (OSX, Growl or libnotify):
 
     $ travis monitor --pro -n
@@ -1468,7 +1476,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 **v1.1.3** (January 26, 2013)
 
-* use persistent HTTP connections (performance for commands with multiple api requests)
+* use persistent HTTP connections (performance for commands with example api requests)
 * include round trip time in debug output
 
 **v1.1.2** (January 24, 2013)

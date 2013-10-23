@@ -16,6 +16,8 @@ module Travis
         c.setup_notification(type)
       end
 
+      on('-b', '--builds', 'only monitor builds, not jobs')
+
       attr_reader :repos, :notification
 
       def initialize(*)
@@ -53,10 +55,16 @@ module Travis
         end
       end
 
+      def events
+        events = %w[build:started build:finished]
+        events << 'job:started' << 'job:finished' unless builds?
+        events
+      end
+
       def run
         listen(*repos) do |listener|
-          listener.on_connect { say description, 'Monitoring %s:' }
-          listener.on 'build:started', 'job:started', 'build:finished', 'job:finished' do |event|
+          listener.on_connect { say description, "Monitoring #{"builds for " if builds?}%s:" }
+          listener.on(*events) do |event|
             entity = event.job          || event.build
             time   = entity.finished_at || entity.started_at
             say [
