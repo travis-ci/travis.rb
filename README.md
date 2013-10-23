@@ -1256,12 +1256,12 @@ You can check your Ruby version by running `ruby -v`:
 
 Then run:
 
-    $ gem install travis -v 1.5.6 --no-rdoc --no-ri
+    $ gem install travis -v 1.5.7 --no-rdoc --no-ri
 
 Now make sure everything is working:
 
     $ travis version
-    1.5.6
+    1.5.7
 
 ### Development Version
 
@@ -1315,6 +1315,19 @@ You can of course always compile Ruby from source, though then you are left with
 If you have the old `travis-cli` gem installed, you should `gem uninstall travis-cli`, just to be sure, as it ships with an executable that is also named `travis`.
 
 ## Version History
+
+**1.5.7** (October 24, 2013)
+
+* Improve logic for automatically figuring out a repository slug based on the tracked git remote.
+* Display error if argument passed to `-r` is not a full slug.
+* Do not automatically install shell completion on gem installation.
+* Add Travis CI mascot as logo to desktop notifications.
+* Improve OSX and Growl notifications.
+* Require user to be logged in for all commands issued against an enterprise installation.
+* Improve error message when not logged in for enterprise installations.
+* Fix API endpoint detection for enterprise installations.
+* Make streaming API, and thus the `monitor` and `logs` command, work with enterprise installations.
+* Add `--build`, `--push` and `--pull` flags to monitor command to allow filtering events.
 
 **1.5.6** (October 22, 2013)
 
