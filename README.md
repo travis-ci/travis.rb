@@ -211,9 +211,13 @@ This command makes Travis CI forget your access token.
             --org                        short-cut for --api-endpoint 'https://api.travis-ci.org/'
         -t, --token [ACCESS_TOKEN]       access token to use
             --debug                      show API requests
+        -X, --enterprise [NAME]          use enterprise setup (optionally takes name for multiple setups)
         -m, --my-repos                   Only monitor my own repositories
         -r, --repo SLUG                  monitor given repository (can be used more than once)
         -n, --[no-]notify [TYPE]         send out desktop notifications (optional type: osx, growl, libnotify)
+        -b, --builds                     only monitor builds, not jobs
+        -p, --push                       monitor push events
+        -P, --pull                       monitor pull request events
 
 With `monitor` you can watch a live stream of what's going on:
 
@@ -234,6 +238,8 @@ By default, you will receive events for both builds and jobs, you can limit it t
     2013-08-05 01:22:40 questmaster/FATpRemote#45 started
     2013-08-05 01:22:42 plataformatec/simple_form#666 passed
     ...
+
+Similarly, you can limit it to builds/jobs for pull requests via `--pull` and for normal pushes via `--push`.
 
 The monitor command can also send out desktop notifications (OSX, Growl or libnotify):
 

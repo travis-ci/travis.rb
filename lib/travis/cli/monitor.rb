@@ -17,6 +17,8 @@ module Travis
       end
 
       on('-b', '--builds', 'only monitor builds, not jobs')
+      on('-p', '--push', 'monitor push events')
+      on('-P', '--pull', 'monitor pull request events')
 
       attr_reader :repos, :notification
 
@@ -61,12 +63,22 @@ module Travis
         events
       end
 
+      def all?
+        !pull? and !push?
+      end
+
+      def monitor?(entity)
+        return true if all?
+        entity.pull_request? ? pull? : push?
+      end
+
       def run
         listen(*repos) do |listener|
           listener.on_connect { say description, "Monitoring #{"builds for " if builds?}%s:" }
           listener.on(*events) do |event|
             entity = event.job          || event.build
             time   = entity.finished_at || entity.started_at
+            next unless monitor? entity
             say [
               color(formatter.time(time), entity.color),
               color(entity.inspect_info, [entity.color, :bold]),
