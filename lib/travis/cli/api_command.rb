@@ -103,8 +103,8 @@ module Travis
             domain     = user_input[%r{^(?:https?://)?(.*?)/?(?:/api/?)?$}, 1]
             "https://#{domain}/api/"
           end
-          self.api_endpoint = c[enterprise_name]
-          self.insecure     = true if insecure.nil?
+          self.api_endpoint             = c[enterprise_name]
+          self.insecure                 = true if insecure.nil?
           endpoint_config['enterprise'] = true
         end
 
@@ -149,6 +149,13 @@ module Travis
           return ""       if org? and detected_endpoint?
           return " --org" if org?
           return " --pro" if pro?
+
+          if config['enterprise']
+            key, _ = config['enterprise'].detect { |k,v| v.start_with? api_endpoint }
+            return " -X"        if key == "default"
+            return " -X #{key}" if key
+          end
+
           " -e %p" % api_endpoint
         end
 
