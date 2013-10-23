@@ -5,4 +5,6 @@ module Travis
   autoload :Version,  'travis/version'
 
   include Client::Namespace.new(Client::ORG_URI)
+
+  Basedir = File.expand_path('../..', __FILE__)
 end
