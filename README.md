@@ -1256,12 +1256,12 @@ You can check your Ruby version by running `ruby -v`:
 
 Then run:
 
-    $ gem install travis -v 1.5.7 --no-rdoc --no-ri
+    $ gem install travis -v 1.5.8 --no-rdoc --no-ri
 
 Now make sure everything is working:
 
     $ travis version
-    1.5.7
+    1.5.8
 
 ### Development Version
 
@@ -1315,6 +1315,10 @@ You can of course always compile Ruby from source, though then you are left with
 If you have the old `travis-cli` gem installed, you should `gem uninstall travis-cli`, just to be sure, as it ships with an executable that is also named `travis`.
 
 ## Version History
+
+**1.5.8** (October 24, 2013)
+
+* Fix bug in completion code that stopped command line client from running.
 
 **1.5.7** (October 24, 2013)
 
