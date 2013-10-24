@@ -26,7 +26,7 @@ module Travis
         RCS.each do |file|
           next unless File.exist? file and File.writable? file
           next if File.read(file).include? source
-          File.open(file, "a") { |f| f.puts("", "# added by travis gem", "[ -f #{CMP_FILE} ] && #{source}") }
+          File.open(file, "a") { |f| f.puts("", "# added by travis gem", "[ -f #{cmp_file} ] && #{source}") }
         end
       end
 
