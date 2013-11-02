@@ -288,7 +288,7 @@ When inspecting a bug or reporting an issue, it can be handy to include a report
     Session
     API Endpoint:             https://api.travis-ci.com/
     Logged In:                as "rkh"
-    Secure Connection:        yes
+    Verify SSL:               yes
     Enterprise:               no
 
     Endpoints
