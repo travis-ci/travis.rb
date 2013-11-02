@@ -54,8 +54,8 @@ module Travis
         @@abstract << self
       end
 
-      def self.skip(name)
-        define_method(name) {}
+      def self.skip(*names)
+        names.each { |n| define_method(n) {} }
       end
 
       def self.description(description = nil)
@@ -157,12 +157,15 @@ module Travis
         check_completion
         setup
         run(*arguments)
+        clear_error
         store_config
       rescue StandardError => e
         raise(e) if explode?
         message = e.message
-        message += " - need to run `travis login` again?" if Travis::Client::Error === e and message == 'access denied'
-        error message
+        message += " - try running #{command("login#{endpoint_option}")}" if Travis::Client::Error === e and message == 'access denied'
+        message += color("\nfor a full error report, run #{command("report#{endpoint_option}")}", :error) if interactive?
+        store_error(e)
+        error(message)
       end
 
       def command_name
@@ -211,6 +214,16 @@ module Travis
       end
 
       private
+
+        def store_error(exception)
+          message = "An error occurred running `travis %s%s`:\n    %p: %s\n" % [command_name, endpoint_option, exception.class, exception.message]
+          exception.backtrace.each { |l| message << "        from #{l}\n" }
+          save_file("error.log", message)
+        end
+
+        def clear_error
+          delete_file("error.log")
+        end
 
         def setup_trap
           [:INT, :TERM].each do |signal|
@@ -278,6 +291,11 @@ module Travis
           File.exist?(path) ? File.read(path) : default
         end
 
+        def delete_file(name)
+          path = config_path(name)
+          File.delete(path) if File.exist?(path)
+        end
+
         def save_file(name, content)
           File.write(config_path(name), content.to_s)
         end
@@ -304,6 +322,10 @@ module Travis
           error "too #{quantity} arguments" do
             say help
           end
+        end
+
+        def endpoint_option
+          ""
         end
     end
   end

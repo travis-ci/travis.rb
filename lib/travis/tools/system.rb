@@ -19,6 +19,10 @@ module Travis
         @os ||= windows? ? "Windows" : `uname`.chomp
       end
 
+      def full_os
+        @full_os ||= mac? ? "#{`sw_vers -productName`.chomp} #{`sw_vers -productVersion`.chomp}" : os
+      end
+
       def ruby_engine
         defined?(RUBY_ENGINE) ? RUBY_ENGINE : 'ruby'
       end

@@ -36,6 +36,7 @@ module Travis
     autoload :Pubkey,       'travis/cli/pubkey'
     autoload :Raw,          'travis/cli/raw'
     autoload :RepoCommand,  'travis/cli/repo_command'
+    autoload :Report,       'travis/cli/report'
     autoload :Restart,      'travis/cli/restart'
     autoload :Setup,        'travis/cli/setup'
     autoload :Show,         'travis/cli/show'

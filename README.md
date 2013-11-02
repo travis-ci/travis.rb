@@ -17,6 +17,7 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a [command line
         * [`login`](#login)
         * [`monitor`](#monitor)
         * [`raw`](#raw)
+        * [`report`](#report)
         * [`sync`](#sync)
         * [`token`](#token)
         * [`whatsup`](#whatsup)
@@ -268,7 +269,44 @@ This is really helpful both when working on this client and when exploring the [
 
 Use `--json` if you'd rather prefer the output to be JSON.
 
-### `sync`
+#### `report`
+
+When inspecting a bug or reporting an issue, it can be handy to include a report about the system and configuration used for running a command.
+
+    $ travis report --pro
+    System
+    Ruby:                     Ruby 2.0.0-p195
+    Operating System:         Mac OS X 10.8.5
+    RubyGems:                 RubyGems 2.0.7
+
+    CLI
+    Version:                  1.5.8
+    Plugins:                  "travis-as-user", "travis-build", "travis-cli-pr"
+    Auto-Completion:          yes
+    Last Version Check:       2013-11-02 16:25:03 +0100
+
+    Session
+    API Endpoint:             https://api.travis-ci.com/
+    Logged In:                as "rkh"
+    Secure Connection:        yes
+    Enterprise:               no
+
+    Endpoints
+    pro:                      https://api.travis-ci.com/ (access token, current)
+    org:                      https://api.travis-ci.org/ (access token)
+
+    Last Exception
+    An error occurred running `travis whoami --pro`:
+        Travis::Client::Error: access denied
+            from ...
+
+
+    For issues with the command line tool, please visit https://github.com/travis-ci/travis/issues.
+    For Travis CI in general, go to https://github.com/travis-ci/travis-ci/issues or email support@travis-ci.com.
+
+This command can also list all known repos and the endpoint to use for them via the `--known-repos` option.
+
+#### `sync`
 
     Usage: travis sync [options]
         -h, --help                       Display help
@@ -1315,6 +1353,10 @@ You can of course always compile Ruby from source, though then you are left with
 If you have the old `travis-cli` gem installed, you should `gem uninstall travis-cli`, just to be sure, as it ships with an executable that is also named `travis`.
 
 ## Version History
+
+**1.5.9** (not yet released)
+
+* Add `travis report` to give a report of the system, endpoint, configuration and last exception.
 
 **1.5.8** (October 24, 2013)
 
