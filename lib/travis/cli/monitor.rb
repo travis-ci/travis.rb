@@ -72,20 +72,27 @@ module Travis
         entity.pull_request? ? pull? : push?
       end
 
+      def display(entity, time)
+        say [
+          color(formatter.time(time), entity.color),
+          color(entity.inspect_info, [entity.color, :bold]),
+          color(entity.state, entity.color)
+        ].join(" ")
+        notification.notify(entity.repository.slug, "#{entity.class.name[/[^:]+$/]} ##{entity.number} #{entity.state}")
+      end
+
+      def handle_event(event)
+        entity = event.job          || event.build
+        time   = entity.finished_at || entity.started_at
+        display(entity, time) if monitor? entity
+      rescue Travis::Client::Error => error
+        raise error if explode?
+      end
+
       def run
         listen(*repos) do |listener|
           listener.on_connect { say description, "Monitoring #{"builds for " if builds?}%s:" }
-          listener.on(*events) do |event|
-            entity = event.job          || event.build
-            time   = entity.finished_at || entity.started_at
-            next unless monitor? entity
-            say [
-              color(formatter.time(time), entity.color),
-              color(entity.inspect_info, [entity.color, :bold]),
-              color(entity.state, entity.color)
-            ].join(" ")
-            notification.notify(entity.repository.slug, "#{entity.class.name[/[^:]+$/]} ##{entity.number} #{entity.state}")
-          end
+          listener.on(*events) { |e| handle_event(e) }
         end
       end
     end

@@ -1448,6 +1448,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 * Add `travis cache` to list and delete directory caches.
 * Add `travis report` to give a report of the system, endpoint, configuration and last exception.
 * Add `Cache` entity.
+* Keep `travis monitor` running on API errors.
 
 **1.5.8** (October 24, 2013)
 
