@@ -24,6 +24,7 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a [command line
         * [`whoami`](#whoami)
     * [Repository Commands](#repository-commands)
         * [`branches`](#branches)
+        * [`cache`](#cache)
         * [`cancel`](#cancel)
         * [`disable`](#disable)
         * [`enable`](#enable)
@@ -389,12 +390,16 @@ Again, like most other commands, goes well with shell scripting:
     -h, --help                       Display help
     -i, --[no-]interactive           be interactive and colorful
     -E, --[no-]explode               don't rescue exceptions
+        --skip-version-check         don't check if travis client is up to date
+        --skip-completion-check      don't check if auto-completion is set up
     -e, --api-endpoint URL           Travis API server to talk to
+    -I, --[no-]insecure              do not verify SSL certificate of API endpoint
         --pro                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
         --org                        short-cut for --api-endpoint 'https://api.travis-ci.org/'
     -t, --token [ACCESS_TOKEN]       access token to use
         --debug                      show API requests
-    -r, --repo SLUG
+    -X, --enterprise [NAME]          use enterprise setup (optionally takes name for multiple setups)
+    -r, --repo SLUG                  repository to use (will try to detect from current git clone)
 
 Repository commands have all the options [General API Commands](#general-api-commands) have.
 
@@ -418,6 +423,68 @@ Displays the most recent build for each branch:
     master:                                    #163  passed     add Repository#branches and Repository#branch(name)
 
 For more fine grained control and older builds on a specific branch, see [`history`](#history).
+
+#### `cache`
+
+    Lists or deletes repository caches.
+    Usage: travis cache [options]
+        -h, --help                       Display help
+        -i, --[no-]interactive           be interactive and colorful
+        -E, --[no-]explode               don't rescue exceptions
+            --skip-version-check         don't check if travis client is up to date
+            --skip-completion-check      don't check if auto-completion is set up
+        -e, --api-endpoint URL           Travis API server to talk to
+        -I, --[no-]insecure              do not verify SSL certificate of API endpoint
+            --pro                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
+            --org                        short-cut for --api-endpoint 'https://api.travis-ci.org/'
+        -t, --token [ACCESS_TOKEN]       access token to use
+            --debug                      show API requests
+        -X, --enterprise [NAME]          use enterprise setup (optionally takes name for multiple setups)
+        -r, --repo SLUG                  repository to use (will try to detect from current git clone)
+        -d, --delete                     delete listed caches
+        -b, --branch BRANCH              only list/delete caches on given branch
+        -m, --match STRING               only list/delete caches where slug matches given string
+        -f, --force                      do not ask user to confirm deleting the caches
+
+Lists or deletes [directory caches](http://about.travis-ci.org/docs/user/caching/) for a repository:
+
+    $ travis cache
+    On branch master:
+    cache--rvm-2.0.0--gemfile-Gemfile      last modified: 2013-11-04 13:45:44  size: 62.21 MiB
+    cache--rvm-ruby-head--gemfile-Gemfile  last modified: 2013-11-04 13:46:55  size: 62.65 MiB
+
+    On branch example:
+    cache--rvm-2.0.0--gemfile-Gemfile      last modified: 2013-11-04 13:45:44  size: 62.21 MiB
+
+    Overall size of above caches: 187.07 MiB
+
+You can filter by branch:
+
+    $ travis cache --branch master
+    On branch master:
+    cache--rvm-2.0.0--gemfile-Gemfile      last modified: 2013-11-04 13:45:44  size: 62.21 MiB
+    cache--rvm-ruby-head--gemfile-Gemfile  last modified: 2013-11-04 13:46:55  size: 62.65 MiB
+
+    Overall size of above caches: 124.86 MiB
+
+And by matching against the slug:
+
+    $ travis cache --match 2.0.0
+    On branch master:
+    cache--rvm-2.0.0--gemfile-Gemfile  last modified: 2013-11-04 13:45:44  size: 62.21 MiB
+
+    Overall size of above caches: 62.21 MiB
+
+You can also use this command to delete caches:
+
+    $ travis cache -b example -m 2.0.0 --delete
+    DANGER ZONE: Do you really want to delete all caches on branch example that match 2.0.0? |no| yes
+    Deleted the following caches:
+
+    On branch example:
+    cache--rvm-2.0.0--gemfile-Gemfile  last modified: 2013-11-04 13:45:44  size: 62.21 MiB
+    
+    Overall size of above caches: 62.21 MiB
 
 #### `cancel`
 
@@ -1169,6 +1236,28 @@ commit = repo.last_build.commit
 puts "Last tested commit: #{commit.short_sha} on #{commit.branch} by #{commit.author_name} - #{commit.subject}"
 ```
 
+#### Caches
+
+Caches can be fetched for a repository.
+
+``` ruby
+require 'travis/pro'
+
+Travis::Pro.access_token = "MY SECRET TOKEN"
+repo = Travis::Pro::Repository.find("my/rep")
+
+repo.caches.each do |cache|
+  puts "#{cache.branch}: #{cache.size}"
+  cache.delete
+end
+```
+
+It is also possible to delete multiple caches with a single API call:
+
+``` ruby
+repo.delete_caches(branch: "master", match: "rbx")
+```
+
 #### Workers
 
 If a worker is running something, it will reference a `job` and a `repository`. Otherwise the values will be `nil`.
@@ -1356,7 +1445,9 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 **1.5.9** (not yet released)
 
+* Add `travis cache` to list and delete directory caches.
 * Add `travis report` to give a report of the system, endpoint, configuration and last exception.
+* Add `Cache` entity.
 
 **1.5.8** (October 24, 2013)
 

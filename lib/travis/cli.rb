@@ -17,6 +17,7 @@ module Travis
     autoload :ApiCommand,   'travis/cli/api_command'
     autoload :Accounts,     'travis/cli/accounts'
     autoload :Branches,     'travis/cli/branches'
+    autoload :Cache,        'travis/cli/cache'
     autoload :Cancel,       'travis/cli/cancel'
     autoload :Command,      'travis/cli/command'
     autoload :Console,      'travis/cli/console'

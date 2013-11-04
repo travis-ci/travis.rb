@@ -150,6 +150,10 @@ module Travis
         load get_raw(*args)
       end
 
+      def delete(*args)
+        load delete_raw(*args)
+      end
+
       def get_raw(*args)
         raw(:get, *args)
       end
@@ -161,6 +165,11 @@ module Travis
       def put_raw(*args)
         raw(:put, *args)
       end
+
+      def delete_raw(*args)
+        raw(:delete, *args)
+      end
+
 
       def raw(verb, url, *args)
         url    = url.sub(/^\//, '')
@@ -225,8 +234,8 @@ module Travis
 
         def create_entity(type, data)
           data   = { type.id_field => data } if type.id? data
-          id     = type.cast_id(data.fetch(type.id_field))
-          entity = cached(type, :id, id) { type.new(self, id) }
+          id     = type.cast_id(data.fetch(type.id_field)) unless type.weak?
+          entity = id ? cached(type, :id, id) { type.new(self, id) } : type.new(self, nil)
           entity.update_attributes(data)
           entity
         end

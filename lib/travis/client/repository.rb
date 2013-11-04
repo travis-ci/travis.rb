@@ -178,6 +178,14 @@ module Travis
         session.account(owner_name)
       end
 
+      def caches(params = {})
+        session.get("/repos/#{id}/caches", params)['caches']
+      end
+
+      def delete_caches(params = {})
+        session.delete("/repos/#{id}/caches", params)['caches']
+      end
+
       private
 
         def state

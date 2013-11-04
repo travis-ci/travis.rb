@@ -20,6 +20,18 @@ module Travis
         output.join(" ")
       end
 
+      def file_size(input, human = true)
+        return "#{input} B" unless human
+        format = "B"
+        iec    = %w[KiB MiB GiB TiB PiB EiB ZiB YiB]
+        while human and input > 512 and iec.any?
+          input /= 1024.0
+          format = iec.shift
+        end
+        input = input.round(2) if input.is_a? Float
+        "#{input} #{format}"
+      end
+
       def time(time)
         return "not yet" if time.nil? # or time > Time.now
         #return duration(time, "ago") if Time.now - time < DAY

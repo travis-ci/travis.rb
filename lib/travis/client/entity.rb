@@ -25,6 +25,10 @@ module Travis
         names.each { |n| MAP[n.to_s] = self }
       end
 
+      def self.weak?
+        false
+      end
+
       def self.one(key = nil)
         MAP[key.to_s] = self if key
         @one ||= key.to_s
@@ -85,9 +89,10 @@ module Travis
       id_field :id
 
       def initialize(session, id)
+        raise Travis::Client::Error, '%p is not a valid id' % id unless self.class.id? id
         @attributes = {}
         @session    = session
-        @id         = self.class.cast_id(id)
+        @id         = self.class.cast_id(id) if id
       end
 
       def update_attributes(data)

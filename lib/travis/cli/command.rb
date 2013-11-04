@@ -318,6 +318,10 @@ module Travis
           wrong_args("many") if args.any?
         end
 
+        def danger_zone?(message)
+          agree(color("DANGER ZONE: ", [:red, :bold]) << message << " ") { |q| q.default = "no" }
+        end
+
         def wrong_args(quantity)
           error "too #{quantity} arguments" do
             say help
