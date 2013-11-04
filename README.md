@@ -1383,12 +1383,12 @@ You can check your Ruby version by running `ruby -v`:
 
 Then run:
 
-    $ gem install travis -v 1.6.0 --no-rdoc --no-ri
+    $ gem install travis -v 1.6.1 --no-rdoc --no-ri
 
 Now make sure everything is working:
 
     $ travis version
-    1.6.0
+    1.6.1
 
 ### Development Version
 
