@@ -134,13 +134,20 @@ module Travis
       end
 
       def check_completion
-        return if skip_completion_check? or config['checked_completion'] or !interactive?
-        write_to($stderr) do
-          next if Tools::Completion.completion_installed?
-          next unless agree('Shell completion not installed. Would you like to like to install it now? ') { |q| q.default = "y" }
-          Tools::Completion.install_completion
+        return if skip_completion_check? or !interactive?
+
+        if config['checked_completion']
+          Tools::Completion.update_completion if config['completion_version'] != Travis::VERSION
+        else
+          write_to($stderr) do
+            next Tools::Completion.update_completion if Tools::Completion.completion_installed?
+            next unless agree('Shell completion not installed. Would you like to like to install it now? ') { |q| q.default = "y" }
+            Tools::Completion.install_completion
+          end
         end
+
         config['checked_completion'] = true
+        config['completion_version'] = Travis::VERSION
       end
 
       def check_ruby

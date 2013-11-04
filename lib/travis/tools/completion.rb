@@ -19,8 +19,7 @@ module Travis
       end
 
       def install_completion
-        mkdir_p(config_path)
-        cp(Assets['travis.sh'], cmp_file)
+        update_completion
         source = "source " << cmp_file
 
         RCS.each do |file|
@@ -28,6 +27,11 @@ module Travis
           next if File.read(file).include? source
           File.open(file, "a") { |f| f.puts("", "# added by travis gem", "[ -f #{cmp_file} ] && #{source}") }
         end
+      end
+
+      def update_completion
+        mkdir_p(config_path)
+        cp(Assets['travis.sh'], cmp_file)
       end
 
       def completion_installed?

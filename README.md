@@ -1443,6 +1443,10 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
+**1.6.1** (November 4, 2013)
+
+* Update autocompletion when updating travis gem.
+
 **1.6.0** (November 4, 2013)
 
 * Add `travis cache` to list and delete directory caches.
