@@ -15,12 +15,30 @@ module Travis
         RUBY_PLATFORM =~ /linux/i
       end
 
+      def unix?
+        not windows?
+      end
+
       def os
-        @os ||= windows? ? "Windows" : `uname`.chomp
+        os_name ? "#{os_name} #{os_version}".strip : os_type
       end
 
       def full_os
-        @full_os ||= mac? ? "#{`sw_vers -productName`.chomp} #{`sw_vers -productVersion`.chomp}" : os
+        os_name == os_type ? os : "#{os} like #{os_type}"
+      end
+
+      def os_version
+        @os_version ||= has?(:sw_vers)     && `sw_vers -productVersion`.chomp
+        @os_version ||= has?(:lsb_release) && `lsb_release -r -s`.chomp
+      end
+
+      def os_name
+        @os_name ||= has?(:sw_vers)     && `sw_vers -productName`.chomp
+        @os_name ||= has?(:lsb_release) && `lsb_release -i -s`.chomp
+      end
+
+      def os_type
+        @os_type ||= `uname`.chomp
       end
 
       def ruby_engine
@@ -46,7 +64,13 @@ module Travis
       end
 
       def description(*args)
-        [ os, ruby, rubygems, *args.flatten].compact.uniq.join("; ")
+        [ full_os, ruby, rubygems, *args.flatten].compact.uniq.join("; ")
+      end
+
+      def has?(command)
+        return false unless unix?
+        @has ||= {}
+        @has.fetch(command) { @has[command] = system "which #{command} 2>/dev/null >/dev/null" }
       end
     end
   end

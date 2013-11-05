@@ -41,7 +41,7 @@ module Travis
         end
 
         def available?
-          System.mac? and `sw_vers -productVersion`.strip >= '10.8'
+          System.mac? and System.os_version.to_s >= '10.8'
         end
       end
 
@@ -55,7 +55,7 @@ module Travis
         end
 
         def available?
-          system "which #{@command} >/dev/null 2>/dev/null" unless System.windows?
+          System.has? @command
         end
       end
 

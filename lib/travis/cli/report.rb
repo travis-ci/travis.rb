@@ -44,7 +44,7 @@ module Travis
 
       def general
         yield "Ruby",               Tools::System.ruby
-        yield "Operating System",   Tools::System.full_os
+        yield "Operating System",   Tools::System.os
         yield "RubyGems",           Tools::System.rubygems
       end
 

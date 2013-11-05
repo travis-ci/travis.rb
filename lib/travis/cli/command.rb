@@ -17,7 +17,7 @@ module Travis
       extend Parser, Forwardable, Tools::Assets
       def_delegators :terminal, :agree, :ask, :choose
 
-      HighLine.use_color = !Tools::System.windows? && $stdout.tty?
+      HighLine.use_color = Tools::System.unix? && $stdout.tty?
       HighLine.color_scheme = HighLine::ColorScheme.new do |cs|
         cs[:command]   = [ :bold             ]
         cs[:error]     = [ :red              ]
@@ -33,7 +33,7 @@ module Travis
       end
 
       on('-i', '--[no-]interactive', "be interactive and colorful") do |c, v|
-        HighLine.use_color = v unless Tools::System.windows?
+        HighLine.use_color = v if Tools::System.unix?
         c.force_interactive = v
       end
 
