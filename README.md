@@ -1432,6 +1432,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 **1.6.2** (not yet released)
 
 * Remove worker support, as API endpoints have been removed from Travis CI.
+* Fix `travis report`.
 
 **1.6.1** (November 4, 2013)
 

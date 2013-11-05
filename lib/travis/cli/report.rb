@@ -32,7 +32,7 @@ module Travis
 
       def list(key, value, additional = nil)
         value = case value
-                when Array then value.empty? ? none : value.map(&:inspect).join(", ")
+                when Array then value.empty? ? 'none' : value.map(&:inspect).join(", ")
                 when true  then "yes"
                 when false then "no"
                 when nil   then "unknown"
