@@ -51,7 +51,6 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a [command line
         * [Artifacts](#artifacts)
         * [Users](#users)
         * [Commits](#commits)
-        * [Workers](#workers)
     * [Listening for Events](#listening-for-events)
     * [Dealing with Sessions](#dealing-with-sessions)
     * [Using Namespaces](#using-namespaces)
@@ -1258,19 +1257,6 @@ It is also possible to delete multiple caches with a single API call:
 repo.delete_caches(branch: "master", match: "rbx")
 ```
 
-#### Workers
-
-If a worker is running something, it will reference a `job` and a `repository`. Otherwise the values will be `nil`.
-
-``` ruby
-require 'travis'
-workers = Travis::Worker.find_all
-
-workers.each do |worker|
-  puts "#{worker.name}: #{worker.host} - #{worker.state} - #{worker.repository.slug if worker.repository}"
-end
-```
-
 ### Dealing with Sessions
 
 Under the hood the session is where the fun is happening. Most methods on the constants and entities just wrap methods on your session, so you don't have to pass the session around all the time or even see it if you don't want to.
@@ -1442,6 +1428,10 @@ You can of course always compile Ruby from source, though then you are left with
 If you have the old `travis-cli` gem installed, you should `gem uninstall travis-cli`, just to be sure, as it ships with an executable that is also named `travis`.
 
 ## Version History
+
+**1.6.2** (not yet released)
+
+* Remove worker support, as API endpoints have been removed from Travis CI.
 
 **1.6.1** (November 4, 2013)
 
