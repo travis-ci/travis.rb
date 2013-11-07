@@ -37,7 +37,7 @@ module Travis
         BIN_PATH = Assets["notifications/Travis CI.app/Contents/MacOS/Travis CI"]
 
         def notify(title, body)
-          system BIN_PATH, '-message', body.to_s, '-title', title.to_s
+          system BIN_PATH, '-message', body.to_s, '-title', title.to_s, '-sender', 'org.travis-ci.oss.Travis-CI'
         end
 
         def available?
