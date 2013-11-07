@@ -55,7 +55,7 @@ module Travis
 
       one  :repo
       many :repos
-      aka  :repository, :permissions
+      aka  :repository, :permissions, :admin, :pull, :push
 
       def public_key
         attributes["public_key"] ||= begin
