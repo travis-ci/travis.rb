@@ -41,7 +41,11 @@ module Travis
         end
 
         def available?
-          System.mac? and System.os_version.to_s >= '10.8'
+          System.mac? and System.os_version.to_s >= '10.8' and nc_running?
+        end
+
+        def nc_running?
+          system 'pgrep -u $(whoami) NotificationCenter >/dev/null'
         end
       end
 
