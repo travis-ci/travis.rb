@@ -63,8 +63,9 @@ module Travis
         @description ||= ""
       end
 
-      attr_accessor :arguments, :config, :force_interactive, :formatter
+      attr_accessor :arguments, :config, :force_interactive, :formatter, :debug
       attr_reader :input, :output
+      alias_method :debug?, :debug
 
       def initialize(options = {})
         @on_signal  = []
@@ -205,6 +206,7 @@ module Travis
       end
 
       def debug(line)
+        return unless debug?
         write_to($stderr) do
           say color("** #{line}", :debug)
         end

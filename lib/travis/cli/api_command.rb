@@ -16,6 +16,7 @@ module Travis
       on('-t', '--token [ACCESS_TOKEN]', 'access token to use') { |c, t| c.access_token = t }
 
       on('--debug', 'show API requests') do |c,_|
+        c.debug = true
         c.session.instrument do |info, request|
           start = Time.now
           c.debug(info)
