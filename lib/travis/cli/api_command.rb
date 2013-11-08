@@ -18,11 +18,7 @@ module Travis
       on('--debug', 'show API requests') do |c,_|
         c.debug = true
         c.session.instrument do |info, request|
-          start = Time.now
-          c.debug(info)
-          request.call
-          duration = Time.now - start
-          c.debug("  took %.2g seconds" % duration)
+          c.time(info, request)
         end
       end
 
@@ -120,6 +116,7 @@ module Travis
 
         def load_gh
           return if defined? GH
+          debug "Loading gh"
           require 'gh'
 
           gh_config       = session.config['github']
@@ -127,6 +124,11 @@ module Travis
           gh_config     ||= {}
           gh_config[:ssl] = Travis::Client::Session::SSL_OPTIONS
           gh_config[:ssl] = { :verify => false } if gh_config[:api_url] and gh_config[:api_url] != "https://api.github.com"
+
+          gh_config[:instrumenter] = proc do |type, payload, &block|
+            next block.call unless type == 'http.gh'
+            time("GitHub API: #{payload[:verb].to_s.upcase} #{payload[:url]}", block)
+          end if debug?
 
           GH.set(gh_config)
         end

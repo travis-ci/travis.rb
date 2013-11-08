@@ -212,6 +212,15 @@ module Travis
         end
       end
 
+      def time(info, callback = Proc.new)
+        return callback.call unless debug?
+        start = Time.now
+        debug(info)
+        callback.call
+        duration = Time.now - start
+        debug("  took %.2g seconds" % duration)
+      end
+
       def info(line)
         write_to($stderr) do
           say color(line, :info)
@@ -296,17 +305,21 @@ module Travis
         end
 
         def load_file(name, default = nil)
-          path = config_path(name)
-          File.exist?(path) ? File.read(path) : default
+          return default unless path = config_path(name) and File.exist? path
+          debug "Loading %p" % path
+          File.read(path)
         end
 
         def delete_file(name)
-          path = config_path(name)
-          File.delete(path) if File.exist?(path)
+          return unless path = config_path(name) and File.exist? path
+          debug "Deleting %p" % path
+          File.delete(path)
         end
 
         def save_file(name, content)
-          File.write(config_path(name), content.to_s)
+          path = config_path(name)
+          debug "Storing %p" % path
+          File.write(path, content.to_s)
         end
 
         def load_config

@@ -67,7 +67,7 @@ module Travis
 
         def description
           description = color("all caches", :important)
-          description << " on branch #{color(branch, :important)}"   if branch?
+          description << " on branch #{color(branch, :important)}" if branch?
           description << " that match #{color(match, :important)}" if match?
           description
         end
