@@ -1,5 +1,4 @@
 require 'travis/cli'
-Travis::CLI.silent { require 'pry' }
 
 module Travis
   module CLI
@@ -7,6 +6,7 @@ module Travis
       description "interactive shell"
 
       def run
+        Travis::CLI.silent { require 'pry' }
         Object.send(:include, Client::Namespace.new(session))
         binding.pry(:quiet => true, :prompt => Pry::SIMPLE_PROMPT, :output => $stdout)
       end
