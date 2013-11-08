@@ -40,6 +40,7 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a [command line
         * [`status`](#status)
     * [Pro and Enterprise](#pro-and-enterprise)
     * [Environment Variables](#environment-variables)
+    * [Desktop Notifications](#desktop-notifications)
 * [Ruby Library](#ruby-library)
     * [Authentication](#authentication)
     * [Using Pro](#using-pro)
@@ -242,7 +243,7 @@ By default, you will receive events for both builds and jobs, you can limit it t
 
 Similarly, you can limit it to builds/jobs for pull requests via `--pull` and for normal pushes via `--push`.
 
-The monitor command can also send out desktop notifications (OSX, Growl or libnotify):
+The monitor command can also send out [desktop notifications](#desktop-notifications):
 
     $ travis monitor --pro -n
     Monitoring travis-ci.com:
@@ -923,6 +924,14 @@ You can set the following environment variables to influence the travis behavior
 * `$TRAVIS_TOKEN` - access token to use when the `--token` flag is not user
 * `$TRAVIS_ENDPOINT` - API endpoint to use when the `--api-endpoint`, `--org` or `--pro` flag is not used
 * `$TRAVIS_CONFIG_PATH` - directory to store configuration in (defaults to ~/.travis)
+
+### Desktop Notifications
+
+Some commands support sending desktop notifications. The following notification systems are currently supported:
+
+* **Notification Center** - requires Mac OSX 10.8 or later and [Notification Center](http://support.apple.com/kb/ht5362) must be running under the system executing the `travis` command.
+* **Growl** - [growlnotify](http://growl.info/downloads#generaldownloads) has to be installed and [Growl](https://itunes.apple.com/us/app/growl/id467939042?mt=12&ign-mpt=uo%3D4) needs to be running. Does currently not support the Windows version of Growl.
+* **libnotify** - needs [libnotify](http://www.linuxfromscratch.org/blfs/view/svn/x/libnotify.html) installed, including the `notify-send` executable.
 
 ## Ruby Library
 
