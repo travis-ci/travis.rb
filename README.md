@@ -1438,6 +1438,11 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
+**1.6.3** (not yet released)
+
+* Check if Notification Center or Growl is actually running before sending out notifications.
+* Better documentation for desktop notifications.
+
 **1.6.2** (November 8, 2013)
 
 * Remove worker support, as API endpoints have been removed from Travis CI.
