@@ -1432,7 +1432,10 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 **1.6.2** (not yet released)
 
 * Remove worker support, as API endpoints have been removed from Travis CI.
+* Improve OS detection.
 * Fix `travis report`.
+* Fix issues with new payload for permissions endpoint (used by `travis monitor`).
+* Make desktop notifications work on Mac OSX 10.9.
 
 **1.6.1** (November 4, 2013)
 
