@@ -88,6 +88,8 @@ Gem::Specification.new do |s|
     "assets/notifications/Travis CI.app/Contents/Resources/en.lproj/Credits.rtf",
     "assets/notifications/Travis CI.app/Contents/Resources/en.lproj/InfoPlist.strings",
     "assets/notifications/Travis CI.app/Contents/Resources/en.lproj/MainMenu.nib",
+    "assets/notifications/Travis CI.app/Contents/_CodeSignature/CodeResources",
+    "assets/notifications/Travis CI.app/Contents/embedded.provisionprofile",
     "assets/notifications/icon.png",
     "assets/travis.sh",
     "assets/travis.sh.erb",
