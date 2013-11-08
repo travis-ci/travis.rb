@@ -1435,7 +1435,10 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 * Improve OS detection.
 * Fix `travis report`.
 * Fix issues with new payload for permissions endpoint (used by `travis monitor`).
+* Improve default logic for whether `travis monitor` should display desktop notifications.
 * Make desktop notifications work on Mac OSX 10.9.
+* Increase and improve debug output.
+* Only load pry if console command is actually invoked, not when it is loaded (for instance by `travis help`).
 
 **1.6.1** (November 4, 2013)
 
