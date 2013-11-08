@@ -72,6 +72,11 @@ module Travis
         @has ||= {}
         @has.fetch(command) { @has[command] = system "which #{command} 2>/dev/null >/dev/null" }
       end
+
+      def running?(app)
+        return false unless unix?
+        system "pgrep -u $(whoami) #{app} >/dev/null"
+      end
     end
   end
 end
