@@ -1369,12 +1369,12 @@ You can check your Ruby version by running `ruby -v`:
 
 Then run:
 
-    $ gem install travis -v 1.6.1 --no-rdoc --no-ri
+    $ gem install travis -v 1.6.2 --no-rdoc --no-ri
 
 Now make sure everything is working:
 
     $ travis version
-    1.6.1
+    1.6.2
 
 ### Development Version
 
@@ -1429,7 +1429,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
-**1.6.2** (not yet released)
+**1.6.2** (November 8, 2013)
 
 * Remove worker support, as API endpoints have been removed from Travis CI.
 * Improve OS detection.
