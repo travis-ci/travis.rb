@@ -83,7 +83,12 @@ module Travis
           color(entity.inspect_info, [entity.color, :bold]),
           color(entity.state, entity.color)
         ].join(" ")
-        notification.notify(entity.repository.slug, "#{entity.class.name[/[^:]+$/]} ##{entity.number} #{entity.state}")
+        notification.notify(entity.repository.slug, [
+          entity.class.name[/[^:]+$/],
+          entity.number,
+          entity.state + ":",
+          entity.commit.subject
+        ].join(" "))
       end
 
       def handle_event(event)
