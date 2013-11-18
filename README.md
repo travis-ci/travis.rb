@@ -583,20 +583,26 @@ There are two ways the client can treat existing values:
 
 #### `history`
 
+    Displays a projects build history.
     Usage: travis history [options]
         -h, --help                       Display help
         -i, --[no-]interactive           be interactive and colorful
         -E, --[no-]explode               don't rescue exceptions
+            --skip-version-check         don't check if travis client is up to date
+            --skip-completion-check      don't check if auto-completion is set up
         -e, --api-endpoint URL           Travis API server to talk to
+        -I, --[no-]insecure              do not verify SSL certificate of API endpoint
             --pro                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
             --org                        short-cut for --api-endpoint 'https://api.travis-ci.org/'
         -t, --token [ACCESS_TOKEN]       access token to use
             --debug                      show API requests
-        -r, --repo SLUG
+        -X, --enterprise [NAME]          use enterprise setup (optionally takes name for multiple setups)
+        -r, --repo SLUG                  repository to use (will try to detect from current git clone)
         -a, --after BUILD                Only show history after a given build number
         -p, --pull-request NUMBER        Only show history for the given Pull Request
         -b, --branch BRANCH              Only show history for the given branch
         -l, --limit LIMIT                Maximum number of history items
+        -d, --date                       Include date in output
             --[no-]all                   Display all history items
 
 You can check out what the recent builds look like:

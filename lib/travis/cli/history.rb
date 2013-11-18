@@ -9,6 +9,7 @@ module Travis
       on('-p', '--pull-request NUMBER', 'Only show history for the given Pull Request')
       on('-b', '--branch BRANCH', 'Only show history for the given branch')
       on('-l', '--limit LIMIT', 'Maximum number of history items')
+      on('-d', '--date', 'Include date in output')
       on('--[no-]all', 'Display all history items')
 
       def run
@@ -35,10 +36,11 @@ module Travis
 
         def display(build)
           say [
+            date? && color(formatter.time(build.finished_at || build.started_at), build.color),
             color("##{build.number} #{build.state}:".ljust(16), [build.color, :bold]),
-            color("#{build.branch_info} ", :info),
+            color("#{build.branch_info}", :info),
             build.commit.subject
-          ].join.strip + "\n"
+          ].compact.join(" ").strip + "\n"
         end
     end
   end
