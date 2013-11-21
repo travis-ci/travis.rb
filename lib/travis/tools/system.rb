@@ -38,7 +38,7 @@ module Travis
       end
 
       def os_type
-        @os_type ||= `uname`.chomp
+        @os_type ||= windows? ? 'Windows' : `uname`.chomp
       end
 
       def ruby_engine
