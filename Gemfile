@@ -3,4 +3,8 @@ gemspec
 
 gem 'rake'
 gem 'json' if RUBY_VERSION < '1.9'
-gem 'rubysl', :platforms => :rbx
+
+platform :rbx do
+  gem 'rubysl'
+  gem 'json'
+end
