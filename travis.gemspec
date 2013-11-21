@@ -129,6 +129,7 @@ Gem::Specification.new do |s|
     "lib/travis/cli/setup/cloud_control.rb",
     "lib/travis/cli/setup/cloud_files.rb",
     "lib/travis/cli/setup/cloud_foundry.rb",
+    "lib/travis/cli/setup/divshot.rb",
     "lib/travis/cli/setup/engine_yard.rb",
     "lib/travis/cli/setup/heroku.rb",
     "lib/travis/cli/setup/nodejitsu.rb",
