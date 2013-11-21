@@ -8,7 +8,7 @@ describe Travis::CLI::History do
 
   example 'travis history -d' do
     run_cli('history', '-d').should be_success
-    stdout.should be == "2013-01-13 16:55:17 #6180 failed:    master Associaton -> Association\n"
+    stdout.should be =~ /2013-01-13 \d+:55:17 #6180 failed:    master Associaton -> Association/
   end
 
   example 'travis history -a 6180' do
