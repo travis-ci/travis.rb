@@ -15,6 +15,7 @@ module Travis
       autoload :RubyGems,     'travis/cli/setup/ruby_gems'
       autoload :S3,           'travis/cli/setup/s3'
       autoload :CloudFiles,   'travis/cli/setup/cloud_files'
+      autoload :Divshot,      'travis/cli/setup/divshot'
       autoload :SauceConnect, 'travis/cli/setup/sauce_connect'
       autoload :Service,      'travis/cli/setup/service'
 
