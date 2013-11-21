@@ -801,7 +801,7 @@ Helps you configure Travis addons.
         -r, --repo SLUG                  repository to use (will try to detect from current git clone)
         -f, --force                      override config section if it already exists
 
-Available services: `appfog`, `cloudcontrol`, `cloudfoundry`, `engineyard`, `heroku`, `nodejitsu`, `npm`, `openshift`, `pypi`, `rubygems`, `s3` and `sauce_connect`.
+Available services: `appfog`, `cloudcontrol`, `cloudfiles`, `cloudfoundry`, `divshot`, `engineyard`, `heroku`, `nodejitsu`, `npm`, `openshift`, `pypi`, `rubygems`, `s3` and `sauce_connect`.
 
 Example:
 
@@ -1446,8 +1446,15 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 **1.6.3** (not yet released)
 
+* Fix OS detection on Windows.
+* Add `travis setup cloudfiles`.
+* Add `travis setup divshot`.
+* Add `--date` flag to `travis history`.
+* Add upload and target directory options to `travis setup s3`.
+* Include commit message in desktop notifications.
 * Check if Notification Center or Growl is actually running before sending out notifications.
 * Better documentation for desktop notifications.
+* Make tests Ruby on Rubinius 2.x.
 
 **1.6.2** (November 8, 2013)
 
