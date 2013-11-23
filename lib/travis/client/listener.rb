@@ -5,7 +5,7 @@ require 'json'
 if require 'pusher-client'
   # it's us that has been loading pusher-client
   # so let's assume we can mess with it - yay for global state
-  PusherClient.logger.level = 2
+  PusherClient.logger.level = 5
 end
 
 module Travis
@@ -17,6 +17,10 @@ module Travis
           @session    = options.fetch(:session)
           @signatures = {}
           super
+
+          bind('pusher:error') do |data|
+            handle_error(data)
+          end
         end
 
         def subscribe_all
@@ -33,6 +37,23 @@ module Travis
         def get_private_auth(channel)
           fetch_auth(channel.name)
           signatures[channel.name]
+        end
+
+        def handle_error(data)
+          code, message = data["code"], data["message"] if data.is_a? Hash
+          message ||= data.inspect
+
+          case code
+          when 4100             then reconnect(1)
+          when 4200, 4201, 4202 then reconnect
+          else raise Travis::Client::Error, "Pusher error: %s (code: %p)" % [message, code]
+          end
+        end
+
+        def reconnect(delay = nil)
+          disconnect if connected
+          sleep delay if delay and delay > 0
+          connect
         end
       end
 
