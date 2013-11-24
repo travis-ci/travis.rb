@@ -25,9 +25,16 @@ module Travis
         attributes['clean_body'] ||= Tools::SafeString.clean(body)
       end
 
+      def current_body
+        attributes['current_body'] ||= begin
+          body = load_attribute('body')
+          body.to_s.empty? ? session.get_raw("jobs/#{job_id}/log") : body
+        end
+      end
+
       def body(stream = block_given?)
-        return load_attribute('body') unless block_given? or stream
-        return yield(load_attribute('body')) unless stream and job.pending?
+        return current_body unless block_given? or stream
+        return yield(current_body) unless stream and job.pending?
         number = 0
 
         session.listen(self) do |listener|
