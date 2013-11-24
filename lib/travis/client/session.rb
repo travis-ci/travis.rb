@@ -56,9 +56,6 @@ module Travis
         clear_cache!
         self.connection = Faraday.new(:url => uri, :ssl => ssl) do |faraday|
           faraday.request  :url_encoded
-          faraday.response :json
-          faraday.response :follow_redirects
-          faraday.response :raise_error
           faraday.adapter(*faraday_adapter)
         end
       end
@@ -173,11 +170,23 @@ module Travis
 
       def raw(verb, url, *args)
         url    = url.sub(/^\//, '')
-        result = instrumented(verb.to_s.upcase, url, *args) { connection.public_send(verb, url, *args) }
-        raise Travis::Client::Error, 'SSL error: could not verify peer' if result.status == 0
-        result.body
-      rescue Faraday::Error::ClientError => e
-        handle_error(e)
+        result = instrumented(verb.to_s.upcase, url, *args) do
+          connection.public_send(verb, url, *args) do |request|
+            next if request.path !~ /^https?:/ or request.path.start_with? api_endpoint
+            request.headers.delete("Authorization")
+          end
+        end
+
+        case result.status
+        when 0             then raise Travis::Client::Error, 'SSL error: could not verify peer'
+        when 200..299      then JSON.parse(result.body) rescue result.body
+        when 301, 303      then raw(:get, result.headers['Location'])
+        when 302, 307, 308 then raw(verb, result.headers['Location'])
+        when 404           then raise Travis::Client::NotFound, result.body
+        when 400..499      then raise Travis::Client::Error,    result.status
+        when 500..599      then raise Travis::Client::Error,    "server error (#{result.status})"
+        else raise Travis::Client::Error, "unhandled status code #{result.status}"
+        end
       end
 
       def inspect
@@ -238,12 +247,6 @@ module Travis
           entity = id ? cached(type, :id, id) { type.new(self, id) } : type.new(self, nil)
           entity.update_attributes(data)
           entity
-        end
-
-        def handle_error(e)
-          klass   = Travis::Client::NotFound if e.is_a? Faraday::Error::ResourceNotFound
-          klass ||= Travis::Client::Error
-          raise klass, error_message(e), e.backtrace
         end
 
         def error_message(e)
