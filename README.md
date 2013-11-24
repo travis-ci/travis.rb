@@ -1454,6 +1454,8 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 * Include commit message in desktop notifications.
 * Check if Notification Center or Growl is actually running before sending out notifications.
 * Better documentation for desktop notifications.
+* Improved handling of pusher errors when streaming.
+* Add ability to load archived logs from different host.
 * Make tests Ruby on Rubinius 2.x.
 
 **1.6.2** (November 8, 2013)
