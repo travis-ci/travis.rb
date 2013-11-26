@@ -1456,6 +1456,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 * Better documentation for desktop notifications.
 * Improved handling of pusher errors when streaming.
 * Add ability to load archived logs from different host.
+* User proper API endpoint for streaming logs, as old endpoint has been removed.
 * Make tests run on Rubinius 2.x.
 
 **1.6.2** (November 8, 2013)

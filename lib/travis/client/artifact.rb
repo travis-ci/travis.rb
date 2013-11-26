@@ -50,7 +50,7 @@ module Travis
           end
 
           listener.on_connect do
-            data = session.get_raw("/artifacts/#{id}", nil, "Accept" => CHUNKED)['log']
+            data = session.get_raw("/logs/#{id}", nil, "Accept" => CHUNKED)['log']
             if data['parts']
               data['parts'].each { |p| yield p['content'] }
               number = data['parts'].last['number'] if data['parts'].any?
