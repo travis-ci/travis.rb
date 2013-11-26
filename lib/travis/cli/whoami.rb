@@ -7,7 +7,7 @@ module Travis
 
       def run
         authenticate
-        name = "(#{user.name})" unless user.name.to_s.empty?
+        name = " (#{user.name})" unless user.name.to_s.empty?
         say user.login, "You are %s" << name.to_s
       end
     end
