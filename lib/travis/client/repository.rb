@@ -46,16 +46,22 @@ module Travis
       end
 
       include States
+      preloadable
 
       # @!parse attr_reader :slug, :description
-      attributes :slug, :description, :last_build_id, :last_build_number, :last_build_state, :last_build_duration, :last_build_started_at, :last_build_finished_at, :github_language
+      attributes :slug, :active, :private, :admin, :description, :last_build_id, :last_build_number, :last_build_state, :last_build_duration, :last_build_started_at, :last_build_finished_at, :github_language
       inspect_info :slug
 
       time :last_build_finished_at, :last_build_started_at
 
       one  :repo
       many :repos
-      aka  :repository, :permissions, :admin, :pull, :push
+      aka  :repository, :permissions, :admin, :pull, :push, :hooks
+
+      def initialize(*)
+        super
+        attributes['active'] = attributes['private'] = attributes['admin'] = nil
+      end
 
       def public_key
         attributes["public_key"] ||= begin
@@ -184,6 +190,24 @@ module Travis
 
       def delete_caches(params = {})
         session.delete("/repos/#{id}/caches", params)['caches']
+      end
+
+      def active?
+        # TODO remove once active is properly synced and exposed by api
+        return active unless active.nil?
+        last_build_id?
+      end
+
+      def admin?(user = session.user)
+        user.admin_access? self
+      end
+
+      def push?(user = session.user)
+        user.push_access? self
+      end
+
+      def pull?(user = session.user)
+        user.pull_access? self
       end
 
       private

@@ -38,6 +38,7 @@ module Travis
     autoload :Raw,          'travis/cli/raw'
     autoload :RepoCommand,  'travis/cli/repo_command'
     autoload :Report,       'travis/cli/report'
+    autoload :Repos,        'travis/cli/repos'
     autoload :Restart,      'travis/cli/restart'
     autoload :Setup,        'travis/cli/setup'
     autoload :Show,         'travis/cli/show'

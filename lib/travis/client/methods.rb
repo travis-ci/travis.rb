@@ -88,6 +88,10 @@ module Travis
         listener.subscribe(*entities, &block)
         listener.listen
       end
+
+      def hooks
+        session.get('hooks')['hooks']
+      end
     end
   end
 end

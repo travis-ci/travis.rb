@@ -18,6 +18,7 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a [command line
         * [`monitor`](#monitor)
         * [`raw`](#raw)
         * [`report`](#report)
+        * [`repos`](#repos)
         * [`sync`](#sync)
         * [`token`](#token)
         * [`whatsup`](#whatsup)
@@ -306,6 +307,46 @@ When inspecting a bug or reporting an issue, it can be handy to include a report
     For Travis CI in general, go to https://github.com/travis-ci/travis-ci/issues or email support@travis-ci.com.
 
 This command can also list all known repos and the endpoint to use for them via the `--known-repos` option.
+
+#### `repos`
+
+    Lists repositories the user has certain permissions on.
+    Usage: travis repos [options]
+        -h, --help                       Display help
+        -i, --[no-]interactive           be interactive and colorful
+        -E, --[no-]explode               don't rescue exceptions
+            --skip-version-check         don't check if travis client is up to date
+            --skip-completion-check      don't check if auto-completion is set up
+        -e, --api-endpoint URL           Travis API server to talk to
+        -I, --[no-]insecure              do not verify SSL certificate of API endpoint
+            --pro                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
+            --org                        short-cut for --api-endpoint 'https://api.travis-ci.org/'
+        -t, --token [ACCESS_TOKEN]       access token to use
+            --debug                      show API requests
+        -X, --enterprise [NAME]          use enterprise setup (optionally takes name for multiple setups)
+            --adapter ADAPTER            Faraday adapter to use for HTTP requests
+        -m, --match PATTERN              only list repositories matching the given pattern (shell style)
+        -o, --owner LOGIN                only list repos for a certain owner
+        -n, --name NAME                  only list repos with a given name
+        -a, --active                     only list active repositories
+        -A, --inactive                   only list inactive repositories
+        -d, --admin                      only list repos with (or without) admin access
+        -D, --no-admin                   only list repos without admin access
+
+Lists repositories and displays whether these are active or not. Has a variety of options to filter repositories.
+
+    $ travis repos -m 'rkh/travis-*'
+    rkh/travis-chat (active: yes, admin: yes, push: yes, pull: yes)
+    Description: example app demoing travis-sso usage
+    
+    rkh/travis-encrypt (active: yes, admin: yes, push: yes, pull: yes)
+    Description: proof of concept in browser encryption of travis settings
+    
+    rkh/travis-lite (active: no, admin: yes, push: yes, pull: yes)
+    Description: Travis CI without the JavaScript
+    
+    rkh/travis-surveillance (active: no, admin: yes, push: yes, pull: yes)
+    Description: Veille sur un projet.
 
 #### `sync`
 
@@ -1447,6 +1488,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 **1.6.3** (not yet released)
 
 * Fix OS detection on Windows.
+* Add `travis repos` command.
 * Add `travis setup cloudfiles`.
 * Add `travis setup divshot`.
 * Add `--date` flag to `travis history`.

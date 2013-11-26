@@ -24,8 +24,36 @@ module Travis
         attributes['channels'] ||= ['common']
       end
 
+      def permissions
+        attributes['permissions'] ||= session.get('/users/permissions')
+      end
+
       def repositories
-        attributes['repositories'] ||= session.get('/users/permissions')['permissions']
+        permissions['permissions']
+      end
+
+      def push_access
+        permissions['push']
+      end
+
+      def pull_access
+        permissions['pull']
+      end
+
+      def admin_access
+        permissions['admin']
+      end
+
+      def push_access?(repo)
+        push_access.include? repo
+      end
+
+      def pull_access?(repo)
+        pull_access.include? repo
+      end
+
+      def admin_access?(repo)
+        admin_access.include? repo
       end
 
       alias syncing? is_syncing

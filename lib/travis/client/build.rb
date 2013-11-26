@@ -4,6 +4,7 @@ module Travis
   module Client
     class Build < Entity
       include States, Restartable
+      preloadable
 
       # @!parse attr_reader :repository_id, :commit_id, :number, :pull_request, :pull_request_number, :pull_request_title, :config, :state, :started_at, :finished_at, :duration, :job_ids
       attributes :repository_id, :commit_id, :number, :pull_request, :pull_request_number, :pull_request_title, :config, :state, :started_at, :finished_at, :duration, :job_ids

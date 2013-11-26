@@ -86,6 +86,16 @@ module Travis
         @id_field || superclass.id_field
       end
 
+      def self.preloadable
+        def self.preloadable?
+          true
+        end
+      end
+
+      def self.preloadable?
+        false
+      end
+
       id_field :id
 
       def initialize(session, id)

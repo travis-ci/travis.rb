@@ -143,6 +143,15 @@ module Travis
         result
       end
 
+      def preload(list)
+        list.group_by(&:class).each do |type, instances|
+          next unless type.preloadable?
+          ids = instances.map { |e| e.id unless e.complete? }.compact
+          find_many(type, :ids => ids) if ids.any?
+        end
+        list
+      end
+
       def get(*args)
         load get_raw(*args)
       end
