@@ -123,6 +123,7 @@ Gem::Specification.new do |s|
     "lib/travis/cli/raw.rb",
     "lib/travis/cli/repo_command.rb",
     "lib/travis/cli/report.rb",
+    "lib/travis/cli/repos.rb",
     "lib/travis/cli/restart.rb",
     "lib/travis/cli/setup.rb",
     "lib/travis/cli/setup/appfog.rb",
