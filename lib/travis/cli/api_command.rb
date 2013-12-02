@@ -124,6 +124,7 @@ module Travis
           gh_config     ||= {}
           gh_config[:ssl] = Travis::Client::Session::SSL_OPTIONS
           gh_config[:ssl] = { :verify => false } if gh_config[:api_url] and gh_config[:api_url] != "https://api.github.com"
+          gh_config.delete :scopes
 
           gh_config[:instrumenter] = proc do |type, payload, &block|
             next block.call unless type == 'http.gh'
