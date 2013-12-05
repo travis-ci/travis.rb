@@ -13,7 +13,7 @@ module Travis
             config['bucket'] = ask("Bucket: ").to_s
             local_dir = ask("Local project directory to upload (Optional): ").to_s
             config['local-dir'] = local_dir unless local_dir.empty?
-            upload_dir = ask("S3 upload direcotry (Optional): ").to_s
+            upload_dir = ask("S3 upload directory (Optional): ").to_s
             config['upload-dir'] = upload_dir unless upload_dir.empty?
             encrypt(config, 'secret_access_key') if agree("Encrypt secret access key? ") { |q| q.default = 'yes' }
           end
