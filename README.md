@@ -1485,6 +1485,10 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
+**Unreleased**
+
+* Add `travis setup opsworks`.
+
 **1.6.3** (November 27, 2013)
 
 * Fix OS detection on Windows.
