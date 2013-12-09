@@ -10,7 +10,7 @@ module Travis
       on '-f', '--force',         'do not ask user to confirm deleting the caches'
 
       def run
-        error "not allowed to access caches for #{color(repository.slug, :bold)}" unless repository.member?
+        error "not allowed to access caches for #{color(repository.slug, :bold)}" unless repository.push?
         branches = caches.group_by(&:branch)
         check_caches
 
