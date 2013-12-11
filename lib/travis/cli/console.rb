@@ -4,6 +4,10 @@ module Travis
   module CLI
     class Console < ApiCommand
       description "interactive shell"
+      on '-x', '--eval LINE', 'run line of ruby' do |c, line|
+        c.instance_eval(line)
+        exit
+      end
 
       def run
         Travis::CLI.silent { require 'pry' }
