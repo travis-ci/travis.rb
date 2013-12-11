@@ -115,11 +115,17 @@ module Travis
         self.class.attributes
       end
 
+      def to_h
+        Hash[attribute_names.map { |n| [n, self[n]] }]
+      end
+
       def [](key)
+        key = key.to_s
         send(key) if include? key
       end
 
       def []=(key, value)
+        key = key.to_s
         send("#{key}=", value) if include? key
       end
 

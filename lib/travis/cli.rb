@@ -40,6 +40,7 @@ module Travis
     autoload :Report,       'travis/cli/report'
     autoload :Repos,        'travis/cli/repos'
     autoload :Restart,      'travis/cli/restart'
+    autoload :Settings,     'travis/cli/settings'
     autoload :Setup,        'travis/cli/setup'
     autoload :Show,         'travis/cli/show'
     autoload :Status,       'travis/cli/status'

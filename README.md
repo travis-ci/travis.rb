@@ -36,6 +36,7 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a [command line
         * [`open`](#open)
         * [`pubkey`](#pubkey)
         * [`restart`](#restart)
+        * [`settings`](#settings)
         * [`setup`](#setup)
         * [`show`](#show)
         * [`status`](#status)
@@ -53,6 +54,8 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a [command line
         * [Artifacts](#artifacts)
         * [Users](#users)
         * [Commits](#commits)
+        * [Caches](#caches)
+        * [Repository Settings](#repository-settings)
     * [Listening for Events](#listening-for-events)
     * [Dealing with Sessions](#dealing-with-sessions)
     * [Using Namespaces](#using-namespaces)
@@ -824,6 +827,37 @@ Or a single job:
     $ travis restart 57.1
     job #57.1 has been restarted
 
+##### `settings`
+
+Certain repository settings can be read via the CLI:
+
+    $ travis settings
+    Settings for travis-ci/travis:
+    [-] builds_only_with_travis_yml    Only run builds with a .travis.yml
+    [+] build_pushes                   Build pushes
+    [+] build_pull_requests            Build pull requests
+
+You can also filter the settings by passing them in as arguments:
+
+    $ travis settings build_pushes build_pull_requests
+    Settings for travis-ci/travis:
+    [+] build_pushes                   Build pushes
+    [+] build_pull_requests            Build pull requests
+
+It is also possible to change these settings via `--enable` and `--disable`:
+
+    $ travis settings build_pushes --disable
+    Settings for travis-ci/travis:
+    [-] build_pushes                   Build pushes
+
+Or, alternatively, you can use `-c` to configure the settings interactively:
+
+    $ travis settings -c
+    Settings for travis-ci/travis:
+    Only run builds with a .travis.yml? |yes| no
+    Build pushes? |no| yes
+    Build pull requests? |yes|
+
 #### `setup`
 
 Helps you configure Travis addons.
@@ -1311,6 +1345,22 @@ It is also possible to delete multiple caches with a single API call:
 
 ``` ruby
 repo.delete_caches(branch: "master", match: "rbx")
+```
+
+#### Repository Settings
+
+You can access a repositories settings.
+
+``` ruby
+require 'travis'
+
+Travis.access_token = "MY SECRET TOKEN"
+settings = Travis::Repository.find('my/repo').settings
+
+if settings.build_pushes?
+  settings.build_pushes  = false
+  settings.save
+end
 ```
 
 ### Dealing with Sessions

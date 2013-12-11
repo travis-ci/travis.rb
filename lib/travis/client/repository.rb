@@ -184,6 +184,16 @@ module Travis
         session.account(owner_name)
       end
 
+      def settings
+        attributes['settings'] ||= begin
+          settings = session.get("/repos/#{id}/settings")['settings']
+          settings.repository = self
+          settings
+        end
+      rescue Travis::Client::NotFound
+        raise Travis::Client::Error, "not allowed to access settings"
+      end
+
       def caches(params = {})
         session.get("/repos/#{id}/caches", params)['caches']
       end

@@ -7,10 +7,11 @@ _travis_complete() {
   2)
     case "$2" in
       # commands with smart completions (in addition to command line flags)
-      help)  _travis_commands;;
-      setup) _travis_setup;;
-      init)  _travis_init;;
-      *)     _travis_option;;
+      help)     _travis_commands;;
+      setup)    _travis_setup;;
+      settings) _travis_settings;;
+      init)     _travis_init;;
+      *)        _travis_option;;
     esac;;
   *) _travis_option;;
   esac
@@ -21,6 +22,7 @@ if type compdef 1>/dev/null 2>/dev/null; then
   _travis()          { _travis_complete $((${#words} - 1)) "${words[2]}"; }
   _travis_commands() { list=(<%= commands.map { |c| "%s:%p" % [c.command_name, c.description] }.join(" ") %>) _describe -t common-commands 'common commands' list; }
   _travis_setup()    { list=(<%= Travis::CLI::Setup.services.map { |s| "%s:%p" % [s.service_name, s.description] }.join(" ") %>) _describe -t common-commands 'common commands' list; }
+  _travis_settings() { list=(<%= Travis::CLI::Settings::DESCRIPTIONS.map { |k,v| "%s:%p" % [k, v] }.join(" ") %>) _describe -t common-commands 'common commands' list; }
   _travis_init()     { list=(<%= Travis::CLI::Init.languages.map { |l| "#{l}:'initialize #{l} project'" }.join(" ") %>) _describe -t common-commands 'common commands' list; }
   _travis_option()   {
     case "${words[2]}" in
@@ -34,6 +36,7 @@ elif type compctl 1>/dev/null 2>/dev/null; then
   _travis()          { read -cA words && _travis_complete $((${#words} - 1)) "${words[2]}"; }
   _travis_commands() { reply=(<%= commands.map(&:command_name).map(&:inspect).join(" ") %>); }
   _travis_setup()    { reply=(<%= Travis::CLI::Setup.services.map(&:service_name).map(&:inspect).join(" ") %>); }
+  _travis_settings() { reply=(<%= Travis::CLI::Settings::DESCRIPTIONS.keys.join(" ") %>); }
   _travis_init()     { reply=(<%= Travis::CLI::Init.languages.map(&:inspect).join(" ") %>); }
   _travis_option()   {
     case "${words[2]}" in
@@ -47,7 +50,8 @@ elif type complete 1>/dev/null 2>/dev/null; then
   _travis()          { _travis_complete "$COMP_CWORD" "${COMP_WORDS[1]}"; }
   _travis_commands() { COMPREPLY=( $(compgen -W "<%= commands.map(&:command_name).join(" ") %>" -- "${COMP_WORDS[COMP_CWORD]}") ); }
   _travis_setup()    { COMPREPLY=( $(compgen -W "<%= Travis::CLI::Setup.services.map(&:service_name).join(" ") %>" -- "${COMP_WORDS[COMP_CWORD]}") ); }
-  _travis_init()     { COMPREPLY=( $(compgen -W "<%= Travis::CLI::Init.languages.join(" ") %>" -- "${COMP_WORDS[COMP_CWORD]}") ); }
+  _travis_settings() { COMPREPLY=( $(compgen -W "<%= Travis::CLI::Settings::DESCRIPTIONS.keys.join(" ") %>" -- "${COMP_WORDS[COMP_CWORD]}") ); }
+  _travis_init()     { COMPREPLY=( $(compgen -W "<%= Travis::CLI::Init.languages.map(&:inspect).join(" ") %>" -- "${COMP_WORDS[COMP_CWORD]}") ); }
   _travis_option()   {
     local options
     case "${COMP_WORDS[1]}" in

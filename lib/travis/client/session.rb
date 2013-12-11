@@ -160,6 +160,18 @@ module Travis
         load delete_raw(*args)
       end
 
+      def patch(*args)
+        load patch_raw(*args)
+      end
+
+      def post(*args)
+        load post_raw(*args)
+      end
+
+      def put(*args)
+        load put_raw(*args)
+      end
+
       def get_raw(*args)
         raw(:get, *args)
       end
@@ -172,10 +184,13 @@ module Travis
         raw(:put, *args)
       end
 
+      def patch_raw(*args)
+        raw(:patch, *args)
+      end
+
       def delete_raw(*args)
         raw(:delete, *args)
       end
-
 
       def raw(verb, url, *args)
         url    = url.sub(/^\//, '')

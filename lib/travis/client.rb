@@ -15,6 +15,7 @@ require 'travis/client/job'
 require 'travis/client/namespace'
 require 'travis/client/account'
 require 'travis/client/broadcast'
+require 'travis/client/settings'
 require 'travis/client/listener'
 
 module Travis
