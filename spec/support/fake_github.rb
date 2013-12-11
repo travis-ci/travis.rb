@@ -7,6 +7,10 @@ module GH
       super
     end
 
+    def http(*)
+      raise NotImplementedError
+    end
+
     def post(key, body)
       raise GH::Error unless @authenticated and key == '/authorizations'
       frontend.load("url" => "https://api.github.com/authorizations/1", "token" => "github_token")
