@@ -13,6 +13,7 @@ module Travis
       on('-u', '--user LOGIN',         'user to log in as') { |c,n| c.user_login = n }
       on('-M', '--no-manual',          'do not use interactive login')
       on('--list-github-token',        'instead of actually logging in, list found GitHub tokens')
+      on('--skip-token-check',         'don\'t verify the token with github')
 
       attr_accessor :user_login
 
@@ -46,6 +47,7 @@ module Travis
             g.auto_token    = auto_token
             g.auto_password = auto_password
             g.github_login  = user_login
+            g.check_token   = !skip_token_check?
             g.drop_token    = true
             g.ask_login     = proc { ask("Username: ") }
             g.ask_password  = proc { |user| ask("Password for #{user}: ") { |q| q.echo = "*" } }

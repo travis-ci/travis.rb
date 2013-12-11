@@ -11,9 +11,10 @@ module Travis
 
       attr_accessor :api_url, :scopes, :github_token, :github_login, :drop_token, :callback, :explode, :after_tokens,
         :ask_login, :ask_password, :ask_otp, :login_header, :auto_token, :auto_password, :manual_login, :note,
-        :netrc_path, :hub_path, :oauth_paths, :composer_path, :git_config_keys, :debug, :no_token
+        :netrc_path, :hub_path, :oauth_paths, :composer_path, :git_config_keys, :debug, :no_token, :check_token
 
       def initialize(options = nil)
+        @check_token     = true
         @manual_login    = true
         @ask_login       = proc { raise "ask_login callback not set" }
         @after_tokens    = proc { }
@@ -206,6 +207,7 @@ module Travis
       end
 
       def acceptable?(token)
+        return true unless check_token
         gh   = GH.with(:token => token)
         user = gh['user']
 
