@@ -1349,7 +1349,7 @@ repo.delete_caches(branch: "master", match: "rbx")
 
 #### Repository Settings
 
-You can access a repositories settings.
+You can access a repositories settings via `Repository#settings`:
 
 ``` ruby
 require 'travis'
