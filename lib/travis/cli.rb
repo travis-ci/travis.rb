@@ -71,7 +71,7 @@ module Travis
     end
 
     def commands
-      CLI.constants.map { |n| CLI.const_get(n) }.select { |c| command? c }
+      CLI.constants.map { |n| try_const_get(n) }.select { |c| command? c }
     end
 
     def silent
@@ -85,13 +85,18 @@ module Travis
 
     private
 
+      def try_const_get(name)
+        CLI.const_get(name)
+      rescue Exception
+      end
+
       def dummy_io
         return StringIO.new unless defined? IO::NULL and IO::NULL
         File.open(IO::NULL, 'w')
       end
 
       def command?(constant)
-        constant and constant < Command and not constant.abstract?
+        constant.is_a? Class and constant < Command and not constant.abstract?
       end
 
       def command_name(name)
