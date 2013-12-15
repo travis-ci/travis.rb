@@ -45,7 +45,7 @@ module Travis
       end
 
       def with_session(&block)
-        with_token { |t| GH.with(:token => t, &block) }
+        with_token { |t| GH.with(:token => t) { yield(t) } }
       end
 
       def possible_tokens(&block)
