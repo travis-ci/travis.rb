@@ -1540,6 +1540,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 * Add `travis settings` command for accessing repository settings.
 * Add `travis setup opsworks`.
 * Add `travis console -x` to run a line of Ruby code with a valid session.
+* Add authentication and streaming example for Ruby library.
 * Add Ruby API for dealing with repository settings.
 * Improve `travis login` and `travis login --auto`. Add ability to load GitHub token from Keychain.
 * Only ask for GitHub two-factor auth token if two-factor auth is actually required.
