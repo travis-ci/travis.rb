@@ -196,10 +196,10 @@ module Travis
         opt[:headers] = { "X-GitHub-OTP" => otp } if otp
         gh            = GH.with(opt)
         reply         = gh.post('/authorizations', :scopes => scopes, :note => note)
-        self.callback = proc { gh.delete reply['_links']['self']['href'] }
+        self.callback = proc { gh.delete reply['_links']['self']['href'] } if drop_token
         reply['token']
       rescue GH::Error => error
-        if error.info[:response_status] == 401
+        if error.info[:response_status] == 401 and error.info[:response_headers]['x-github-otp'].to_s =~ /required/
           login(user, password, die, ask_otp.call(user))
         elsif die
           raise gh_error(error)
