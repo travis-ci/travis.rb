@@ -70,7 +70,7 @@ module Travis
         if manual_login
           login_header.call if login_header
           user     = github_login || ask_login.call
-          password = ask_password.call(user)
+          password = ask_password.arity == 0 ? ask_password.call : ask_password.call(user)
           yield login(user, password, true)
         end
 
@@ -200,7 +200,8 @@ module Travis
         reply['token']
       rescue GH::Error => error
         if error.info[:response_status] == 401 and error.info[:response_headers]['x-github-otp'].to_s =~ /required/
-          login(user, password, die, ask_otp.call(user))
+          otp = ask_otp.arity == 0 ? ask_otp.call : ask_otp.call(user)
+          login(user, password, die, otp)
         elsif die
           raise gh_error(error)
         end
