@@ -41,6 +41,11 @@ task :update => :completion do
   readme.gsub! /^(\s+\$ travis version\n\s+).*$/, "\\1#{Travis::VERSION}"
   readme.gsub! /(gem install travis -v )\S+/, "\\1#{Travis::VERSION}"
   readme.gsub! /^\*\*#{Regexp.escape(Travis::VERSION)}\*\* \(not yet released?\)\n/i, "**#{Travis::VERSION}** (#{Time.now.strftime("%B %-d, %Y")})\n"
+
+  Travis::CLI.commands.each do |c|
+    readme.sub! /^(        \* \[\`#{c.command_name}\`\]\(##{c.command_name}\)).*$/, "\\1 - #{c.description}"
+  end
+
   File.write('README.md', readme)
 end
 

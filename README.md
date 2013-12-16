@@ -8,38 +8,38 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a [command line
 
 * [Command Line Client](#command-line-client)
     * [Non-API Commands](#non-api-commands)
-        * [`help`](#help)
-        * [`version`](#version)
+        * [`help`](#help) - helps you out when in dire need of information
+        * [`version`](#version) - outputs the client version
     * [General API Commands](#general-api-commands)
-        * [`accounts`](#accounts)
-        * [`console`](#console)
-        * [`endpoint`](#endpoint)
-        * [`login`](#login)
-        * [`monitor`](#monitor)
-        * [`raw`](#raw)
-        * [`report`](#report)
-        * [`repos`](#repos)
-        * [`sync`](#sync)
-        * [`token`](#token)
-        * [`whatsup`](#whatsup)
-        * [`whoami`](#whoami)
+        * [`accounts`](#accounts) - displays accounts and their subscription status
+        * [`console`](#console) - interactive shell
+        * [`endpoint`](#endpoint) - displays or changes the API endpoint
+        * [`login`](#login) - authenticates against the API and stores the token
+        * [`monitor`](#monitor) - live monitor for what's going on
+        * [`raw`](#raw) - makes an (authenticated) API call and prints out the result
+        * [`report`](#report) - generates a report useful for filing issues
+        * [`repos`](#repos) - lists repositories the user has certain permissions on
+        * [`sync`](#sync) - triggers a new sync with GitHub
+        * [`token`](#token) - outputs the secret API token
+        * [`whatsup`](#whatsup) - lists most recent builds
+        * [`whoami`](#whoami) - outputs the current user
     * [Repository Commands](#repository-commands)
-        * [`branches`](#branches)
-        * [`cache`](#cache)
-        * [`cancel`](#cancel)
-        * [`disable`](#disable)
-        * [`enable`](#enable)
-        * [`encrypt`](#encrypt)
-        * [`history`](#history)
-        * [`init`](#init)
-        * [`logs`](#logs)
-        * [`open`](#open)
-        * [`pubkey`](#pubkey)
-        * [`restart`](#restart)
-        * [`settings`](#settings)
-        * [`setup`](#setup)
-        * [`show`](#show)
-        * [`status`](#status)
+        * [`branches`](#branches) - displays the most recent build for each branch
+        * [`cache`](#cache) - lists or deletes repository caches
+        * [`cancel`](#cancel) - cancels a job or build
+        * [`disable`](#disable) - disables a project
+        * [`enable`](#enable) - enables a project
+        * [`encrypt`](#encrypt) - encrypts values for the .travis.yml
+        * [`history`](#history) - displays a projects build history
+        * [`init`](#init) - generates a .travis.yml and enables the project
+        * [`logs`](#logs) - streams test logs
+        * [`open`](#open) - opens a build or job in the browser
+        * [`pubkey`](#pubkey) - prints out a repository's public key
+        * [`restart`](#restart) - restarts a build or job
+        * [`settings`](#settings) - access repository settings
+        * [`setup`](#setup) - sets up an addon or deploy target
+        * [`show`](#show) - displays a build or job
+        * [`status`](#status) - checks status of the latest build
     * [Pro and Enterprise](#pro-and-enterprise)
     * [Environment Variables](#environment-variables)
     * [Desktop Notifications](#desktop-notifications)
