@@ -5,6 +5,8 @@ require 'json'
 module Travis
   module CLI
     class Login < ApiCommand
+      skip :authenticate
+
       description "authenticates against the API and stores the token"
       on('-g', '--github-token TOKEN', 'identify by GitHub token')
       on('-T', '--auto-token',         'try to figure out who you are automatically (might send another apps token to Travis, token will not be stored)')
