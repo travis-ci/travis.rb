@@ -1081,6 +1081,26 @@ puts "Hello #{Travis::User.current.name}!"
 
 Travis CI will not store that token.
 
+It also ships with a tool for generating a GitHub token from a user name and password via the GitHub API:
+
+``` ruby
+require 'travis'
+require 'travis/tools/github'
+
+# drop_token will make the token a temporary one
+github = Travis::Tools::Github.new(drop_token: true) do |g|
+  g.ask_login    = -> { print("GitHub login:     "); gets }
+  g.ask_password = -> { print("Password:         "); gets }
+  g.ask_otp      = -> { print("Two-factor token: "); gets }
+end
+
+github.with_token do |token|
+  Travis.github_auth(token)
+end
+
+puts "Hello #{Travis::User.current.name}!"
+```
+
 ### Using Pro
 
 Using the library with private projects pretty much works the same, except you use `Travis::Pro`.
