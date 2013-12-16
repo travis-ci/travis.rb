@@ -167,10 +167,12 @@ module Travis
         run(*arguments)
         clear_error
         store_config
+      rescue Travis::Client::NotLoggedIn => e
+        raise(e) if explode?
+        error "#{e.message} - try running #{command("login#{endpoint_option}")}"
       rescue StandardError => e
         raise(e) if explode?
         message = e.message
-        message += " - try running #{command("login#{endpoint_option}")}" if Travis::Client::Error === e and message == 'access denied'
         message += color("\nfor a full error report, run #{command("report#{endpoint_option}")}", :error) if interactive?
         store_error(e)
         error(message)

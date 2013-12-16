@@ -1555,6 +1555,10 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
+**1.6.7** (not yet released)
+
+* Better error message when using an invalid access token.
+
 **1.6.6** (December 16, 2013)
 
 * Fix `travis login --pro` for new users.

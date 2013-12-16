@@ -206,9 +206,11 @@ module Travis
         when 200..299      then JSON.parse(result.body) rescue result.body
         when 301, 303      then raw(:get, result.headers['Location'])
         when 302, 307, 308 then raw(verb, result.headers['Location'])
-        when 404           then raise Travis::Client::NotFound, result.body
-        when 400..499      then raise Travis::Client::Error,    result.status
-        when 500..599      then raise Travis::Client::Error,    "server error (#{result.status})"
+        when 401           then raise Travis::Client::NotLoggedIn, 'not logged in'
+        when 403           then raise Travis::Client::NotLoggedIn, 'invalid access token'
+        when 404           then raise Travis::Client::NotFound,    result.body
+        when 400..499      then raise Travis::Client::Error,       result.status
+        when 500..599      then raise Travis::Client::Error,       "server error (#{result.status})"
         else raise Travis::Client::Error, "unhandled status code #{result.status}"
         end
       end
