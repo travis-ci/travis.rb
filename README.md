@@ -1475,12 +1475,12 @@ You can check your Ruby version by running `ruby -v`:
 
 Then run:
 
-    $ gem install travis -v 1.6.3 --no-rdoc --no-ri
+    $ gem install travis -v 1.6.5 --no-rdoc --no-ri
 
 Now make sure everything is working:
 
     $ travis version
-    1.6.3
+    1.6.5
 
 ### Development Version
 
@@ -1535,7 +1535,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
-**1.6.4** (not yet released)
+**1.6.5** (December 16, 2013)
 
 * Add `travis settings` command for accessing repository settings.
 * Add `travis setup opsworks`.
@@ -1545,6 +1545,10 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 * Improve `travis login` and `travis login --auto`. Add ability to load GitHub token from Keychain.
 * Only ask for GitHub two-factor auth token if two-factor auth is actually required.
 * Fix access right check for `travis caches`.
+
+**1.6.4** (December 16, 2013)
+
+Release was yanked. See 1.6.5 for changes.
 
 **1.6.3** (November 27, 2013)
 
