@@ -223,7 +223,6 @@ Gem::Specification.new do |s|
   s.add_dependency "faraday",               "~> 0.8.7" # FIXME
   s.add_dependency "faraday_middleware",    "~> 0.9"
   s.add_dependency "highline",              "~> 1.6"
-  s.add_dependency "netrc",                 "~> 0.7"
   s.add_dependency "backports"
   s.add_dependency "gh",                    "~> 0.13"
   s.add_dependency "launchy",               "~> 2.1"
