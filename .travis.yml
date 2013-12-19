@@ -4,9 +4,21 @@ rvm:
 - 1.9.2
 - 1.9.3
 - 2.0.0
-- jruby-18mode
-- jruby-19mode
+- jruby
 - rbx
+os:
+- linux
+- osx
+matrix:
+  exclude:
+    - rvm: 1.8.7
+      os: osx
+    - rvm: 1.9.2
+      os: osx
+    - rvm: jruby
+      os: osx
+    - rvm: rbx
+      os: osx
 deploy:
   provider: rubygems
   api_key:
@@ -15,3 +27,4 @@ deploy:
   on:
     repo: travis-ci/travis
     ruby: 2.0.0
+    condition: "$(uname) = Darwin"
