@@ -5,7 +5,7 @@ module Travis
     class Formatter
       DAY         = 24 * 60 * 60
       TIME_FORMAT = "%Y-%m-%d %H:%M:%S"
-      CONFIG_KEYS = ['rvm', 'gemfile', 'env', 'jdk', 'otp_release', 'php', 'node_js', 'perl', 'python', 'scala', 'compiler']
+      CONFIG_KEYS = ['rvm', 'gemfile', 'env', 'jdk', 'otp_release', 'php', 'node_js', 'perl', 'python', 'scala', 'compiler', 'os']
 
       def duration(seconds, suffix = nil)
         return "none" if seconds.nil?

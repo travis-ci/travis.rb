@@ -1557,6 +1557,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 **1.6.7** (not yet released)
 
+* Properly display OS for projects tested on multiple operating systems.
 * Better error message when using an invalid access token.
 
 **1.6.6** (December 16, 2013)
