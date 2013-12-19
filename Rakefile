@@ -59,5 +59,5 @@ task 'README.md'      => :update
 
 task :gemspec => :update
 task :default => :spec
-task :default => :gemspec unless windows or ENV['CI']
+task :default => :gemspec unless windows or RUBY_VERSION < '2.0'
 task :test    => :spec
