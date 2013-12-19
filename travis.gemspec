@@ -235,5 +235,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rack-test", "~> 0.6"
 
   # Prereleasing on Travis CI
-  s.version = s.version.to_s.succ + ".travis.#{ENV['TRAVIS_JOB_NUMBER']}" if ENV['CI']
+  s.version = s.version.to_s.succ + ".travis.#{ENV['TRAVIS_JOB_NUMBER']}" if ENV['TRAVIS_JOB_NUMBER']
 end
