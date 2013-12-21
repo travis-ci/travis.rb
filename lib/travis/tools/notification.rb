@@ -46,27 +46,22 @@ module Travis
       end
 
       class Growl
-        def initialize
-          @command = "growlnotify"
-        end
-
         def notify(title, body)
-          system @command, '-n', 'Travis', '--image', ICON, '-m', body, title
+          system 'growlnotify', '-n', 'Travis', '--image', ICON, '-m', body, title
         end
 
         def available?
-          System.has? @command and System.running? "Growl"
+          System.has? 'growlnotify' and System.running? "Growl"
         end
       end
 
-      class LibNotify < Growl
-        def initialize
-          @command     = "notify-send"
-          @expire_time = 10_000
+      class LibNotify
+        def notify(title, body)
+          system 'notify-send', '--expire-time=10000', '-i', ICON, title, CGI.escapeHTML(body)
         end
 
-        def notify(title, body)
-          system @command, "--expire-time=#{@expire_time}", "-i", ICON, title, CGI.escapeHTML(body)
+        def available?
+          System.has? 'notify-send'
         end
       end
     end
