@@ -16,6 +16,8 @@ matrix:
       os: osx
     - rvm: 1.9.2
       os: osx
+    - rvm: 2.1.0
+      os: osx
     - rvm: jruby
       os: osx
     - rvm: rbx
