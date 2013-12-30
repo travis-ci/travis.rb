@@ -1014,6 +1014,16 @@ Some commands support sending desktop notifications. The following notification 
 * **Growl** - [growlnotify](http://growl.info/downloads#generaldownloads) has to be installed and [Growl](https://itunes.apple.com/us/app/growl/id467939042?mt=12&ign-mpt=uo%3D4) needs to be running. Does currently not support the Windows version of Growl.
 * **libnotify** - needs [libnotify](http://www.linuxfromscratch.org/blfs/view/svn/x/libnotify.html) installed, including the `notify-send` executable.
 
+### Plugins
+
+The `travis` binary has rudimentary support for plugins: It tries to load all files matching `~/.travis/*/init.rb`. Note that the APIs plugins use are largely semi-private. That is, they should remain stable, but are not part of the public API covered by semantic versioning. You can list the installed plugins via [`travis report`](#report).
+
+It is possible to define new commands directly in the [init.rb](https://github.com/travis-ci/travis-build/blob/master/init.rb) or to set up [lazy-loading](https://github.com/travis-ci/travis-cli-pr/blob/master/init.rb) for these.
+
+#### Official Plugins
+
+* [travis-cli-gh](https://github.com/travis-ci/travis-cli-gh#readme): Plugin for interacting with the GitHub API.
+
 ## Ruby Library
 
 There are two approaches of using the Ruby library, one straight forward with one global session:
