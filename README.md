@@ -43,6 +43,8 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a [command line
     * [Pro and Enterprise](#pro-and-enterprise)
     * [Environment Variables](#environment-variables)
     * [Desktop Notifications](#desktop-notifications)
+    * [Plugins](#plugins)
+        * [Official Plugins](#official-plugins)
 * [Ruby Library](#ruby-library)
     * [Authentication](#authentication)
     * [Using Pro](#using-pro)
