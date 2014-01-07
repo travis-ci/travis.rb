@@ -1546,7 +1546,7 @@ Ubuntu and Debian:
     $ sudo apt-get install ruby1.9.3 ruby-switch
     $ sudo ruby-switch --set ruby1.9.3
 
-Fedora Core:
+Fedora:
 
     $ sudo yum install ruby
 
