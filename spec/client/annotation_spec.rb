@@ -8,7 +8,7 @@ describe Travis::Client::Annotation do
   its(:description) { should be == "The job passed." }
   its(:provider_name) { should be == "Travis CI" }
   its(:url) { should be == "https://travis-ci.org/rails/rails/jobs/4125097" }
-  its(:image) { should be_nil }
+  its(:status) { should be == '' }
 
   it { should be == subject.job.annotations.first }
 end

@@ -86,7 +86,7 @@ module Travis
               "description"=>"The job passed.",
               "provider_name"=>"Travis CI",
               "url"=>"https://travis-ci.org/rails/rails/jobs/4125097",
-              "image"=>nil}]}.to_json
+              "status"=>''}]}.to_json
         end
 
         get '/builds/4125095' do
