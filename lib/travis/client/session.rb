@@ -133,14 +133,20 @@ module Travis
       def load(data)
         result = {}
         (data || {}).each_pair do |key, value|
-          type = Entity.subclass_for(key)
-          if value.respond_to? :to_ary
-            result[key] = value.to_ary.map { |e| create_entity(type, e) }
-          else
-            result[key] = create_entity(type, value)
-          end
+          entity      = load_entity(key, value)
+          result[key] = entity if entity
         end
         result
+      end
+
+      def load_entity(key, value)
+        type = Entity.subclass_for(key)
+        if value.respond_to? :to_ary
+          value.to_ary.map { |e| create_entity(type, e) }
+        else
+          create_entity(type, value)
+        end
+      rescue IndexError
       end
 
       def preload(list)
