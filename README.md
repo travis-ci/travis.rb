@@ -343,13 +343,13 @@ Lists repositories and displays whether these are active or not. Has a variety o
     $ travis repos -m 'rkh/travis-*'
     rkh/travis-chat (active: yes, admin: yes, push: yes, pull: yes)
     Description: example app demoing travis-sso usage
-    
+
     rkh/travis-encrypt (active: yes, admin: yes, push: yes, pull: yes)
     Description: proof of concept in browser encryption of travis settings
-    
+
     rkh/travis-lite (active: no, admin: yes, push: yes, pull: yes)
     Description: Travis CI without the JavaScript
-    
+
     rkh/travis-surveillance (active: no, admin: yes, push: yes, pull: yes)
     Description: Veille sur un projet.
 
@@ -529,7 +529,7 @@ You can also use this command to delete caches:
 
     On branch example:
     cache--rvm-2.0.0--gemfile-Gemfile  last modified: 2013-11-04 13:45:44  size: 62.21 MiB
-    
+
     Overall size of above caches: 62.21 MiB
 
 #### `cancel`
@@ -799,7 +799,7 @@ Outputs the public key for a repository.
 
     $ travis pubkey
     Public key for travis-ci/travis:
-    
+
     ssh-rsa ...
     $ travis pubkey -r rails/rails > rails.key
 
@@ -1546,7 +1546,7 @@ Ubuntu and Debian:
     $ sudo apt-get install ruby1.9.3 ruby-switch
     $ sudo ruby-switch --set ruby1.9.3
 
-Fedora Core:
+Fedora:
 
     $ sudo yum install ruby
 
@@ -1572,6 +1572,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 * Properly display OS for projects tested on multiple operating systems.
 * Better error message when using an invalid access token.
 * Fix desktop notifications using libnotify (Linux/BSD).
+* `travis branches` preserves branch name when displaying Pull Request builds.
 
 **1.6.6** (December 16, 2013)
 

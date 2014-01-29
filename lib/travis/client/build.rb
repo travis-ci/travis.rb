@@ -25,7 +25,8 @@ module Travis
       end
 
       def branch_info
-        pull_request? ? "Pull Request ##{pr_number}" : commit.branch
+        info = commit.branch
+        pull_request? ? info + " (PR ##{pr_number})" : info
       end
 
       def pusher_channels
