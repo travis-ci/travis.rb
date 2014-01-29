@@ -66,7 +66,8 @@ module Travis
              "finished_at"=>"2013-01-13T16:11:04Z",
              "queue"=>"builds.rails",
              "allow_failure"=>false,
-             "tags"=>""},
+             "tags"=>"",
+             "annotation_ids"=>[1]},
            "commit"=>
             {"id"=>1201631,
              "sha"=>"a0265b98f16c6e33be32aa3f57231d1189302400",
@@ -78,7 +79,14 @@ module Travis
              "committer_name"=>"Steve Klabnik",
              "committer_email"=>"steve@steveklabnik.com",
              "compare_url"=>
-              "https://github.com/rails/rails/compare/6581d798e830...a0265b98f16c"}}.to_json
+              "https://github.com/rails/rails/compare/6581d798e830...a0265b98f16c"},
+           "annotations"=>
+            [{"id"=>1,
+              "job_id"=>4125097,
+              "description"=>"The job passed.",
+              "provider_name"=>"Travis CI",
+              "url"=>"https://travis-ci.org/rails/rails/jobs/4125097",
+              "status"=>''}]}.to_json
         end
 
         get '/builds/4125095' do
