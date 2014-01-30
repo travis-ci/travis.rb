@@ -18,6 +18,7 @@ module Travis
       autoload :Divshot,      'travis/cli/setup/divshot'
       autoload :OpsWorks,     'travis/cli/setup/opsworks'
       autoload :SauceConnect, 'travis/cli/setup/sauce_connect'
+      autoload :Modulus,      'travis/cli/setup/modulus'
       autoload :Service,      'travis/cli/setup/service'
 
       description "sets up an addon or deploy target"

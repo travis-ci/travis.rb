@@ -1573,6 +1573,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 * Better error message when using an invalid access token.
 * Fix desktop notifications using libnotify (Linux/BSD).
 * `travis branches` preserves branch name when displaying Pull Request builds.
+* Add `travis setup modulus`.
 * Ruby library now supports build annotations.
 * Document plugin support.
 * Do not have the client raise on unknown API entities.
