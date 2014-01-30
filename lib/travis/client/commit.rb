@@ -3,6 +3,8 @@ require 'travis/client'
 module Travis
   module Client
     class Commit < Entity
+      include NotLoadable
+
       # @!parse attr_reader :sha, :branch, :message, :committed_at, :author_name, :author_email, :committer_name, :committer_email, :compare_url
       attributes :sha, :branch, :message, :committed_at, :author_name, :author_email, :committer_name, :committer_email, :compare_url
       time :committed_at
@@ -20,14 +22,6 @@ module Travis
 
       def inspect_info
         short_sha + " " + subject.inspect
-      end
-
-      def missing?(attribute)
-        false
-      end
-
-      def complete?
-        true
       end
     end
   end

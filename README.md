@@ -1567,6 +1567,10 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
+**1.6.8** (not yet released)
+
+* Improve annotation support in the Ruby library.
+
 **1.6.7** (January 30, 2014)
 
 * Properly display OS for projects tested on multiple operating systems.

@@ -3,6 +3,8 @@ require 'travis/client'
 module Travis
   module Client
     class WeakEntity < Entity
+      include NotLoadable
+
       def self.weak?
         true
       end
@@ -18,14 +20,6 @@ module Travis
       def self.cast_id(object)
         return object if id? object
         raise "weak entities do not have id fields"
-      end
-
-      def missing?(attribute)
-        false
-      end
-
-      def complete?
-        true
       end
     end
   end
