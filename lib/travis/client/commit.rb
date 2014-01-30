@@ -21,6 +21,14 @@ module Travis
       def inspect_info
         short_sha + " " + subject.inspect
       end
+
+      def missing?(attribute)
+        false
+      end
+
+      def complete?
+        true
+      end
     end
   end
 end

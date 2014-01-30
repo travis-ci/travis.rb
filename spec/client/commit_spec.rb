@@ -15,4 +15,8 @@ describe Travis::Client::Build do
   its(:committer_email) { should be == 'steve@steveklabnik.com' }
   its(:compare_url) { should be == 'https://github.com/rails/rails/compare/6581d798e830...a0265b98f16c' }
   its(:subject) { should be == 'Associaton -> Association' }
+
+  specify "with missing data" do
+    session.load("commit" => { "id" => 12 })['commit'].subject.should be_empty
+  end
 end
