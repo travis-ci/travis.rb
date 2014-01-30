@@ -1507,12 +1507,12 @@ You can check your Ruby version by running `ruby -v`:
 
 Then run:
 
-    $ gem install travis -v 1.6.6 --no-rdoc --no-ri
+    $ gem install travis -v 1.6.7 --no-rdoc --no-ri
 
 Now make sure everything is working:
 
     $ travis version
-    1.6.6
+    1.6.7
 
 ### Development Version
 
@@ -1567,7 +1567,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
-**1.6.7** (not yet released)
+**1.6.7** (January 30, 2014)
 
 * Properly display OS for projects tested on multiple operating systems.
 * Better error message when using an invalid access token.

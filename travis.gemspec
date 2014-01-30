@@ -2,7 +2,7 @@
 Gem::Specification.new do |s|
   # general infos
   s.name        = "travis"
-  s.version     = "1.6.6"
+  s.version     = "1.6.7"
   s.description = "CLI and Ruby client library for Travis CI"
   s.homepage    = "https://github.com/travis-ci/travis"
   s.summary     = "Travis CI client"
@@ -142,6 +142,7 @@ Gem::Specification.new do |s|
     "lib/travis/cli/setup/divshot.rb",
     "lib/travis/cli/setup/engine_yard.rb",
     "lib/travis/cli/setup/heroku.rb",
+    "lib/travis/cli/setup/modulus.rb",
     "lib/travis/cli/setup/nodejitsu.rb",
     "lib/travis/cli/setup/npm.rb",
     "lib/travis/cli/setup/open_shift.rb",
