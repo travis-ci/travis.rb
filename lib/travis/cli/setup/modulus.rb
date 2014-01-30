@@ -9,7 +9,7 @@ module Travis
         def run
           deploy 'modulus' do |config|
             config['api_key'] = ask("Modulus Api Key: ") { |q| q.echo = "*" }.to_s
-            config['project-name'] = ask("Modulus Project Name: ").to_s
+            config['project_name'] = ask("Modulus Project Name: ").to_s
           end
         end
       end
