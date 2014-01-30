@@ -6,7 +6,6 @@ rvm:
 - 2.0.0
 - 2.1.0
 - jruby
-- rbx
 os:
 - linux
 - osx
@@ -19,8 +18,6 @@ matrix:
     - rvm: 2.1.0
       os: osx
     - rvm: jruby
-      os: osx
-    - rvm: rbx
       os: osx
 deploy:
   provider: rubygems
