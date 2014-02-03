@@ -173,6 +173,7 @@ Gem::Specification.new do |s|
     "lib/travis/client/listener.rb",
     "lib/travis/client/methods.rb",
     "lib/travis/client/namespace.rb",
+    "lib/travis/client/not_loadable.rb",
     "lib/travis/client/repository.rb",
     "lib/travis/client/restartable.rb",
     "lib/travis/client/session.rb",
