@@ -13,6 +13,11 @@ require 'timeout'
 module Travis
   module CLI
     class Command
+      MINUTE = 60
+      HOUR   = 3600
+      DAY    = 86400
+      WEEK   = 604800
+
       include Tools::Assets
       extend Parser, Forwardable, Tools::Assets
       def_delegators :terminal, :agree, :ask, :choose
