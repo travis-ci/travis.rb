@@ -119,11 +119,19 @@ module Travis
 
       def check_version
         last_check.clear if last_check['version'] != Travis::VERSION
+        seconds_since = Time.now.to_i - last_check['at'].to_i
 
         return if skip_version_check?
-        return if Time.now.to_i - last_check['at'].to_i < 3600
+        return if seconds_since < MINUTE
 
-        Timeout.timeout 1.0 do
+        case seconds_since
+        when MINUTE .. HOUR then timeout = 0.5
+        when HOUR   .. DAY  then timeout = 1.0
+        when DAY    .. WEEK then timeout = 2.0
+        else                     timeout = 10.0
+        end
+
+        Timeout.timeout(timeout) do
           response              = Faraday.get('https://rubygems.org/api/v1/gems/travis.json', {}, 'If-None-Match' => last_check['etag'].to_s)
           last_check['etag']    = response.headers['etag']
           last_check['version'] = JSON.parse(response.body)['version'] if response.status == 200
@@ -131,7 +139,8 @@ module Travis
 
         last_check['at'] = Time.now.to_i
         error "Outdated CLI version, run `gem install travis` or use --skip-version-check." if Travis::VERSION < last_check['version']
-      rescue Timeout::Error, Faraday::Error::ClientError
+      rescue Timeout::Error, Faraday::Error::ClientError => error
+        debug "#{error.class}: #{error.message}"
       end
 
       def check_completion
