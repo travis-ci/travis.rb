@@ -25,7 +25,11 @@ module Travis
       end
 
       def permissions
-        attributes['permissions'] ||= session.get('/users/permissions')
+        attributes['permissions'] ||= begin
+          repos = session.get('/users/permissions')
+          repos.each_value { |r| r.compact! }
+          repos
+        end
       end
 
       def repositories

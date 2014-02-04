@@ -16,6 +16,7 @@ require 'json'
 module Travis
   module Client
     class Session
+      PRIMITIVE   = [nil, false, true]
       SSL_OPTIONS = { :ca_file => Tools::Assets['cacert.pem'] }
 
       include Methods
@@ -274,11 +275,16 @@ module Travis
         end
 
         def create_entity(type, data)
+          return data if primitive?(data)
           data   = { type.id_field => data } if type.id? data
           id     = type.cast_id(data.fetch(type.id_field)) unless type.weak?
           entity = id ? cached(type, :id, id) { type.new(self, id) } : type.new(self, nil)
           entity.update_attributes(data)
           entity
+        end
+
+        def primitive?(data)
+          PRIMITIVE.include? data
         end
 
         def error_message(e)
