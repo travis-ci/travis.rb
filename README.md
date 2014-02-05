@@ -1571,6 +1571,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 * Display annotations in `travis show`.
 * Improve annotation support in the Ruby library.
+* Fix behavior for missing entities.
 
 **1.6.7** (January 30, 2014)
 
