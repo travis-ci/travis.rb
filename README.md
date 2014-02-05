@@ -1557,7 +1557,7 @@ Arch Linux:
 
 #### Ruby versioning tools
 
-Alternatively, you can use a Ruby version management tool such as [rvm](https://rvm.io/rvm/install/), [rbenv](http://rbenv.org/) or [https://github.com/postmodern/chruby](chruby). This is only recommended if you need to run multiple versions of Ruby.
+Alternatively, you can use a Ruby version management tool such as [rvm](https://rvm.io/rvm/install/), [rbenv](http://rbenv.org/) or [chruby](https://github.com/postmodern/chruby). This is only recommended if you need to run multiple versions of Ruby.
 
 You can of course always compile Ruby from source, though then you are left with the hassle of keeping it up to date and making sure that everything is set up properly.
 
