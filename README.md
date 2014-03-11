@@ -35,7 +35,7 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a [command line
         * [`logs`](#logs) - streams test logs
         * [`open`](#open) - opens a build or job in the browser
         * [`pubkey`](#pubkey) - prints out a repository's public key
-        * [`requests`](#requests) - list build requests
+        * [`requests`](#requests) - lists recent requests
         * [`restart`](#restart) - restarts a build or job
         * [`settings`](#settings) - access repository settings
         * [`setup`](#setup) - sets up an addon or deploy target
