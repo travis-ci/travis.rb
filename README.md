@@ -35,6 +35,7 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a [command line
         * [`logs`](#logs) - streams test logs
         * [`open`](#open) - opens a build or job in the browser
         * [`pubkey`](#pubkey) - prints out a repository's public key
+        * [`requests`](#requests) - list build requests
         * [`restart`](#restart) - restarts a build or job
         * [`settings`](#settings) - access repository settings
         * [`setup`](#setup) - sets up an addon or deploy target
@@ -812,6 +813,19 @@ The `--pem` flag will print out the key PEM encoded:
     ...
     -----END PUBLIC KEY-----
 
+#### `requests`
+
+With the `requests` command, you can list the build requests received by Travis CI from GitHub. This is handy for figuring out why a repository might not be building.
+
+    $ travis requests -r sinatra/sinatra
+    push to master accepted (triggered new build)
+      abc51e2 - Merge pull request #847 from gogotanaka/add_readme_ja
+      received at: 2014-02-16 09:26:36
+    
+    PR #843 rejected (skipped through commit message)
+      752201c - Update Spanish README with tense, verb, and word corrections. [ci skip]
+      received at: 2014-02-16 05:07:16
+
 #### `restart`
 
 This command will restart the latest build:
@@ -1570,7 +1584,9 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 **1.6.8** (not yet released)
 
 * Display annotations in `travis show`.
+* Add `travis requests` to see build requests Travis CI has received.
 * Improve annotation support in the Ruby library.
+* Add `Repository#requests` to Ruby library.
 * Fix behavior for missing entities.
 
 **1.6.7** (January 30, 2014)

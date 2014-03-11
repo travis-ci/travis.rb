@@ -184,6 +184,10 @@ module Travis
         session.account(owner_name)
       end
 
+      def requests
+        attributes['requests'] ||= session.find_many(Request, :repository_id => id)
+      end
+
       def settings
         attributes['settings'] ||= begin
           settings = session.get("/repos/#{id}/settings")['settings']
