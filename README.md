@@ -1521,12 +1521,12 @@ You can check your Ruby version by running `ruby -v`:
 
 Then run:
 
-    $ gem install travis -v 1.6.7 --no-rdoc --no-ri
+    $ gem install travis -v 1.6.8 --no-rdoc --no-ri
 
 Now make sure everything is working:
 
     $ travis version
-    1.6.7
+    1.6.8
 
 ### Development Version
 
@@ -1581,7 +1581,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
-**1.6.8** (not yet released)
+**1.6.8** (March 12, 2014)
 
 * Display annotations in `travis show`.
 * Add `travis requests` to see build requests Travis CI has received.
