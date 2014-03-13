@@ -1,10 +1,9 @@
 #!/usr/bin/env ruby
-$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
-
 # :(
 Encoding.default_external = Encoding::UTF_8 if defined? Encoding
 
 # load travis library
+require 'bundler/setup' if File.exist? File.expand_path('../../Gemfile', __FILE__)
 require 'travis/cli'
 
 # load plugins
