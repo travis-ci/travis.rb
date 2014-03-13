@@ -4,9 +4,12 @@ module Travis
   module CLI
     class Requests < RepoCommand
       description "lists recent requests"
+      on '-l', '--limit LIMIT', 'Maximum number requests to display'
 
       def run
-        repository.requests.each do |request|
+        requests = repository.requests
+        requests = requests[0, Integer(limit)] if limit
+        requests.each do |request|
           style ||= :success if request.accepted?
           style ||= :error   if request.rejected?
           style ||= :info

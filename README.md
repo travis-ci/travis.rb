@@ -826,6 +826,8 @@ With the `requests` command, you can list the build requests received by Travis 
       752201c - Update Spanish README with tense, verb, and word corrections. [ci skip]
       received at: 2014-02-16 05:07:16
 
+You can use `-l`/`--limit` to limit the number of requests displayed.
+
 #### `restart`
 
 This command will restart the latest build:
@@ -1580,6 +1582,10 @@ You can of course always compile Ruby from source, though then you are left with
 If you have the old `travis-cli` gem installed, you should `gem uninstall travis-cli`, just to be sure, as it ships with an executable that is also named `travis`.
 
 ## Version History
+
+**1.6.9** (not yet released)
+
+* Add `--limit` to `travis requests`.
 
 **1.6.8** (March 12, 2014)
 
