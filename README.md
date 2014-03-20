@@ -1608,6 +1608,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 **1.6.9** (not yet released)
 
 * Add `--limit` to `travis requests`.
+* Add `travis setup releases`.
 
 **1.6.8** (March 12, 2014)
 
