@@ -4,7 +4,7 @@ Gem::Specification.new do |s|
   s.name        = "travis"
   s.version     = "1.6.8"
   s.description = "CLI and Ruby client library for Travis CI"
-  s.homepage    = "https://github.com/travis-ci/travis"
+  s.homepage    = "https://github.com/travis-ci/travis.rb"
   s.summary     = "Travis CI client"
   s.license     = "MIT"
   s.executables = ["travis"]
@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
     "joshua-anderson",
     "Max Barnash",
     "Mathias Meyer",
+    "Justin Lambert",
     "Adrien Brault",
     "Laurent Petit",
     "Maarten van Vliet",
@@ -29,13 +30,15 @@ Gem::Specification.new do |s|
     "Piotr Sarnacki",
     "Rapha\xC3\xABl Pinson",
     "Tobias Wilken",
+    "Zachary Scott",
     "jeffdh",
+    "john muhl",
     "Daniel Chatfield",
     "Adam Lavin",
     "Benjamin Manns",
     "Jacob Burkhart",
     "Josh Kalderimis",
-    "Justin Lambert"
+    "Joshua Anderson"
   ]
 
   # generated from git shortlog -sne
@@ -50,22 +53,25 @@ Gem::Specification.new do |s|
     "j@zatigo.com",
     "i.am@anhero.ru",
     "meyer@paperplanes.de",
-    "adam@lavoaster.co.uk",
+    "benmanns@gmail.com",
     "adrien.brault@gmail.com",
     "laurent.petit@gmail.com",
     "maartenvanvliet@gmail.com",
     "mario@mariovisic.com",
-    "jlambert@eml.cc",
-    "josh.kalderimis@gmail.com",
     "miro@hroncok.cz",
     "neamar@neamar.fr",
-    "jburkhart@engineyard.com",
     "drogus@gmail.com",
     "raphael.pinson@camptocamp.com",
     "tw@cloudcontrol.de",
+    "e@zzak.io",
     "jeffdh@gmail.com",
+    "git@johnmuhl.com",
     "chatfielddaniel@gmail.com",
-    "benmanns@gmail.com"
+    "adam@lavoaster.co.uk",
+    "jburkhart@engineyard.com",
+    "josh.kalderimis@gmail.com",
+    "j@zatigo.com",
+    "jlambert@eml.cc"
   ]
 
   # generated from git ls-files

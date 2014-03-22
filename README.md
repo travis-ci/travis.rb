@@ -1,4 +1,4 @@
-# The Travis Client [![Build Status](https://travis-ci.org/travis-ci/travis.rb.png?branch=master)](https://travis-ci.org/travis-ci/travis.rb)
+# The Travis Client [![Build Status](https://travis-ci.org/travis-ci/travis.rb.rb.png?branch=master)](https://travis-ci.org/travis-ci/travis.rb.rb)
 
 ![The Travis Mascot](http://about.travis-ci.org/images/travis-mascot-200px.png)
 
@@ -262,10 +262,10 @@ When monitoring specific repositories, notifications will be turned on by defaul
 
 This is really helpful both when working on this client and when exploring the [Travis API](https://api.travis-ci.org). It will simply fire a request against the API endpoint, parse the output and pretty print it. Keep in mind that the client takes care of authentication for you:
 
-    $ travis raw /repos/travis-ci/travis
+    $ travis raw /repos/travis-ci/travis.rb
     {"repo"=>
       {"id"=>409371,
-       "slug"=>"travis-ci/travis",
+       "slug"=>"travis-ci/travis.rb",
        "description"=>"Travis CI Client (CLI and Ruby library)",
        "last_build_id"=>4251410,
        "last_build_number"=>"77",
@@ -309,7 +309,7 @@ When inspecting a bug or reporting an issue, it can be handy to include a report
             from ...
 
 
-    For issues with the command line tool, please visit https://github.com/travis-ci/travis/issues.
+    For issues with the command line tool, please visit https://github.com/travis-ci/travis.rb/issues.
     For Travis CI in general, go to https://github.com/travis-ci/travis-ci/issues or email support@travis-ci.com.
 
 This command can also list all known repos and the endpoint to use for them via the `--known-repos` option.
@@ -412,7 +412,7 @@ It's just a tiny feature, but it allows you to take a look at repositories that 
 If you only want to see what happened in your repositories, add the `--my-repos` flag (short: `-m`):
 
     $ travis whatsup -m
-    travis-ci/travis passed: #169
+    travis-ci/travis.rb passed: #169
     rkh/dpl passed: #50
     rubinius/rubinius passed: #3235
     sinatra/sinatra errored: #619
@@ -555,14 +555,14 @@ Or a single job:
 If you want to turn of a repository temporarily or indefinitely, you can do so with the `disable` command:
 
     $ travis disable
-    travis-ci/travis: disabled :(
+    travis-ci/travis.rb: disabled :(
 
 #### `enable`
 
 With the `enable` command, you can easily activate a project on Travis CI:
 
     $ travis enable
-    travis-ci/travis: enabled :)
+    travis-ci/travis.rb: enabled :)
 
 It even works when enabling a repo Travis didn't know existed by triggering a sync:
 
@@ -746,7 +746,7 @@ You can also set certain values via command line flags (see list above):
 Given a job number, logs simply prints out that job's logs. By default it will display the first job of the latest build.
 
     $ travis logs
-    displaying logs for travis-ci/travis#317.1
+    displaying logs for travis-ci/travis.rb#317.1
     [... more logs ...]
     Your bundle is complete! Use `bundle show [gemname]` to see where a bundled gem is installed.
     $ bundle exec rake
@@ -763,22 +763,22 @@ The info line about the job being displayed is written to stderr, the logs itsel
 It takes an optional argument that can be a job number:
 
     $ travis logs 100.3
-    displaying logs for travis-ci/travis#100.3
+    displaying logs for travis-ci/travis.rb#100.3
 
 A build number (in which case it will pick the build's first job):
 
     $ travis logs 100
-    displaying logs for travis-ci/travis#100.1
+    displaying logs for travis-ci/travis.rb#100.1
 
 Just the job suffix, which will pick the corresponding job from the latest build:
 
     $ travis logs .2
-    displaying logs for travis-ci/travis#317.2
+    displaying logs for travis-ci/travis.rb#317.2
 
 A branch name:
 
     $ travis logs ghe
-    displaying logs for travis-ci/travis#270.1
+    displaying logs for travis-ci/travis.rb#270.1
 
 
 #### `open`
@@ -792,14 +792,14 @@ If you just want the URL printed out instead of opened in a browser, pass `--pri
 If instead you want to open the repository, compare or pull request view on GitHub, use `--github`.
 
     $ travis open 56 --print --github
-    web view: https://github.com/travis-ci/travis/pull/5
+    web view: https://github.com/travis-ci/travis.rb/pull/5
 
 #### `pubkey`
 
 Outputs the public key for a repository.
 
     $ travis pubkey
-    Public key for travis-ci/travis:
+    Public key for travis-ci/travis.rb:
 
     ssh-rsa ...
     $ travis pubkey -r rails/rails > rails.key
@@ -807,7 +807,7 @@ Outputs the public key for a repository.
 The `--pem` flag will print out the key PEM encoded:
 
     $ travis pubkey --pem
-    Public key for travis-ci/travis:
+    Public key for travis-ci/travis.rb:
 
     -----BEGIN PUBLIC KEY-----
     ...
@@ -850,7 +850,7 @@ Or a single job:
 Certain repository settings can be read via the CLI:
 
     $ travis settings
-    Settings for travis-ci/travis:
+    Settings for travis-ci/travis.rb:
     [-] builds_only_with_travis_yml    Only run builds with a .travis.yml
     [+] build_pushes                   Build pushes
     [+] build_pull_requests            Build pull requests
@@ -858,20 +858,20 @@ Certain repository settings can be read via the CLI:
 You can also filter the settings by passing them in as arguments:
 
     $ travis settings build_pushes build_pull_requests
-    Settings for travis-ci/travis:
+    Settings for travis-ci/travis.rb:
     [+] build_pushes                   Build pushes
     [+] build_pull_requests            Build pull requests
 
 It is also possible to change these settings via `--enable` and `--disable`:
 
     $ travis settings build_pushes --disable
-    Settings for travis-ci/travis:
+    Settings for travis-ci/travis.rb:
     [-] build_pushes                   Build pushes
 
 Or, alternatively, you can use `-c` to configure the settings interactively:
 
     $ travis settings -c
-    Settings for travis-ci/travis:
+    Settings for travis-ci/travis.rb:
     Only run builds with a .travis.yml? |yes| no
     Build pushes? |no| yes
     Build pull requests? |yes|
@@ -910,7 +910,7 @@ Displays general infos about the latest build:
     Build #77: fix name clash
     State:         passed
     Type:          push
-    Compare URL:   https://github.com/travis-ci/travis/compare/7cc9b739b0b6...39b66ee24abe
+    Compare URL:   https://github.com/travis-ci/travis.rb/compare/7cc9b739b0b6...39b66ee24abe
     Duration:      5 min 51 sec
     Started:       2013-01-19 19:00:49
     Finished:      2013-01-19 19:02:17
@@ -928,7 +928,7 @@ Any other build:
     Build #1: add .travis.yml
     State:         failed
     Type:          push
-    Compare URL:   https://github.com/travis-ci/travis/compare/ad817bc37c76...b8c5d3b463e2
+    Compare URL:   https://github.com/travis-ci/travis.rb/compare/ad817bc37c76...b8c5d3b463e2
     Duration:      3 min 16 sec
     Started:       2013-01-13 23:15:22
     Finished:      2013-01-13 23:21:38
@@ -947,7 +947,7 @@ The last build for a given branch:
     State:         passed
     Type:          push
     Branch:        rkh-debug
-    Compare URL:   https://github.com/travis-ci/travis/compare/8d4aa5254359...7ef33d5e5993
+    Compare URL:   https://github.com/travis-ci/travis.rb/compare/8d4aa5254359...7ef33d5e5993
     Duration:      6 min 16 sec
     Started:       2013-01-19 18:51:17
     Finished:      2013-01-19 18:52:43
@@ -965,7 +965,7 @@ Or a job:
     Job #77.3: fix name clash
     State:         passed
     Type:          push
-    Compare URL:   https://github.com/travis-ci/travis/compare/7cc9b739b0b6...39b66ee24abe
+    Compare URL:   https://github.com/travis-ci/travis.rb/compare/7cc9b739b0b6...39b66ee24abe
     Duration:      45 sec
     Started:       2013-01-19 19:00:49
     Finished:      2013-01-19 19:01:34
@@ -1324,7 +1324,7 @@ The artifacts you usually care for are probably logs. You can reach them directl
 ``` ruby
 require 'travis'
 
-repo = Travis::Repository.find('travis-ci/travis')
+repo = Travis::Repository.find('travis-ci/travis.rb')
 job  = repo.last_build.jobs.first
 puts job.log.body
 ```
@@ -1367,7 +1367,7 @@ Commits cannot be loaded directly. They come as a byproduct of [jobs](#jobs) and
 ``` ruby
 require 'travis'
 
-repo   = Travis::Repository.find('travis-ci/travis')
+repo   = Travis::Repository.find('travis-ci/travis.rb')
 commit = repo.last_build.commit
 
 puts "Last tested commit: #{commit.short_sha} on #{commit.branch} by #{commit.author_name} - #{commit.subject}"
@@ -1425,7 +1425,7 @@ session.access_token = "secret_token"           # access token to use
 session.api_endpoint = "http://localhost:3000/" # api endpoint to talk to
 session.github_auth("github_token")             # log in with a github token
 session.repos(owner_name: 'travis-ci')          # all travis-ci/* projects
-session.repo('travis-ci/travis')                # this project
+session.repo('travis-ci/travis.rb')             # this project
 session.repo(409371)                            # same as the one above
 session.build(4266036)                          # build with id 4266036
 session.job(4266037)                            # job with id 4266037

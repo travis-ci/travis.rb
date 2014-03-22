@@ -15,7 +15,7 @@ module Travis
         display("Endpoints", :endpoints)
         display("Known Repositories", :known_repos) if known_repos?
         display_error
-        say "For issues with the command line tool, please visit #{color("https://github.com/travis-ci/travis/issues", :underline)}."
+        say "For issues with the command line tool, please visit #{color("https://github.com/travis-ci/travis.rb/issues", :underline)}."
         say "For Travis CI in general, go to #{color("https://github.com/travis-ci/travis-ci/issues", :underline)} or email #{color("support@travis-ci.com", :underline)}."
       end
 
