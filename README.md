@@ -1557,10 +1557,18 @@ On Windows, we recommend using the [RubyInstaller](http://rubyinstaller.org/), w
 
 On other Unix systems, like Linux, use your package system to install Ruby. Please inquire before hand which package you might actually want to install, as for some distributions `ruby` might actually still be 1.8.7 or older.
 
-Ubuntu and Debian:
+Debian:
 
-    $ sudo apt-get install ruby1.9.3 ruby-switch
+    $ sudo apt-get install ruby1.9.3 ruby1.9.3-dev ruby-switch
     $ sudo ruby-switch --set ruby1.9.3
+
+Ubuntu:
+
+    $ sudo apt-get install python-software-properties
+    $ sudo apt-add-repository ppa:brightbox/ruby-ng
+    $ sudo apt-get update
+    $ sudo apt-get install ruby2.1 ruby-switch
+    $ sudo ruby-switch --set ruby2.1
 
 Fedora:
 
