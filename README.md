@@ -821,7 +821,7 @@ With the `requests` command, you can list the build requests received by Travis 
     push to master accepted (triggered new build)
       abc51e2 - Merge pull request #847 from gogotanaka/add_readme_ja
       received at: 2014-02-16 09:26:36
-    
+
     PR #843 rejected (skipped through commit message)
       752201c - Update Spanish README with tense, verb, and word corrections. [ci skip]
       received at: 2014-02-16 05:07:16
@@ -1530,6 +1530,8 @@ Now make sure everything is working:
     $ travis version
     1.6.8
 
+See also [Note on Ubuntu](#note-on-ubuntu) below.
+
 ### Development Version
 
 You can also install the development version via RubyGems:
@@ -1578,6 +1580,18 @@ Arch Linux:
 
     $ sudo pacman -S ruby
 
+#### Note on Ubuntu
+
+On certain versions of Ubuntu (e.g., 13.10), you need to install the corresponding `-dev` package
+in order to build the C extension on which `travis` gem depends.
+
+For the stock Ubuntu 13.10, run:
+
+    $ sudo apt-get install ruby1.9.1-dev
+
+If you updated to Ruby 2.1 as shown above:
+
+    $ sudo apt-get install ruby2.1-dev
 
 #### Ruby versioning tools
 
