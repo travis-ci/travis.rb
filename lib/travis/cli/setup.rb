@@ -19,6 +19,7 @@ module Travis
       autoload :OpsWorks,     'travis/cli/setup/opsworks'
       autoload :SauceConnect, 'travis/cli/setup/sauce_connect'
       autoload :Modulus,      'travis/cli/setup/modulus'
+      autoload :Releases,     'travis/cli/setup/releases'
       autoload :Service,      'travis/cli/setup/service'
 
       description "sets up an addon or deploy target"
