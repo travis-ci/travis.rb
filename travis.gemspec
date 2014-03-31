@@ -14,12 +14,14 @@ Gem::Specification.new do |s|
     "Konstantin Haase",
     "Henrik Hodne",
     "Aaron Hill",
-    "Peter Souter",
     "Hiro Asari",
+    "Peter Souter",
     "Peter van Dijk",
     "joshua-anderson",
     "Max Barnash",
     "Mathias Meyer",
+    "Josh Kalderimis",
+    "Joshua Anderson",
     "Justin Lambert",
     "Adrien Brault",
     "Laurent Petit",
@@ -37,8 +39,7 @@ Gem::Specification.new do |s|
     "Adam Lavin",
     "Benjamin Manns",
     "Jacob Burkhart",
-    "Josh Kalderimis",
-    "Joshua Anderson"
+    "Jonne Ha\xC3\x9F"
   ]
 
   # generated from git shortlog -sne
@@ -46,13 +47,15 @@ Gem::Specification.new do |s|
     "konstantin.mailinglists@googlemail.com",
     "aa1ronham@gmail.com",
     "me@henrikhodne.com",
+    "asari.ruby@gmail.com",
     "p.morsou@gmail.com",
     "henrik@hodne.io",
-    "asari.ruby@gmail.com",
     "peter.van.dijk@netherlabs.nl",
     "j@zatigo.com",
     "i.am@anhero.ru",
     "meyer@paperplanes.de",
+    "j@zatigo.com",
+    "jlambert@eml.cc",
     "benmanns@gmail.com",
     "adrien.brault@gmail.com",
     "laurent.petit@gmail.com",
@@ -69,9 +72,8 @@ Gem::Specification.new do |s|
     "chatfielddaniel@gmail.com",
     "adam@lavoaster.co.uk",
     "jburkhart@engineyard.com",
-    "josh.kalderimis@gmail.com",
-    "j@zatigo.com",
-    "jlambert@eml.cc"
+    "me@jhass.eu",
+    "josh.kalderimis@gmail.com"
   ]
 
   # generated from git ls-files
@@ -155,6 +157,7 @@ Gem::Specification.new do |s|
     "lib/travis/cli/setup/open_shift.rb",
     "lib/travis/cli/setup/opsworks.rb",
     "lib/travis/cli/setup/pypi.rb",
+    "lib/travis/cli/setup/releases.rb",
     "lib/travis/cli/setup/ruby_gems.rb",
     "lib/travis/cli/setup/s3.rb",
     "lib/travis/cli/setup/sauce_connect.rb",
