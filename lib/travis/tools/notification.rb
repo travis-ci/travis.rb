@@ -57,7 +57,7 @@ module Travis
 
       class LibNotify
         def notify(title, body)
-          system 'notify-send', '--expire-time=10000', '-i', ICON, title, CGI.escapeHTML(body)
+          system 'notify-send', '--expire-time=10000', '-h', 'int:transient:1', '-i', ICON, title, CGI.escapeHTML(body)
         end
 
         def available?
