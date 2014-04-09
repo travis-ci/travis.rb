@@ -20,8 +20,7 @@ Gem::Specification.new do |s|
     "joshua-anderson",
     "Max Barnash",
     "Mathias Meyer",
-    "Jonne Ha\xC3\x9F",
-    "Josh Kalderimis",
+    "Carlos Palhares",
     "Joshua Anderson",
     "Justin Lambert",
     "Adrien Brault",
@@ -38,9 +37,10 @@ Gem::Specification.new do |s|
     "john muhl",
     "Daniel Chatfield",
     "Adam Lavin",
-    "Carlos Palhares",
     "Benjamin Manns",
-    "Jacob Burkhart"
+    "Jacob Burkhart",
+    "Jonne Ha\xC3\x9F",
+    "Josh Kalderimis"
   ]
 
   # generated from git shortlog -sne
@@ -55,8 +55,7 @@ Gem::Specification.new do |s|
     "j@zatigo.com",
     "i.am@anhero.ru",
     "meyer@paperplanes.de",
-    "josh.kalderimis@gmail.com",
-    "j@zatigo.com",
+    "me@xjunior.me",
     "jlambert@eml.cc",
     "benmanns@gmail.com",
     "adrien.brault@gmail.com",
@@ -73,9 +72,10 @@ Gem::Specification.new do |s|
     "git@johnmuhl.com",
     "chatfielddaniel@gmail.com",
     "adam@lavoaster.co.uk",
-    "me@xjunior.me",
     "jburkhart@engineyard.com",
-    "me@jhass.eu"
+    "me@jhass.eu",
+    "josh.kalderimis@gmail.com",
+    "j@zatigo.com"
   ]
 
   # generated from git ls-files

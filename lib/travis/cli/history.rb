@@ -40,7 +40,7 @@ module Travis
             date? && color(formatter.time(build.finished_at || build.started_at), build.color),
             color("##{build.number} #{build.state}:".ljust(16), [build.color, :bold]),
             color("#{build.branch_info}", :info),
-            committer? && build.commit.author_name.ljust(15),
+            committer? && build.commit.author_name.ljust(25),
             build.commit.subject
           ].compact.join(" ").strip + "\n"
         end
