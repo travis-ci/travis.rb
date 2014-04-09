@@ -27,6 +27,7 @@ module Travis
       end
 
       def login
+        session.access_token = nil
         github.with_token do |token|
           endpoint_config['access_token'] = github_auth(token)
           error("user mismatch: logged in as %p instead of %p" % [user.login, user_login]) if user_login and user.login != user_login
