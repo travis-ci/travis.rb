@@ -2,7 +2,7 @@
 Gem::Specification.new do |s|
   # general infos
   s.name        = "travis"
-  s.version     = "1.6.8"
+  s.version     = "1.6.9"
   s.description = "CLI and Ruby client library for Travis CI"
   s.homepage    = "https://github.com/travis-ci/travis.rb"
   s.summary     = "Travis CI client"
@@ -16,8 +16,8 @@ Gem::Specification.new do |s|
     "Aaron Hill",
     "Hiro Asari",
     "Peter Souter",
-    "Peter van Dijk",
     "joshua-anderson",
+    "Peter van Dijk",
     "Max Barnash",
     "Carlos Palhares",
     "Mathias Meyer",
@@ -31,6 +31,7 @@ Gem::Specification.new do |s|
     "Neamar",
     "Piotr Sarnacki",
     "Rapha\xC3\xABl Pinson",
+    "Thais Camilo and Konstantin Haase",
     "Tobias Wilken",
     "Zachary Scott",
     "jeffdh",
@@ -51,8 +52,8 @@ Gem::Specification.new do |s|
     "asari.ruby@gmail.com",
     "p.morsou@gmail.com",
     "henrik@hodne.io",
-    "peter.van.dijk@netherlabs.nl",
     "j@zatigo.com",
+    "peter.van.dijk@netherlabs.nl",
     "i.am@anhero.ru",
     "me@xjunior.me",
     "meyer@paperplanes.de",
@@ -66,6 +67,7 @@ Gem::Specification.new do |s|
     "neamar@neamar.fr",
     "drogus@gmail.com",
     "raphael.pinson@camptocamp.com",
+    "dev+narwen+rkh@rkh.im",
     "tw@cloudcontrol.de",
     "e@zzak.io",
     "jeffdh@gmail.com",
