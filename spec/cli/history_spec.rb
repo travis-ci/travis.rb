@@ -30,4 +30,9 @@ describe Travis::CLI::History do
     run_cli('history', '-p', '5').should be_success
     stdout.should be_empty
   end
+
+  example 'travis history -c' do
+    run_cli('history', '-c').should be_success
+    stdout.should be == "#6180 failed:    master Steve Klabnik             Associaton -> Association\n"
+  end
 end
