@@ -14,5 +14,5 @@ Dir.glob(File.expand_path('*/init.rb', config_path)) do |file|
   load(file)
 end
 
-# and off we go!
+# and off we go then
 Travis::CLI.run(ARGV)
