@@ -64,11 +64,14 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a [command line
     * [Using Namespaces](#using-namespaces)
 * [Installation](#installation)
     * [Updating your Ruby](#updating-your-ruby)
-        * [Mac OSX via Homebrew](#mac-osx-via-homebrew)
+        * [Mac OS X via Homebrew](#mac-os-x-via-homebrew)
         * [Windows](#windows)
         * [Other Unix systems](#other-unix-systems)
         * [Ruby versioning tools](#ruby-versioning-tools)
-    * [Upgrading from travis-cli](#upgrading-from-travis-cli)
+    * [Troubleshooting](#troubleshooting)
+        * [Ubuntu](#ubuntu)
+        * [Mac OS X](#mac-os-x)
+        * [Upgrading from travis-cli](#upgrading-from-travis-cli)
 * [Version History](#version-history)
 
 ## Command Line Client
@@ -1544,7 +1547,7 @@ We automatically publish a new development version after every successful build.
 
 If you have an outdated Ruby version, you should use your package system or a Ruby Installer to install a recent Ruby.
 
-#### Mac OSX via Homebrew
+#### Mac OS X via Homebrew
 
 Mac OSX prior to 10.9 ships with a very dated Ruby version. You can use [Homebrew](http://mxcl.github.io/homebrew/) to install a recent version:
 
@@ -1580,7 +1583,15 @@ Arch Linux:
 
     $ sudo pacman -S ruby
 
-#### Note on Ubuntu
+#### Ruby versioning tools
+
+Alternatively, you can use a Ruby version management tool such as [rvm](https://rvm.io/rvm/install/), [rbenv](http://rbenv.org/) or [chruby](https://github.com/postmodern/chruby). This is only recommended if you need to run multiple versions of Ruby.
+
+You can of course always compile Ruby from source, though then you are left with the hassle of keeping it up to date and making sure that everything is set up properly.
+
+### Troubleshooting
+
+#### Ubuntu
 
 On certain versions of Ubuntu (e.g., 13.10), you need to install the corresponding `-dev` package
 in order to build the C extension on which `travis` gem depends.
@@ -1593,13 +1604,13 @@ If you updated to Ruby 2.1 as shown above:
 
     $ sudo apt-get install ruby2.1-dev
 
-#### Ruby versioning tools
+#### Mac OS X
 
-Alternatively, you can use a Ruby version management tool such as [rvm](https://rvm.io/rvm/install/), [rbenv](http://rbenv.org/) or [chruby](https://github.com/postmodern/chruby). This is only recommended if you need to run multiple versions of Ruby.
+Mac OS X 10.9.2 shipped with a slightly broken Ruby version. If you want to install the gem via the system Ruby and you get an error, you might have to run the following instead:
 
-You can of course always compile Ruby from source, though then you are left with the hassle of keeping it up to date and making sure that everything is set up properly.
+    $ ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future gem install travis
 
-### Upgrading from travis-cli
+#### Upgrading from travis-cli
 
 If you have the old `travis-cli` gem installed, you should `gem uninstall travis-cli`, just to be sure, as it ships with an executable that is also named `travis`.
 
