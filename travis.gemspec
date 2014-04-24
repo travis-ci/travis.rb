@@ -261,7 +261,7 @@ Gem::Specification.new do |s|
 
   # Prereleasing on Travis CI
   if ENV['TRAVIS_JOB_NUMBER']
-    digits = s.version.split '.'
+    digits = s.version.to_s.split '.'
     digits[-1] = digits[-1].to_s.succ
     s.version = digits.join('.') + ".travis.#{ENV['TRAVIS_JOB_NUMBER']}"
   end
