@@ -16,12 +16,12 @@ Gem::Specification.new do |s|
     "Aaron Hill",
     "Hiro Asari",
     "Peter Souter",
-    "joshua-anderson",
     "Peter van Dijk",
+    "joshua-anderson",
     "Max Barnash",
     "Carlos Palhares",
     "Mathias Meyer",
-    "Joshua Anderson",
+    "Thais Camilo and Konstantin Haase",
     "Justin Lambert",
     "Adrien Brault",
     "Laurent Petit",
@@ -31,8 +31,8 @@ Gem::Specification.new do |s|
     "Neamar",
     "Piotr Sarnacki",
     "Rapha\xC3\xABl Pinson",
-    "Thais Camilo and Konstantin Haase",
     "Tobias Wilken",
+    "Zachary Gershman",
     "Zachary Scott",
     "jeffdh",
     "john muhl",
@@ -41,23 +41,24 @@ Gem::Specification.new do |s|
     "Benjamin Manns",
     "Jacob Burkhart",
     "Jonne Ha\xC3\x9F",
-    "Josh Kalderimis"
+    "Josh Kalderimis",
+    "Joshua Anderson"
   ]
 
   # generated from git shortlog -sne
   s.email = [
     "konstantin.mailinglists@googlemail.com",
     "aa1ronham@gmail.com",
-    "me@henrikhodne.com",
     "asari.ruby@gmail.com",
-    "p.morsou@gmail.com",
+    "me@henrikhodne.com",
     "henrik@hodne.io",
-    "j@zatigo.com",
+    "p.morsou@gmail.com",
     "peter.van.dijk@netherlabs.nl",
+    "j@zatigo.com",
     "i.am@anhero.ru",
     "me@xjunior.me",
     "meyer@paperplanes.de",
-    "jlambert@eml.cc",
+    "dev+narwen+rkh@rkh.im",
     "benmanns@gmail.com",
     "adrien.brault@gmail.com",
     "laurent.petit@gmail.com",
@@ -67,8 +68,8 @@ Gem::Specification.new do |s|
     "neamar@neamar.fr",
     "drogus@gmail.com",
     "raphael.pinson@camptocamp.com",
-    "dev+narwen+rkh@rkh.im",
     "tw@cloudcontrol.de",
+    "pair+zg@pivotallabs.com",
     "e@zzak.io",
     "jeffdh@gmail.com",
     "git@johnmuhl.com",
@@ -77,7 +78,8 @@ Gem::Specification.new do |s|
     "jburkhart@engineyard.com",
     "me@jhass.eu",
     "josh.kalderimis@gmail.com",
-    "j@zatigo.com"
+    "j@zatigo.com",
+    "jlambert@eml.cc"
   ]
 
   # generated from git ls-files
@@ -258,5 +260,9 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rack-test", "~> 0.6"
 
   # Prereleasing on Travis CI
-  s.version = s.version.to_s.succ + ".travis.#{ENV['TRAVIS_JOB_NUMBER']}" if ENV['TRAVIS_JOB_NUMBER']
+  if ENV['TRAVIS_JOB_NUMBER']
+    digits = s.split '.'
+    digits[-1] = digits[-1].to_s.succ
+    s = digits.join('.') + ".travis.#{ENV['TRAVIS_JOB_NUMBER']}"
+  end
 end
