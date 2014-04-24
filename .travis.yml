@@ -11,7 +11,7 @@ os:
 - linux
 - osx
 
-before_script:
+after_success:
   - if [[ $TRAVIS_RUBY_VERSION = '2.0.0' && $(uname) = 'Darwin' ]]; then rvm install ruby-1.9.3-p545 && rvm use $TRAVIS_RUBY_VERSION --fuzzy; fi
 
 matrix:
