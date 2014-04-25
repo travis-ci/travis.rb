@@ -191,7 +191,7 @@ The `login` command will, well, log you in. That way, all subsequent commands th
     This information will not be sent to Travis CI, only to GitHub.
     The password will not be displayed.
 
-    Try running with --github-token or --auto if you don't want to enter your password anyways.
+    Try running with --github-token or --auto if you don't want to enter your password anyway.
 
     Username: rkh
     Password: *******************

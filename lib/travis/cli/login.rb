@@ -67,7 +67,7 @@ module Travis
         say "This information will #{color("not be sent to Travis CI", :important)}, only to #{color(github_endpoint.host, :info)}."
         say "The password will not be displayed."
         empty_line
-        say "Try running with #{color("--github-token", :info)} or #{color("--auto", :info)} if you don't want to enter your password anyways."
+        say "Try running with #{color("--github-token", :info)} or #{color("--auto", :info)} if you don't want to enter your password anyway."
         empty_line
       end
     end
