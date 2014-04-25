@@ -5,7 +5,7 @@ require "addressable/uri"
 module Travis
   module CLI
     class RepoCommand < ApiCommand
-      GIT_REGEX = %r{/?(.*/.+?)(\.git)?$}
+      GIT_REGEX = %r{/?(.+/.+)(\.git)?$}
       TRAVIS    = %r{^https://(staging-)?api\.travis-ci\.(org|com)}
       on('-r', '--repo SLUG', 'repository to use (will try to detect from current git clone)') { |c, slug| c.slug = slug }
 
