@@ -13,6 +13,7 @@ module Travis
       autoload :OpenShift,    'travis/cli/setup/open_shift'
       autoload :PyPI,         'travis/cli/setup/pypi'
       autoload :RubyGems,     'travis/cli/setup/ruby_gems'
+      autoload :Ninefold,     'travis/cli/setup/ninefold'
       autoload :S3,           'travis/cli/setup/s3'
       autoload :CloudFiles,   'travis/cli/setup/cloud_files'
       autoload :Divshot,      'travis/cli/setup/divshot'
