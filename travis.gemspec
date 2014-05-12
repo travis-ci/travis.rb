@@ -12,9 +12,9 @@ Gem::Specification.new do |s|
   # generated from git shortlog -sn
   s.authors = [
     "Konstantin Haase",
+    "Hiro Asari",
     "Henrik Hodne",
     "Aaron Hill",
-    "Hiro Asari",
     "Peter Souter",
     "Peter van Dijk",
     "joshua-anderson",
@@ -48,8 +48,8 @@ Gem::Specification.new do |s|
   # generated from git shortlog -sne
   s.email = [
     "konstantin.mailinglists@googlemail.com",
-    "aa1ronham@gmail.com",
     "asari.ruby@gmail.com",
+    "aa1ronham@gmail.com",
     "me@henrikhodne.com",
     "henrik@hodne.io",
     "p.morsou@gmail.com",
