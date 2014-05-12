@@ -5,6 +5,7 @@ module Travis
     class Setup
       class Cloud_66 < Service
         description "Automatic deployment to Cloud 66"
+        service_name 'cloud66'
 
         def run
           deploy 'cloud66', 'release' do |config|
