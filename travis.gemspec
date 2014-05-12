@@ -2,7 +2,7 @@
 Gem::Specification.new do |s|
   # general infos
   s.name        = "travis"
-  s.version     = "1.6.10"
+  s.version     = "1.6.11"
   s.description = "CLI and Ruby client library for Travis CI"
   s.homepage    = "https://github.com/travis-ci/travis.rb"
   s.summary     = "Travis CI client"
@@ -16,8 +16,8 @@ Gem::Specification.new do |s|
     "Henrik Hodne",
     "Aaron Hill",
     "Peter Souter",
-    "Peter van Dijk",
     "joshua-anderson",
+    "Peter van Dijk",
     "Max Barnash",
     "Carlos Palhares",
     "Mathias Meyer",
@@ -53,8 +53,8 @@ Gem::Specification.new do |s|
     "me@henrikhodne.com",
     "henrik@hodne.io",
     "p.morsou@gmail.com",
-    "peter.van.dijk@netherlabs.nl",
     "j@zatigo.com",
+    "peter.van.dijk@netherlabs.nl",
     "i.am@anhero.ru",
     "me@xjunior.me",
     "meyer@paperplanes.de",
@@ -151,6 +151,7 @@ Gem::Specification.new do |s|
     "lib/travis/cli/settings.rb",
     "lib/travis/cli/setup.rb",
     "lib/travis/cli/setup/appfog.rb",
+    "lib/travis/cli/setup/cloud_66.rb",
     "lib/travis/cli/setup/cloud_control.rb",
     "lib/travis/cli/setup/cloud_files.rb",
     "lib/travis/cli/setup/cloud_foundry.rb",
@@ -158,6 +159,7 @@ Gem::Specification.new do |s|
     "lib/travis/cli/setup/engine_yard.rb",
     "lib/travis/cli/setup/heroku.rb",
     "lib/travis/cli/setup/modulus.rb",
+    "lib/travis/cli/setup/ninefold.rb",
     "lib/travis/cli/setup/nodejitsu.rb",
     "lib/travis/cli/setup/npm.rb",
     "lib/travis/cli/setup/open_shift.rb",
