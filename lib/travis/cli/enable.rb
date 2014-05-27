@@ -8,6 +8,7 @@ module Travis
 
       def run
         authenticate
+        error "not allowed to update service hook for #{color(repository.slug, :bold)}" unless repository.admin?
         repository.enable
         say "enabled", color("#{slug}: %s :)", :success)
       end
