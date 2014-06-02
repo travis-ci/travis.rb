@@ -4,6 +4,7 @@ module Travis
   module CLI
     class Setup < RepoCommand
       autoload :Appfog,       'travis/cli/setup/appfog'
+      autoload :Artifacts,    'travis/cli/setup/artifacts'
       autoload :CloudControl, 'travis/cli/setup/cloud_control'
       autoload :CloudFoundry, 'travis/cli/setup/cloud_foundry'
       autoload :EngineYard,   'travis/cli/setup/engine_yard'
