@@ -23,6 +23,7 @@ module Travis
       autoload :Modulus,      'travis/cli/setup/modulus'
       autoload :Releases,     'travis/cli/setup/releases'
       autoload :Cloud_66,     'travis/cli/setup/cloud_66'
+      autoload :Deis,         'travis/cli/setup/deis'
       autoload :Service,      'travis/cli/setup/service'
 
       description "sets up an addon or deploy target"
