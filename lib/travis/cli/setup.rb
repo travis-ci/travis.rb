@@ -18,6 +18,7 @@ module Travis
       autoload :S3,           'travis/cli/setup/s3'
       autoload :CloudFiles,   'travis/cli/setup/cloud_files'
       autoload :Divshot,      'travis/cli/setup/divshot'
+      autoload :Hackage,      'travis/cli/setup/hackage'
       autoload :OpsWorks,     'travis/cli/setup/opsworks'
       autoload :SauceConnect, 'travis/cli/setup/sauce_connect'
       autoload :Modulus,      'travis/cli/setup/modulus'
