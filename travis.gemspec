@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
     "Carlos Palhares",
     "Mathias Meyer",
     "Thais Camilo and Konstantin Haase",
+    "Joshua Anderson",
     "Justin Lambert",
     "Adrien Brault",
     "Laurent Petit",
@@ -36,13 +37,13 @@ Gem::Specification.new do |s|
     "Zachary Scott",
     "jeffdh",
     "john muhl",
-    "Daniel Chatfield",
+    "Dan Buch",
     "Adam Lavin",
+    "Daniel Chatfield",
     "Benjamin Manns",
     "Jacob Burkhart",
     "Jonne Ha\xC3\x9F",
-    "Josh Kalderimis",
-    "Joshua Anderson"
+    "Josh Kalderimis"
   ]
 
   # generated from git shortlog -sne
@@ -59,6 +60,7 @@ Gem::Specification.new do |s|
     "me@xjunior.me",
     "meyer@paperplanes.de",
     "dev+narwen+rkh@rkh.im",
+    "jlambert@eml.cc",
     "benmanns@gmail.com",
     "adrien.brault@gmail.com",
     "laurent.petit@gmail.com",
@@ -75,11 +77,11 @@ Gem::Specification.new do |s|
     "git@johnmuhl.com",
     "chatfielddaniel@gmail.com",
     "adam@lavoaster.co.uk",
+    "dan@meatballhat.com",
     "jburkhart@engineyard.com",
     "me@jhass.eu",
     "josh.kalderimis@gmail.com",
-    "j@zatigo.com",
-    "jlambert@eml.cc"
+    "j@zatigo.com"
   ]
 
   # generated from git ls-files
@@ -151,6 +153,7 @@ Gem::Specification.new do |s|
     "lib/travis/cli/settings.rb",
     "lib/travis/cli/setup.rb",
     "lib/travis/cli/setup/appfog.rb",
+    "lib/travis/cli/setup/artifacts.rb",
     "lib/travis/cli/setup/cloud_66.rb",
     "lib/travis/cli/setup/cloud_control.rb",
     "lib/travis/cli/setup/cloud_files.rb",

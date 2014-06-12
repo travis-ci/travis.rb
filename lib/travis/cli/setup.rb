@@ -4,6 +4,7 @@ module Travis
   module CLI
     class Setup < RepoCommand
       autoload :Appfog,       'travis/cli/setup/appfog'
+      autoload :Artifacts,    'travis/cli/setup/artifacts'
       autoload :CloudControl, 'travis/cli/setup/cloud_control'
       autoload :CloudFoundry, 'travis/cli/setup/cloud_foundry'
       autoload :EngineYard,   'travis/cli/setup/engine_yard'
@@ -17,11 +18,13 @@ module Travis
       autoload :S3,           'travis/cli/setup/s3'
       autoload :CloudFiles,   'travis/cli/setup/cloud_files'
       autoload :Divshot,      'travis/cli/setup/divshot'
+      autoload :Hackage,      'travis/cli/setup/hackage'
       autoload :OpsWorks,     'travis/cli/setup/opsworks'
       autoload :SauceConnect, 'travis/cli/setup/sauce_connect'
       autoload :Modulus,      'travis/cli/setup/modulus'
       autoload :Releases,     'travis/cli/setup/releases'
       autoload :Cloud_66,     'travis/cli/setup/cloud_66'
+      autoload :Deis,         'travis/cli/setup/deis'
       autoload :Service,      'travis/cli/setup/service'
 
       description "sets up an addon or deploy target"
