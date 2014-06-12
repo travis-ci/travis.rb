@@ -1526,12 +1526,12 @@ You can check your Ruby version by running `ruby -v`:
 
 Then run:
 
-    $ gem install travis -v 1.6.11 --no-rdoc --no-ri
+    $ gem install travis -v 1.6.12 --no-rdoc --no-ri
 
 Now make sure everything is working:
 
     $ travis version
-    1.6.11
+    1.6.12
 
 See also [Note on Ubuntu](#note-on-ubuntu) below.
 

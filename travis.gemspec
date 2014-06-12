@@ -2,7 +2,7 @@
 Gem::Specification.new do |s|
   # general infos
   s.name        = "travis"
-  s.version     = "1.6.11"
+  s.version     = "1.6.12"
   s.description = "CLI and Ruby client library for Travis CI"
   s.homepage    = "https://github.com/travis-ci/travis.rb"
   s.summary     = "Travis CI client"
@@ -248,7 +248,7 @@ Gem::Specification.new do |s|
 
   # dependencies
   s.add_dependency "faraday",               "~> 0.9"
-  s.add_dependency "faraday_middleware",    "~> 0.9"
+  s.add_dependency "faraday_middleware",    "~> 0.9.1"
   s.add_dependency "highline",              "~> 1.6"
   s.add_dependency "backports"
   s.add_dependency "gh",                    "~> 0.13"
