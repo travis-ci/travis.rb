@@ -1615,6 +1615,8 @@ Mac OS X 10.9.2 shipped with a slightly broken Ruby version. If you want to inst
 If you have the old `travis-cli` gem installed, you should `gem uninstall travis-cli`, just to be sure, as it ships with an executable that is also named `travis`.
 
 ## Version History
+**1.6.12** (June 12, 2014)
+* Added artifacts, Deis, and Hackage setup support.
 **1.6.11** (May 12, 2014)
 * Added Cloud 66 and Ninefold setup support.
 * Require typhoeus 0.6.8 and later.
