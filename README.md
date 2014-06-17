@@ -1553,12 +1553,12 @@ You can check your Ruby version by running `ruby -v`:
 
 Then run:
 
-    $ gem install travis -v 1.6.12 --no-rdoc --no-ri
+    $ gem install travis -v 1.6.14 --no-rdoc --no-ri
 
 Now make sure everything is working:
 
     $ travis version
-    1.6.12
+    1.6.14
 
 See also [Note on Ubuntu](#note-on-ubuntu) below.
 
@@ -1643,7 +1643,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
-**1.6.14** (Not Yet Released)
+**1.6.14** (June 17, 2014)
 * Add `travis lint` command and Ruby API.
 
 **1.6.13** (June 15, 2014)
