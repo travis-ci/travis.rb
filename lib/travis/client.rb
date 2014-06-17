@@ -20,6 +20,7 @@ require 'travis/client/broadcast'
 require 'travis/client/settings'
 require 'travis/client/request'
 require 'travis/client/listener'
+require 'travis/client/lint_result'
 
 module Travis
   module Client

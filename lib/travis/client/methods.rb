@@ -1,4 +1,5 @@
 require 'travis/client'
+require 'yaml'
 
 module Travis
   module Client
@@ -87,6 +88,12 @@ module Travis
         listener = Listener.new(session)
         listener.subscribe(*entities, &block)
         listener.listen
+      end
+
+      def lint(body)
+        body   = body.to_yaml unless body.is_a? String
+        result = session.post_raw('/lint', 'content' => body)
+        LintResult.new(result)
       end
 
       def hooks

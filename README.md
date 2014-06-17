@@ -20,6 +20,7 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a [command line
         * [`report`](#report) - generates a report useful for filing issues
         * [`repos`](#repos) - lists repositories the user has certain permissions on
         * [`sync`](#sync) - triggers a new sync with GitHub
+        * [`lint`](#lint) - display warnings for a .travis.yml
         * [`token`](#token) - outputs the secret API token
         * [`whatsup`](#whatsup) - lists most recent builds
         * [`whoami`](#whoami) - outputs the current user
@@ -386,6 +387,32 @@ If you just want to know if your account is being synchronized right now, use `-
 
     $ travis sync --check
     rkh is currently syncing
+
+#### `lint`
+
+This checks a `.travis.yml` file for any issues it might detect.
+
+By default, it will read a file named `.travis.yml` in the current directory:
+
+    $ travis lint
+    Warnings for .travis.yml:
+    [x] your repository must be feature flagged for the os setting to be used
+
+You can also give it a path to a different file:
+
+    $ travis lint example.yml
+    ...
+
+Or pipe the content into it:
+
+    $ echo "foo: bar" | travis lint
+    Warnings for STDIN:
+    [x] unexpected key foo, dropping
+    [x] missing key language, defaulting to ruby
+
+Like the [`status` command](#status), you can use `-q` to suppress any output, and `-x` to have it set the exit code to 1 if there are any warnings.
+
+    $ travis lint -qx || echo ".travis.yml does not validate"
 
 #### `token`
 
