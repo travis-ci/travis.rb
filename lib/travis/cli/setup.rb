@@ -23,6 +23,7 @@ module Travis
       autoload :SauceConnect, 'travis/cli/setup/sauce_connect'
       autoload :Modulus,      'travis/cli/setup/modulus'
       autoload :Releases,     'travis/cli/setup/releases'
+      autoload :GCS,          'travis/cli/setup/gcs'
       autoload :Cloud_66,     'travis/cli/setup/cloud_66'
       autoload :Deis,         'travis/cli/setup/deis'
       autoload :Service,      'travis/cli/setup/service'
