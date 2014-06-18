@@ -1643,20 +1643,29 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
+**1.6.15** (not yet released)
+
+* Add `travis setup ghc`.
+
 **1.6.14** (June 17, 2014)
+
 * Add `travis lint` command and Ruby API.
 
 **1.6.13** (June 15, 2014)
+
 * Added Deis and Hackage setup support.
 
 **1.6.12** (June 12, 2014)
+
 * Added artifacts setup support.
 
 **1.6.11** (May 12, 2014)
+
 * Added Cloud 66 and Ninefold setup support.
 * Require typhoeus 0.6.8 and later.
 
 **1.6.10** (April 24, 2014)
+
 * Better CloudFoundry support
 * Update Faraday to version 0.9.
 
