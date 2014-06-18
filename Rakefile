@@ -12,7 +12,7 @@ task :update => :completion do
 
   # fetch data
   fields = {
-    :authors => `git shortlog -sn`.b.scan(/[^\d\s].*/).map { |a| a == 'petems' ? 'Peter Souter' : a },
+    :authors => `git shortlog -sn`.b.scan(/[^\d\s].*/),
     :email   => `git shortlog -sne`.b.scan(/[^<]+@[^>]+/),
     :files   => `git ls-files`.b.split("\n").reject { |f| f =~ /^(\.|Gemfile)/ }
   }
