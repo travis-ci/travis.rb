@@ -5,7 +5,7 @@ module Travis
     class Setup
       class Service
         def self.normalized_name(string)
-          string.to_s.downcase.gsub(/[^a-z]/, '')
+          string.to_s.downcase.gsub(/[^a-z\d]/, '')
         end
 
         def self.description(description = nil)
