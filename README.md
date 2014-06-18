@@ -924,7 +924,7 @@ Helps you configure Travis addons.
         -r, --repo SLUG                  repository to use (will try to detect from current git clone)
         -f, --force                      override config section if it already exists
 
-Available services: `appfog`, `cloudcontrol`, `cloudfiles`, `cloudfoundry`, `divshot`, `engineyard`, `heroku`, `nodejitsu`, `npm`, `openshift`, `pypi`, `rubygems`, `s3` and `sauce_connect`.
+Available services: `appfog`, `artifacts`, `cloudcontrol`, `cloudfiles`, `cloudfoundry`, `cloud66`, `deis`, `divshot`, `engineyard`, `gcs`, `hackage`, `heroku`, `modulus`, `npm`, `ninefold`, `nodejitsu`, `openshift`, `opsworks`, `pypi`, `releases`, `rubygems`, `s3` and `sauce_connect`.
 
 Example:
 
