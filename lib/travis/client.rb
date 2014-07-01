@@ -28,7 +28,7 @@ module Travis
     PRO_URI = 'https://api.travis-ci.com/'
 
     def self.new(options = {})
-      options['uri'] ||= ORG_URI if options.is_a? Hash
+      options[:uri] ||= ORG_URI if options.is_a? Hash and not options['uri']
       Session.new(options)
     end
   end
