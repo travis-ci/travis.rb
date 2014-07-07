@@ -14,7 +14,7 @@ module Travis
       has :job
 
       def delete_body(reason = {})
-        reason = { reason: reason } unless reason.is_a? Hash
+        reason = { :reason => reason } unless reason.is_a? Hash
         session.patch_raw("jobs/#{job_id}/log", reason)
         reload
       rescue Travis::Client::Error => error
