@@ -13,6 +13,12 @@ module Travis
       # @!parse attr_reader :job
       has :job
 
+      def delete_body(reason = {})
+        reason = { reason: reason } unless reason.is_a? Hash
+        session.patch_raw("jobs/#{job_id}/log", reason)
+        reload
+      end
+
       def encoded_body
         Tools::SafeString.encoded(body)
       end
@@ -28,7 +34,11 @@ module Travis
       def current_body
         attributes['current_body'] ||= begin
           body = load_attribute('body')
-          body.to_s.empty? ? session.get_raw("jobs/#{job_id}/log") : body
+          if body.to_s.empty?
+            log  = session.get_raw("jobs/#{job_id}/log")
+            body = String === log ? log : log['log']['body']
+          end
+          body
         end
       end
 
