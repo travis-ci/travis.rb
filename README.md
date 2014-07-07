@@ -810,6 +810,14 @@ A branch name:
     $ travis logs ghe
     displaying logs for travis-ci/travis.rb#270.1
 
+You can delete the logs with the `--delete` flag, which optionally takes a reason as argument:
+
+    $ travis logs --delete
+    DANGER ZONE: Do you really want to delete the build log for travis-ci/travis.rb#559.1? |no| yes
+    deleting log for travis-ci/travis.rb#559.1
+
+    $ travis logs 1.7 --delete "contained confidential data" --force
+    deleting log for travis-ci/travis.rb#1.7
 
 #### `open`
 
@@ -1646,6 +1654,8 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 **1.6.15** (not yet released)
 
 * Add `travis setup ghc`.
+* Add `Log#delete_body`, `Job#delete_log` and `Build#delete_logs` to Ruby API.
+* Add `--delete`, `--force` and `--no-stream` options to `travis logs`.
 
 **1.6.14** (June 17, 2014)
 
