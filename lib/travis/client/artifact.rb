@@ -17,6 +17,9 @@ module Travis
         reason = { reason: reason } unless reason.is_a? Hash
         session.patch_raw("jobs/#{job_id}/log", reason)
         reload
+      rescue Travis::Client::Error => error
+        raise unless error.message == '409'
+        self
       end
 
       def encoded_body
