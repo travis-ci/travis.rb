@@ -20,6 +20,12 @@ module Travis
       many :builds
       aka :branch, :branches
 
+      def delete_logs(reason = {})
+        jobs.each do |job|
+          job.delete_log(reason)
+        end
+      end
+
       def push?
         not pull_request?
       end

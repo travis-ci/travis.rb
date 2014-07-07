@@ -45,6 +45,10 @@ module Travis
         end
       end
 
+      def delete_log(reason = {})
+        log.delete_body(reason)
+      end
+
       def pusher_channels
         build.pusher_channels + ["job-#{id}"]
       end
