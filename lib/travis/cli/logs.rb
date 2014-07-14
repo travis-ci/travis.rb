@@ -37,6 +37,8 @@ module Travis
         info "displaying logs for #{color(job.inspect_info, [:bold, :info])}"
         return print_log(job.log.body) unless stream?
         job.log.body { |part| print_log(part) }
+      ensure
+        print "\e[0m" if interactive?
       end
 
       def print_log(part)
