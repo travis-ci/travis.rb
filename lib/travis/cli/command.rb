@@ -338,10 +338,16 @@ module Travis
           File.write(path, content.to_s)
         end
 
+        YAML_ERROR = defined?(Psych::SyntaxError) ? Psych::SyntaxError : ArgumentError
         def load_config
           @config          = YAML.load load_file('config.yml', '{}')
           @config        ||= {}
           @original_config = @config.dup
+        rescue YAML_ERROR => error
+          raise error if explode?
+          warn "Broken config file: #{color config_path('config.yml'), :bold}"
+          exit 1 unless interactive? and agree("Remove config file? ") { |q| q.default = "no" }
+          @original_config, @config = {}, {}
         end
 
         def store_config
