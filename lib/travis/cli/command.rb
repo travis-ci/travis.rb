@@ -339,7 +339,8 @@ module Travis
         end
 
         def load_config
-          @config = YAML.load load_file('config.yml', '{}')
+          @config          = YAML.load load_file('config.yml', '{}')
+          @config        ||= {}
           @original_config = @config.dup
         end
 
