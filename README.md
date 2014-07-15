@@ -892,6 +892,7 @@ Certain repository settings can be read via the CLI:
     [-] builds_only_with_travis_yml    Only run builds with a .travis.yml
     [+] build_pushes                   Build pushes
     [+] build_pull_requests            Build pull requests
+    [-] maximum_number_of_builds       Maximum number of concurrent builds
 
 You can also filter the settings by passing them in as arguments:
 
@@ -900,11 +901,14 @@ You can also filter the settings by passing them in as arguments:
     [+] build_pushes                   Build pushes
     [+] build_pull_requests            Build pull requests
 
-It is also possible to change these settings via `--enable` and `--disable`:
+It is also possible to change these settings via `--enable`, `--disable` and `--set`:
 
     $ travis settings build_pushes --disable
     Settings for travis-ci/travis.rb:
     [-] build_pushes                   Build pushes
+    $ travis setting maximum_number_of_builds --set 1
+    Settings for travis-ci/travis.rb:
+      1 maximum_number_of_builds       Maximum number of concurrent builds
 
 Or, alternatively, you can use `-c` to configure the settings interactively:
 
@@ -913,6 +917,7 @@ Or, alternatively, you can use `-c` to configure the settings interactively:
     Only run builds with a .travis.yml? |yes| no
     Build pushes? |no| yes
     Build pull requests? |yes|
+    Maximum number of concurrent builds: |1| 5
 
 #### `setup`
 
