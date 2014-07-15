@@ -39,6 +39,10 @@ module Travis
         @many ||= key.to_s
       end
 
+      def self.base_path
+        many
+      end
+
       def self.attributes(*list)
         @attributes ||= []
 

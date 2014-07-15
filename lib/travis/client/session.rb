@@ -311,11 +311,11 @@ module Travis
         end
 
         def fetch_one(entity, id = nil)
-          get("/#{entity.many}/#{id}")[entity.one]
+          get("/#{entity.base_path}/#{id}")[entity.one]
         end
 
         def fetch_many(entity, params = {})
-          get("/#{entity.many}/", params)[entity.many]
+          get("/#{entity.base_path}/", params)[entity.many]
         end
 
         def cached(*keys)
