@@ -37,7 +37,7 @@ module Travis
         def add(name, value, options = {})
           body       = JSON.dump(:env_var => options.merge(:name => name, :value => value))
           result     = session.post(EnvVar.path(self), body)
-          self.list += result['env_var']
+          self.list += [result['env_var']]
         end
 
         def upsert(name, value, options = {})
@@ -46,7 +46,7 @@ module Travis
             entries.first.update(options.merge(:value => value))
             entries[1..-1].each { |e| e.delete }
           else
-            add(key, value, options)
+            add(name, value, options)
           end
           reload
         end
