@@ -84,7 +84,7 @@ module Travis
       def update(options)
         rid     = repository_id
         options = { :value => options } unless options.is_a? Hash
-        result  = session.patch(EnvVar.path(self), JSON.dump(options))
+        result  = session.patch(EnvVar.path(self), JSON.dump(:env_var => options))
         attributes.replace(result['env_var'].attributes)
         attributes['repository_id'] ||= rid
         self
@@ -92,7 +92,7 @@ module Travis
 
       def delete
         session.delete_raw EnvVar.path(self)
-        respository.env_vars.reload
+        repository.env_vars.reload
         true
       end
 
