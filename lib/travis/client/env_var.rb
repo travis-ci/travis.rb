@@ -14,7 +14,7 @@ module Travis
         end
 
         def list=(list)
-          __setobj__ list.dup.freeze.each { |e| e.repository_id ||= repository_id }
+          __setobj__ list.dup.freeze
         end
 
         def __getobj__
@@ -82,11 +82,9 @@ module Travis
       has :repository
 
       def update(options)
-        rid     = repository_id
         options = { :value => options } unless options.is_a? Hash
         result  = session.patch(EnvVar.path(self), JSON.dump(:env_var => options))
         attributes.replace(result['env_var'].attributes)
-        attributes['repository_id'] ||= rid
         self
       end
 
