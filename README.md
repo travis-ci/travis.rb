@@ -61,7 +61,7 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a [command line
         * [Commits](#commits)
         * [Caches](#caches)
         * [Repository Settings](#repository-settings)
-        * [Environment Variables](#environment-variables)
+        * [Build Environment Variables](#build-environment-variables)
     * [Listening for Events](#listening-for-events)
     * [Dealing with Sessions](#dealing-with-sessions)
     * [Using Namespaces](#using-namespaces)
@@ -1508,7 +1508,7 @@ if settings.build_pushes?
 end
 ```
 
-#### Environment Variables
+#### Build Environment Variables
 
 You can access environment variables via `Repository#env_vars`:
 
