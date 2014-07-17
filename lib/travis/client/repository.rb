@@ -224,6 +224,10 @@ module Travis
         user.pull_access? self
       end
 
+      def env_vars
+        attributes['env_vars'] ||= EnvVar::List.new(self)
+      end
+
       private
 
         def state

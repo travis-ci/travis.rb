@@ -31,6 +31,7 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a [command line
         * [`disable`](#disable) - disables a project
         * [`enable`](#enable) - enables a project
         * [`encrypt`](#encrypt) - encrypts values for the .travis.yml
+        * [`env`](#env) - show or modify build environment variables
         * [`history`](#history) - displays a projects build history
         * [`init`](#init) - generates a .travis.yml and enables the project
         * [`logs`](#logs) - streams test logs
@@ -60,6 +61,7 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a [command line
         * [Commits](#commits)
         * [Caches](#caches)
         * [Repository Settings](#repository-settings)
+        * [Build Environment Variables](#build-environment-variables)
     * [Listening for Events](#listening-for-events)
     * [Dealing with Sessions](#dealing-with-sessions)
     * [Using Namespaces](#using-namespaces)
@@ -657,6 +659,58 @@ There are two ways the client can treat existing values:
 
 * Turn existing value into a list if it isn't already, append new value to that list. This is the default behavior for keys that start with `env.` and can be enforced with `--append`.
 * Replace existing value. This is the default behavior for keys that do not start with `env.` and can be enforced with `--override`.
+
+#### `env`
+
+    Show or modify build environment variables.
+
+    Usage: travis env list [options]
+           travis env set name value [options]
+           travis env unset [names..] [options]
+           travis env copy [names..] [options]
+
+        -h, --help                       Display help
+        -i, --[no-]interactive           be interactive and colorful
+        -E, --[no-]explode               don't rescue exceptions
+            --skip-version-check         don't check if travis client is up to date
+            --skip-completion-check      don't check if auto-completion is set up
+        -e, --api-endpoint URL           Travis API server to talk to
+        -I, --[no-]insecure              do not verify SSL certificate of API endpoint
+            --pro                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
+            --org                        short-cut for --api-endpoint 'https://api.travis-ci.org/'
+            --staging                    talks to staging system
+        -t, --token [ACCESS_TOKEN]       access token to use
+            --debug                      show API requests
+        -X, --enterprise [NAME]          use enterprise setup (optionally takes name for multiple setups)
+            --adapter ADAPTER            Faraday adapter to use for HTTP requests
+            --as USER                    authenticate as given user
+        -r, --repo SLUG                  repository to use (will try to detect from current git clone)
+        -P, --[no-]public                make new values public
+        -p, --[no-]private               make new values private
+        -u, --[no-]unescape              do not escape values
+
+You can set, list and unset environment variables, or copy them from the current environment:
+
+    $ travis env set foo bar --public
+    [+] setting environment variable $foo
+    
+    $ travis env list
+    # environment variables for travis-ci/travis.rb
+    foo=bar
+    
+    $ export foo=foobar
+    $ travis env copy foo bar
+    [+] setting environment variable $foo
+    [+] setting environment variable $bar
+    
+    $ travis env list
+    # environment variables for travis-ci/travis.rb
+    foo=foobar
+    bar=[secure]
+    
+    $ travis env unset foo bar
+    [x] removing environment variable $foo
+    [x] removing environment variable $bar
 
 #### `history`
 
@@ -1452,6 +1506,21 @@ if settings.build_pushes?
   settings.build_pushes  = false
   settings.save
 end
+```
+
+#### Build Environment Variables
+
+You can access environment variables via `Repository#env_vars`:
+
+``` ruby
+require 'travis'
+
+Travis.access_token = "MY SECRET TOKEN"
+env_vars = Travis::Repository.find('my/repo').env_vars
+
+env_vars['foo'] = 'bar'
+env_vars.upsert('foo', 'foobar', public: true)
+env_vars.each { |var| var.delete }
 ```
 
 ### Dealing with Sessions
