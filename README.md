@@ -1727,6 +1727,8 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 **1.6.15** (not yet released)
 
+* Add `travis env [list|add|set|copy]`.
+* Add `Repository#env_vars`.
 * Add `travis setup ghc`.
 * Add `Log#delete_body`, `Job#delete_log` and `Build#delete_logs` to Ruby API.
 * Add `--delete`, `--force` and `--no-stream` options to `travis logs`.
