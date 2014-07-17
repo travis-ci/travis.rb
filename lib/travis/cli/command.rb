@@ -68,6 +68,21 @@ module Travis
         @description ||= ""
       end
 
+      def self.subcommands(*list)
+        return @subcommands ||= [] if list.empty?
+        @subcommands = list
+
+        define_method :run do |subcommand, *args|
+          error "Unknown subcommand. Available: #{list.join(', ')}." unless list.include? subcommand.to_sym
+          send(subcommand, *args)
+        end
+
+        define_method :usage do
+          usages = list.map { |c| color(usage_for("#{command_name} #{c}", c), :command) }
+          "\nUsage: #{usages.join("\n       ")}\n\n"
+        end
+      end
+
       attr_accessor :arguments, :config, :force_interactive, :formatter, :debug
       attr_reader :input, :output
       alias_method :debug?, :debug
@@ -197,8 +212,12 @@ module Travis
       end
 
       def usage
-        usage  = "travis #{command_name}"
-        method = method(:run)
+        "Usage: " << color(usage_for(command_name, :run), :command)
+      end
+
+      def usage_for(prefix, method)
+        usage = "travis #{prefix}"
+        method = method(method)
         if method.respond_to? :parameters
           method.parameters.each do |type, name|
             name = "[#{name}]"      if type == :opt
@@ -209,7 +228,6 @@ module Travis
           usage << " ..."
         end
         usage << " [options]"
-        "Usage: " << color(usage, :command)
       end
 
       def help(info = "")

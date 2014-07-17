@@ -25,6 +25,7 @@ module Travis
     autoload :Enable,       'travis/cli/enable'
     autoload :Encrypt,      'travis/cli/encrypt'
     autoload :Endpoint,     'travis/cli/endpoint'
+    autoload :Env,          'travis/cli/env'
     autoload :Help,         'travis/cli/help'
     autoload :History,      'travis/cli/history'
     autoload :Init,         'travis/cli/init'
