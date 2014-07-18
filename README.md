@@ -960,7 +960,7 @@ It is also possible to change these settings via `--enable`, `--disable` and `--
     $ travis settings build_pushes --disable
     Settings for travis-ci/travis.rb:
     [-] build_pushes                   Build pushes
-    $ travis setting maximum_number_of_builds --set 1
+    $ travis settings maximum_number_of_builds --set 1
     Settings for travis-ci/travis.rb:
       1 maximum_number_of_builds       Maximum number of concurrent builds
 
@@ -1635,12 +1635,12 @@ You can check your Ruby version by running `ruby -v`:
 
 Then run:
 
-    $ gem install travis -v 1.6.14 --no-rdoc --no-ri
+    $ gem install travis -v 1.6.15 --no-rdoc --no-ri
 
 Now make sure everything is working:
 
     $ travis version
-    1.6.14
+    1.6.15
 
 See also [Note on Ubuntu](#note-on-ubuntu) below.
 
@@ -1725,7 +1725,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
-**1.6.15** (not yet released)
+**1.6.15** (July 18, 2014)
 
 * Add `travis env [list|add|set|copy]`.
 * Add `Repository#env_vars`.
