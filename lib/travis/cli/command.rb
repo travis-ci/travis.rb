@@ -220,14 +220,15 @@ module Travis
         method = method(method)
         if method.respond_to? :parameters
           method.parameters.each do |type, name|
-            name = "[#{name}]"      if type == :opt
+            name = name.upcase
+            name = "[#{name}]"   if type == :opt
             name = "[#{name}..]" if type == :rest
             usage << " #{name}"
           end
         elsif method.arity != 0
           usage << " ..."
         end
-        usage << " [options]"
+        usage << " [OPTIONS]"
       end
 
       def help(info = "")

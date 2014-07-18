@@ -23,11 +23,11 @@ describe Travis::CLI::Help do
 
   example "travis help endpoint" do
     run_cli('help', 'endpoint').should be_success
-    stdout.should include("Usage: travis endpoint [options]")
+    stdout.should include("Usage: travis endpoint [OPTIONS]")
   end
 
   example "travis endpoint --help" do
     run_cli('endpoint', '--help').should be_success
-    stdout.should include("Usage: travis endpoint [options]")
+    stdout.should include("Usage: travis endpoint [OPTIONS]")
   end
 end
