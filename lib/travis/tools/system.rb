@@ -3,6 +3,12 @@ module Travis
     module System
       extend self
 
+      def recent_version?(version, minimum)
+        version = version.split('.').map { |s| s.to_i }
+        minimum = minimum.split('.').map { |s| s.to_i }
+        (version <=> minimum) >= 0
+      end
+
       def windows?
         File::ALT_SEPARATOR == "\\"
       end

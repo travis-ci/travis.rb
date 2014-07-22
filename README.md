@@ -1725,6 +1725,10 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
+**1.6.17** (not yet released)
+
+* Make desktop notifications work on Mac OS X 10.10.
+
 **1.6.16** (July 19, 2014)
 
 * Fix check for updates.
