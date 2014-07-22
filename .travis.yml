@@ -32,4 +32,4 @@ deploy:
   on:
     repo: travis-ci/travis.rb
     ruby: 2.0.0
-    condition: "$(uname) = Darwin"
+    condition: "$(uname) = Linux"
