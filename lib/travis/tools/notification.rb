@@ -41,7 +41,7 @@ module Travis
         end
 
         def available?
-          System.mac? and System.os_version.to_s >= '10.8' and System.running? "NotificationCenter"
+          System.mac? and Gem::Version.new(System.os_version.to_s) >= Gem::Version.new('10.8') and System.running? 'NotificationCenter'
         end
       end
 
