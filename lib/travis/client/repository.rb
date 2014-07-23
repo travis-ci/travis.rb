@@ -58,6 +58,8 @@ module Travis
       many :repos
       aka  :repository, :permissions, :admin, :pull, :push, :hooks
 
+      has_singleton :ssh_key
+
       def initialize(*)
         super
         attributes['active'] = attributes['private'] = attributes['admin'] = nil

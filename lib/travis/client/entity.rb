@@ -72,6 +72,13 @@ module Travis
         end
       end
 
+      def self.has_singleton(*list)
+        list.each do |name|
+          alias_method :"#{name}_id", :id unless method_defined? :"#{name}_id"
+          has(name)
+        end
+      end
+
       def self.inspect_info(name)
         alias_method(:inspect_info, name)
         private(:inspect_info)

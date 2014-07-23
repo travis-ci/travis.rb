@@ -42,6 +42,7 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a [command line
         * [`settings`](#settings) - access repository settings
         * [`setup`](#setup) - sets up an addon or deploy target
         * [`show`](#show) - displays a build or job
+        * [`sshkey`](#sshkey) - checks, updates or deletes an SSH key
         * [`status`](#status) - checks status of the latest build
     * [Pro and Enterprise](#pro-and-enterprise)
     * [Environment Variables](#environment-variables)
@@ -1069,6 +1070,48 @@ Or a job:
     Allow Failure: false
     Config:        rvm: 1.9.3
 
+#### `sshkey`
+
+    Checks, updates or deletes an SSH key.
+    Usage: travis sshkey [OPTIONS]
+        -h, --help                       Display help
+        -i, --[no-]interactive           be interactive and colorful
+        -E, --[no-]explode               don't rescue exceptions
+        -e, --api-endpoint URL           Travis API server to talk to
+        -I, --[no-]insecure              do not verify SSL certificate of API endpoint
+            --pro                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
+            --org                        short-cut for --api-endpoint 'https://api.travis-ci.org/'
+        -t, --token [ACCESS_TOKEN]       access token to use
+            --debug                      show API requests
+        -X, --enterprise [NAME]          use enterprise setup (optionally takes name for multiple setups)
+        -r, --repo SLUG                  repository to use (will try to detect from current git clone)
+        -D, --delete                     remove SSH key
+        -d, --description DESCRIPTION    set description
+        -u, --upload FILE                upload key from given file
+        -s, --stdin                      upload key read from stdin
+        -c, --check                      set exit code depending on key existing
+
+*This feature is for [Pro and Enterprise](#pro-and-enterprise) only.*
+
+With the `sshkey` command you can check if there is a custom SSH key set up. Custom SSH keys are used for cloning the repository.
+
+    $ travis sshkey
+    No custom SSH key installed.
+
+You can also use it to upload an SSH key:
+
+    $ travis sshkey --upload ~/.ssh/id_rsa
+    Key description: Test Key
+    updating ssh key for travis-pro/test-project with key from /Users/konstantin/.ssh/id_rsa
+    Current SSH key: Test Key
+
+And to remove it again:
+
+    $ travis sshkey --delete
+    DANGER ZONE: Remove SSH key for travis-pro/test-project? |no| yes
+    removing ssh key for travis-pro/test-project
+    No custom SSH key installed.
+
 #### `status`
 
     Usage: travis status [options]
@@ -1727,6 +1770,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 **1.6.17** (not yet released)
 
+* Add `travis sshkey` and corresponding Ruby API.
 * Make desktop notifications work on Mac OS X 10.10.
 
 **1.6.16** (July 19, 2014)

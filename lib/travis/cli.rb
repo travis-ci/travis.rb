@@ -46,6 +46,7 @@ module Travis
     autoload :Settings,     'travis/cli/settings'
     autoload :Setup,        'travis/cli/setup'
     autoload :Show,         'travis/cli/show'
+    autoload :Sshkey,       'travis/cli/sshkey'
     autoload :Status,       'travis/cli/status'
     autoload :Sync,         'travis/cli/sync'
     autoload :Version,      'travis/cli/version'
