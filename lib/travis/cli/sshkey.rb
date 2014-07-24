@@ -26,6 +26,7 @@ module Travis
 
       def display_key
         say "Current SSH key: #{color(ssh_key.description, :info)}"
+        say "Finger print:    #{color(ssh_key.fingerprint, :info)}"
       rescue Travis::Client::NotFound
         say "No custom SSH key installed."
         exit 1 if check?
