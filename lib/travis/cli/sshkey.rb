@@ -47,6 +47,7 @@ module Travis
 
       def generate_key
         github.with_basic_auth do |gh|
+          check_access(gh)
           empty_line
 
           say "Generating RSA key."
@@ -65,6 +66,12 @@ module Travis
             File.write(path, private_key.to_s)
           end
         end
+      end
+
+      def check_access(gh)
+        gh["repos/#{slug}"]
+      rescue GH::Error
+        error "GitHub account has no read access to #{color slug, :bold}"
       end
 
       def github
