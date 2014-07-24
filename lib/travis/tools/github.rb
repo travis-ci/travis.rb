@@ -36,6 +36,14 @@ module Travis
         each_token { |t| break yield(t) }
       end
 
+      def with_basic_auth(&block)
+        user, password = ask_credentials
+        basic_auth(user, password, true) do |gh|
+          gh['user'] # so otp kicks in
+          yield gh
+        end
+      end
+
       def each_token
         require 'gh' unless defined? GH
         possible_tokens { |t| yield(t) if acceptable?(t) }
@@ -68,13 +76,18 @@ module Travis
         end
 
         if manual_login
-          login_header.call if login_header
-          user     = github_login || ask_login.call
-          password = ask_password.arity == 0 ? ask_password.call : ask_password.call(user)
+          user, password = ask_credentials
           yield login(user, password, true)
         end
 
         after_tokens.call
+      end
+
+      def ask_credentials
+        login_header.call if login_header
+        user     = github_login || ask_login.call
+        password = ask_password.arity == 0 ? ask_password.call : ask_password.call(user)
+        [user, password]
       end
 
       def possible_logins(&block)
@@ -191,19 +204,24 @@ module Travis
         api_url[%r{^(?:https?://)?([^/]+)}, 1]
       end
 
-      def login(user, password, die = true, otp = nil)
+      def basic_auth(user, password, die = true, otp = nil, &block)
         opt           = { :username => user, :password => password }
         opt[:headers] = { "X-GitHub-OTP" => otp } if otp
-        gh            = GH.with(opt)
-        reply         = gh.post('/authorizations', :scopes => scopes, :note => note)
-        self.callback = proc { gh.delete reply['_links']['self']['href'] } if drop_token
-        reply['token']
+        yield GH.with(opt)
       rescue GH::Error => error
         if error.info[:response_status] == 401 and error.info[:response_headers]['x-github-otp'].to_s =~ /required/
           otp = ask_otp.arity == 0 ? ask_otp.call : ask_otp.call(user)
-          login(user, password, die, otp)
+          basic_auth(user, password, die, otp, &block)
         elsif die
           raise gh_error(error)
+        end
+      end
+
+      def login(user, password, die = true, otp = nil)
+        basic_auth(user, password, die, otp) do |gh|
+          reply         = gh.post('/authorizations', :scopes => scopes, :note => note)
+          self.callback = proc { gh.delete reply['_links']['self']['href'] } if drop_token
+          reply['token']
         end
       end
 

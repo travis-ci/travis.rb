@@ -1,4 +1,6 @@
 require 'travis/cli'
+require 'travis/tools/ssl_key'
+require 'travis/tools/github'
 
 module Travis
   module CLI
@@ -9,14 +11,16 @@ module Travis
       on '-u', '--upload FILE',             'upload key from given file'
       on '-s', '--stdin',                   'upload key read from stdin'
       on '-c', '--check',                   'set exit code depending on key existing'
+      on '-g', '--generate',                'generate SSH key and set up for given GitHub user'
 
       def_delegators :repository, :ssh_key
 
       def run
         error "SSH keys are not available on #{color(session.config['host'], :bold)}" if org?
-        delete_key if delete?
+        delete_key                            if delete?
         update_key File.read(upload), upload  if upload?
         update_key $stdin.read, 'stdin'       if stdin?
+        generate_key                          if generate?
         display_key
       end
 
@@ -30,7 +34,7 @@ module Travis
       def update_key(value, file)
         self.description ||= ask("Key description: ") { |q| q.default = file } if interactive?
         say "updating ssh key for #{color slug, :info} with key from #{color file, :info}"
-        ssh_key.update(value: value, description: description || file)
+        ssh_key.update(:value => value, :description => description || file)
       end
 
       def delete_key
@@ -39,6 +43,51 @@ module Travis
         ssh_key.delete
       rescue Travis::Client::NotFound
         warn "no key found to remove"
+      end
+
+      def generate_key
+        github.with_basic_auth do |gh|
+          empty_line
+
+          say "Generating RSA key."
+          private_key        = Tools::SSLKey.generate_rsa
+          self.description ||= "key for fetching dependencies for #{slug}"
+
+          say "Uploading public key to GitHub."
+          gh.post("/user/keys", :title => "#{description} (Travis CI)", :key => Tools::SSLKey.rsa_ssh(private_key.public_key))
+
+          say "Uploading private key to Travis CI."
+          ssh_key.update(:value => private_key.to_s, :description => description)
+
+          empty_line
+          if agree("Store private key? ") { |q| q.default = "no" }
+            path = ask("Path: ") { |q| q.default = "id_travis_rsa" }
+            File.write(path, private_key.to_s)
+          end
+        end
+      end
+
+      def github
+        @github ||= begin
+          load_gh
+          Tools::Github.new(session.config['github']) do |g|
+            g.note          = "token for fetching dependencies for #{slug} (Travis CI)"
+            g.explode       = explode?
+            g.ask_login     = proc { ask("Username: ") }
+            g.ask_password  = proc { |user| ask("Password for #{user}: ") { |q| q.echo = "*" } }
+            g.ask_otp       = proc { |user| ask("Two-factor authentication code for #{user}: ") }
+            g.login_header  = proc { login_header }
+            g.debug         = proc { |log| debug(log) }
+            g.after_tokens  = proc { g.explode = true and error("no suitable github token found") }
+          end
+        end
+      end
+
+      def login_header
+        say "We need the #{color("GitHub login", :important)} for the account you want to add the key to."
+        say "This information will #{color("not be sent to Travis CI", :important)}, only to #{color(github_endpoint.host, :info)}."
+        say "The password will not be displayed."
+        empty_line
       end
     end
   end

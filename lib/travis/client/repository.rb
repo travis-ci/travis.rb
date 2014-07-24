@@ -1,6 +1,5 @@
 require 'travis/client'
-require 'openssl'
-require 'base64'
+require 'travis/tools/ssl_key'
 
 module Travis
   module Client
@@ -17,32 +16,17 @@ module Travis
           Base64.encode64(encrypted).gsub(/\s+/, "")
         end
 
-        def to_ssh
-          ['ssh-rsa ', "\0\0\0\assh-rsa#{sized_bytes(to_rsa.e)}#{sized_bytes(to_rsa.n)}"].pack('a*m').gsub("\n", '')
+        def to_rsa
+          Tools::SSLKey.public_rsa_key(to_s)
         end
 
-        def to_rsa
-          @to_rsa ||= OpenSSL::PKey::RSA.new(to_s)
-        rescue OpenSSL::PKey::RSAError
-          public_key = to_s.gsub('RSA PUBLIC KEY', 'PUBLIC KEY')
-          @to_rsa = OpenSSL::PKey::RSA.new(public_key)
+        def to_ssh
+          Tools::SSLKey.rsa_ssh(to_rsa)
         end
 
         def ==(other)
           other.to_s == self
         end
-
-        private
-
-          def sized_bytes(value)
-            bytes = to_byte_array(value.to_i)
-            [bytes.size, *bytes].pack('NC*')
-          end
-
-          def to_byte_array(num, *significant)
-            return significant if num.between?(-1, 0) and significant[0][7] == num[7]
-            to_byte_array(*num.divmod(256)) + significant
-          end
       end
 
       include States

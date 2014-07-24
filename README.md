@@ -1090,6 +1090,7 @@ Or a job:
         -u, --upload FILE                upload key from given file
         -s, --stdin                      upload key read from stdin
         -c, --check                      set exit code depending on key existing
+        -g, --generate                   generate SSH key and set up for given GitHub user
 
 *This feature is for [Pro and Enterprise](#pro-and-enterprise) only.*
 
@@ -1111,6 +1112,20 @@ And to remove it again:
     DANGER ZONE: Remove SSH key for travis-pro/test-project? |no| yes
     removing ssh key for travis-pro/test-project
     No custom SSH key installed.
+
+You can also have it generate a key for a given GitHub user (for instance, for a dedicated CI user that only has read access). The public key will automatically be added to GitHub and the private key to Travis CI:
+
+    $ travis sshkey --generate
+    We need the GitHub login for the account you want to add the key to.
+    This information will not be sent to Travis CI, only to api.github.com.
+    The password will not be displayed.
+    
+    Username: travisbot
+    Password for travisbot: **************
+    
+    Generating RSA key.
+    Uploading public key to GitHub.
+    Uploading private key to Travis CI.
 
 #### `status`
 
