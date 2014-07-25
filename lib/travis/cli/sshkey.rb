@@ -62,6 +62,7 @@ module Travis
           ssh_key.update(:value => private_key.to_s, :description => description)
 
           empty_line
+          say "You can store the private key to reuse it for other repositories (travis sshkey --upload FILE)."
           if agree("Store private key? ") { |q| q.default = "no" }
             path = ask("Path: ") { |q| q.default = "id_travis_rsa" }
             File.write(path, private_key.to_s)
