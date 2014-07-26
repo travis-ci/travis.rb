@@ -12,7 +12,7 @@ The file might be too large to encrypt it directly via the `travis encrypt` comm
 The set up process looks like this:
 
 1. **Come up with a password.** First, you need a password. We recommend generating a random password using a tool like pwgen or 1password. In our example we will use `ahduQu9ushou0Roh`.
-2. **Encrypt the password and add it to your .travis.yml.** Here we can use the `encrypt comamnd`: `travis encrypt super_secret_password=ahduQu9ushou0Roh --add` - note that if you set this up multiple times for multiple files, you will have to use different variable names so the passwords don't override each other.
+2. **Encrypt the password and add it to your .travis.yml.** Here we can use the `encrypt` command: `travis encrypt super_secret_password=ahduQu9ushou0Roh --add` - note that if you set this up multiple times for multiple files, you will have to use different variable names so the passwords don't override each other.
 3. **Encrypt the file locally.** Using a tool that you have installed locally and that is also installed on Travis CI (see below).
 4. **Set up decryption command.** You should add the command for decrypting the file to the `before_install` section of your `.travis.yml` (see below).
 
