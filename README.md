@@ -361,6 +361,16 @@ Lists repositories and displays whether these are active or not. Has a variety o
     rkh/travis-surveillance (active: no, admin: yes, push: yes, pull: yes)
     Description: Veille sur un projet.
 
+In non-interactive mode, it will only output the repository slug, which goes well with xargs:
+
+    $ travis repos --active --owner travis-ci | xargs -I % travis disable -r %
+    travis-ci/artifacts: disabled :(
+    travis-ci/canary: disabled :(
+    travis-ci/docs-travis-ci-com: disabled :(
+    travis-ci/dpl: disabled :(
+    travis-ci/gh: disabled :(
+    ...
+
 #### `sync`
 
     Usage: travis sync [options]
@@ -1782,6 +1792,10 @@ Mac OS X 10.9.2 shipped with a slightly broken Ruby version. If you want to inst
 If you have the old `travis-cli` gem installed, you should `gem uninstall travis-cli`, just to be sure, as it ships with an executable that is also named `travis`.
 
 ## Version History
+
+**1.6.18** (not yet released)
+
+* Have `travis repos` only print repository slugs in non-interactive mode.
 
 **1.6.17** (July 25, 2014)
 

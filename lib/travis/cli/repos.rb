@@ -14,6 +14,7 @@ module Travis
 
       def run
         repositories.each do |repo|
+          next say(repo.slug) unless interactive?
           state_color = repo.active? ? :green : :yellow
           say color(repo.slug, [:bold, state_color]) + " "
           say color("(" << attributes(repo).map { |n,v| "#{n}: #{v ? "yes" : "no"}" }.join(", ") << ")", state_color)
