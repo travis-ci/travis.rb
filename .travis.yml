@@ -10,20 +10,16 @@ rvm:
 os:
 - linux
 - osx
-
-before_deploy:
-  - if [[ $TRAVIS_RUBY_VERSION = '2.0.0' && $(uname) = 'Darwin' ]]; then rvm install ruby-1.9.3-p545 && rvm use $TRAVIS_RUBY_VERSION --fuzzy; fi
-
 matrix:
   exclude:
-    - rvm: 1.8.7
-      os: osx
-    - rvm: 1.9.2
-      os: osx
-    - rvm: 2.1.0
-      os: osx
-    - rvm: jruby
-      os: osx
+  - rvm: 1.8.7
+    os: osx
+  - rvm: 1.9.2
+    os: osx
+  - rvm: 2.1.0
+    os: osx
+  - rvm: jruby
+    os: osx
 deploy:
   provider: rubygems
   api_key:
