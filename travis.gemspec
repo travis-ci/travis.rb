@@ -115,6 +115,7 @@ Gem::Specification.new do |s|
     "assets/travis.sh",
     "assets/travis.sh.erb",
     "bin/travis",
+    "examples/cli.md",
     "examples/org_overview.rb",
     "examples/pro_auth.rb",
     "examples/stream.rb",
