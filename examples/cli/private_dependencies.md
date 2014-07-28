@@ -43,7 +43,7 @@ Assumptions:
 
 You can use the following command to add the key to Travis CI:
 
-``` command
+``` console
 $ travis sshkey --upload ~/.ssh/id_rsa
 Key description: Key to clone myorg/lib1 and myorg/lib2
 updating ssh key for myorg/main with key from ~/.ssh/id_rsa
