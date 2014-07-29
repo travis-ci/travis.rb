@@ -1295,6 +1295,8 @@ Uploading public key to GitHub.
 Uploading private key to Travis CI.
 ```
 
+See the [private dependencies example](examples/cli/private_dependencies.md) for an in-detail description.
+
 #### `status`
 
     Usage: travis status [options]
