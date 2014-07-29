@@ -144,7 +144,13 @@ Current SSH key: CI dependencies
 
 ### Password
 
-To pull in dependencies with a password, you will have to use the user name and password in the Git HTTPS URL: `https://ci-user:mypassword123@github.com/myorg/main.git`.
+Assumptions:
+
+* The repository you are running the builds for is called "myorg/main" and depends on "myorg/lib1" and "myorg/lib2".
+* You know the credentials for a user account that has at least read access to all three repositories.
+* You have a clone of the repository locally and run commands from a terminal where the copy is the current working directory (this is needed to make `travis encrypt --add` work).
+
+To pull in dependencies with a password, you will have to use the user name and password in the Git HTTPS URL: `https://ci-user:mypassword123@github.com/myorg/lib1.git`.
 
 Alternatively, you can also write the credentials to the `~.netrc` file:
 
@@ -165,7 +171,31 @@ before_install:
 - echo "machine github.com\n  login ci-user\n  password $CI_USER_PASSWORD" >> ~/.netrc
 ```
 
+It is also possible to inject the credentials into URLs, for instance, in a Gemfile, it would look like this:
+
+``` ruby
+source 'https://rubygems.org'
+gemspec
+
+if ENV['CI']
+  # use HTTPS with password on Travis CI
+  private_repo_pattern = "https://ci-user:#{ENV.fetch("CI_USER_PASSWORD")}@github.com/%s.git"
+else
+  # use SSH locally
+  private_repo_pattern = "git@github.com/%s.git"
+end
+
+gem 'lib1', git: private_repo_pattern % "myorg/lib1"
+gem 'lib2', git: private_repo_pattern % "myorg/lib2"
+```
+
 ### API token
+
+Assumptions:
+
+* The repository you are running the builds for is called "myorg/main" and depends on "myorg/lib1" and "myorg/lib2".
+* You know the credentials for a user account that has at least read access to all three repositories.
+* You have a clone of the repository locally and run commands from a terminal where the copy is the current working directory (this is needed to make `travis encrypt --add` work).
 
 This approach works just like the [password](#password) approach outlined above, except instead of the username/password pair, you use a GitHub API token.
 
@@ -178,7 +208,38 @@ machine github.com
   login the-generated-token
 ```
 
-You can also use it in URLs directly: `https://the-generated-token@github.com/myorg/main.git`.
+You can also use it in URLs directly: `https://the-generated-token@github.com/myorg/lib1.git`.
+
+Use the `encrypt` command to add the token to your `.travis.yml`.
+
+``` console
+$ travis encrypt CI_USER_TOKEN=the-generated-token --add
+```
+
+You can then have Travis CI write to the `~/.netrc` on every build.
+
+``` yaml
+before_install:
+- echo "machine github.com\n  login $CI_USER_TOKEN" >> ~/.netrc
+```
+
+It is also possible to inject the token into URLs, for instance, in a Gemfile, it would look like this:
+
+``` ruby
+source 'https://rubygems.org'
+gemspec
+
+if ENV['CI']
+  # use HTTPS with token on Travis CI
+  private_repo_pattern = "https://#{ENV.fetch("CI_USER_TOKEN")}@github.com/%s.git"
+else
+  # use SSH locally
+  private_repo_pattern = "git@github.com/%s.git"
+end
+
+gem 'lib1', git: private_repo_pattern % "myorg/lib1"
+gem 'lib2', git: private_repo_pattern % "myorg/lib2"
+```
 
 ### Dedicated User Account
 
