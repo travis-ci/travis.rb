@@ -24,6 +24,7 @@ module Travis
     autoload :Disable,      'travis/cli/disable'
     autoload :Enable,       'travis/cli/enable'
     autoload :Encrypt,      'travis/cli/encrypt'
+    autoload :EncryptFile,  'travis/cli/encrypt_file'
     autoload :Endpoint,     'travis/cli/endpoint'
     autoload :Env,          'travis/cli/env'
     autoload :Help,         'travis/cli/help'
@@ -65,7 +66,7 @@ module Travis
 
     def command(name)
       const_name = command_name(name)
-      constant   = CLI.const_get(const_name) if const_name =~ /^[A-Z][a-z]+$/ and const_defined? const_name
+      constant   = CLI.const_get(const_name) if const_name =~ /^[A-Z][A-Za-z]+$/ and const_defined? const_name
       if command? constant
         constant
       else
@@ -108,7 +109,7 @@ module Travis
         when nil, '-h', '-?' then 'Help'
         when '-v'            then 'Version'
         when /^--/           then command_name(name[2..-1])
-        else name.to_s.capitalize
+        else name.split('-').map(&:capitalize).join
         end
       end
 

@@ -47,7 +47,7 @@ module Travis
       on('--skip-completion-check', "don't check if auto-completion is set up")
 
       def self.command_name
-        name[/[^:]*$/].downcase
+        name[/[^:]*$/].split(/(?=[A-Z])/).map(&:downcase).join('-')
       end
 
       @@abstract ||= [Command] # ignore the man behind the courtains!
@@ -386,6 +386,17 @@ module Travis
 
         def danger_zone?(message)
           agree(color("DANGER ZONE: ", [:red, :bold]) << message << " ") { |q| q.default = "no" }
+        end
+
+        def write_file(file, content, force = false)
+          error "#{file} already exists" unless write_file?(file, force)
+          File.write(file, content)
+        end
+
+        def write_file?(file, force)
+          return true if force or not File.exist?(file)
+          return false unless interactive?
+          danger_zone? "Override existing #{color(file, :info)}?"
         end
 
         def wrong_args(quantity)
