@@ -764,6 +764,63 @@ There are two ways the client can treat existing values:
 * Turn existing value into a list if it isn't already, append new value to that list. This is the default behavior for keys that start with `env.` and can be enforced with `--append`.
 * Replace existing value. This is the default behavior for keys that do not start with `env.` and can be enforced with `--override`.
 
+#### `encrypt-file`
+
+    Encrypts a file and adds decryption steps to .travis.yml.
+    Usage: travis encrypt-file INPUT_PATH [OUTPUT_PATH] [OPTIONS]
+        -h, --help                       Display help
+        -i, --[no-]interactive           be interactive and colorful
+        -E, --[no-]explode               don't rescue exceptions
+            --skip-version-check         don't check if travis client is up to date
+            --skip-completion-check      don't check if auto-completion is set up
+        -e, --api-endpoint URL           Travis API server to talk to
+        -I, --[no-]insecure              do not verify SSL certificate of API endpoint
+            --pro                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
+            --org                        short-cut for --api-endpoint 'https://api.travis-ci.org/'
+        -t, --token [ACCESS_TOKEN]       access token to use
+            --debug                      show API requests
+        -X, --enterprise [NAME]          use enterprise setup (optionally takes name for multiple setups)
+        -r, --repo SLUG                  repository to use (will try to detect from current git clone)
+        -K, --key KEY                    encryption key to be used (randomly generated otherwise)
+            --iv IV                      encryption IV to be used (randomly generated otherwise)
+        -d, --decrypt                    decrypt the file instead of encrypting it, requires key and iv
+        -f, --force                      override output file if it exists
+        -p, --print-key                  print (possibly generated) key and iv
+        -w, --decrypt-to PATH            where to write the decrypted file to on the Travis CI VM
+        -a, --add [STAGE]                automatically add command to .travis.yml (default stage is before_install)
+
+This command will encrypt a file for you using a symmetric encryption (AES-256), and it will store the secret in a [secure variable](#env). It will output the command you can use in your build script to decrypt the file.
+
+``` console
+$ travis encrypt-file bacon.txt
+encrypting bacon.txt for rkh/travis-encrypt-file-example
+storing result as bacon.txt.enc
+storing secure env variables for decryption
+
+Please add the following to your build scirpt (before_install stage in your .travis.yml, for instance):
+
+    openssl aes-256-cbc -K $encrypted_0a6446eb3ae3_key -iv $encrypted_0a6446eb3ae3_key -in bacon.txt.enc -out bacon.txt -d
+
+Pro Tip: You can add it automatically by running with --add.
+
+Make sure to add bacon.txt.enc to the git repository.
+Make sure not to add bacon.txt to the git repository.
+Commit all changes to your .travis.yml.
+```
+
+You can also use `--add` to have it automatically add the decrypt command to your `.travis.yml`
+
+``` console
+$ travis encrypt-file bacon.txt --add
+encrypting bacon.txt for rkh/travis-encrypt-file-example
+storing result as bacon.txt.enc
+storing secure env variables for decryption
+
+Make sure to add bacon.txt.enc to the git repository.
+Make sure not to add bacon.txt to the git repository.
+Commit all changes to your .travis.yml.
+```
+
 #### `env`
 
     Show or modify build environment variables.
@@ -1964,6 +2021,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 **1.6.18** (not yet released)
 
+* Add `travis-encrypt`.
 * Have `travis repos` only print repository slugs in non-interactive mode.
 
 **1.6.17** (July 25, 2014)

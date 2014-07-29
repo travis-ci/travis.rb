@@ -1,9 +1,33 @@
 ##  Encrypt a file
 
+### Automated
+
 Assumptions:
 
 * The repository is set up on Travis CI
-* You have the latest version of the Travis CI Command Line Client installed and setup up (you are logged in)
+* You have version **1.6.18** or later of the Travis CI Command Line Client installed and setup up (you are logged in)
+* You have a local copy of the repository and a terminal open where your current working directory is said copy
+* In the repository is a file, called super_secret.txt, that you need on Travis CI but you don't want to publish its content on GitHub.
+
+You can encrypt the file with the following command:
+
+``` console
+$ travis encrypt-file super_secret.txt --add
+encrypting bacon.txt for rkh/travis-encrypt-file-example
+storing result as super_secret.txt.enc
+storing secure env variables for decryption
+
+Make sure to add super_secret.txt.enc to the git repository.
+Make sure not to add super_secret.txt to the git repository.
+Commit all changes to your .travis.yml.
+```
+
+### Manually
+
+Assumptions:
+
+* The repository is set up on Travis CI
+* You have the recent version of the Travis CI Command Line Client installed and setup up (you are logged in)
 * You have a local copy of the repository and a terminal open where your current working directory is said copy
 * In the repository is a file, called super_secret.txt, that you need on Travis CI but you don't want to publish its content on GitHub.
 
@@ -18,7 +42,7 @@ The set up process looks like this:
 
 Be sure to add `super_secret.txt` to your `.gitignore` list, and to commit both the encrypted file and your `.travis.yml` changes.
 
-### Using GPG
+#### Using GPG
 
 Set up:
 
@@ -40,7 +64,7 @@ before_install:
 
 The encrypted file is called `super_secret.txt.gpg` and has to be committed to the repository.
 
-### Using OpenSSL
+#### Using OpenSSL
 
 
 Set up:
