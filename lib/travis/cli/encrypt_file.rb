@@ -71,7 +71,7 @@ module Travis
       end
 
       def set_env_vars
-        say "storing secure env variables for encryption"
+        say "storing secure env variables for decryption"
         repository.env_vars.upsert env_name(:key), key, :public => false
         repository.env_vars.upsert env_name(:iv),  iv,  :public => false
       end
