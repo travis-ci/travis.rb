@@ -2021,7 +2021,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 **1.6.18** (not yet released)
 
-* Add `travis-encrypt`.
+* Add `travis encrypt-file`.
 * Have `travis repos` only print repository slugs in non-interactive mode.
 
 **1.6.17** (July 25, 2014)
