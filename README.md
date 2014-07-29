@@ -102,11 +102,13 @@ You probably want to use `--explode` if you are working on a patch for the Travi
 
 The `help` command will inform you about the arguments and options that the commands take, for instance:
 
-    $ travis help help
-    Usage: travis help [command] [options]
-        -h, --help                       Display help
-        -i, --[no-]interactive           be interactive and colorful
-        -E, --[no-]explode               don't rescue exceptions
+``` console
+$ travis help help
+Usage: travis help [command] [options]
+    -h, --help                       Display help
+    -i, --[no-]interactive           be interactive and colorful
+    -E, --[no-]explode               don't rescue exceptions
+```
 
 Running `help` without a command name will give you a list of all available commands.
 
@@ -133,23 +135,27 @@ The `--debug` option will print HTTP requests to STDERR. Like `--explode`, this 
 
 There are many libraries out there to do HTTP requests in Ruby. You can switch amongst common ones with `--adapter`:
 
-    $ travis show --adapter net-http
-    ...
-    $ gem install excon
-    ...
-    $ travis show --adapter excon
-    ...
+``` console
+$ travis show --adapter net-http
+...
+$ gem install excon
+...
+$ travis show --adapter excon
+...
+```
 
 #### `accounts`
 
 The accounts command can be used to list all the accounts you can set up repositories for.
 
-    $ travis accounts
-    rkh (Konstantin Haase): subscribed, 160 repositories
-    sinatra (Sinatra): subscribed, 9 repositories
-    rack (Official Rack repositories): subscribed, 3 repositories
-    travis-ci (Travis CI): subscribed, 57 repositories
-    ...
+``` console
+$ travis accounts
+rkh (Konstantin Haase): subscribed, 160 repositories
+sinatra (Sinatra): subscribed, 9 repositories
+rack (Official Rack repositories): subscribed, 3 repositories
+travis-ci (Travis CI): subscribed, 57 repositories
+...
+```
 
 #### `console`
 
@@ -157,50 +163,62 @@ Running `travis console` gives you an interactive Ruby session with all the [ent
 
 But why use this over just `irb -r travis`? For one, it will take care of authentication, setting the correct endpoint, etc, and it also allows you to pass in `--debug` if you are curious as to what's actually going on.
 
-    $ travis console
-    >> User.current
-    => #<User: rkh>
-    >> Repository.find('sinatra/sinatra')
-    => #<Repository: sinatra/sinatra>
-    >> _.last_build
-    => #<Travis::Client::Build: sinatra/sinatra#360>
+``` console
+$ travis console
+>> User.current
+=> #<User: rkh>
+>> Repository.find('sinatra/sinatra')
+=> #<Repository: sinatra/sinatra>
+>> _.last_build
+=> #<Travis::Client::Build: sinatra/sinatra#360>
+```
 
 #### `endpoint`
 
 Prints out the API endpoint you're talking to.
 
-    $ travis endpoint
-    API endpoint: https://api.travis-ci.org/
+``` console
+$ travis endpoint
+API endpoint: https://api.travis-ci.org/
+```
 
 Handy for using it when working with shell scripts:
 
-    $ curl "$(travis endpoint)/docs" > docs.html
+``` console
+$ curl "$(travis endpoint)/docs" > docs.html
+```
 
 It can also be used to set the default API endpoint used for [General API Commands](#general-api-commands):
 
-    $ travis endpoint --pro --set-default
-    API endpoint: https://api.travis-ci.com/ (stored as default)
+``` console
+$ travis endpoint --pro --set-default
+API endpoint: https://api.travis-ci.com/ (stored as default)
+```
 
 You can use `--drop-default` to remove the setting again:
 
-    $ travis endpoint --drop-default
-    default API endpoint dropped (was https://api.travis-ci.com/)
+``` console
+$ travis endpoint --drop-default
+default API endpoint dropped (was https://api.travis-ci.com/)
+```
 
 #### `login`
 
 The `login` command will, well, log you in. That way, all subsequent commands that run against the same endpoint will be authenticated.
 
-    $ travis login
-    We need your GitHub login to identify you.
-    This information will not be sent to Travis CI, only to GitHub.
-    The password will not be displayed.
+``` console
+$ travis login
+We need your GitHub login to identify you.
+This information will not be sent to Travis CI, only to GitHub.
+The password will not be displayed.
 
-    Try running with --github-token or --auto if you don't want to enter your password anyway.
+Try running with --github-token or --auto if you don't want to enter your password anyway.
 
-    Username: rkh
-    Password: *******************
+Username: rkh
+Password: *******************
 
-    Successfully logged in!
+Successfully logged in!
+```
 
 As you can see above, it will ask you for your GitHub user name and password, but not send these to Travis CI. Instead, it will use them to create a GitHub API token, show the token to Travis, which then on its own checks if you really are who you say you are, and gives you an access token for the Travis API in return. The client will then delete the GitHub token again, just to be sure. But don't worry, all that happens under the hood and fully automatic.
 
@@ -212,8 +230,10 @@ A third option is for the really lazy: `--auto`. In this mode the client will tr
 
 This command makes Travis CI forget your access token.
 
-    $ travis logout --pro
-    Successfully logged out!
+``` console
+$ travis logout --pro
+Successfully logged out!
+```
 
 #### `monitor`
 
@@ -237,31 +257,37 @@ This command makes Travis CI forget your access token.
 
 With `monitor` you can watch a live stream of what's going on:
 
-    $ travis monitor
-    Monitoring travis-ci.org:
-    2013-08-05 01:22:40 questmaster/FATpRemote#45 started
-    2013-08-05 01:22:40 questmaster/FATpRemote#45.1 started
-    2013-08-05 01:22:41 grangier/python-goose#33.1 passed
-    2013-08-05 01:22:42 plataformatec/simple_form#666 passed
-    ...
+``` console
+$ travis monitor
+Monitoring travis-ci.org:
+2013-08-05 01:22:40 questmaster/FATpRemote#45 started
+2013-08-05 01:22:40 questmaster/FATpRemote#45.1 started
+2013-08-05 01:22:41 grangier/python-goose#33.1 passed
+2013-08-05 01:22:42 plataformatec/simple_form#666 passed
+...
+```
 
 You can limit the repositories to monitor with `--my-repos` and `--repo SLUG`.
 
 By default, you will receive events for both builds and jobs, you can limit it to builds only via `--build` (short `-b`):
 
-    $ travis monitor
-    Monitoring travis-ci.org:
-    2013-08-05 01:22:40 questmaster/FATpRemote#45 started
-    2013-08-05 01:22:42 plataformatec/simple_form#666 passed
-    ...
+``` console
+$ travis monitor
+Monitoring travis-ci.org:
+2013-08-05 01:22:40 questmaster/FATpRemote#45 started
+2013-08-05 01:22:42 plataformatec/simple_form#666 passed
+...
+```
 
 Similarly, you can limit it to builds/jobs for pull requests via `--pull` and for normal pushes via `--push`.
 
 The monitor command can also send out [desktop notifications](#desktop-notifications):
 
-    $ travis monitor --pro -n
-    Monitoring travis-ci.com:
-    ...
+``` console
+$ travis monitor --pro -n
+Monitoring travis-ci.com:
+...
+```
 
 When monitoring specific repositories, notifications will be turned on by default. Disable with `--no-notify`.
 
@@ -269,18 +295,20 @@ When monitoring specific repositories, notifications will be turned on by defaul
 
 This is really helpful both when working on this client and when exploring the [Travis API](https://api.travis-ci.org). It will simply fire a request against the API endpoint, parse the output and pretty print it. Keep in mind that the client takes care of authentication for you:
 
-    $ travis raw /repos/travis-ci/travis.rb
-    {"repo"=>
-      {"id"=>409371,
-       "slug"=>"travis-ci/travis.rb",
-       "description"=>"Travis CI Client (CLI and Ruby library)",
-       "last_build_id"=>4251410,
-       "last_build_number"=>"77",
-       "last_build_state"=>"passed",
-       "last_build_duration"=>351,
-       "last_build_language"=>nil,
-       "last_build_started_at"=>"2013-01-19T18:00:49Z",
-       "last_build_finished_at"=>"2013-01-19T18:02:17Z"}}
+``` console
+$ travis raw /repos/travis-ci/travis.rb
+{"repo"=>
+  {"id"=>409371,
+   "slug"=>"travis-ci/travis.rb",
+   "description"=>"Travis CI Client (CLI and Ruby library)",
+   "last_build_id"=>4251410,
+   "last_build_number"=>"77",
+   "last_build_state"=>"passed",
+   "last_build_duration"=>351,
+   "last_build_language"=>nil,
+   "last_build_started_at"=>"2013-01-19T18:00:49Z",
+   "last_build_finished_at"=>"2013-01-19T18:02:17Z"}}
+```
 
 Use `--json` if you'd rather prefer the output to be JSON.
 
@@ -288,36 +316,38 @@ Use `--json` if you'd rather prefer the output to be JSON.
 
 When inspecting a bug or reporting an issue, it can be handy to include a report about the system and configuration used for running a command.
 
-    $ travis report --pro
-    System
-    Ruby:                     Ruby 2.0.0-p195
-    Operating System:         Mac OS X 10.8.5
-    RubyGems:                 RubyGems 2.0.7
+``` console
+$ travis report --pro
+System
+Ruby:                     Ruby 2.0.0-p195
+Operating System:         Mac OS X 10.8.5
+RubyGems:                 RubyGems 2.0.7
 
-    CLI
-    Version:                  1.5.8
-    Plugins:                  "travis-as-user", "travis-build", "travis-cli-pr"
-    Auto-Completion:          yes
-    Last Version Check:       2013-11-02 16:25:03 +0100
+CLI
+Version:                  1.5.8
+Plugins:                  "travis-as-user", "travis-build", "travis-cli-pr"
+Auto-Completion:          yes
+Last Version Check:       2013-11-02 16:25:03 +0100
 
-    Session
-    API Endpoint:             https://api.travis-ci.com/
-    Logged In:                as "rkh"
-    Verify SSL:               yes
-    Enterprise:               no
+Session
+API Endpoint:             https://api.travis-ci.com/
+Logged In:                as "rkh"
+Verify SSL:               yes
+Enterprise:               no
 
-    Endpoints
-    pro:                      https://api.travis-ci.com/ (access token, current)
-    org:                      https://api.travis-ci.org/ (access token)
+Endpoints
+pro:                      https://api.travis-ci.com/ (access token, current)
+org:                      https://api.travis-ci.org/ (access token)
 
-    Last Exception
-    An error occurred running `travis whoami --pro`:
-        Travis::Client::Error: access denied
-            from ...
+Last Exception
+An error occurred running `travis whoami --pro`:
+    Travis::Client::Error: access denied
+        from ...
 
 
-    For issues with the command line tool, please visit https://github.com/travis-ci/travis.rb/issues.
-    For Travis CI in general, go to https://github.com/travis-ci/travis-ci/issues or email support@travis-ci.com.
+For issues with the command line tool, please visit https://github.com/travis-ci/travis.rb/issues.
+For Travis CI in general, go to https://github.com/travis-ci/travis-ci/issues or email support@travis-ci.com.
+```
 
 This command can also list all known repos and the endpoint to use for them via the `--known-repos` option.
 
@@ -348,28 +378,32 @@ This command can also list all known repos and the endpoint to use for them via 
 
 Lists repositories and displays whether these are active or not. Has a variety of options to filter repositories.
 
-    $ travis repos -m 'rkh/travis-*'
-    rkh/travis-chat (active: yes, admin: yes, push: yes, pull: yes)
-    Description: example app demoing travis-sso usage
+``` console
+$ travis repos -m 'rkh/travis-*'
+rkh/travis-chat (active: yes, admin: yes, push: yes, pull: yes)
+Description: example app demoing travis-sso usage
 
-    rkh/travis-encrypt (active: yes, admin: yes, push: yes, pull: yes)
-    Description: proof of concept in browser encryption of travis settings
+rkh/travis-encrypt (active: yes, admin: yes, push: yes, pull: yes)
+Description: proof of concept in browser encryption of travis settings
 
-    rkh/travis-lite (active: no, admin: yes, push: yes, pull: yes)
-    Description: Travis CI without the JavaScript
+rkh/travis-lite (active: no, admin: yes, push: yes, pull: yes)
+Description: Travis CI without the JavaScript
 
-    rkh/travis-surveillance (active: no, admin: yes, push: yes, pull: yes)
-    Description: Veille sur un projet.
+rkh/travis-surveillance (active: no, admin: yes, push: yes, pull: yes)
+Description: Veille sur un projet.
+```
 
 In non-interactive mode, it will only output the repository slug, which goes well with xargs:
 
-    $ travis repos --active --owner travis-ci | xargs -I % travis disable -r %
-    travis-ci/artifacts: disabled :(
-    travis-ci/canary: disabled :(
-    travis-ci/docs-travis-ci-com: disabled :(
-    travis-ci/dpl: disabled :(
-    travis-ci/gh: disabled :(
-    ...
+``` console
+$ travis repos --active --owner travis-ci | xargs -I % travis disable -r %
+travis-ci/artifacts: disabled :(
+travis-ci/canary: disabled :(
+travis-ci/docs-travis-ci-com: disabled :(
+travis-ci/dpl: disabled :(
+travis-ci/gh: disabled :(
+...
+```
 
 #### `sync`
 
@@ -388,18 +422,24 @@ In non-interactive mode, it will only output the repository slug, which goes wel
 
 Sometimes the infos Travis CI has about users and repositories become out of date. If that should happen, you can manually trigger a sync:
 
-    $ travis sync
-    synchronizing: ........... done
+``` console
+$ travis sync
+synchronizing: ........... done
+```
 
 The command blocks until the synchronization is done. You can avoid that with `--background`:
 
-    $ travis sync --background
-    starting synchronization
+``` console
+$ travis sync --background
+starting synchronization
+```
 
 If you just want to know if your account is being synchronized right now, use `--check`:
 
-    $ travis sync --check
-    rkh is currently syncing
+``` console
+$ travis sync --check
+rkh is currently syncing
+```
 
 #### `lint`
 
@@ -407,37 +447,49 @@ This checks a `.travis.yml` file for any issues it might detect.
 
 By default, it will read a file named `.travis.yml` in the current directory:
 
-    $ travis lint
-    Warnings for .travis.yml:
-    [x] your repository must be feature flagged for the os setting to be used
+``` console
+$ travis lint
+Warnings for .travis.yml:
+[x] your repository must be feature flagged for the os setting to be used
+```
 
 You can also give it a path to a different file:
 
-    $ travis lint example.yml
-    ...
+``` console
+$ travis lint example.yml
+...
+```
 
 Or pipe the content into it:
 
-    $ echo "foo: bar" | travis lint
-    Warnings for STDIN:
-    [x] unexpected key foo, dropping
-    [x] missing key language, defaulting to ruby
+``` console
+$ echo "foo: bar" | travis lint
+Warnings for STDIN:
+[x] unexpected key foo, dropping
+[x] missing key language, defaulting to ruby
+```
 
 Like the [`status` command](#status), you can use `-q` to suppress any output, and `-x` to have it set the exit code to 1 if there are any warnings.
 
-    $ travis lint -qx || echo ".travis.yml does not validate"
+``` console
+$ travis lint -qx || echo ".travis.yml does not validate"
+```
 
 #### `token`
 
 In order to use the Ruby library you will need to obtain an access token first. To do this simply run the `travis login` command. Once logged in you can check your token with `travis token`:
 
-    $ travis token
-    Your access token is super-secret
+``` console
+$ travis token
+Your access token is super-secret
+```
 
 You can use that token for instance with curl:
 
-    $ curl -H "Authorization: token $(travis token)" https://api.travis-ci.org/users/
-    {"login":"rkh","name":"Konstantin Haase","email":"konstantin.haase@gmail.com","gravatar_id":"5c2b452f6eea4a6d84c105ebd971d2a4","locale":"en","is_syncing":false,"synced_at":"2013-01-21T20:31:06Z"}
+``` console
+$ curl -H "Authorization: token $(travis token)" https://api.travis-ci.org/users/
+{"login":"rkh","name":"Konstantin Haase","email":"konstantin.haase@gmail.com","gravatar_id":"5c2b452f6eea4a6d84c105ebd971d2a4","locale":"en","is_syncing":false,"synced_at":"2013-01-21T20:31:06Z"}
+```
 
 Note that if you just need it for looking at API payloads, that we also have the [`raw`](#raw) command.
 
@@ -445,35 +497,43 @@ Note that if you just need it for looking at API payloads, that we also have the
 
 It's just a tiny feature, but it allows you to take a look at repositories that have recently seen some action (ie the left hand sidebar on [travis-ci.org](https://travis-ci.org)):
 
-    $ travis whatsup
-    mysociety/fixmystreet started: #154
-    eloquent/typhoon started: #228
-    Pajk/apipie-rails started: #84
-    qcubed/framework failed: #21
-    ...
+``` console
+$ travis whatsup
+mysociety/fixmystreet started: #154
+eloquent/typhoon started: #228
+Pajk/apipie-rails started: #84
+qcubed/framework failed: #21
+...
+```
 
 If you only want to see what happened in your repositories, add the `--my-repos` flag (short: `-m`):
 
-    $ travis whatsup -m
-    travis-ci/travis.rb passed: #169
-    rkh/dpl passed: #50
-    rubinius/rubinius passed: #3235
-    sinatra/sinatra errored: #619
-    rtomayko/tilt failed: #162
-    ruby-no-kai/rubykaigi2013 passed: #50
-    rack/rack passed: #519
-    ...
+``` console
+$ travis whatsup -m
+travis-ci/travis.rb passed: #169
+rkh/dpl passed: #50
+rubinius/rubinius passed: #3235
+sinatra/sinatra errored: #619
+rtomayko/tilt failed: #162
+ruby-no-kai/rubykaigi2013 passed: #50
+rack/rack passed: #519
+...
+```
 
 #### `whoami`
 
 This command is useful to verify that you're in fact logged in:
 
-    $ travis whoami
-    You are rkh (Konstantin Haase)
+``` console
+$ travis whoami
+You are rkh (Konstantin Haase)
+```
 
 Again, like most other commands, goes well with shell scripting:
 
-    $ git clone "https://github.com/$(travis whoami)/some_project"
+``` console
+$ git clone "https://github.com/$(travis whoami)/some_project"
+```
 
 ### Repository Commands
 
@@ -501,16 +561,18 @@ It will also automatically pick [Travis Pro](https://travis-ci.com) if it is a p
 
 Displays the most recent build for each branch:
 
-    $ travis branches
-    hh-add-warning-old-style:                  #35   passed     Add a warning if old-style encrypt is being used
-    hh-multiline-encrypt:                      #55   passed     Merge branch 'master' into hh-multiline-encrypt
-    rkh-show-logs-history:                     #72   passed     regenerate gemspec
-    rkh-debug:                                 #75   passed     what?
-    hh-add-clear-cache-to-global-session:      #135  passed     Add clear_cache(!) to Travis::Namespace
-    hh-annotations:                            #146  passed     Initial annotation support
-    hh-remove-newlines-from-encrypted-string:  #148  errored    Remove all whitespace from an encrypted string
-    version-check:                             #157  passed     check travis version for updates from time to time
-    master:                                    #163  passed     add Repository#branches and Repository#branch(name)
+``` console
+$ travis branches
+hh-add-warning-old-style:                  #35   passed     Add a warning if old-style encrypt is being used
+hh-multiline-encrypt:                      #55   passed     Merge branch 'master' into hh-multiline-encrypt
+rkh-show-logs-history:                     #72   passed     regenerate gemspec
+rkh-debug:                                 #75   passed     what?
+hh-add-clear-cache-to-global-session:      #135  passed     Add clear_cache(!) to Travis::Namespace
+hh-annotations:                            #146  passed     Initial annotation support
+hh-remove-newlines-from-encrypted-string:  #148  errored    Remove all whitespace from an encrypted string
+version-check:                             #157  passed     check travis version for updates from time to time
+master:                                    #163  passed     add Repository#branches and Repository#branch(name)
+```
 
 For more fine grained control and older builds on a specific branch, see [`history`](#history).
 
@@ -538,81 +600,101 @@ For more fine grained control and older builds on a specific branch, see [`histo
 
 Lists or deletes [directory caches](http://about.travis-ci.org/docs/user/caching/) for a repository:
 
-    $ travis cache
-    On branch master:
-    cache--rvm-2.0.0--gemfile-Gemfile      last modified: 2013-11-04 13:45:44  size: 62.21 MiB
-    cache--rvm-ruby-head--gemfile-Gemfile  last modified: 2013-11-04 13:46:55  size: 62.65 MiB
+``` console
+$ travis cache
+On branch master:
+cache--rvm-2.0.0--gemfile-Gemfile      last modified: 2013-11-04 13:45:44  size: 62.21 MiB
+cache--rvm-ruby-head--gemfile-Gemfile  last modified: 2013-11-04 13:46:55  size: 62.65 MiB
 
-    On branch example:
-    cache--rvm-2.0.0--gemfile-Gemfile      last modified: 2013-11-04 13:45:44  size: 62.21 MiB
+On branch example:
+cache--rvm-2.0.0--gemfile-Gemfile      last modified: 2013-11-04 13:45:44  size: 62.21 MiB
 
-    Overall size of above caches: 187.07 MiB
+Overall size of above caches: 187.07 MiB
+```
 
 You can filter by branch:
 
-    $ travis cache --branch master
-    On branch master:
-    cache--rvm-2.0.0--gemfile-Gemfile      last modified: 2013-11-04 13:45:44  size: 62.21 MiB
-    cache--rvm-ruby-head--gemfile-Gemfile  last modified: 2013-11-04 13:46:55  size: 62.65 MiB
+``` console
+$ travis cache --branch master
+On branch master:
+cache--rvm-2.0.0--gemfile-Gemfile      last modified: 2013-11-04 13:45:44  size: 62.21 MiB
+cache--rvm-ruby-head--gemfile-Gemfile  last modified: 2013-11-04 13:46:55  size: 62.65 MiB
 
-    Overall size of above caches: 124.86 MiB
+Overall size of above caches: 124.86 MiB
+```
 
 And by matching against the slug:
 
-    $ travis cache --match 2.0.0
-    On branch master:
-    cache--rvm-2.0.0--gemfile-Gemfile  last modified: 2013-11-04 13:45:44  size: 62.21 MiB
+``` console
+$ travis cache --match 2.0.0
+On branch master:
+cache--rvm-2.0.0--gemfile-Gemfile  last modified: 2013-11-04 13:45:44  size: 62.21 MiB
 
-    Overall size of above caches: 62.21 MiB
+Overall size of above caches: 62.21 MiB
+```
 
 You can also use this command to delete caches:
 
-    $ travis cache -b example -m 2.0.0 --delete
-    DANGER ZONE: Do you really want to delete all caches on branch example that match 2.0.0? |no| yes
-    Deleted the following caches:
+``` console
+$ travis cache -b example -m 2.0.0 --delete
+DANGER ZONE: Do you really want to delete all caches on branch example that match 2.0.0? |no| yes
+Deleted the following caches:
 
-    On branch example:
-    cache--rvm-2.0.0--gemfile-Gemfile  last modified: 2013-11-04 13:45:44  size: 62.21 MiB
+On branch example:
+cache--rvm-2.0.0--gemfile-Gemfile  last modified: 2013-11-04 13:45:44  size: 62.21 MiB
 
-    Overall size of above caches: 62.21 MiB
+Overall size of above caches: 62.21 MiB
+```
 
 #### `cancel`
 
 This command will cancel the latest build:
 
-    $ travis cancel
-    build #85 has been canceled
+``` console
+$ travis cancel
+build #85 has been canceled
+```
 
 You can also cancel any build by giving a build number:
 
-    $ travis cancel 57
-    build #57 has been canceled
+``` console
+$ travis cancel 57
+build #57 has been canceled
+```
 
 Or a single job:
 
-    $ travis cancel 57.1
-    job #57.1 has been canceled
+``` console
+$ travis cancel 57.1
+job #57.1 has been canceled
+```
 
 #### `disable`
 
 If you want to turn of a repository temporarily or indefinitely, you can do so with the `disable` command:
 
-    $ travis disable
-    travis-ci/travis.rb: disabled :(
+``` console
+$ travis disable
+travis-ci/travis.rb: disabled :(
+```
 
 #### `enable`
 
 With the `enable` command, you can easily activate a project on Travis CI:
 
-    $ travis enable
-    travis-ci/travis.rb: enabled :)
+``` console
+$ travis enable
+travis-ci/travis.rb: enabled :)
+```
 
 It even works when enabling a repo Travis didn't know existed by triggering a sync:
 
-    $ travis enable -r rkh/test
-    repository not known to Travis CI (or no access?)
-    triggering sync: ............. done
-    rkh/test: enabled
+``` console
+$ travis enable -r rkh/test
+repository not known to Travis CI (or no access?)
+triggering sync: ............. done
+rkh/test: enabled
+```
 
 If you don't want the sync to be triggered, use `--skip-sync`.
 
@@ -637,34 +719,44 @@ If you don't want the sync to be triggered, use `--skip-sync`.
 
 This command is useful to encrypt [environment variables](http://about.travis-ci.org/docs/user/encryption-keys/) or deploy keys for private dependencies.
 
-    $ travis encrypt FOO=bar
-    Please add the following to your .travis.yml file:
+``` console
+$ travis encrypt FOO=bar
+Please add the following to your .travis.yml file:
 
-      secure: "gSly+Kvzd5uSul15CVaEV91ALwsGSU7yJLHSK0vk+oqjmLm0jp05iiKfs08j\n/Wo0DG8l4O9WT0mCEnMoMBwX4GiK4mUmGdKt0R2/2IAea+M44kBoKsiRM7R3\n+62xEl0q9Wzt8Aw3GCDY4XnoCyirO49DpCH6a9JEAfILY/n6qF8="
+  secure: "gSly+Kvzd5uSul15CVaEV91ALwsGSU7yJLHSK0vk+oqjmLm0jp05iiKfs08j\n/Wo0DG8l4O9WT0mCEnMoMBwX4GiK4mUmGdKt0R2/2IAea+M44kBoKsiRM7R3\n+62xEl0q9Wzt8Aw3GCDY4XnoCyirO49DpCH6a9JEAfILY/n6qF8="
 
-    Pro Tip™: You can add it automatically by running with --add.
+Pro Tip™: You can add it automatically by running with --add.
+```
 
 For deploy keys, it is really handy to pipe them into the command:
 
-    $ cat id_rsa | travis encrypt
+``` console
+$ cat id_rsa | travis encrypt
+```
 
 Another use case for piping files into it: If you have a file with sensitive environment variables, like foreman's [.env](http://ddollar.github.com/foreman/#ENVIRONMENT) file, you can add tell the client to encrypt every line separately via `--split`:
 
-    $ cat .env | travis encrypt --split
-    Please add the following to your .travis.yml file:
+``` console
+$ cat .env | travis encrypt --split
+Please add the following to your .travis.yml file:
 
-      secure: "KmMdcwTWGubXVRu93/lY1NtyHxrjHK4TzCfemgwjsYzPcZuPmEA+pz+umQBN\n1ZhzUHZwDNsDd2VnBgYq27ZdcS2cRvtyI/IFuM/xJoRi0jpdTn/KsXR47zeE\nr2bFxRqrdY0fERVHSMkBiBrN/KV5T70js4Y6FydsWaQgXCg+WEU="
-      secure: "jAglFtDjncy4E3upL/RF0ZOcmJ2UMrqHFCLQwU8PBdurhTMBeTw+IO6cXx5z\nU5zqvPYo/ghZ8mMuUhvHiGDM6m6OlMP7+l10VTxH1CoVew2NcQvRdfK3P+4S\nZJ43Hyh/ZLCjft+JK0tBwoa3VbH2+ZTzkRZQjdg54bE16C7Mf1A="
+  secure: "KmMdcwTWGubXVRu93/lY1NtyHxrjHK4TzCfemgwjsYzPcZuPmEA+pz+umQBN\n1ZhzUHZwDNsDd2VnBgYq27ZdcS2cRvtyI/IFuM/xJoRi0jpdTn/KsXR47zeE\nr2bFxRqrdY0fERVHSMkBiBrN/KV5T70js4Y6FydsWaQgXCg+WEU="
+  secure: "jAglFtDjncy4E3upL/RF0ZOcmJ2UMrqHFCLQwU8PBdurhTMBeTw+IO6cXx5z\nU5zqvPYo/ghZ8mMuUhvHiGDM6m6OlMP7+l10VTxH1CoVew2NcQvRdfK3P+4S\nZJ43Hyh/ZLCjft+JK0tBwoa3VbH2+ZTzkRZQjdg54bE16C7Mf1A="
 
-    Pro Tip™: You can add it automatically by running with --add.
+Pro Tip™: You can add it automatically by running with --add.
+```
 
 As suggested, the client can also add them to your `.travis.yml` for you:
 
-    $ travis encrypt FOO=bar --add
+``` console
+$ travis encrypt FOO=bar --add
+```
 
 This will by default add it as global variables for every job. You can also add it as matrix entries by providing a key:
 
-    $ travis encrypt FOO=bar --add env.matrix
+``` console
+$ travis encrypt FOO=bar --add env.matrix
+```
 
 There are two ways the client can treat existing values:
 
@@ -702,26 +794,25 @@ There are two ways the client can treat existing values:
 
 You can set, list and unset environment variables, or copy them from the current environment:
 
-    $ travis env set foo bar --public
-    [+] setting environment variable $foo
-    
-    $ travis env list
-    # environment variables for travis-ci/travis.rb
-    foo=bar
-    
-    $ export foo=foobar
-    $ travis env copy foo bar
-    [+] setting environment variable $foo
-    [+] setting environment variable $bar
-    
-    $ travis env list
-    # environment variables for travis-ci/travis.rb
-    foo=foobar
-    bar=[secure]
-    
-    $ travis env unset foo bar
-    [x] removing environment variable $foo
-    [x] removing environment variable $bar
+``` console
+$ travis env set foo bar --public
+[+] setting environment variable $foo
+$ travis env list
+# environment variables for travis-ci/travis.rb
+foo=bar
+
+$ export foo=foobar
+$ travis env copy foo bar
+[+] setting environment variable $foo
+[+] setting environment variable $bar
+$ travis env list
+# environment variables for travis-ci/travis.rb
+foo=foobar
+bar=[secure]
+$ travis env unset foo bar
+[x] removing environment variable $foo
+[x] removing environment variable $bar
+```
 
 #### `history`
 
@@ -749,43 +840,53 @@ You can set, list and unset environment variables, or copy them from the current
 
 You can check out what the recent builds look like:
 
-    $ travis history
-    #77 passed:   master fix name clash
-    #76 failed:   master Merge pull request #11 from travis-ci/rkh-show-logs-history
-    #75 passed:   rkh-debug what?
-    #74 passed:   rkh-debug all tests pass locally and on the travis vm I spin up :(
-    #73 failed:   Pull Request #11 regenerate gemspec
-    #72 passed:   rkh-show-logs-history regenerate gemspec
-    #71 failed:   Pull Request #11 spec fix for (older) rubinius
-    #70 passed:   rkh-show-logs-history spec fix for (older) rubinius
-    #69 failed:   Pull Request #11 strange fix for rubinius
-    #68 failed:   rkh-show-logs-history strange fix for rubinius
+``` console
+$ travis history
+#77 passed:   master fix name clash
+#76 failed:   master Merge pull request #11 from travis-ci/rkh-show-logs-history
+#75 passed:   rkh-debug what?
+#74 passed:   rkh-debug all tests pass locally and on the travis vm I spin up :(
+#73 failed:   Pull Request #11 regenerate gemspec
+#72 passed:   rkh-show-logs-history regenerate gemspec
+#71 failed:   Pull Request #11 spec fix for (older) rubinius
+#70 passed:   rkh-show-logs-history spec fix for (older) rubinius
+#69 failed:   Pull Request #11 strange fix for rubinius
+#68 failed:   rkh-show-logs-history strange fix for rubinius
+```
 
 By default, it will display the last 10 builds. You can limit (or extend) the number of builds with `--limit`:
 
-    $ travis history --limit 2
-    #77 passed:   master fix name clash
-    #76 failed:   master Merge pull request #11 from travis-ci/rkh-show-logs-history
+``` console
+$ travis history --limit 2
+#77 passed:   master fix name clash
+#76 failed:   master Merge pull request #11 from travis-ci/rkh-show-logs-history
+```
 
 You can use `--after` to display builds after a certain build number (or, well, before, but it's called after to use the same phrases as the API):
 
-    $ travis history --limit 2 --after 76
-    #75 passed:   rkh-debug what?
-    #74 passed:   rkh-debug all tests pass locally and on the travis vm I spin up :(
+``` console
+$ travis history --limit 2 --after 76
+#75 passed:   rkh-debug what?
+#74 passed:   rkh-debug all tests pass locally and on the travis vm I spin up :(
+```
 
 You can also limit the history to builds for a certain branch:
 
-    $ travis history --limit 3 --branch master
-    #77 passed:   master fix name clash
-    #76 failed:   master Merge pull request #11 from travis-ci/rkh-show-logs-history
-    #57 passed:   master Merge pull request #5 from travis-ci/hh-multiline-encrypt
+``` console
+$ travis history --limit 3 --branch master
+#77 passed:   master fix name clash
+#76 failed:   master Merge pull request #11 from travis-ci/rkh-show-logs-history
+#57 passed:   master Merge pull request #5 from travis-ci/hh-multiline-encrypt
+```
 
 Or a certain Pull Request:
 
-    $ travis history --limit 3 --pull-request 5
-    #56 passed:   Pull Request #5 Merge branch 'master' into hh-multiline-encrypt
-    #49 passed:   Pull Request #5 improve output
-    #48 passed:   Pull Request #5 let it generate accessor for line splitting automatically
+``` console
+$ travis history --limit 3 --pull-request 5
+#56 passed:   Pull Request #5 Merge branch 'master' into hh-multiline-encrypt
+#49 passed:   Pull Request #5 improve output
+#48 passed:   Pull Request #5 let it generate accessor for line splitting automatically
+```
 
 #### `init`
 
@@ -826,108 +927,133 @@ Or a certain Pull Request:
 
 When setting up a new project, you can run `travis init` to generate a `.travis.yml` and [enable](#enable) the project:
 
-    $ travis init java
-    .travis.yml file created!
-    travis-ci/java-example: enabled :)
+``` console
+$ travis init java
+.travis.yml file created!
+travis-ci/java-example: enabled :)
+```
 
 You can also set certain values via command line flags (see list above):
 
-    $ travis init c --compiler clang
-    .travis.yml file created!
-    travis-ci/c-example: enabled :)
+``` console
+$ travis init c --compiler clang
+.travis.yml file created!
+travis-ci/c-example: enabled :)
+```
 
 #### `logs`
 
 Given a job number, logs simply prints out that job's logs. By default it will display the first job of the latest build.
 
-    $ travis logs
-    displaying logs for travis-ci/travis.rb#317.1
-    [... more logs ...]
-    Your bundle is complete! Use `bundle show [gemname]` to see where a bundled gem is installed.
-    $ bundle exec rake
-    /home/travis/.rvm/rubies/ruby-1.8.7-p371/bin/ruby -S rspec spec -c
-    ..............................................................................................................................................................................................................................................................................
+``` console
+$ travis logs
+displaying logs for travis-ci/travis.rb#317.1
+[... more logs ...]
+Your bundle is complete! Use `bundle show [gemname]` to see where a bundled gem is installed.
+$ bundle exec rake
+/home/travis/.rvm/rubies/ruby-1.8.7-p371/bin/ruby -S rspec spec -c
+..............................................................................................................................................................................................................................................................................
 
-    Finished in 4.46 seconds
-    270 examples, 0 failures
+Finished in 4.46 seconds
+270 examples, 0 failures
 
-    Done. Build script exited with: 0
+Done. Build script exited with: 0
+```
 
 The info line about the job being displayed is written to stderr, the logs itself are written to stdout.
 
 It takes an optional argument that can be a job number:
 
-    $ travis logs 100.3
-    displaying logs for travis-ci/travis.rb#100.3
+``` console
+$ travis logs 100.3
+displaying logs for travis-ci/travis.rb#100.3
+```
 
 A build number (in which case it will pick the build's first job):
 
-    $ travis logs 100
-    displaying logs for travis-ci/travis.rb#100.1
+``` console
+$ travis logs 100
+displaying logs for travis-ci/travis.rb#100.1
+```
 
 Just the job suffix, which will pick the corresponding job from the latest build:
 
-    $ travis logs .2
-    displaying logs for travis-ci/travis.rb#317.2
+``` console
+$ travis logs .2
+displaying logs for travis-ci/travis.rb#317.2
+```
 
 A branch name:
 
-    $ travis logs ghe
-    displaying logs for travis-ci/travis.rb#270.1
+``` console
+$ travis logs ghe
+displaying logs for travis-ci/travis.rb#270.1
+```
 
 You can delete the logs with the `--delete` flag, which optionally takes a reason as argument:
 
-    $ travis logs --delete
-    DANGER ZONE: Do you really want to delete the build log for travis-ci/travis.rb#559.1? |no| yes
-    deleting log for travis-ci/travis.rb#559.1
-
-    $ travis logs 1.7 --delete "contained confidential data" --force
-    deleting log for travis-ci/travis.rb#1.7
+``` console
+$ travis logs --delete
+DANGER ZONE: Do you really want to delete the build log for travis-ci/travis.rb#559.1? |no| yes
+deleting log for travis-ci/travis.rb#559.1
+$ travis logs 1.7 --delete "contained confidential data" --force
+deleting log for travis-ci/travis.rb#1.7
+```
 
 #### `open`
 
 Opens the project view in the Travis CI web interface. If you pass it a build or job number, it will open that specific view:
 
-    $ travis open
+``` console
+$ travis open
+```
 
 If you just want the URL printed out instead of opened in a browser, pass `--print`.
 
 If instead you want to open the repository, compare or pull request view on GitHub, use `--github`.
 
-    $ travis open 56 --print --github
-    web view: https://github.com/travis-ci/travis.rb/pull/5
+``` console
+$ travis open 56 --print --github
+web view: https://github.com/travis-ci/travis.rb/pull/5
+```
 
 #### `pubkey`
 
 Outputs the public key for a repository.
 
-    $ travis pubkey
-    Public key for travis-ci/travis.rb:
+``` console
+$ travis pubkey
+Public key for travis-ci/travis.rb:
 
-    ssh-rsa ...
-    $ travis pubkey -r rails/rails > rails.key
+ssh-rsa ...
+$ travis pubkey -r rails/rails > rails.key
+```
 
 The `--pem` flag will print out the key PEM encoded:
 
-    $ travis pubkey --pem
-    Public key for travis-ci/travis.rb:
+``` console
+$ travis pubkey --pem
+Public key for travis-ci/travis.rb:
 
-    -----BEGIN PUBLIC KEY-----
-    ...
-    -----END PUBLIC KEY-----
+-----BEGIN PUBLIC KEY-----
+...
+-----END PUBLIC KEY-----
+```
 
 #### `requests`
 
 With the `requests` command, you can list the build requests received by Travis CI from GitHub. This is handy for figuring out why a repository might not be building.
 
-    $ travis requests -r sinatra/sinatra
-    push to master accepted (triggered new build)
-      abc51e2 - Merge pull request #847 from gogotanaka/add_readme_ja
-      received at: 2014-02-16 09:26:36
+``` console
+$ travis requests -r sinatra/sinatra
+push to master accepted (triggered new build)
+  abc51e2 - Merge pull request #847 from gogotanaka/add_readme_ja
+  received at: 2014-02-16 09:26:36
 
-    PR #843 rejected (skipped through commit message)
-      752201c - Update Spanish README with tense, verb, and word corrections. [ci skip]
-      received at: 2014-02-16 05:07:16
+PR #843 rejected (skipped through commit message)
+  752201c - Update Spanish README with tense, verb, and word corrections. [ci skip]
+  received at: 2014-02-16 05:07:16
+```
 
 You can use `-l`/`--limit` to limit the number of requests displayed.
 
@@ -935,54 +1061,68 @@ You can use `-l`/`--limit` to limit the number of requests displayed.
 
 This command will restart the latest build:
 
-    $ travis restart
-    build #85 has been restarted
+``` console
+$ travis restart
+build #85 has been restarted
+```
 
 You can also restart any build by giving a build number:
 
-    $ travis restart 57
-    build #57 has been restarted
+``` console
+$ travis restart 57
+build #57 has been restarted
+```
 
 Or a single job:
 
-    $ travis restart 57.1
-    job #57.1 has been restarted
+``` console
+$ travis restart 57.1
+job #57.1 has been restarted
+```
 
 ##### `settings`
 
 Certain repository settings can be read via the CLI:
 
-    $ travis settings
-    Settings for travis-ci/travis.rb:
-    [-] builds_only_with_travis_yml    Only run builds with a .travis.yml
-    [+] build_pushes                   Build pushes
-    [+] build_pull_requests            Build pull requests
-    [-] maximum_number_of_builds       Maximum number of concurrent builds
+``` console
+$ travis settings
+Settings for travis-ci/travis.rb:
+[-] builds_only_with_travis_yml    Only run builds with a .travis.yml
+[+] build_pushes                   Build pushes
+[+] build_pull_requests            Build pull requests
+[-] maximum_number_of_builds       Maximum number of concurrent builds
+```
 
 You can also filter the settings by passing them in as arguments:
 
-    $ travis settings build_pushes build_pull_requests
-    Settings for travis-ci/travis.rb:
-    [+] build_pushes                   Build pushes
-    [+] build_pull_requests            Build pull requests
+``` console
+$ travis settings build_pushes build_pull_requests
+Settings for travis-ci/travis.rb:
+[+] build_pushes                   Build pushes
+[+] build_pull_requests            Build pull requests
+```
 
 It is also possible to change these settings via `--enable`, `--disable` and `--set`:
 
-    $ travis settings build_pushes --disable
-    Settings for travis-ci/travis.rb:
-    [-] build_pushes                   Build pushes
-    $ travis settings maximum_number_of_builds --set 1
-    Settings for travis-ci/travis.rb:
-      1 maximum_number_of_builds       Maximum number of concurrent builds
+``` console
+$ travis settings build_pushes --disable
+Settings for travis-ci/travis.rb:
+[-] build_pushes                   Build pushes
+$ travis settings maximum_number_of_builds --set 1
+Settings for travis-ci/travis.rb:
+  1 maximum_number_of_builds       Maximum number of concurrent builds
+```
 
 Or, alternatively, you can use `-c` to configure the settings interactively:
 
-    $ travis settings -c
-    Settings for travis-ci/travis.rb:
-    Only run builds with a .travis.yml? |yes| no
-    Build pushes? |no| yes
-    Build pull requests? |yes|
-    Maximum number of concurrent builds: |1| 5
+``` console
+$ travis settings -c
+Settings for travis-ci/travis.rb:
+Only run builds with a .travis.yml? |yes| no
+Build pushes? |no| yes
+Build pull requests? |yes|
+Maximum number of concurrent builds: |1| 5
+```
 
 #### `setup`
 
@@ -1006,79 +1146,89 @@ Available services: `appfog`, `artifacts`, `cloudcontrol`, `cloudfiles`, `cloudf
 
 Example:
 
-    $ travis setup heroku
-    Deploy only from travis-ci/travis-chat? |yes|
-    Encrypt API key? |yes|
+``` console
+$ travis setup heroku
+Deploy only from travis-ci/travis-chat? |yes|
+Encrypt API key? |yes|
+```
 
 #### `show`
 
 Displays general infos about the latest build:
 
-    $ travis show
-    Build #77: fix name clash
-    State:         passed
-    Type:          push
-    Compare URL:   https://github.com/travis-ci/travis.rb/compare/7cc9b739b0b6...39b66ee24abe
-    Duration:      5 min 51 sec
-    Started:       2013-01-19 19:00:49
-    Finished:      2013-01-19 19:02:17
+``` console
+$ travis show
+Build #77: fix name clash
+State:         passed
+Type:          push
+Compare URL:   https://github.com/travis-ci/travis.rb/compare/7cc9b739b0b6...39b66ee24abe
+Duration:      5 min 51 sec
+Started:       2013-01-19 19:00:49
+Finished:      2013-01-19 19:02:17
 
-    #77.1 passed:    45 sec         rvm: 1.8.7
-    #77.2 passed:    50 sec         rvm: 1.9.2
-    #77.3 passed:    45 sec         rvm: 1.9.3
-    #77.4 passed:    46 sec         rvm: 2.0.0
-    #77.5 failed:    1 min 18 sec   rvm: jruby (failure allowed)
-    #77.6 passed:    1 min 27 sec   rvm: rbx
+#77.1 passed:    45 sec         rvm: 1.8.7
+#77.2 passed:    50 sec         rvm: 1.9.2
+#77.3 passed:    45 sec         rvm: 1.9.3
+#77.4 passed:    46 sec         rvm: 2.0.0
+#77.5 failed:    1 min 18 sec   rvm: jruby (failure allowed)
+#77.6 passed:    1 min 27 sec   rvm: rbx
+```
 
 Any other build:
 
-    $ travis show 1
-    Build #1: add .travis.yml
-    State:         failed
-    Type:          push
-    Compare URL:   https://github.com/travis-ci/travis.rb/compare/ad817bc37c76...b8c5d3b463e2
-    Duration:      3 min 16 sec
-    Started:       2013-01-13 23:15:22
-    Finished:      2013-01-13 23:21:38
+``` console
+$ travis show 1
+Build #1: add .travis.yml
+State:         failed
+Type:          push
+Compare URL:   https://github.com/travis-ci/travis.rb/compare/ad817bc37c76...b8c5d3b463e2
+Duration:      3 min 16 sec
+Started:       2013-01-13 23:15:22
+Finished:      2013-01-13 23:21:38
 
-    #1.1 failed:     21 sec         rvm: 1.8.7
-    #1.2 failed:     34 sec         rvm: 1.9.2
-    #1.3 failed:     24 sec         rvm: 1.9.3
-    #1.4 failed:     52 sec         rvm: 2.0.0
-    #1.5 failed:     38 sec         rvm: jruby
-    #1.6 failed:     27 sec         rvm: rbx
+#1.1 failed:     21 sec         rvm: 1.8.7
+#1.2 failed:     34 sec         rvm: 1.9.2
+#1.3 failed:     24 sec         rvm: 1.9.3
+#1.4 failed:     52 sec         rvm: 2.0.0
+#1.5 failed:     38 sec         rvm: jruby
+#1.6 failed:     27 sec         rvm: rbx
+```
 
 The last build for a given branch:
 
-    $ travis show rkh-debug
-    Build #75: what?
-    State:         passed
-    Type:          push
-    Branch:        rkh-debug
-    Compare URL:   https://github.com/travis-ci/travis.rb/compare/8d4aa5254359...7ef33d5e5993
-    Duration:      6 min 16 sec
-    Started:       2013-01-19 18:51:17
-    Finished:      2013-01-19 18:52:43
+``` console
+$ travis show rkh-debug
+Build #75: what?
+State:         passed
+Type:          push
+Branch:        rkh-debug
+Compare URL:   https://github.com/travis-ci/travis.rb/compare/8d4aa5254359...7ef33d5e5993
+Duration:      6 min 16 sec
+Started:       2013-01-19 18:51:17
+Finished:      2013-01-19 18:52:43
 
-    #75.1 passed:    1 min 10 sec   rvm: 1.8.7
-    #75.2 passed:    51 sec         rvm: 1.9.2
-    #75.3 passed:    36 sec         rvm: 1.9.3
-    #75.4 passed:    48 sec         rvm: 2.0.0
-    #75.5 failed:    1 min 26 sec   rvm: jruby (failure allowed)
-    #75.6 passed:    1 min 25 sec   rvm: rbx
+#75.1 passed:    1 min 10 sec   rvm: 1.8.7
+#75.2 passed:    51 sec         rvm: 1.9.2
+#75.3 passed:    36 sec         rvm: 1.9.3
+#75.4 passed:    48 sec         rvm: 2.0.0
+#75.5 failed:    1 min 26 sec   rvm: jruby (failure allowed)
+#75.6 passed:    1 min 25 sec   rvm: rbx
+```
 
 Or a job:
 
-    $ travis show 77.3
-    Job #77.3: fix name clash
-    State:         passed
-    Type:          push
-    Compare URL:   https://github.com/travis-ci/travis.rb/compare/7cc9b739b0b6...39b66ee24abe
-    Duration:      45 sec
-    Started:       2013-01-19 19:00:49
-    Finished:      2013-01-19 19:01:34
-    Allow Failure: false
-    Config:        rvm: 1.9.3
+``` console
+$ travis show 77.3
+Job #77.3: fix name clash
+State:         passed
+Type:          push
+Compare URL:   https://github.com/travis-ci/travis.rb/compare/7cc9b739b0b6...39b66ee24abe
+Duration:      45 sec
+Started:       2013-01-19 19:00:49
+Finished:      2013-01-19 19:01:34
+Allow Failure: false
+Config:        rvm: 1.9.3
+```
 
 #### `sshkey`
 
@@ -1106,36 +1256,44 @@ Or a job:
 
 With the `sshkey` command you can check if there is a custom SSH key set up. Custom SSH keys are used for cloning the repository.
 
-    $ travis sshkey
-    No custom SSH key installed.
+``` console
+$ travis sshkey
+No custom SSH key installed.
+```
 
 You can also use it to upload an SSH key:
 
-    $ travis sshkey --upload ~/.ssh/id_rsa
-    Key description: Test Key
-    updating ssh key for travis-pro/test-project with key from /Users/konstantin/.ssh/id_rsa
-    Current SSH key: Test Key
+``` console
+$ travis sshkey --upload ~/.ssh/id_rsa
+Key description: Test Key
+updating ssh key for travis-pro/test-project with key from /Users/konstantin/.ssh/id_rsa
+Current SSH key: Test Key
+```
 
 And to remove it again:
 
-    $ travis sshkey --delete
-    DANGER ZONE: Remove SSH key for travis-pro/test-project? |no| yes
-    removing ssh key for travis-pro/test-project
-    No custom SSH key installed.
+``` console
+$ travis sshkey --delete
+DANGER ZONE: Remove SSH key for travis-pro/test-project? |no| yes
+removing ssh key for travis-pro/test-project
+No custom SSH key installed.
+```
 
 You can also have it generate a key for a given GitHub user (for instance, for a dedicated CI user that only has read access). The public key will automatically be added to GitHub and the private key to Travis CI:
 
-    $ travis sshkey --generate
-    We need the GitHub login for the account you want to add the key to.
-    This information will not be sent to Travis CI, only to api.github.com.
-    The password will not be displayed.
-    
-    Username: travisbot
-    Password for travisbot: **************
-    
-    Generating RSA key.
-    Uploading public key to GitHub.
-    Uploading private key to Travis CI.
+``` console
+$ travis sshkey --generate
+We need the GitHub login for the account you want to add the key to.
+This information will not be sent to Travis CI, only to api.github.com.
+The password will not be displayed.
+
+Username: travisbot
+Password for travisbot: **************
+
+Generating RSA key.
+Uploading public key to GitHub.
+Uploading private key to Travis CI.
+```
 
 #### `status`
 
@@ -1155,29 +1313,37 @@ You can also have it generate a key for a given GitHub user (for instance, for a
 
 Outputs a one line status message about the project's last build. With `-q` that line will even not be printed out. How's that useful? Combine it with `-x` and the exit code will be 1 if the build failed, with `-p` and it will be 1 for a pending build.
 
-    $ travis status -qpx && cap deploy
+``` console
+$ travis status -qpx && cap deploy
+```
 
 ### Pro and Enterprise
 
 By default, [General API Commands](#general-api-commands) will talk to [api.travis-ci.org](https://api.travis-ci.org). You can change this by supplying `--pro` for [api.travis-ci.com](https://api.travis-ci.com) or `--api-endpoint` with your own endpoint. Note that all [Repository Commands](#repository-commands) will try to figure out the API endpoint to talk to automatically depending on the project's visibility on GitHub.
 
-    $ travis login --pro
-    ...
-    $ travis monitor --pro -m
-    ...
+``` console
+$ travis login --pro
+...
+$ travis monitor --pro -m
+...
+```
 
 The custom `--api-endpoint` option is handy for local development:
 
-    $ travis whatsup --api-endpoint http://localhost:3000
-    ...
+``` console
+$ travis whatsup --api-endpoint http://localhost:3000
+...
+```
 
 If you have a Travis Enterprise setup in house, you can use the `--enterprise` option (or short `-X`). It will ask you for the enterprise domain the first time it is used.
 
-    $ travis login -X
-    Enterprise domain: travisci.example.com
-    ...
-    $ travis whatsup -X
-    ...
+``` console
+$ travis login -X
+Enterprise domain: travisci.example.com
+...
+$ travis whatsup -X
+...
+```
 
 Note that currently [Repository Commands](#repository-commands) will not be able to detect Travis Enterprise automatically. You will have to use the `-X` flag at least once per repository. The command line tool will remember the API endpoint for subsequent commands issued against the same repository.
 
