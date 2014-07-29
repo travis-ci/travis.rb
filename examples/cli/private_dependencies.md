@@ -44,11 +44,13 @@ Assumptions:
 You can use the following command to add the key to Travis CI:
 
 ``` console
-$ travis sshkey --upload ~/.ssh/id_rsa
+$ travis sshkey --upload ~/.ssh/id_rsa -r myorg/main
 Key description: Key to clone myorg/lib1 and myorg/lib2
 updating ssh key for myorg/main with key from ~/.ssh/id_rsa
 Current SSH key: Key to clone myorg/lib1 and myorg/lib2
 ```
+
+You can omit the `-r myorg/main` if your current working directory is a clone of the "myorg/main" repository.
 
 #### Generating a new key
 
@@ -79,6 +81,8 @@ Store private key? |no|
 
 Current SSH key: key for fetching dependencies for myorg/main
 ```
+
+You can omit the `-r myorg/main` if your current working directory is a clone of the "myorg/main" repository.
 
 At the end of the process, it will ask you whether you want to store the generated key somewhere, usually it is safe to say "no" here. After all, you can just generate a new key as necessary. See [below](#reusing-a-generated-key) for instructions on storing and reusing a generated key.
 
@@ -113,6 +117,8 @@ Path: |id_travis_rsa| myorg_key
 
 Current SSH key: CI dependencies
 ```
+
+And as always, you can omit the `-r myorg/main` if your current working directory is a clone of the "myorg/main" repository.
 
 You can then [upload](#using-an-existing-key) the key for myorg/main2:
 

@@ -31,6 +31,7 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a [command line
         * [`disable`](#disable) - disables a project
         * [`enable`](#enable) - enables a project
         * [`encrypt`](#encrypt) - encrypts values for the .travis.yml
+        * [`encrypt-file`](#encrypt-file) - encrypts a file and adds decryption steps to .travis.yml
         * [`env`](#env) - show or modify build environment variables
         * [`history`](#history) - displays a projects build history
         * [`init`](#init) - generates a .travis.yml and enables the project
