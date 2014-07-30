@@ -251,6 +251,7 @@ Successfully logged out!
         -X, --enterprise [NAME]          use enterprise setup (optionally takes name for multiple setups)
         -m, --my-repos                   Only monitor my own repositories
         -r, --repo SLUG                  monitor given repository (can be used more than once)
+        -R, --store-repo SLUG            like --repo, but remembers value for current directory
         -n, --[no-]notify [TYPE]         send out desktop notifications (optional type: osx, growl, libnotify)
         -b, --builds                     only monitor builds, not jobs
         -p, --push                       monitor push events
@@ -551,10 +552,11 @@ $ git clone "https://github.com/$(travis whoami)/some_project"
         --debug                      show API requests
     -X, --enterprise [NAME]          use enterprise setup (optionally takes name for multiple setups)
     -r, --repo SLUG                  repository to use (will try to detect from current git clone)
+    -R, --store-repo SLUG            like --repo, but remembers value for current directory
 
 Repository commands have all the options [General API Commands](#general-api-commands) have.
 
-Additionally, you can specify the Repository to talk to by providing `--repo owner/name`. However, if you invoke the command inside a clone of the project, the client will figure out this option on its own. Note that it uses the tracked [git remote](http://www.kernel.org/pub/software/scm/git/docs/git-remote.html) for the current branch (and defaults to 'origin' if no tracking is set) to do so.
+Additionally, you can specify the Repository to talk to by providing `--repo owner/name`. However, if you invoke the command inside a clone of the project, the client will figure out this option on its own. Note that it uses the tracked [git remote](http://www.kernel.org/pub/software/scm/git/docs/git-remote.html) for the current branch (and defaults to 'origin' if no tracking is set) to do so. You can use `--store-repo SLUG` once to override it permanently.
 
 It will also automatically pick [Travis Pro](https://travis-ci.com) if it is a private project. You can of course override this decission with `--pro`, `--org` or `--api-endpoint URL`
 
@@ -594,6 +596,7 @@ For more fine grained control and older builds on a specific branch, see [`histo
             --debug                      show API requests
         -X, --enterprise [NAME]          use enterprise setup (optionally takes name for multiple setups)
         -r, --repo SLUG                  repository to use (will try to detect from current git clone)
+        -R, --store-repo SLUG            like --repo, but remembers value for current directory
         -d, --delete                     delete listed caches
         -b, --branch BRANCH              only list/delete caches on given branch
         -m, --match STRING               only list/delete caches where slug matches given string
@@ -713,6 +716,7 @@ If you don't want the sync to be triggered, use `--skip-sync`.
             --debug                      show API requests
             --adapter ADAPTER            Faraday adapter to use for HTTP requests
         -r, --repo SLUG                  repository to use (will try to detect from current git clone)
+        -R, --store-repo SLUG            like --repo, but remembers value for current directory
         -a, --add [KEY]                  adds it to .travis.yml under KEY (default: env.global)
         -s, --[no-]split                 treat each line as a separate input
         -p, --append                     don't override existing values, instead treat as list
@@ -781,6 +785,7 @@ There are two ways the client can treat existing values:
             --debug                      show API requests
         -X, --enterprise [NAME]          use enterprise setup (optionally takes name for multiple setups)
         -r, --repo SLUG                  repository to use (will try to detect from current git clone)
+        -R, --store-repo SLUG            like --repo, but remembers value for current directory
         -K, --key KEY                    encryption key to be used (randomly generated otherwise)
             --iv IV                      encryption IV to be used (randomly generated otherwise)
         -d, --decrypt                    decrypt the file instead of encrypting it, requires key and iv
@@ -846,6 +851,7 @@ Commit all changes to your .travis.yml.
             --adapter ADAPTER            Faraday adapter to use for HTTP requests
             --as USER                    authenticate as given user
         -r, --repo SLUG                  repository to use (will try to detect from current git clone)
+        -R, --store-repo SLUG            like --repo, but remembers value for current directory
         -P, --[no-]public                make new values public
         -p, --[no-]private               make new values private
         -u, --[no-]unescape              do not escape values
@@ -889,6 +895,7 @@ $ travis env unset foo bar
             --debug                      show API requests
         -X, --enterprise [NAME]          use enterprise setup (optionally takes name for multiple setups)
         -r, --repo SLUG                  repository to use (will try to detect from current git clone)
+        -R, --store-repo SLUG            like --repo, but remembers value for current directory
         -a, --after BUILD                Only show history after a given build number
         -p, --pull-request NUMBER        Only show history for the given Pull Request
         -b, --branch BRANCH              Only show history for the given branch
@@ -960,6 +967,7 @@ $ travis history --limit 3 --pull-request 5
             --debug                      show API requests
             --adapter ADAPTER            Faraday adapter to use for HTTP requests
         -r, --repo SLUG                  repository to use (will try to detect from current git clone)
+        -R, --store-repo SLUG            like --repo, but remembers value for current directory
         -s, --skip-sync                  don't trigger a sync if the repo is unknown
         -f, --force                      override .travis.yml if it already exists
         -k, --skip-enable                do not enable project, only add .travis.yml
@@ -1198,6 +1206,7 @@ Helps you configure Travis addons.
             --debug                      show API requests
             --adapter ADAPTER            Faraday adapter to use for HTTP requests
         -r, --repo SLUG                  repository to use (will try to detect from current git clone)
+        -R, --store-repo SLUG            like --repo, but remembers value for current directory
         -f, --force                      override config section if it already exists
 
 Available services: `appfog`, `artifacts`, `cloudcontrol`, `cloudfiles`, `cloudfoundry`, `cloud66`, `deis`, `divshot`, `engineyard`, `gcs`, `hackage`, `heroku`, `modulus`, `npm`, `ninefold`, `nodejitsu`, `openshift`, `opsworks`, `pypi`, `releases`, `rubygems`, `s3` and `sauce_connect`.
@@ -1303,6 +1312,7 @@ Config:        rvm: 1.9.3
             --debug                      show API requests
         -X, --enterprise [NAME]          use enterprise setup (optionally takes name for multiple setups)
         -r, --repo SLUG                  repository to use (will try to detect from current git clone)
+        -R, --store-repo SLUG            like --repo, but remembers value for current directory
         -D, --delete                     remove SSH key
         -d, --description DESCRIPTION    set description
         -u, --upload FILE                upload key from given file
@@ -1366,7 +1376,8 @@ See the [private dependencies example](examples/cli/private_dependencies.md) for
             --org                        short-cut for --api-endpoint 'https://api.travis-ci.org/'
         -t, --token [ACCESS_TOKEN]       access token to use
             --debug                      show API requests
-        -r, --repo SLUG
+        -r, --repo SLUG                  repository to use (will try to detect from current git clone)
+        -R, --store-repo SLUG            like --repo, but remembers value for current directory
         -x, --[no-]exit-code             sets the exit code to 1 if the build failed
         -q, --[no-]quiet                 does not print anything
         -p, --[no-]fail-pending          sets the status code to 1 if the build is pending
@@ -2022,6 +2033,8 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 **1.6.18** (not yet released)
 
 * Add `travis encrypt-file`.
+* Add `--store-repo`/`-R` to repository commands to permanently store the slug for a repository.
+* Announce repository slug when first detected, ask for confirmation in interactive mode.
 * Have `travis repos` only print repository slugs in non-interactive mode.
 
 **1.6.17** (July 25, 2014)

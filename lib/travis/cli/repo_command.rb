@@ -8,6 +8,10 @@ module Travis
       GIT_REGEX = %r{/?(.*/.+?)(\.git)?$}
       TRAVIS    = %r{^https://(staging-)?api\.travis-ci\.(org|com)}
       on('-r', '--repo SLUG', 'repository to use (will try to detect from current git clone)') { |c, slug| c.slug = slug }
+      on('-R', '--store-repo SLUG', 'like --repo, but remembers value for current directory') do |c, slug|
+        c.slug = slug
+        c.send(:store_slug, slug)
+      end
 
       attr_accessor :slug
       abstract
@@ -52,11 +56,38 @@ module Travis
         end
 
         def find_slug
-          git_head   = `git name-rev --name-only HEAD 2>#{IO::NULL}`.chomp
-          git_remote = `git config --get branch.#{git_head}.remote 2>#{IO::NULL}`.chomp
-          git_remote = 'origin' if git_remote.empty?
-          git_info   = `git config --get remote.#{git_remote}.url 2>#{IO::NULL}`.chomp
-          $1 if Addressable::URI.parse(git_info).path =~ GIT_REGEX
+          load_slug || store_slug(detect_slug)
+        end
+
+        def detect_slug
+          git_head    = `git name-rev --name-only HEAD 2>#{IO::NULL}`.chomp
+          git_remote  = `git config --get branch.#{git_head}.remote 2>#{IO::NULL}`.chomp
+          git_remote  = 'origin' if git_remote.empty?
+          git_info    = `git config --get remote.#{git_remote}.url 2>#{IO::NULL}`.chomp
+
+          if Addressable::URI.parse(git_info).path =~ GIT_REGEX
+            detectected_slug = $1
+            if interactive?
+              if agree("Detected repository as #{color(detectected_slug, :info)}, is this correct? ") { |q| q.default = 'yes' }
+                detectected_slug
+              else
+                ask("Repository slug: ") { |q| q.default = detectected_slug }
+              end
+            else
+              info "detected repository as #{color(detectected_slug, :bold)}"
+              detectected_slug
+            end
+          end
+        end
+
+        def load_slug
+          stored = `git config --get travis.slug`.chomp
+          stored unless stored.empty?
+        end
+
+        def store_slug(value)
+          `git config travis.slug #{value}` if value
+          value
         end
 
         def repo_config
