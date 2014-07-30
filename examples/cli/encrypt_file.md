@@ -5,7 +5,7 @@
 Assumptions:
 
 * The repository is set up on Travis CI
-* You have version **1.6.18** or later of the Travis CI Command Line Client installed and setup up (you are logged in)
+* You have version **1.7.0** or later of the Travis CI Command Line Client installed and setup up (you are logged in)
 * You have a local copy of the repository and a terminal open where your current working directory is said copy
 * In the repository is a file, called super_secret.txt, that you need on Travis CI but you don't want to publish its content on GitHub.
 

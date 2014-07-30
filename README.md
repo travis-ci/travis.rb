@@ -2030,7 +2030,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
-**1.6.18** (not yet released)
+**1.7.0** (not yet released)
 
 * Add `travis encrypt-file`.
 * Add `--store-repo`/`-R` to repository commands to permanently store the slug for a repository.

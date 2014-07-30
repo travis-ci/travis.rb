@@ -128,7 +128,7 @@ updating ssh key for myorg/main with key from myorg_key
 Current SSH key: CI dependencies
 ```
 
-Starting with the 1.6.18 release of the `travis` command line tool, you are able to combine it with the `repos` command to set up the key not only for for "main" and "main2", but all repositories under the "myorg" organization.
+Starting with the 1.7.0 release of the `travis` command line tool, you are able to combine it with the `repos` command to set up the key not only for for "main" and "main2", but all repositories under the "myorg" organization.
 
 ``` console
 $ travis repos --active --owner myorg --pro | xargs -I % travis sshkey --upload myorg_key -r % --description "CI dependencies"
