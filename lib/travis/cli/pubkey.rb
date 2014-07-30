@@ -4,8 +4,10 @@ require 'travis/cli'
 module Travis
   module CLI
     class Pubkey < RepoCommand
+      attr_accessor :key_format
       description "prints out a repository's public key"
-      on('-p', '--[no-]pem', 'encode in format used by pem')
+      on('-p', '--pem', 'encode in format used by pem') { |c,_| c.key_format = :pem }
+      on('-f', '--fingerprint', 'display fingerprint')  { |c,_| c.key_format = :fingerprint }
 
       def run
         say key, "Public key for #{color(repository.slug, :info)}:\n\n%s", :bold
@@ -15,7 +17,12 @@ module Travis
 
         def key
           key = repository.public_key
-          pem? ? key.to_s : key.to_ssh
+          case self.key_format ||= :ssh
+          when :fingerprint then key.fingerprint
+          when :pem         then key.to_s
+          when :ssh         then key.to_ssh
+          else raise "unknown format #{key_format}"
+          end
         end
     end
   end

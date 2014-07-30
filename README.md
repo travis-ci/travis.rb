@@ -1106,6 +1106,15 @@ Public key for travis-ci/travis.rb:
 -----END PUBLIC KEY-----
 ```
 
+Whereas the `--fingerprint` flag will print out the key's fingerprint:
+
+``` console
+$ travis pubkey --pem
+Public key for travis-ci/travis.rb:
+
+9f:57:01:4b:af:42:67:1e:b4:3c:0f:b6:cd:cc:c0:04
+```
+
 #### `requests`
 
 With the `requests` command, you can list the build requests received by Travis CI from GitHub. This is handy for figuring out why a repository might not be building.
@@ -2051,6 +2060,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 * Announce repository slug when first detected, ask for confirmation in interactive mode.
 * Have `travis repos` only print repository slugs in non-interactive mode.
 * Add `travis/auto_login` and `travis/pro/auto_login` to the Ruby API for easy authentication.
+* Add `--fingerprint` to `pubkey` command.
 * Add `fingerprint` to `Repository#public_key`.
 
 **1.6.17** (July 25, 2014)
