@@ -5,10 +5,11 @@ module Travis
   module Client
     class Repository < Entity
       class Key
-        attr_reader :to_s
+        attr_reader :to_s, :fingerprint
 
-        def initialize(data)
+        def initialize(data, fingerprint)
           @to_s = data
+          @fingerprint = fingerprint
         end
 
         def encrypt(value)
@@ -52,7 +53,7 @@ module Travis
       def public_key
         attributes["public_key"] ||= begin
           payload = session.get_raw("/repos/#{id}/key")
-          Key.new(payload.fetch('key'))
+          Key.new(payload.fetch('key'), payload.fetch('fingerprint'))
         end
       end
 
@@ -61,8 +62,7 @@ module Travis
       end
 
       def public_key=(key)
-        key = Key.new(key) unless key.is_a? Key
-        set_attribute(:public_key, key)
+        # ignored
       end
 
       alias key  public_key

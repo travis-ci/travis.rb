@@ -2051,6 +2051,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 * Announce repository slug when first detected, ask for confirmation in interactive mode.
 * Have `travis repos` only print repository slugs in non-interactive mode.
 * Add `travis/auto_login` and `travis/pro/auto_login` to the Ruby API for easy authentication.
+* Add `fingerprint` to `Repository#public_key`.
 
 **1.6.17** (July 25, 2014)
 

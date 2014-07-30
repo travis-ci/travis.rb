@@ -32,4 +32,8 @@ describe Travis::Client::Repository do
   it { should_not be_green    }
   it { should_not be_yellow   }
   it { should be_unsuccessful }
+
+  it 'should expose the pubkey fingerprint' do
+    subject.public_key.fingerprint.should be == 'foobar'
+  end
 end

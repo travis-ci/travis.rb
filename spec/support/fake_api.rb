@@ -691,7 +691,7 @@ module Travis
         end
 
         get '/repos/891/key' do
-          {"key"=>RAILS_KEY}.to_json
+          {"key"=>RAILS_KEY, "fingerprint"=>"foobar"}.to_json
         end
 
         get '/accounts/' do
