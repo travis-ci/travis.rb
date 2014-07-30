@@ -1531,6 +1531,13 @@ end
 puts "Hello #{Travis::User.current.name}!"
 ```
 
+There is also `travis/auto_login`, which will try to read the CLI configuration or .netrc for a Travis CI or GitHub token to authenticate with automatically:
+
+``` ruby
+require 'travis/auto_login'
+puts "Hello #{Travis::User.current.name}!"
+```
+
 ### Using Pro
 
 Using the library with private projects pretty much works the same, except you use `Travis::Pro`.
@@ -1544,6 +1551,13 @@ Travis::Pro.access_token = '...'
 user = Travis::Pro::User.current
 
 puts "Hello #{user.name}!"
+```
+
+There is also `travis/pro/auto_login`, which will try to read the CLI configuration or .netrc for a Travis CI or GitHub token to authenticate with automatically:
+
+``` ruby
+require 'travis/pro/auto_login'
+puts "Hello #{Travis::Pro::User.current.name}!"
 ```
 
 ### Entities
@@ -2036,6 +2050,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 * Add `--store-repo`/`-R` to repository commands to permanently store the slug for a repository.
 * Announce repository slug when first detected, ask for confirmation in interactive mode.
 * Have `travis repos` only print repository slugs in non-interactive mode.
+* Add `travis/auto_login` and `travis/pro/auto_login` to the Ruby API for easy authentication.
 
 **1.6.17** (July 25, 2014)
 
