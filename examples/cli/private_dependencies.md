@@ -179,14 +179,14 @@ gemspec
 
 if ENV['CI']
   # use HTTPS with password on Travis CI
-  private_repo_pattern = "https://ci-user:#{ENV.fetch("CI_USER_PASSWORD")}@github.com/%s.git"
-else
-  # use SSH locally
-  private_repo_pattern = "git@github.com/%s.git"
+  git_source :github do |repo_name|
+    repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+    "https://ci-user:#{ENV.fetch("CI_USER_PASSWORD")}@github.com/#{repo_name}.git"
+  end
 end
 
-gem 'lib1', git: private_repo_pattern % "myorg/lib1"
-gem 'lib2', git: private_repo_pattern % "myorg/lib2"
+gem 'lib1', github: "myorg/lib1"
+gem 'lib2', github: "myorg/lib2"
 ```
 
 ### API token
@@ -231,14 +231,14 @@ gemspec
 
 if ENV['CI']
   # use HTTPS with token on Travis CI
-  private_repo_pattern = "https://#{ENV.fetch("CI_USER_TOKEN")}@github.com/%s.git"
-else
-  # use SSH locally
-  private_repo_pattern = "git@github.com/%s.git"
+  git_source :github do |repo_name|
+    repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+    "https://#{ENV.fetch("CI_USER_TOKEN")}@github.com/#{repo_name}.git"
+  end
 end
 
-gem 'lib1', git: private_repo_pattern % "myorg/lib1"
-gem 'lib2', git: private_repo_pattern % "myorg/lib2"
+gem 'lib1', github: "myorg/lib1"
+gem 'lib2', github: "myorg/lib2"
 ```
 
 ### Dedicated User Account
