@@ -17,6 +17,19 @@ module Travis
         @to_rsa = OpenSSL::PKey::RSA.new(public_key)
       end
 
+      def has_passphrase?(key)
+        OpenSSL::PKey::RSA.new(key, key)
+        false
+      rescue OpenSSL::PKey::RSAError
+        true
+      end
+
+      def remove_passphrase(key, passphrase)
+        OpenSSL::PKey::RSA.new(key, passphrase).to_s
+      rescue OpenSSL::PKey::RSAError
+        false
+      end
+
       def rsa_ssh(key)
         ['ssh-rsa ', "\0\0\0\assh-rsa#{sized_bytes(key.e)}#{sized_bytes(key.n)}"].pack('a*m').gsub("\n", '')
       end

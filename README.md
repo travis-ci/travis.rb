@@ -1328,6 +1328,7 @@ Config:        rvm: 1.9.3
         -s, --stdin                      upload key read from stdin
         -c, --check                      set exit code depending on key existing
         -g, --generate                   generate SSH key and set up for given GitHub user
+        -p, --passphrase PASSPHRASE      pass phrase to decrypt with when using --upload
 
 *This feature is for [Pro and Enterprise](#pro-and-enterprise) only.*
 
@@ -2063,6 +2064,8 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 * Add `--fingerprint` to `pubkey` command.
 * Add `fingerprint` to `Repository#public_key`.
 * Display better error messages for user errors (user data validation failing, etc).
+* Have `travis sshkey --upload` check that the content is a private key.
+* Make `travis sshkey --upload` prompt for and remove the pass phrase if the key is encrypted.
 
 **1.6.17** (July 25, 2014)
 

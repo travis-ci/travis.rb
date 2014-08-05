@@ -12,6 +12,7 @@ module Travis
       on '-s', '--stdin',                   'upload key read from stdin'
       on '-c', '--check',                   'set exit code depending on key existing'
       on '-g', '--generate',                'generate SSH key and set up for given GitHub user'
+      on '-p', '--passphrase PASSPHRASE',   'pass phrase to decrypt with when using --upload'
 
       def_delegators :repository, :ssh_key
 
@@ -33,14 +34,17 @@ module Travis
       end
 
       def update_key(value, file)
+        error "#{file} does not look like a private key" unless value.lines.first =~ /PRIVATE KEY/
+        value = remove_passphrase(value)
         self.description ||= ask("Key description: ") { |q| q.default = "Custom Key" } if interactive?
-        say "updating ssh key for #{color slug, :info} with key from #{color file, :info}"
+        say "Updating ssh key for #{color slug, :info} with key from #{color file, :info}"
+        empty_line
         ssh_key.update(:value => value, :description => description || file)
       end
 
       def delete_key
         return if interactive? and not danger_zone? "Remove SSH key for #{color slug, :info}?"
-        say "removing ssh key for #{color slug, :info}"
+        say "Removing ssh key for #{color slug, :info}"
         ssh_key.delete
       rescue Travis::Client::NotFound
         warn "no key found to remove"
@@ -68,6 +72,16 @@ module Travis
             File.write(path, private_key.to_s)
           end
         end
+      end
+
+      def remove_passphrase(value)
+        return unless Tools::SSLKey.has_passphrase? value
+        return Tools::SSLKey.remove_passphrase(value, passphrase) || error("wrong pass phrase") if passphrase
+        error "Key is encrypted, but missing --passphrase option" unless interactive?
+        say "The private key is protected by a pass phrase."
+        result = Tools::SSLKey.remove_passphrase(value, ask("Enter pass phrase: ") { |q| q.echo = "*" }) until result
+        empty_line
+        result
       end
 
       def check_access(gh)
