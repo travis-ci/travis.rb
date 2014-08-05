@@ -1964,12 +1964,12 @@ You can check your Ruby version by running `ruby -v`:
 
 Then run:
 
-    $ gem install travis -v 1.6.17 --no-rdoc --no-ri
+    $ gem install travis -v 1.7.0 --no-rdoc --no-ri
 
 Now make sure everything is working:
 
     $ travis version
-    1.6.17
+    1.7.0
 
 See also [Note on Ubuntu](#note-on-ubuntu) below.
 
@@ -2054,7 +2054,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
-**1.7.0** (not yet released)
+**1.7.0** (August 5, 2014)
 
 * Add `travis encrypt-file`.
 * Add `--store-repo`/`-R` to repository commands to permanently store the slug for a repository.
