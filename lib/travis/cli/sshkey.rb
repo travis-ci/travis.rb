@@ -33,7 +33,7 @@ module Travis
       end
 
       def update_key(value, file)
-        self.description ||= ask("Key description: ") { |q| q.default = file } if interactive?
+        self.description ||= ask("Key description: ") { |q| q.default = "Custom Key" } if interactive?
         say "updating ssh key for #{color slug, :info} with key from #{color file, :info}"
         ssh_key.update(:value => value, :description => description || file)
       end
