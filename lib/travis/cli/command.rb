@@ -201,6 +201,12 @@ module Travis
       rescue Travis::Client::NotLoggedIn => e
         raise(e) if explode?
         error "#{e.message} - try running #{command("login#{endpoint_option}")}"
+      rescue Travis::Client::NotFound => e
+        raise(e) if explode?
+        error "resource not found (#{e.message})"
+      rescue Travis::Client::Error => e
+        raise(e) if explode?
+        error e.message
       rescue StandardError => e
         raise(e) if explode?
         message = e.message
