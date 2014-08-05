@@ -2062,6 +2062,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 * Add `travis/auto_login` and `travis/pro/auto_login` to the Ruby API for easy authentication.
 * Add `--fingerprint` to `pubkey` command.
 * Add `fingerprint` to `Repository#public_key`.
+* Display better error messages for user errors (user data validation failing, etc).
 
 **1.6.17** (July 25, 2014)
 
