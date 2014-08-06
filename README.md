@@ -2054,6 +2054,10 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
+**1.7.1** (not yet released)
+
+* Better error message when trying to encrypt a string that is too long.
+
 **1.7.0** (August 5, 2014)
 
 * Add `travis encrypt-file`.

@@ -45,6 +45,11 @@ module Travis
           list = encrypted.map { |data| format(data.inspect, "  secure: %s") }
           say(list.join("\n"), template(__FILE__), :none)
         end
+      rescue OpenSSL::PKey::RSAError => error
+        error "#{error.message.sub(" for key size", "")} - consider using "    <<
+          color("travis encrypt-file", [:red, :bold]) <<
+          color(" or ", :red)                         <<
+          color("travis env set", [:red, :bold])
       end
 
       private
