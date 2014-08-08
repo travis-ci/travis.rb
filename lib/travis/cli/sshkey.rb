@@ -52,12 +52,13 @@ module Travis
 
       def generate_key
         github.with_basic_auth do |gh|
+          login = gh['user']['login']
           check_access(gh)
           empty_line
 
           say "Generating RSA key."
           private_key        = Tools::SSLKey.generate_rsa
-          self.description ||= "key for fetching dependencies for #{slug}"
+          self.description ||= "key for fetching dependencies for #{slug} via #{login}"
 
           say "Uploading public key to GitHub."
           gh.post("/user/keys", :title => "#{description} (Travis CI)", :key => Tools::SSLKey.rsa_ssh(private_key.public_key))
