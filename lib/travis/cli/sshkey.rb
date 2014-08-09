@@ -76,7 +76,7 @@ module Travis
       end
 
       def remove_passphrase(value)
-        return unless Tools::SSLKey.has_passphrase? value
+        return value unless Tools::SSLKey.has_passphrase? value
         return Tools::SSLKey.remove_passphrase(value, passphrase) || error("wrong pass phrase") if passphrase
         error "Key is encrypted, but missing --passphrase option" unless interactive?
         say "The private key is protected by a pass phrase."
