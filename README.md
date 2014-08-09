@@ -1964,12 +1964,12 @@ You can check your Ruby version by running `ruby -v`:
 
 Then run:
 
-    $ gem install travis -v 1.7.0 --no-rdoc --no-ri
+    $ gem install travis -v 1.7.1 --no-rdoc --no-ri
 
 Now make sure everything is working:
 
     $ travis version
-    1.7.0
+    1.7.1
 
 See also [Note on Ubuntu](#note-on-ubuntu) below.
 
@@ -2054,9 +2054,10 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
-**1.7.1** (not yet released)
+**1.7.1** (August 9, 2014)
 
 * Better error message when trying to encrypt a string that is too long.
+* Fix Validation failed error using `travis sshkey --upload`.
 
 **1.7.0** (August 5, 2014)
 

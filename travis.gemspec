@@ -2,7 +2,7 @@
 Gem::Specification.new do |s|
   # general infos
   s.name        = "travis"
-  s.version     = "1.7.0"
+  s.version     = "1.7.1"
   s.description = "CLI and Ruby client library for Travis CI"
   s.homepage    = "https://github.com/travis-ci/travis.rb"
   s.summary     = "Travis CI client"
@@ -19,8 +19,8 @@ Gem::Specification.new do |s|
     "Peter Souter",
     "Peter van Dijk",
     "Max Barnash",
-    "Mathias Meyer",
     "Carlos Palhares",
+    "Mathias Meyer",
     "Thais Camilo and Konstantin Haase",
     "Justin Lambert",
     "Adrien Brault",
@@ -29,6 +29,7 @@ Gem::Specification.new do |s|
     "Mario Visic",
     "Miro Hron\xC4\x8Dok",
     "Neamar",
+    "Nicolas Bessi (nbessi)",
     "Piotr Sarnacki",
     "Rapha\xC3\xABl Pinson",
     "Tobias Wilken",
@@ -55,8 +56,8 @@ Gem::Specification.new do |s|
     "p.morsou@gmail.com",
     "peter.van.dijk@netherlabs.nl",
     "i.am@anhero.ru",
-    "meyer@paperplanes.de",
     "me@xjunior.me",
+    "meyer@paperplanes.de",
     "dev+narwen+rkh@rkh.im",
     "jlambert@eml.cc",
     "adrien.brault@gmail.com",
@@ -65,6 +66,7 @@ Gem::Specification.new do |s|
     "mario@mariovisic.com",
     "miro@hroncok.cz",
     "neamar@neamar.fr",
+    "nbessi@users.noreply.github.com",
     "drogus@gmail.com",
     "raphael.pinson@camptocamp.com",
     "tw@cloudcontrol.de",
@@ -115,8 +117,6 @@ Gem::Specification.new do |s|
     "assets/travis.sh",
     "assets/travis.sh.erb",
     "bin/travis",
-    "examples/cli/encrypt_file.md",
-    "examples/cli/private_dependencies.md",
     "examples/org_overview.rb",
     "examples/pro_auth.rb",
     "examples/stream.rb",
