@@ -359,10 +359,13 @@ module Travis
           File.delete(path)
         end
 
-        def save_file(name, content)
+        def save_file(name, content, read_only = false)
           path = config_path(name)
           debug "Storing %p" % path
-          File.write(path, content.to_s)
+          File.open(path, 'w') do |file|
+            file.write(content.to_s)
+            file.chmod(0600) if read_only
+          end
         end
 
         YAML_ERROR = defined?(Psych::SyntaxError) ? Psych::SyntaxError : ArgumentError
@@ -378,7 +381,7 @@ module Travis
         end
 
         def store_config
-          save_file('config.yml', @config.to_yaml)
+          save_file('config.yml', @config.to_yaml, true)
         end
 
         def check_arity(method, *args)
