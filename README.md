@@ -1328,6 +1328,7 @@ Config:        rvm: 1.9.3
         -s, --stdin                      upload key read from stdin
         -c, --check                      set exit code depending on key existing
         -g, --generate                   generate SSH key and set up for given GitHub user
+        -p, --passphrase PASSPHRASE      pass phrase to decrypt with when using --upload
 
 *This feature is for [Pro and Enterprise](#pro-and-enterprise) only.*
 
@@ -1963,12 +1964,12 @@ You can check your Ruby version by running `ruby -v`:
 
 Then run:
 
-    $ gem install travis -v 1.6.17 --no-rdoc --no-ri
+    $ gem install travis -v 1.7.1 --no-rdoc --no-ri
 
 Now make sure everything is working:
 
     $ travis version
-    1.6.17
+    1.7.1
 
 See also [Note on Ubuntu](#note-on-ubuntu) below.
 
@@ -2053,7 +2054,12 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
-**1.7.0** (not yet released)
+**1.7.1** (August 9, 2014)
+
+* Better error message when trying to encrypt a string that is too long.
+* Fix Validation failed error using `travis sshkey --upload`.
+
+**1.7.0** (August 5, 2014)
 
 * Add `travis encrypt-file`.
 * Add `--store-repo`/`-R` to repository commands to permanently store the slug for a repository.
@@ -2062,6 +2068,9 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 * Add `travis/auto_login` and `travis/pro/auto_login` to the Ruby API for easy authentication.
 * Add `--fingerprint` to `pubkey` command.
 * Add `fingerprint` to `Repository#public_key`.
+* Display better error messages for user errors (user data validation failing, etc).
+* Have `travis sshkey --upload` check that the content is a private key.
+* Make `travis sshkey --upload` prompt for and remove the pass phrase if the key is encrypted.
 
 **1.6.17** (July 25, 2014)
 

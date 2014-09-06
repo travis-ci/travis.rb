@@ -8,17 +8,23 @@ module Travis
       def run
         authenticate
         accounts.each do |account|
-          color = account.subscribed? ? :green : :info
+          color = account.on_trial? ? :info : :green
           say [
             color(account.login, [color, :bold]),
             color("(#{account.name || account.login.capitalize}):", color),
-            account.subscribed?      ? "subscribed,"  : "not subscribed,",
+            "#{description(account)},",
             account.repos_count == 1 ? "1 repository" : "#{account.repos_count} repositories"
           ].join(" ")
         end
-        unless accounts.all?(&:subscribed?) or session.config['host'].nil?
+        unless accounts.none?(&:on_trial?) or session.config['host'].nil?
           say session.config['host'], "To set up a subscription, please visit %s."
         end
+      end
+
+      def description(account)
+        return "subscribed"          if account.subscribed?
+        return "educational account" if account.educational?
+        "not subscribed"
       end
     end
   end

@@ -3,7 +3,7 @@ require 'travis/client'
 module Travis
   module Client
     class Account < Entity
-      attributes :name, :login, :type, :repos_count, :subscribed
+      attributes :name, :login, :type, :repos_count, :subscribed, :education
 
       one :account
       many :accounts
@@ -23,6 +23,14 @@ module Travis
         load_attribute('subscribed') { true } if member?
       end
 
+      def education
+        load_attribute('education') { false } if member?
+      end
+
+      def on_trial?
+        !subscribed? and !education?
+      end
+
       def repos_count
         load_attribute("repos_count") { repositories.count }
       end
@@ -34,6 +42,8 @@ module Travis
       def member?
         session.accounts.include? self
       end
+
+      alias educational? education?
 
       private
 
