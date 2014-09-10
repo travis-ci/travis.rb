@@ -102,7 +102,7 @@ describe Travis::CLI::Init do
     it 'sets compiler' do
       result.should include('go')
       result['go'].should include('1.0')
-      result['go'].should include('1.1')
+      result['go'].should include('1.3')
     end
   end
 
