@@ -19,6 +19,10 @@ module Travis
           env['HTTP_AUTHORIZATION'] == 'token token'
         end
 
+        get '/' do
+          "{}"
+        end
+
         get '/users/' do
           halt(403, 'wrong token') unless authorized?
           {"user"=>
