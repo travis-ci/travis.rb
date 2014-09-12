@@ -5,6 +5,9 @@ module Travis
     class Error < StandardError
     end
 
+    class SSLError < Error
+    end
+
     class NotFound < Error
     end
 

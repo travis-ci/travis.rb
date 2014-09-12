@@ -37,6 +37,7 @@ module Travis
         raise ArgumentError, "neither :uri nor :connection specified" unless connection
         headers['Accept'] = 'application/vnd.travis-ci.2+json'
         set_user_agent
+        check_ssl
       end
 
       def uri
@@ -209,7 +210,7 @@ module Travis
         end
 
         case result.status
-        when 0             then raise Travis::Client::Error, 'SSL error: could not verify peer'
+        when 0             then raise Travis::Client::SSLError, 'SSL error: could not verify peer'
         when 200..299      then JSON.parse(result.body) rescue result.body
         when 301, 303      then raw(:get, result.headers['Location'])
         when 302, 307, 308 then raw(verb, result.headers['Location'])
@@ -323,6 +324,12 @@ module Travis
           last  = keys.pop
           cache = keys.inject(@cache) { |store, key| store[key] ||= {} }
           cache[last] ||= yield
+        end
+
+        def check_ssl
+          raw(:head, '/') if ssl == SSL_OPTIONS
+        rescue SSLError => error
+          self.ssl = {}
         end
     end
   end
