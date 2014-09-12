@@ -2058,6 +2058,13 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
+**1.7.2** (not yet released)
+
+* Add `travis setup elasticbeanstalk`.
+* Properly display educational accounts in `travis accounts`.
+* Upgrade go version default for `travis init`.
+* Fix SSL verification issue on OS X Yesomite and certain Linux setups.
+
 **1.7.1** (August 9, 2014)
 
 * Better error message when trying to encrypt a string that is too long.
