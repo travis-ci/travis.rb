@@ -2064,6 +2064,8 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 * Properly display educational accounts in `travis accounts`.
 * Upgrade go version default for `travis init`.
 * Fix SSL verification issue on OS X Yesomite and certain Linux setups.
+* Be more forgiving with outdated API version (Enterprise).
+* Better handling of multibyte characters in archived logs.
 
 **1.7.1** (August 9, 2014)
 

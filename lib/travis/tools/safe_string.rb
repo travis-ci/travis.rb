@@ -6,6 +6,8 @@ module Travis
       def encoded(string)
         return string unless string.respond_to? :encode
         string.encode 'utf-8'
+      rescue Encoding::UndefinedConversionError
+        string.force_encoding 'utf-8'
       end
 
       def colorized(string)
