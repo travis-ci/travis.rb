@@ -1964,12 +1964,12 @@ You can check your Ruby version by running `ruby -v`:
 
 Then run:
 
-    $ gem install travis -v 1.7.1 --no-rdoc --no-ri
+    $ gem install travis -v 1.7.2 --no-rdoc --no-ri
 
 Now make sure everything is working:
 
     $ travis version
-    1.7.1
+    1.7.2
 
 See also [Note on Ubuntu](#note-on-ubuntu) below.
 
@@ -2058,7 +2058,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
-**1.7.2** (not yet released)
+**1.7.2** (September 17, 2014)
 
 * Add `travis setup elasticbeanstalk`.
 * Properly display educational accounts in `travis accounts`.

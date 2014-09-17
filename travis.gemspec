@@ -2,7 +2,7 @@
 Gem::Specification.new do |s|
   # general infos
   s.name        = "travis"
-  s.version     = "1.7.1"
+  s.version     = "1.7.2"
   s.description = "CLI and Ruby client library for Travis CI"
   s.homepage    = "https://github.com/travis-ci/travis.rb"
   s.summary     = "Travis CI client"
@@ -19,31 +19,32 @@ Gem::Specification.new do |s|
     "Peter Souter",
     "Peter van Dijk",
     "Max Barnash",
-    "Carlos Palhares",
+    "Dan Buch",
     "Mathias Meyer",
+    "Carlos Palhares",
     "Thais Camilo and Konstantin Haase",
     "Justin Lambert",
-    "Adrien Brault",
+    "Adam Lavin",
     "Laurent Petit",
     "Maarten van Vliet",
     "Mario Visic",
+    "john muhl",
+    "Adrien Brault",
+    "Michael Mior",
     "Miro Hron\xC4\x8Dok",
     "Neamar",
     "Nicolas Bessi (nbessi)",
+    "Benjamin Manns",
+    "Daniel Chatfield",
     "Piotr Sarnacki",
     "Rapha\xC3\xABl Pinson",
     "Tobias Wilken",
     "Zachary Gershman",
     "Zachary Scott",
     "jeffdh",
-    "john muhl",
-    "Dan Buch",
-    "Adam Lavin",
-    "Daniel Chatfield",
-    "Benjamin Manns",
     "Jacob Burkhart",
-    "Jonne Ha\xC3\x9F",
-    "Josh Kalderimis"
+    "Josh Kalderimis",
+    "Jonne Ha\xC3\x9F"
   ]
 
   # generated from git shortlog -sne
@@ -56,31 +57,32 @@ Gem::Specification.new do |s|
     "p.morsou@gmail.com",
     "peter.van.dijk@netherlabs.nl",
     "i.am@anhero.ru",
-    "me@xjunior.me",
+    "dan@meatballhat.com",
     "meyer@paperplanes.de",
+    "me@xjunior.me",
     "dev+narwen+rkh@rkh.im",
     "jlambert@eml.cc",
-    "adrien.brault@gmail.com",
+    "adam@lavoaster.co.uk",
     "laurent.petit@gmail.com",
     "maartenvanvliet@gmail.com",
     "mario@mariovisic.com",
+    "git@johnmuhl.com",
+    "adrien.brault@gmail.com",
+    "mmior@uwaterloo.ca",
     "miro@hroncok.cz",
     "neamar@neamar.fr",
     "nbessi@users.noreply.github.com",
+    "benmanns@gmail.com",
+    "chatfielddaniel@gmail.com",
     "drogus@gmail.com",
     "raphael.pinson@camptocamp.com",
     "tw@cloudcontrol.de",
     "pair+zg@pivotallabs.com",
     "e@zzak.io",
     "jeffdh@gmail.com",
-    "git@johnmuhl.com",
-    "dan@meatballhat.com",
-    "adam@lavoaster.co.uk",
-    "chatfielddaniel@gmail.com",
-    "benmanns@gmail.com",
     "jburkhart@engineyard.com",
-    "me@jhass.eu",
-    "josh.kalderimis@gmail.com"
+    "josh.kalderimis@gmail.com",
+    "me@jhass.eu"
   ]
 
   # generated from git ls-files
@@ -163,6 +165,7 @@ Gem::Specification.new do |s|
     "lib/travis/cli/setup/cloud_foundry.rb",
     "lib/travis/cli/setup/deis.rb",
     "lib/travis/cli/setup/divshot.rb",
+    "lib/travis/cli/setup/elastic_beanstalk.rb",
     "lib/travis/cli/setup/engine_yard.rb",
     "lib/travis/cli/setup/gcs.rb",
     "lib/travis/cli/setup/hackage.rb",
