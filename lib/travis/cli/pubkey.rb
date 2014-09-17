@@ -10,6 +10,7 @@ module Travis
       on('-f', '--fingerprint', 'display fingerprint')  { |c,_| c.key_format = :fingerprint }
 
       def run
+        error "#{key_format} format not supported by #{api_endpoint}" unless key
         say key, "Public key for #{color(repository.slug, :info)}:\n\n%s", :bold
       end
 

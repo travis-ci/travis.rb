@@ -53,7 +53,7 @@ module Travis
       def public_key
         attributes["public_key"] ||= begin
           payload = session.get_raw("/repos/#{id}/key")
-          Key.new(payload.fetch('key'), payload.fetch('fingerprint'))
+          Key.new(payload.fetch('key'), payload['fingerprint'])
         end
       end
 
