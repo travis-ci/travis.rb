@@ -133,7 +133,7 @@ module Travis
 end
 
 __END__
-Please add the following to your build scirpt (<[[ color('before_install', :info) ]]> stage in your <[[ color('.travis.yml', :info) ]]>, for instance):
+Please add the following to your build script (<[[ color('before_install', :info) ]]> stage in your <[[ color('.travis.yml', :info) ]]>, for instance):
 
     %s
 
