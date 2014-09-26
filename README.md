@@ -834,6 +834,7 @@ Commit all changes to your .travis.yml.
            travis env set name value [options]
            travis env unset [names..] [options]
            travis env copy [names..] [options]
+           travis env clear [OPTIONS]
 
         -h, --help                       Display help
         -i, --[no-]interactive           be interactive and colorful
@@ -855,6 +856,7 @@ Commit all changes to your .travis.yml.
         -P, --[no-]public                make new values public
         -p, --[no-]private               make new values private
         -u, --[no-]unescape              do not escape values
+        -f, --force                      do not ask for confirmation when clearing out all variables
 
 You can set, list and unset environment variables, or copy them from the current environment:
 

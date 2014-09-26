@@ -4,12 +4,13 @@ require 'shellwords'
 module Travis
   module CLI
     class Env < RepoCommand
-      on('-P', '--[no-]public',  'make new values public')
-      on('-p', '--[no-]private', 'make new values private') { |c,v| c.public = !v }
+      on('-P', '--[no-]public',   'make new values public')
+      on('-p', '--[no-]private',  'make new values private') { |c,v| c.public = !v }
       on('-u', '--[no-]unescape', 'do not escape values')
+      on('-f', '--force',         'do not ask for confirmation when clearing out all variables')
 
       description "show or modify build environment variables"
-      subcommands :list, :set, :unset, :copy
+      subcommands :list, :set, :unset, :copy, :clear
 
       def setup
         super
@@ -35,8 +36,18 @@ module Travis
       end
 
       def unset(*names)
+        remove_vars { |var| names.include? var.name }
+      end
+
+      def clear
+        exit   if env_vars.empty?
+        exit 1 if interactive? and not force? and not danger_zone? "Clear out all env variables for #{color(repository.slug, :bold)}?"
+        remove_vars
+      end
+
+      def remove_vars
         env_vars.each do |var|
-          next unless names.include? var.name
+          next if block_given? and not yield(var)
           say color('[x] ', [:red, :bold]) + "removing environment variable #{color "$#{var.name}", :info}"
           var.delete
         end
