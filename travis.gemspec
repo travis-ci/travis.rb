@@ -2,7 +2,7 @@
 Gem::Specification.new do |s|
   # general infos
   s.name        = "travis"
-  s.version     = "1.7.2"
+  s.version     = "1.7.3"
   s.description = "CLI and Ruby client library for Travis CI"
   s.homepage    = "https://github.com/travis-ci/travis.rb"
   s.summary     = "Travis CI client"
@@ -14,27 +14,29 @@ Gem::Specification.new do |s|
     "Konstantin Haase",
     "Hiro Asari",
     "Henrik Hodne",
-    "Aaron Hill",
     "joshua-anderson",
+    "Aaron Hill",
     "Peter Souter",
     "Peter van Dijk",
     "Max Barnash",
     "Dan Buch",
-    "Mathias Meyer",
     "Carlos Palhares",
+    "Mathias Meyer",
     "Thais Camilo and Konstantin Haase",
+    "Josh Kalderimis",
+    "Julia S.Simon",
     "Justin Lambert",
-    "Adam Lavin",
+    "Adrien Brault",
     "Laurent Petit",
     "Maarten van Vliet",
     "Mario Visic",
-    "john muhl",
-    "Adrien Brault",
+    "Adam Lavin",
+    "Benjamin Manns",
     "Michael Mior",
     "Miro Hron\xC4\x8Dok",
     "Neamar",
     "Nicolas Bessi (nbessi)",
-    "Benjamin Manns",
+    "Eric Herot",
     "Daniel Chatfield",
     "Piotr Sarnacki",
     "Rapha\xC3\xABl Pinson",
@@ -42,9 +44,9 @@ Gem::Specification.new do |s|
     "Zachary Gershman",
     "Zachary Scott",
     "jeffdh",
-    "Jacob Burkhart",
-    "Josh Kalderimis",
-    "Jonne Ha\xC3\x9F"
+    "john muhl",
+    "Jonne Ha\xC3\x9F",
+    "Jacob Burkhart"
   ]
 
   # generated from git shortlog -sne
@@ -52,27 +54,29 @@ Gem::Specification.new do |s|
     "konstantin.mailinglists@googlemail.com",
     "asari.ruby@gmail.com",
     "me@henrikhodne.com",
-    "aa1ronham@gmail.com",
     "j@zatigo.com",
+    "aa1ronham@gmail.com",
     "p.morsou@gmail.com",
     "peter.van.dijk@netherlabs.nl",
     "i.am@anhero.ru",
     "dan@meatballhat.com",
-    "meyer@paperplanes.de",
     "me@xjunior.me",
+    "meyer@paperplanes.de",
     "dev+narwen+rkh@rkh.im",
+    "josh.kalderimis@gmail.com",
+    "julia.simon@biicode.com",
     "jlambert@eml.cc",
-    "adam@lavoaster.co.uk",
+    "adrien.brault@gmail.com",
     "laurent.petit@gmail.com",
     "maartenvanvliet@gmail.com",
     "mario@mariovisic.com",
-    "git@johnmuhl.com",
-    "adrien.brault@gmail.com",
+    "adam@lavoaster.co.uk",
+    "benmanns@gmail.com",
     "mmior@uwaterloo.ca",
     "miro@hroncok.cz",
     "neamar@neamar.fr",
     "nbessi@users.noreply.github.com",
-    "benmanns@gmail.com",
+    "eric.github@herot.com",
     "chatfielddaniel@gmail.com",
     "drogus@gmail.com",
     "raphael.pinson@camptocamp.com",
@@ -80,9 +84,9 @@ Gem::Specification.new do |s|
     "pair+zg@pivotallabs.com",
     "e@zzak.io",
     "jeffdh@gmail.com",
-    "jburkhart@engineyard.com",
-    "josh.kalderimis@gmail.com",
-    "me@jhass.eu"
+    "git@johnmuhl.com",
+    "me@jhass.eu",
+    "jburkhart@engineyard.com"
   ]
 
   # generated from git ls-files

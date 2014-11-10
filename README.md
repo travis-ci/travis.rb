@@ -1966,12 +1966,12 @@ You can check your Ruby version by running `ruby -v`:
 
 Then run:
 
-    $ gem install travis -v 1.7.2 --no-rdoc --no-ri
+    $ gem install travis -v 1.7.3 --no-rdoc --no-ri
 
 Now make sure everything is working:
 
     $ travis version
-    1.7.2
+    1.7.3
 
 See also [Note on Ubuntu](#note-on-ubuntu) below.
 
@@ -2059,6 +2059,14 @@ Mac OS X 10.9.2 shipped with a slightly broken Ruby version. If you want to inst
 If you have the old `travis-cli` gem installed, you should `gem uninstall travis-cli`, just to be sure, as it ships with an executable that is also named `travis`.
 
 ## Version History
+
+**1.7.3** (November 10, 2014)
+
+* Add `travis setup biicode`
+* Add `travis env clear`
+* Print error message if `travis login` is run for a GitHub account unknown to the Travis CI setup.
+* Fix bug in S3 ACL settings.
+* Make `travis console` work with newer pry versions.
 
 **1.7.2** (September 17, 2014)
 
