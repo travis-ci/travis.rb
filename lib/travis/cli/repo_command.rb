@@ -56,7 +56,10 @@ module Travis
         end
 
         def find_slug
-          load_slug || store_slug(detect_slug)
+          load_slug || begin
+            slug = detect_slug
+            interactive? ? store_slug(slug) : slug if slug
+          end
         end
 
         def detect_slug
