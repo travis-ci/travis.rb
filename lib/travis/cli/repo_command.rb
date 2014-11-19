@@ -71,7 +71,7 @@ module Travis
               if agree("Detected repository as #{color(detectected_slug, :info)}, is this correct? ") { |q| q.default = 'yes' }
                 detectected_slug
               else
-                ask("Repository slug: ") { |q| q.default = detectected_slug }
+                ask("Repository slug (owner/name): ") { |q| q.default = detectected_slug }
               end
             else
               info "detected repository as #{color(detectected_slug, :bold)}"
