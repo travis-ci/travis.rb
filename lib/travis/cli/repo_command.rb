@@ -66,7 +66,7 @@ module Travis
           git_head    = `git name-rev --name-only HEAD 2>#{IO::NULL}`.chomp
           git_remote  = `git config --get branch.#{git_head}.remote 2>#{IO::NULL}`.chomp
           git_remote  = 'origin' if git_remote.empty?
-          git_info    = `git config --get remote.#{git_remote}.url 2>#{IO::NULL}`.chomp
+          git_info    = `git ls-remote --get-url #{git_remote} 2>#{IO::NULL}`.chomp
 
           if Addressable::URI.parse(git_info).path =~ GIT_REGEX
             detectected_slug = $1
