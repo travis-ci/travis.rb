@@ -2,7 +2,7 @@
 Gem::Specification.new do |s|
   # general infos
   s.name        = "travis"
-  s.version     = "1.7.4"
+  s.version     = "1.7.5"
   s.description = "CLI and Ruby client library for Travis CI"
   s.homepage    = "https://github.com/travis-ci/travis.rb"
   s.summary     = "Travis CI client"
@@ -19,10 +19,12 @@ Gem::Specification.new do |s|
     "Peter Souter",
     "Peter van Dijk",
     "Max Barnash",
-    "Dan Buch",
     "Carlos Palhares",
+    "Dan Buch",
     "Mathias Meyer",
     "Thais Camilo and Konstantin Haase",
+    "Andreas Tiefenthaler",
+    "Jonne Ha\xC3\x9F",
     "Josh Kalderimis",
     "Julia S.Simon",
     "Justin Lambert",
@@ -31,7 +33,7 @@ Gem::Specification.new do |s|
     "Maarten van Vliet",
     "Mario Visic",
     "Adam Lavin",
-    "Benjamin Manns",
+    "George Millo",
     "Michael Mior",
     "Miro Hron\xC4\x8Dok",
     "Neamar",
@@ -40,12 +42,13 @@ Gem::Specification.new do |s|
     "Daniel Chatfield",
     "Piotr Sarnacki",
     "Rapha\xC3\xABl Pinson",
+    "Rob Hoelz",
     "Tobias Wilken",
     "Zachary Gershman",
     "Zachary Scott",
     "jeffdh",
     "john muhl",
-    "Jonne Ha\xC3\x9F",
+    "Benjamin Manns",
     "Jacob Burkhart"
   ]
 
@@ -59,10 +62,12 @@ Gem::Specification.new do |s|
     "p.morsou@gmail.com",
     "peter.van.dijk@netherlabs.nl",
     "i.am@anhero.ru",
-    "dan@meatballhat.com",
     "me@xjunior.me",
+    "dan@meatballhat.com",
     "meyer@paperplanes.de",
     "dev+narwen+rkh@rkh.im",
+    "at@an-ti.eu",
+    "me@jhass.eu",
     "josh.kalderimis@gmail.com",
     "julia.simon@biicode.com",
     "jlambert@eml.cc",
@@ -71,7 +76,7 @@ Gem::Specification.new do |s|
     "maartenvanvliet@gmail.com",
     "mario@mariovisic.com",
     "adam@lavoaster.co.uk",
-    "benmanns@gmail.com",
+    "georgejulianmillo@gmail.com",
     "mmior@uwaterloo.ca",
     "miro@hroncok.cz",
     "neamar@neamar.fr",
@@ -80,12 +85,13 @@ Gem::Specification.new do |s|
     "chatfielddaniel@gmail.com",
     "drogus@gmail.com",
     "raphael.pinson@camptocamp.com",
+    "rob@hoelz.ro",
     "tw@cloudcontrol.de",
     "pair+zg@pivotallabs.com",
     "e@zzak.io",
     "jeffdh@gmail.com",
     "git@johnmuhl.com",
-    "me@jhass.eu",
+    "benmanns@gmail.com",
     "jburkhart@engineyard.com"
   ]
 
@@ -168,6 +174,7 @@ Gem::Specification.new do |s|
     "lib/travis/cli/setup/cloud_control.rb",
     "lib/travis/cli/setup/cloud_files.rb",
     "lib/travis/cli/setup/cloud_foundry.rb",
+    "lib/travis/cli/setup/code_deploy.rb",
     "lib/travis/cli/setup/deis.rb",
     "lib/travis/cli/setup/divshot.rb",
     "lib/travis/cli/setup/elastic_beanstalk.rb",

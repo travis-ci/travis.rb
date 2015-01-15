@@ -1966,12 +1966,12 @@ You can check your Ruby version by running `ruby -v`:
 
 Then run:
 
-    $ gem install travis -v 1.7.4 --no-rdoc --no-ri
+    $ gem install travis -v 1.7.5 --no-rdoc --no-ri
 
 Now make sure everything is working:
 
     $ travis version
-    1.7.4
+    1.7.5
 
 See also [Note on Ubuntu](#note-on-ubuntu) below.
 
@@ -2059,6 +2059,11 @@ Mac OS X 10.9.2 shipped with a slightly broken Ruby version. If you want to inst
 If you have the old `travis-cli` gem installed, you should `gem uninstall travis-cli`, just to be sure, as it ships with an executable that is also named `travis`.
 
 ## Version History
+
+**1.7.5** (January 15, 2015)
+
+* Add support for url.<remote>.insteadOf
+* Fix packaging error with 1.7.4, in which Code Deploy setup code was not included
 
 **1.7.4** (November 12, 2014)
 
