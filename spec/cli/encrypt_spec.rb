@@ -40,4 +40,9 @@ describe Travis::CLI::Encrypt do
     run_cli("encrypt", "foo=foo/bar").should be_success
     stderr.should_not match(/WARNING/)
   end
+
+  example "travis encrypt -r rails/rails baz/qwwx" do
+    run_cli("encrypt", "-r", "rails/rails", "baz/qwwx").should be_success
+    stderr.should_not match(/WARNING/)
+  end
 end
