@@ -22,7 +22,7 @@ describe Travis::CLI::Status do
   end
 
   example "travis status -i" do
-    run_cli('status', '-i').should be_success
+    run_cli('status', '-i', '--skip-completion-check').should be_success
     stdout.should be == "build #6180 failed\n"
   end
 end

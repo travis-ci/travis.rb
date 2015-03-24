@@ -12,7 +12,7 @@ describe Travis::CLI::Encrypt do
   end
 
   example "travis encrypt foo -i" do
-    run_cli('encrypt', 'foo', '-i').should be_success
+    run_cli('encrypt', 'foo', '-i', '--skip-completion-check').should be_success
     stdout.should start_with("Please add the following to your .travis.yml file:\n\n  secure: ")
   end
 
