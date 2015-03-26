@@ -1757,7 +1757,7 @@ job  = repo.last_build.jobs.first
 puts job.log.body
 ```
 
-If you plan to print our the body, be aware that it might contain malicious escape codes. For this reason, we added `colorized_body`, which removes all the unprintable characters, except for ANSI color codes, and `clean_body` which also removes the color codes.
+If you plan to print out the body, be aware that it might contain malicious escape codes. For this reason, we added `colorized_body`, which removes all the unprintable characters, except for ANSI color codes, and `clean_body` which also removes the color codes.
 
 ``` ruby
 puts job.log.colorized_body
