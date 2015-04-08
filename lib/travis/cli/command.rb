@@ -159,7 +159,7 @@ module Travis
 
         last_check['at'] = Time.now.to_i
         unless Tools::System.recent_version? Travis::VERSION, last_check['version']
-          error "Outdated CLI version, run `gem install travis` or use --skip-version-check."
+          warn "Outdated CLI version, run `gem install travis`."
         end
       rescue Timeout::Error, Faraday::Error::ClientError => error
         debug "#{error.class}: #{error.message}"
