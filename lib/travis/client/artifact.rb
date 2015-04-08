@@ -6,6 +6,7 @@ module Travis
   module Client
     class Artifact < Entity
       CHUNKED = "application/json; chunked=true; version=2, application/json; version=2"
+      TEXT    = "#{CHUNKED}, text/plain"
 
       # @!parse attr_reader :job_id, :type, :body
       attributes :job_id, :type, :body
@@ -38,7 +39,7 @@ module Travis
         attributes['current_body'] ||= begin
           body = load_attribute('body')
           if body.to_s.empty?
-            log  = session.get_raw("jobs/#{job_id}/log")
+            log  = session.get_raw("jobs/#{job_id}/log", nil, "Accept" => TEXT)
             body = String === log ? log : log['log']['body']
           end
           body
