@@ -2082,7 +2082,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 * Add `travis setup elasticbeanstalk`.
 * Properly display educational accounts in `travis accounts`.
 * Upgrade go version default for `travis init`.
-* Fix SSL verification issue on OS X Yesomite and certain Linux setups.
+* Fix SSL verification issue on OS X Yosemite and certain Linux setups.
 * Be more forgiving with outdated API version (Enterprise).
 * Better handling of multibyte characters in archived logs.
 * Use more restricitve permissions for the config file.
