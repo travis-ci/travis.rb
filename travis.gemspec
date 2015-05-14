@@ -290,7 +290,6 @@ Gem::Specification.new do |s|
   s.add_dependency "backports"
   s.add_dependency "gh",                    "~> 0.13"
   s.add_dependency "launchy",               "~> 2.1"
-  s.add_dependency "pry",                   "< 0.10", "~> 0.9"
   s.add_dependency "typhoeus",              "~> 0.6", ">= 0.6.8"
   s.add_dependency "pusher-client",         "~> 0.4"
   s.add_dependency "addressable",           "~> 2.3"
