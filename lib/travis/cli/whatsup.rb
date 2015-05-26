@@ -7,6 +7,8 @@ module Travis
       on('-m', '--my-repos', 'Only display my own repositories')
 
       def run
+        say "nothing to show" if recent.empty?
+
         recent.each do |repo|
           say [
             color(repo.slug, [:bold, repo.color]),
@@ -18,8 +20,10 @@ module Travis
       private
 
         def recent
-          return repos unless my_repos
-          repos(:member => user.login)
+          @recent ||= begin
+            recent = my_repos ? repos : repos(:member => user.login)
+            recent.select { |repo| repo.last_build }
+          end
         end
     end
   end
