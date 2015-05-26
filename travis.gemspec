@@ -19,11 +19,12 @@ Gem::Specification.new do |s|
     "Peter Souter",
     "Peter van Dijk",
     "Max Barnash",
-    "Carlos Palhares",
-    "Mathias Meyer",
     "Dan Buch",
+    "Mathias Meyer",
+    "Carlos Palhares",
     "Andreas Tiefenthaler",
     "Thais Camilo and Konstantin Haase",
+    "Jonne Ha\xC3\x9F",
     "Josh Kalderimis",
     "Julia S.Simon",
     "Justin Lambert",
@@ -50,8 +51,8 @@ Gem::Specification.new do |s|
     "Eric Herot",
     "George Millo",
     "Jacob Burkhart",
-    "Jon-Erik Schneiderhan",
-    "Jonne Ha\xC3\x9F"
+    "Joe Rafaniello",
+    "Jon-Erik Schneiderhan"
   ]
 
   # generated from git shortlog -sne
@@ -64,11 +65,12 @@ Gem::Specification.new do |s|
     "p.morsou@gmail.com",
     "peter.van.dijk@netherlabs.nl",
     "i.am@anhero.ru",
-    "me@xjunior.me",
-    "meyer@paperplanes.de",
     "dan@meatballhat.com",
+    "meyer@paperplanes.de",
+    "me@xjunior.me",
     "at@an-ti.eu",
     "dev+narwen+rkh@rkh.im",
+    "me@jhass.eu",
     "josh.kalderimis@gmail.com",
     "julia.simon@biicode.com",
     "jlambert@eml.cc",
@@ -95,8 +97,8 @@ Gem::Specification.new do |s|
     "eric.github@herot.com",
     "georgejulianmillo@gmail.com",
     "jburkhart@engineyard.com",
-    "jon-erik.schneiderhan@meyouhealth.com",
-    "me@jhass.eu"
+    "jrafanie@users.noreply.github.com",
+    "jon-erik.schneiderhan@meyouhealth.com"
   ]
 
   # generated from git ls-files
