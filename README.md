@@ -2060,6 +2060,16 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
+**1.7.7** (May 26, 2015)
+
+* Fix `travis whatsup` for fresh Travis Enterprise installations.
+
+**1.7.6** (April 08, 2015)
+
+* Add support for "received" build state.
+* Fix issue with archived logs.
+* On version check, do not kill the process if a newer version has been released.
+
 **1.7.5** (January 15, 2015)
 
 * Add support for url.<remote>.insteadOf
