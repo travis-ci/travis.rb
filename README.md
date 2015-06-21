@@ -1979,7 +1979,7 @@ See also [Note on Ubuntu](#note-on-ubuntu) below.
 
 You can also install the development version via RubyGems:
 
-    $ gem install --pre
+    $ gem install travis --pre
 
 We automatically publish a new development version after every successful build.
 
