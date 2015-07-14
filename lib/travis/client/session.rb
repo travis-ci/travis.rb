@@ -249,7 +249,7 @@ module Travis
       end
 
       def private_channels?
-        access_token and user.channels != ['common']
+        !!config['pusher']['private']
       end
 
       private

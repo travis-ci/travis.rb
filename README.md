@@ -269,7 +269,7 @@ Monitoring travis-ci.org:
 ...
 ```
 
-You can limit the repositories to monitor with `--my-repos` and `--repo SLUG`.
+You can limit it to a single repository via `--repo SLUG`.
 
 By default, you will receive events for both builds and jobs, you can limit it to builds only via `--build` (short `-b`):
 
