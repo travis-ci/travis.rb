@@ -6,7 +6,6 @@ require 'fileutils'
 require 'travis'
 require 'highline'
 require 'tmpdir'
-require 'pry' # pry doesn't like us mocking $stdout
 
 temp_dir = nil
 
