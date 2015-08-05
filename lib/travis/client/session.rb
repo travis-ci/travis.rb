@@ -201,11 +201,12 @@ module Travis
       end
 
       def raw(verb, url, *args)
-        url    = url.sub(/^\//, '')
-        result = instrumented(verb.to_s.upcase, url, *args) do
-          connection.public_send(verb, url, *args) do |request|
-            next if request.path !~ /^https?:/ or request.path.start_with? api_endpoint
-            request.headers.delete("Authorization")
+        url     = url.sub(/^\//, '')
+        result  = instrumented(verb.to_s.upcase, url, *args) do
+          if url !~ /^https?:/ or url.start_with? api_endpoint
+            connection.public_send(verb, url, *args)
+          else
+            Faraday.public_send(verb, url, *args) { |r| r.headers.delete("Authorization") }
           end
         end
 
