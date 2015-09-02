@@ -7,7 +7,7 @@ module Travis
         description "automatic deployment to Cloud Foundry"
 
         def run
-          deploy 'provider' => 'cloudfoundry' do |config|
+          deploy 'cloudfoundry' do |config|
             target_file = File.expand_path('.cf/config.json', Dir.home)
             config['api']       ||= JSON.parse(File.read(target_file))["Target"] if File.exist? target_file
             config['api']       ||= ask("Cloud Foundry api: ").to_s
