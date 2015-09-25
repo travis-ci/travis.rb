@@ -1973,7 +1973,7 @@ Now make sure everything is working:
     $ travis version
     1.8.0
 
-See also [Note on Ubuntu](#note-on-ubuntu) below.
+See also [Note on Ubuntu](#ubuntu) below.
 
 ### Development Version
 
