@@ -1479,7 +1479,7 @@ puts "oh no" unless rails.green?
 
 For most parts, those are pretty much the same, the entities you get back look the same, etc, except one offers nice constants as part of the API, the other doesn't. In fact the "global" session style uses `Travis::Client` internally.
 
-So, which one to choose? The global style has one session, whereas with the client style, you have one session per client instance. Each session has it's own cache and identity map. This might matter for log running processes. If you use a new session for separate units of work, you can be pretty sure to not leak any objects. On the other hand using the constants or reusing the same session might save you from unnecessary HTTP requests.
+So, which one to choose? The global style has one session, whereas with the client style, you have one session per client instance. Each session has its own cache and identity map. This might matter for long running processes. If you use a new session for separate units of work, you can be pretty sure to not leak any objects. On the other hand using the constants or reusing the same session might save you from unnecessary HTTP requests.
 
 In either way, if you should use the first approach or long living clients, here is how you make sure not to have stale data around:
 
@@ -1597,7 +1597,7 @@ This is not something you should usually do, as partial loading is actually your
 
 #### Stateful Entities
 
-[Repositories](#repositories), [Builds](#builds) and [Jobs](#jobs) all are basically state machines, which means the implement the following methods:
+[Repositories](#repositories), [Builds](#builds) and [Jobs](#jobs) all are basically state machines, which means they implement the following methods:
 
 ``` ruby
 require 'travis'
@@ -1973,7 +1973,7 @@ Now make sure everything is working:
     $ travis version
     1.8.0
 
-See also [Note on Ubuntu](#note-on-ubuntu) below.
+See also [Note on Ubuntu](#ubuntu) below.
 
 ### Development Version
 
