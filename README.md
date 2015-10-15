@@ -2017,7 +2017,7 @@ Ubuntu:
 
 Fedora:
 
-    $ sudo yum install ruby
+    $ sudo yum install ruby ruby-devel
 
 Arch Linux:
 
