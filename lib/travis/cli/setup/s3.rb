@@ -12,7 +12,7 @@ module Travis
             config['secret_access_key'] = ask("Secret access key: ") { |q| q.echo = "*" }.to_s
             config['bucket'] = ask("Bucket: ").to_s
             local_dir = ask("Local project directory to upload (Optional): ").to_s
-            config['local-dir'] = local_dir unless local_dir.empty?
+            config['local_dir'] = local_dir unless local_dir.empty?
             upload_dir = ask("S3 upload directory (Optional): ").to_s
             config['upload-dir'] = upload_dir unless upload_dir.empty?
             config['acl'] = ask("S3 ACL Settings (private, public_read, public_read_write, authenticated_read, bucket_owner_read, bucket_owner_full_control): ").to_s { |q| q.default = 'private'}
