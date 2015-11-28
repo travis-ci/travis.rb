@@ -11,6 +11,8 @@ module Travis
           deploy 'releases' do |config|
             github.with_token { |t| config['api_key'] = t }
             config['file'] = ask("File to Upload: ").to_s
+            config['on'] ||= {}
+            config['on']['tags'] = true
           end
         end
 
