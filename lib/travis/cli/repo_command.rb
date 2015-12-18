@@ -1,6 +1,6 @@
 require 'travis/cli'
 require 'yaml'
-require "addressable/uri"
+require 'uri/ssh_git'
 
 module Travis
   module CLI
@@ -68,7 +68,7 @@ module Travis
           git_remote  = 'origin' if git_remote.empty?
           git_info    = `git ls-remote --get-url #{git_remote} 2>#{IO::NULL}`.chomp
 
-          if Addressable::URI.parse(git_info).path =~ GIT_REGEX
+          if parse_remote(git_info).path =~ GIT_REGEX
             detectected_slug = $1
             if interactive?
               if agree("Detected repository as #{color(detectected_slug, :info)}, is this correct? ") { |q| q.default = 'yes' }
@@ -81,6 +81,12 @@ module Travis
               detectected_slug
             end
           end
+        end
+
+        def parse_remote(remote)
+          URI.parse(remote)
+        rescue URI::InvalidURIError
+          URI::SshGit.parse(remote)
         end
 
         def load_slug
