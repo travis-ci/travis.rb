@@ -299,7 +299,6 @@ Gem::Specification.new do |s|
   s.add_dependency "launchy",               "~> 2.1"
   s.add_dependency "typhoeus",              "~> 0.6", ">= 0.6.8"
   s.add_dependency "pusher-client",         "~> 0.4"
-  s.add_dependency "uri-ssh_git",           "~> 2.0"
   if Gem::Version.new(RUBY_VERSION) < Gem::Version.new("1.9.0")
     s.add_dependency "addressable",           "~> 2.3", "< 2.4.0"
   end
