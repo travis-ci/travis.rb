@@ -83,11 +83,13 @@ module Travis
         end
 
         def parse_remote(url)
-          URI.parse(url).path
-        rescue URI::InvalidURIError
-          path = url.split(':').last
-          path = "/#{path}" unless path.start_with?('/')
-          path
+          if url.start_with?('git@github.com:')
+            path = url.split(':').last
+            path = "/#{path}" unless path.start_with?('/')
+            path
+          else
+            URI.parse(url).path
+          end
         end
 
         def load_slug
