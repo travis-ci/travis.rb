@@ -260,6 +260,7 @@ Gem::Specification.new do |s|
     "spec/cli/login_spec.rb",
     "spec/cli/logs_spec.rb",
     "spec/cli/open_spec.rb",
+    "spec/cli/repo_command_spec.rb",
     "spec/cli/restart_spec.rb",
     "spec/cli/setup_spec.rb",
     "spec/cli/show_spec.rb",
