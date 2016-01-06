@@ -8,6 +8,11 @@ describe Travis::CLI::RepoCommand do
       path.should be == '/travis-ci/travis.rb.git'
     end
 
+    it 'handles GitHub Enterprise URIS' do
+      path = subject.send(:parse_remote, 'git@example.com:travis-ci/travis.rb.git')
+      path.should be == '/travis-ci/travis.rb.git'
+    end
+
     it 'handles HTTPS URIs' do
       path = subject.send(:parse_remote, 'https://github.com/travis-ci/travis.rb.git')
       path.should be == '/travis-ci/travis.rb.git'

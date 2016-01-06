@@ -83,7 +83,7 @@ module Travis
         end
 
         def parse_remote(url)
-          if url.start_with?('git@github.com:')
+          if url =~ /^git@[^:]+:/
             path = url.split(':').last
             path = "/#{path}" unless path.start_with?('/')
             path
