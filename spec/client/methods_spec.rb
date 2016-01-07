@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Travis::Client::Methods do
   let(:session) { Travis::Client.new }
   subject { OpenStruct.new(:session => session).extend(Travis::Client::Methods) }
-  before { subject.access_token = 'token' }
+  before(:each) { session.access_token = "token" }
 
   describe '#api_endpoint' do
     subject { super().api_endpoint }
