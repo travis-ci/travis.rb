@@ -2,42 +2,42 @@ require 'spec_helper'
 
 describe Travis::CLI::Encrypt do
   example "travis encrypt foo" do
-    run_cli('encrypt', 'foo').should be_success
-    stdout.should match(/^".{60,}"\n$/)
+    expect(run_cli('encrypt', 'foo')).to be_success
+    expect(stdout).to match(/^".{60,}"\n$/)
   end
 
   example "travis encrypt foo -r rails/rails" do
-    run_cli('encrypt', 'foo', '-r', 'rails/rails').should be_success
-    stdout.should match(/^".{60,}"\n$/)
+    expect(run_cli('encrypt', 'foo', '-r', 'rails/rails')).to be_success
+    expect(stdout).to match(/^".{60,}"\n$/)
   end
 
   example "travis encrypt foo -i" do
-    run_cli('encrypt', 'foo', '-i', '--skip-completion-check', '-r', 'travis-ci/travis.rb').should be_success
-    stdout.should start_with("Please add the following to your .travis.yml file:\n\n  secure: ")
+    expect(run_cli('encrypt', 'foo', '-i', '--skip-completion-check', '-r', 'travis-ci/travis.rb')).to be_success
+    expect(stdout).to start_with("Please add the following to your .travis.yml file:\n\n  secure: ")
   end
 
   example "cat foo | travis encrypt" do
     run_cli('encrypt') { |i| i.puts('foo') }
-    stdout.should match(/\A".{60,}"\n\Z/)
+    expect(stdout).to match(/\A".{60,}"\n\Z/)
   end
 
   example "cat foo\\nbar | travis encrypt -s" do
     run_cli('encrypt', '-s') { |i| i.puts("foo\nbar") }
-    stdout.should match(/\A(".{60,}"\n){2}\Z/)
+    expect(stdout).to match(/\A(".{60,}"\n){2}\Z/)
   end
 
   example "cat foo\\nbar | travis encrypt" do
     run_cli('encrypt') { |i| i.puts("foo\nbar") }
-    stdout.should match(/\A".{60,}"\n\Z/)
+    expect(stdout).to match(/\A".{60,}"\n\Z/)
   end
 
   example "travis encrypt rails/rails foo" do
-    run_cli('encrypt', 'rails/rails', 'foo').should be_success
-    stderr.should match(/WARNING/)
+    expect(run_cli('encrypt', 'rails/rails', 'foo')).to be_success
+    expect(stderr).to match(/WARNING/)
   end
 
   example "travis encrypt foo=foo/bar" do
-    run_cli("encrypt", "foo=foo/bar").should be_success
-    stderr.should_not match(/WARNING/)
+    expect(run_cli("encrypt", "foo=foo/bar")).to be_success
+    expect(stderr).not_to match(/WARNING/)
   end
 end

@@ -1,10 +1,13 @@
 require 'spec_helper'
 
 describe Travis do
-  its(:api_endpoint) { should be == 'https://api.travis-ci.org/' }
+  describe '#api_endpoint' do
+    subject { super().api_endpoint }
+    it { is_expected.to eq('https://api.travis-ci.org/') }
+  end
 
   it 'has a nice inspect on entities' do
-    pending "does not work on JRuby" if defined? RUBY_ENGINE and RUBY_ENGINE == 'jruby'
-    Travis::Repository.find('rails/rails').inspect.should be == "#<Travis::Repository: rails/rails>"
+    skip "does not work on JRuby" if defined? RUBY_ENGINE and RUBY_ENGINE == 'jruby'
+    expect(Travis::Repository.find('rails/rails').inspect).to eq("#<Travis::Repository: rails/rails>")
   end
 end

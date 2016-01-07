@@ -15,31 +15,31 @@ describe Travis::CLI::Init do
   end
 
   example "travis init fakelanguage" do
-    run_cli('init', 'fakelanguage', '--skip-enable', '-r', 'travis-ci/travis.rb').should_not be_success
-    stderr.should be == "unknown language fakelanguage\n"
+    expect(run_cli('init', 'fakelanguage', '--skip-enable', '-r', 'travis-ci/travis.rb')).not_to be_success
+    expect(stderr).to eq("unknown language fakelanguage\n")
   end
 
   shared_examples_for 'travis init' do |language|
     example "travis init #{language} (empty directory)" do
-      File.exist?('.travis.yml').should be_false
-      run_cli('init', language, '--skip-enable', '-r', 'travis-ci/travis.rb').should be_success
-      stdout.should be == ".travis.yml file created!\n"
-      File.exist?('.travis.yml').should be_true
-      File.read('.travis.yml').should include("language: #{language}")
+      expect(File.exist?('.travis.yml')).to be_falsey
+      expect(run_cli('init', language, '--skip-enable', '-r', 'travis-ci/travis.rb')).to be_success
+      expect(stdout).to eq(".travis.yml file created!\n")
+      expect(File.exist?('.travis.yml')).to be_truthy
+      expect(File.read('.travis.yml')).to include("language: #{language}")
     end
 
     example "travis init #{language} (.travis.yml already exists, using --force)" do
       File.open(".travis.yml", "w") { |f| f << "old file" }
-      run_cli('init', language, '--force', '--skip-enable', '-r', 'travis-ci/travis.rb').should be_success
-      stdout.should be == ".travis.yml file created!\n"
-      File.read(".travis.yml").should_not be == "old file"
+      expect(run_cli('init', language, '--force', '--skip-enable', '-r', 'travis-ci/travis.rb')).to be_success
+      expect(stdout).to eq(".travis.yml file created!\n")
+      expect(File.read(".travis.yml")).not_to eq("old file")
     end
 
     example "travis init #{language} (.travis.yml already exists, not using --force)" do
       File.open(".travis.yml", "w") { |f| f << "old file" }
-      run_cli('init', language, '--skip-enable', '-r', 'travis-ci/travis.rb').should_not be_success
-      stderr.should be == ".travis.yml already exists, use --force to override\n"
-      File.read('.travis.yml').should be == "old file"
+      expect(run_cli('init', language, '--skip-enable', '-r', 'travis-ci/travis.rb')).not_to be_success
+      expect(stderr).to eq(".travis.yml already exists, use --force to override\n")
+      expect(File.read('.travis.yml')).to eq("old file")
     end
   end
 
@@ -52,9 +52,9 @@ describe Travis::CLI::Init do
     end
 
     it 'sets compiler' do
-      result.should include('compiler')
-      result['compiler'].should include('clang')
-      result['compiler'].should include('gcc')
+      expect(result).to include('compiler')
+      expect(result['compiler']).to include('clang')
+      expect(result['compiler']).to include('gcc')
     end
   end
 
@@ -71,9 +71,9 @@ describe Travis::CLI::Init do
     end
 
     it 'sets compiler' do
-      result.should include('compiler')
-      result['compiler'].should include('clang')
-      result['compiler'].should include('gcc')
+      expect(result).to include('compiler')
+      expect(result['compiler']).to include('clang')
+      expect(result['compiler']).to include('gcc')
     end
   end
 
@@ -86,8 +86,8 @@ describe Travis::CLI::Init do
     end
 
     it 'sets compiler' do
-      result.should include('otp_release')
-      result['otp_release'].should include('R16B')
+      expect(result).to include('otp_release')
+      expect(result['otp_release']).to include('R16B')
     end
   end
 
@@ -100,9 +100,9 @@ describe Travis::CLI::Init do
     end
 
     it 'sets compiler' do
-      result.should include('go')
-      result['go'].should include('1.0')
-      result['go'].should include('1.3')
+      expect(result).to include('go')
+      expect(result['go']).to include('1.0')
+      expect(result['go']).to include('1.3')
     end
   end
 
@@ -123,9 +123,9 @@ describe Travis::CLI::Init do
     end
 
     it 'sets compiler' do
-      result.should include('jdk')
-      result['jdk'].should include('oraclejdk7')
-      result['jdk'].should include('openjdk6')
+      expect(result).to include('jdk')
+      expect(result['jdk']).to include('oraclejdk7')
+      expect(result['jdk']).to include('openjdk6')
     end
   end
 
@@ -138,9 +138,9 @@ describe Travis::CLI::Init do
     end
 
     it 'sets compiler' do
-      result.should include('node_js')
-      result['node_js'].should include('0.11')
-      result['node_js'].should include('0.10')
+      expect(result).to include('node_js')
+      expect(result['node_js']).to include('0.11')
+      expect(result['node_js']).to include('0.10')
     end
   end
 
@@ -157,9 +157,9 @@ describe Travis::CLI::Init do
     end
 
     it 'sets compiler' do
-      result.should include('perl')
-      result['perl'].should include('5.16')
-      result['perl'].should include('5.14')
+      expect(result).to include('perl')
+      expect(result['perl']).to include('5.16')
+      expect(result['perl']).to include('5.14')
     end
   end
 
@@ -172,9 +172,9 @@ describe Travis::CLI::Init do
     end
 
     it 'sets compiler' do
-      result.should include('php')
-      result['php'].should include('5.5')
-      result['php'].should include('5.4')
+      expect(result).to include('php')
+      expect(result['php']).to include('5.5')
+      expect(result['php']).to include('5.4')
     end
   end
 
@@ -187,9 +187,9 @@ describe Travis::CLI::Init do
     end
 
     it 'sets compiler' do
-      result.should include('python')
-      result['python'].should include('2.7')
-      result['python'].should include('3.3')
+      expect(result).to include('python')
+      expect(result['python']).to include('2.7')
+      expect(result['python']).to include('3.3')
     end
   end
 
@@ -202,10 +202,10 @@ describe Travis::CLI::Init do
     end
 
     it 'sets compiler' do
-      result.should include('rvm')
-      result['rvm'].should     include('1.9.3')
-      result['rvm'].should     include('2.0.0')
-      result['rvm'].should_not include('1.8.7')
+      expect(result).to include('rvm')
+      expect(result['rvm']).to     include('1.9.3')
+      expect(result['rvm']).to     include('2.0.0')
+      expect(result['rvm']).not_to include('1.8.7')
     end
   end
 
@@ -218,9 +218,9 @@ describe Travis::CLI::Init do
     end
 
     it 'sets compiler' do
-      result.should include('scala')
-      result['scala'].should include('2.10.1')
-      result['scala'].should include('2.9.3')
+      expect(result).to include('scala')
+      expect(result['scala']).to include('2.10.1')
+      expect(result['scala']).to include('2.9.3')
     end
   end
 end

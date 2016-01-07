@@ -1,10 +1,14 @@
 require 'spec_helper'
 
 describe Travis::Pro do
-  it { should be_a(Travis::Client::Namespace) }
-  its(:api_endpoint) { should be == 'https://api.travis-ci.com/' }
+  it { is_expected.to be_a(Travis::Client::Namespace) }
+
+  describe '#api_endpoint' do
+    subject { super().api_endpoint }
+    it { is_expected.to eq('https://api.travis-ci.com/') }
+  end
 
   it 'has a nice inspect on entities' do
-    Travis::Pro::Repository.find('rails/rails').inspect.should be == "#<Travis::Pro::Repository: rails/rails>"
+    expect(Travis::Pro::Repository.find('rails/rails').inspect).to eq("#<Travis::Pro::Repository: rails/rails>")
   end
 end

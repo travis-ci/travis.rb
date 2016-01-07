@@ -5,11 +5,22 @@ describe Travis::Client::Methods do
   subject { OpenStruct.new(:session => session).extend(Travis::Client::Methods) }
   before { subject.access_token = 'token' }
 
-  its(:api_endpoint) { should be == 'https://api.travis-ci.org/' }
-  its(:repos) { should be == session.find_many(Travis::Client::Repository) }
-  its(:user) { should be == session.find_one(Travis::Client::User) }
+  describe '#api_endpoint' do
+    subject { super().api_endpoint }
+    it { is_expected.to eq('https://api.travis-ci.org/') }
+  end
+
+  describe '#repos' do
+    subject { super().repos }
+    it { is_expected.to eq(session.find_many(Travis::Client::Repository)) }
+  end
+
+  describe '#user' do
+    subject { super().user }
+    it { is_expected.to eq(session.find_one(Travis::Client::User)) }
+  end
 
   it 'fetches a single repo' do
-    subject.repo(891).slug.should be == 'rails/rails'
+    expect(subject.repo(891).slug).to eq('rails/rails')
   end
 end

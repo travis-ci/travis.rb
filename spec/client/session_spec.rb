@@ -1,26 +1,32 @@
 require 'spec_helper'
 
 describe Travis::Client::Session do
-  it { should be_a(Travis::Client::Methods) }
+  it { is_expected.to be_a(Travis::Client::Methods) }
 
   describe "uri" do
-    its(:uri) { should be == "https://api.travis-ci.org/" }
+    describe '#uri' do
+      subject { super().uri }
+      it { is_expected.to eq("https://api.travis-ci.org/") }
+    end
 
     it 'can be set as argument' do
-      Travis::Client::Session.new('http://foo/').uri.should be == 'http://foo/'
+      expect(Travis::Client::Session.new('http://foo/').uri).to eq('http://foo/')
     end
 
     it 'can be set as hash argument' do
-      Travis::Client::Session.new(:uri => 'http://foo/').uri.should be == 'http://foo/'
+      expect(Travis::Client::Session.new(:uri => 'http://foo/').uri).to eq('http://foo/')
     end
   end
 
   describe "access_token" do
-    its(:access_token) { should be_nil }
+    describe '#access_token' do
+      subject { super().access_token }
+      it { is_expected.to be_nil }
+    end
 
     it 'gives authenticated access if set' do
       subject.access_token = 'token'
-      subject.user.login.should be == 'rkh'
+      expect(subject.user.login).to eq('rkh')
     end
 
     it 'raises if token is not set' do
@@ -29,74 +35,77 @@ describe Travis::Client::Session do
   end
 
   describe "connection" do
-    its(:connection) { should be_a(Faraday::Connection) }
+    describe '#connection' do
+      subject { super().connection }
+      it { is_expected.to be_a(Faraday::Connection) }
+    end
 
     it 'creates a new connection when changing the uri' do
       old_connection = subject.connection
       subject.uri    = 'http://localhost:3000'
-      subject.connection.should_not be == old_connection
+      expect(subject.connection).not_to eq(old_connection)
     end
   end
 
   describe "headers" do
     it 'propagates headers to connection headers' do
       subject.headers['foo'] = 'bar'
-      subject.connection.headers.should include('foo')
+      expect(subject.connection.headers).to include('foo')
     end
 
     it 'propagates headers to new connections' do
       subject.headers['foo'] = 'bar'
       subject.connection = Faraday::Connection.new
-      subject.connection.headers.should include('foo')
+      expect(subject.connection.headers).to include('foo')
     end
 
     it 'is possible to set headers as constructor option' do
-      Travis::Client::Session.new(:headers => {'foo' => 'bar'}, :uri => 'http://localhost:3000/').
-        connection.headers['foo'].should be == 'bar'
+      expect(Travis::Client::Session.new(:headers => {'foo' => 'bar'}, :uri => 'http://localhost:3000/').
+        connection.headers['foo']).to eq('bar')
     end
 
     it 'sets a User-Agent' do
-      subject.headers['User-Agent'].should include("Travis/#{Travis::VERSION}")
-      subject.headers['User-Agent'].should include("Faraday/#{Faraday::VERSION}")
-      subject.headers['User-Agent'].should include("Rack/#{Rack.version}")
-      subject.headers['User-Agent'].should include("Ruby #{RUBY_VERSION}")
+      expect(subject.headers['User-Agent']).to include("Travis/#{Travis::VERSION}")
+      expect(subject.headers['User-Agent']).to include("Faraday/#{Faraday::VERSION}")
+      expect(subject.headers['User-Agent']).to include("Rack/#{Rack.version}")
+      expect(subject.headers['User-Agent']).to include("Ruby #{RUBY_VERSION}")
     end
 
     it 'allows adding custom infos to the User-Agent' do
       subject.agent_info = "foo"
-      subject.headers['User-Agent'].should include("foo")
-      subject.headers['User-Agent'].should include("Travis/#{Travis::VERSION}")
-      subject.headers['User-Agent'].should include("Faraday/#{Faraday::VERSION}")
-      subject.headers['User-Agent'].should include("Rack/#{Rack.version}")
-      subject.headers['User-Agent'].should include("Ruby #{RUBY_VERSION}")
+      expect(subject.headers['User-Agent']).to include("foo")
+      expect(subject.headers['User-Agent']).to include("Travis/#{Travis::VERSION}")
+      expect(subject.headers['User-Agent']).to include("Faraday/#{Faraday::VERSION}")
+      expect(subject.headers['User-Agent']).to include("Rack/#{Rack.version}")
+      expect(subject.headers['User-Agent']).to include("Ruby #{RUBY_VERSION}")
     end
   end
 
   describe "find_one" do
     it 'finds one instance' do
       repo = subject.find_one(Travis::Client::Repository, 'rails/rails')
-      repo.should be_a(Travis::Client::Repository)
-      repo.slug.should be == 'rails/rails'
+      expect(repo).to be_a(Travis::Client::Repository)
+      expect(repo.slug).to eq('rails/rails')
     end
   end
 
   describe "find_many" do
     it 'finds many instances' do
       repos = subject.find_many(Travis::Client::Repository)
-      repos.should be_an(Array)
-      repos.each { |repo| repo.should be_a(Travis::Client::Repository) }
-      repos.first.slug.should be == "pypug/django-mango"
+      expect(repos).to be_an(Array)
+      repos.each { |repo| expect(repo).to be_a(Travis::Client::Repository) }
+      expect(repos.first.slug).to eq("pypug/django-mango")
     end
   end
 
   describe "find_one_or_many" do
     it 'finds one instance' do
       subject.access_token = 'token'
-      subject.find_one_or_many(Travis::Client::User).should be_a(Travis::Client::User)
+      expect(subject.find_one_or_many(Travis::Client::User)).to be_a(Travis::Client::User)
     end
 
     it 'finds many instances' do
-      subject.find_one_or_many(Travis::Client::Repository).should be_an(Array)
+      expect(subject.find_one_or_many(Travis::Client::Repository)).to be_an(Array)
     end
   end
 
@@ -104,18 +113,18 @@ describe Travis::Client::Session do
     it 'reloads an instance' do
       Travis::Client::Session::FakeAPI.rails_description = "Ruby on Rails"
       rails = subject.find_one(Travis::Client::Repository, 'rails/rails')
-      rails.description.should be == 'Ruby on Rails'
+      expect(rails.description).to eq('Ruby on Rails')
       Travis::Client::Session::FakeAPI.rails_description = 'Rails on the Rubies'
-      rails.description.should be == 'Ruby on Rails'
+      expect(rails.description).to eq('Ruby on Rails')
       subject.reload(rails)
-      rails.description.should be == 'Rails on the Rubies'
+      expect(rails.description).to eq('Rails on the Rubies')
     end
   end
 
   describe "get" do
     it 'fetches a payload and substitutes values with entities' do
       result = subject.get('/repos/')
-      result['repos'].first.slug.should be == "pypug/django-mango"
+      expect(result['repos'].first.slug).to eq("pypug/django-mango")
     end
   end
 
@@ -123,17 +132,17 @@ describe Travis::Client::Session do
     it 'resets all the entities' do
       Travis::Client::Session::FakeAPI.rails_description = "Ruby on Rails"
       rails = subject.find_one(Travis::Client::Repository, 'rails/rails')
-      rails.description.should be == 'Ruby on Rails'
+      expect(rails.description).to eq('Ruby on Rails')
       Travis::Client::Session::FakeAPI.rails_description = 'Rails on the Rubies'
-      rails.description.should be == 'Ruby on Rails'
+      expect(rails.description).to eq('Ruby on Rails')
       subject.clear_cache
-      rails.description.should be == 'Rails on the Rubies'
+      expect(rails.description).to eq('Rails on the Rubies')
     end
 
     it 'keeps entries in the identity map' do
       rails = subject.repo('rails/rails')
       subject.clear_cache
-      subject.repo('rails/rails').should be_equal(rails)
+      expect(subject.repo('rails/rails')).to be_equal(rails)
     end
   end
 
@@ -141,25 +150,31 @@ describe Travis::Client::Session do
     it 'resets all the entities' do
       Travis::Client::Session::FakeAPI.rails_description = "Ruby on Rails"
       rails = subject.find_one(Travis::Client::Repository, 'rails/rails')
-      rails.description.should be == 'Ruby on Rails'
+      expect(rails.description).to eq('Ruby on Rails')
       Travis::Client::Session::FakeAPI.rails_description = 'Rails on the Rubies'
-      rails.description.should be == 'Ruby on Rails'
+      expect(rails.description).to eq('Ruby on Rails')
       subject.clear_cache!
-      rails.description.should be == 'Rails on the Rubies'
+      expect(rails.description).to eq('Rails on the Rubies')
     end
 
     it 'does not keep entries in the identity map' do
       rails = subject.repo('rails/rails')
       subject.clear_cache!
-      subject.repo('rails/rails').should_not be_equal(rails)
+      expect(subject.repo('rails/rails')).not_to be_equal(rails)
     end
   end
 
   describe "session" do
-    its(:session) { should eq(subject) }
+    describe '#session' do
+      subject { super().session }
+      it { is_expected.to eq(subject) }
+    end
   end
 
   describe "config" do
-    its(:config) { should be == {"host" => "travis-ci.org"}}
+    describe '#config' do
+      subject { super().config }
+      it { is_expected.to eq({"host" => "travis-ci.org"})}
+    end
   end
 end

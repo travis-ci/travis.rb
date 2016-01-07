@@ -2,32 +2,32 @@ require 'spec_helper'
 
 describe Travis::CLI::Help do
   example "travis help" do
-    run_cli('help').should be_success
-    stdout.should include("Usage: travis COMMAND")
+    expect(run_cli('help')).to be_success
+    expect(stdout).to include("Usage: travis COMMAND")
   end
 
   example "travis --help" do
-    run_cli('--help').should be_success
-    stdout.should include("Usage: travis COMMAND")
+    expect(run_cli('--help')).to be_success
+    expect(stdout).to include("Usage: travis COMMAND")
   end
 
   example "travis -h" do
-    run_cli('-h').should be_success
-    stdout.should include("Usage: travis COMMAND")
+    expect(run_cli('-h')).to be_success
+    expect(stdout).to include("Usage: travis COMMAND")
   end
 
   example "travis -?" do
-    run_cli('-?').should be_success
-    stdout.should include("Usage: travis COMMAND")
+    expect(run_cli('-?')).to be_success
+    expect(stdout).to include("Usage: travis COMMAND")
   end
 
   example "travis help endpoint" do
-    run_cli('help', 'endpoint').should be_success
-    stdout.should include("Usage: travis endpoint [OPTIONS]")
+    expect(run_cli('help', 'endpoint')).to be_success
+    expect(stdout).to include("Usage: travis endpoint [OPTIONS]")
   end
 
   example "travis endpoint --help" do
-    run_cli('endpoint', '--help').should be_success
-    stdout.should include("Usage: travis endpoint [OPTIONS]")
+    expect(run_cli('endpoint', '--help')).to be_success
+    expect(stdout).to include("Usage: travis endpoint [OPTIONS]")
   end
 end

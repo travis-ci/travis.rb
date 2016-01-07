@@ -2,27 +2,27 @@ require 'spec_helper'
 
 describe Travis::CLI::Status do
   example "travis status" do
-    run_cli('status').should be_success
-    stdout.should be == "failed\n"
+    expect(run_cli('status')).to be_success
+    expect(stdout).to eq("failed\n")
   end
 
   example "travis status -x" do
-    run_cli('status', '-x').should_not be_success
-    stdout.should be == "failed\n"
+    expect(run_cli('status', '-x')).not_to be_success
+    expect(stdout).to eq("failed\n")
   end
 
   example "travis status -q" do
-    run_cli('status', '-q').should be_success
-    stdout.should be_empty
+    expect(run_cli('status', '-q')).to be_success
+    expect(stdout).to be_empty
   end
 
   example "travis status -pqx" do
-    run_cli('endpoint', '-pqx').should_not be_success
-    stdout.should be_empty
+    expect(run_cli('endpoint', '-pqx')).not_to be_success
+    expect(stdout).to be_empty
   end
 
   example "travis status -i" do
-    run_cli('status', '-i', '--skip-completion-check', '-r', 'travis-ci/travis.rb').should be_success
-    stdout.should be == "build #6180 failed\n"
+    expect(run_cli('status', '-i', '--skip-completion-check', '-r', 'travis-ci/travis.rb')).to be_success
+    expect(stdout).to eq("build #6180 failed\n")
   end
 end

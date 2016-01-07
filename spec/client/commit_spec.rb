@@ -4,19 +4,62 @@ describe Travis::Client::Build do
   let(:session) { Travis::Client.new }
   subject { session.build(4125095).commit }
 
-  its(:sha) { should be == 'a0265b98f16c6e33be32aa3f57231d1189302400' }
-  its(:short_sha) { should be == 'a0265b9' }
-  its(:branch) { should be == 'master' }
-  its(:message) { should be == 'Associaton -> Association' }
-  its(:committed_at) { should be_a(Time) }
-  its(:author_name) { should be == 'Steve Klabnik' }
-  its(:author_email) { should be == 'steve@steveklabnik.com' }
-  its(:committer_name) { should be == 'Steve Klabnik' }
-  its(:committer_email) { should be == 'steve@steveklabnik.com' }
-  its(:compare_url) { should be == 'https://github.com/rails/rails/compare/6581d798e830...a0265b98f16c' }
-  its(:subject) { should be == 'Associaton -> Association' }
+  describe '#sha' do
+    subject { super().sha }
+    it { is_expected.to eq('a0265b98f16c6e33be32aa3f57231d1189302400') }
+  end
+
+  describe '#short_sha' do
+    subject { super().short_sha }
+    it { is_expected.to eq('a0265b9') }
+  end
+
+  describe '#branch' do
+    subject { super().branch }
+    it { is_expected.to eq('master') }
+  end
+
+  describe '#message' do
+    subject { super().message }
+    it { is_expected.to eq('Associaton -> Association') }
+  end
+
+  describe '#committed_at' do
+    subject { super().committed_at }
+    it { is_expected.to be_a(Time) }
+  end
+
+  describe '#author_name' do
+    subject { super().author_name }
+    it { is_expected.to eq('Steve Klabnik') }
+  end
+
+  describe '#author_email' do
+    subject { super().author_email }
+    it { is_expected.to eq('steve@steveklabnik.com') }
+  end
+
+  describe '#committer_name' do
+    subject { super().committer_name }
+    it { is_expected.to eq('Steve Klabnik') }
+  end
+
+  describe '#committer_email' do
+    subject { super().committer_email }
+    it { is_expected.to eq('steve@steveklabnik.com') }
+  end
+
+  describe '#compare_url' do
+    subject { super().compare_url }
+    it { is_expected.to eq('https://github.com/rails/rails/compare/6581d798e830...a0265b98f16c') }
+  end
+
+  describe '#subject' do
+    subject { super().subject }
+    it { is_expected.to eq('Associaton -> Association') }
+  end
 
   specify "with missing data" do
-    session.load("commit" => { "id" => 12 })['commit'].subject.should be_empty
+    expect(session.load("commit" => { "id" => 12 })['commit'].subject).to be_empty
   end
 end
