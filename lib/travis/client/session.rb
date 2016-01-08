@@ -21,6 +21,7 @@ module Travis
 
       include Methods
       attr_reader :connection, :headers, :access_token, :instruments, :faraday_adapter, :agent_info, :ssl
+      attr_accessor :debug_http
 
       def initialize(options = Travis::Client::ORG_URI)
         @headers         = {}
@@ -58,6 +59,7 @@ module Travis
         clear_cache!
         self.connection = Faraday.new(:url => uri, :ssl => ssl) do |faraday|
           faraday.request  :url_encoded
+          faraday.response :logger if debug_http
           faraday.adapter(*faraday_adapter)
         end
       end
