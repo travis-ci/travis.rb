@@ -22,6 +22,10 @@ module Travis
         end
       end
 
+      on('--debug-http', 'show HTTP(S) exchange') do |c,_|
+        c.session.debug_http = true
+      end
+
       on('-X', '--enterprise [NAME]', 'use enterprise setup (optionally takes name for multiple setups)') do |c, name|
         c.enterprise_name = name || 'default'
       end
