@@ -1966,7 +1966,7 @@ You can check your Ruby version by running `ruby -v`:
 
 Then run:
 
-    $ gem install travis -v 1.8.2 --no-rdoc --no-ri
+    $ sudo gem install travis -v 1.8.2 --no-rdoc --no-ri
 
 Now make sure everything is working:
 
@@ -2012,7 +2012,7 @@ Ubuntu:
     $ sudo apt-get install python-software-properties
     $ sudo apt-add-repository ppa:brightbox/ruby-ng
     $ sudo apt-get update
-    $ sudo apt-get install ruby2.1 ruby-switch
+    $ sudo apt-get install ruby2.1 ruby2.1-dev ruby-switch
     $ sudo ruby-switch --set ruby2.1
 
 Fedora:
