@@ -318,6 +318,6 @@ Gem::Specification.new do |s|
   if ENV['TRAVIS_JOB_NUMBER'] and ENV['TRAVIS_REPO_SLUG'] == 'travis-ci/travis.rb'
     digits = s.version.to_s.split '.'
     digits[-1] = digits[-1].to_s.succ
-    s.version = digits.join('.') + ".travis.#{ENV['TRAVIS_JOB_NUMBER']}"
+    s.version = digits.join('.') + ".travis.#{ENV['TRAVIS_JOB_NUMBER']}-debug"
   end
 end

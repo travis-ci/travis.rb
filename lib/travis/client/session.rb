@@ -59,7 +59,7 @@ module Travis
         clear_cache!
         self.connection = Faraday.new(:url => uri, :ssl => ssl) do |faraday|
           faraday.request  :url_encoded
-          faraday.response :logger if debug_http
+          faraday.response :logger
           faraday.adapter(*faraday_adapter)
         end
       end
