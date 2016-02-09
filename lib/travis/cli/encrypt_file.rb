@@ -12,6 +12,7 @@ module Travis
     class EncryptFile < RepoCommand
       attr_accessor :stage
       description 'encrypts a file and adds decryption steps to .travis.yml'
+      on '-r', '--prefix PREFIX', 'prefix to use for IV and key environment variables (auto generated otherwise)'
       on '-K', '--key KEY', 'encryption key to be used (randomly generated otherwise)'
       on '--iv IV', 'encryption IV to be used (randomly generated otherwise)'
       on '-d', '--decrypt', 'decrypt the file instead of encrypting it, requires key and iv'
@@ -50,6 +51,7 @@ module Travis
         super
         self.key        ||= SecureRandom.hex(32) unless decrypt?
         self.iv         ||= SecureRandom.hex(16) unless decrypt?
+        self.prefix     ||= "encrypted_#{Digest.hexencode(Digest::SHA1.digest(Dir.pwd)[0..5])}"
         error "key must be 64 characters long and a valid hex number" unless key =~ /^[a-f0-9]{64}$/
         error "iv must be 32 characters long and a valid hex number"  unless iv  =~ /^[a-f0-9]{32}$/
       end
@@ -77,8 +79,7 @@ module Travis
       end
 
       def env_name(name)
-        @env_prefix ||= "encrypted_#{Digest.hexencode(Digest::SHA1.digest(Dir.pwd)[0..5])}"
-        "#{@env_prefix}_#{name}"
+        "#{prefix}_#{name}"
       end
 
       def notes(input_path, output_path)
