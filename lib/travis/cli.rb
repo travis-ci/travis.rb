@@ -21,6 +21,7 @@ module Travis
     autoload :Cancel,       'travis/cli/cancel'
     autoload :Command,      'travis/cli/command'
     autoload :Console,      'travis/cli/console'
+    autoload :Crons,        'travis/cli/crons'
     autoload :Disable,      'travis/cli/disable'
     autoload :Enable,       'travis/cli/enable'
     autoload :Encrypt,      'travis/cli/encrypt'
