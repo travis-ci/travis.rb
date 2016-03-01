@@ -3,13 +3,11 @@ require 'travis/cli'
 module Travis
   module CLI
     class Crons < ApiCommand
-      description "lists crons for repo"
+      description "lists crons for all repos"
       on('-m', '--my-repos', 'Only display my own repositories')
 
       def run
-
         say "nothing to show" if recent.empty?
-
         recent.each do |repo|
           result = session.get("v3/repo/#{repo.id}/crons")
           say color(repo.slug, [:bold, repo.color])

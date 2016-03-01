@@ -162,6 +162,7 @@ Gem::Specification.new do |s|
     "lib/travis/cli/cancel.rb",
     "lib/travis/cli/command.rb",
     "lib/travis/cli/console.rb",
+    "lib/travis/cli/cron.rb",
     "lib/travis/cli/crons.rb",
     "lib/travis/cli/disable.rb",
     "lib/travis/cli/enable.rb",
