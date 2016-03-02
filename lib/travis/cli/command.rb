@@ -265,9 +265,7 @@ module Travis
       end
 
       def info(line)
-        write_to($stderr) do
-          say color(line, :info)
-        end
+        say color(line, :info)
       end
 
       def on_signal(&block)

@@ -37,6 +37,130 @@ module Travis
              "correct_scopes"=>true}}.to_json
         end
 
+        get '/v3/repo/107495/crons' do
+          { "@type"=> "crons",
+            "@href"=> "/v3/repo/107495/crons",
+            "@representation"=> "standard",
+            "@pagination"=> {},
+            "crons"=> [
+              {
+                "@type"=> "cron",
+                "@href"=> "/v3/cron/378",
+                "@representation"=> "standard",
+                "@permissions"=> {
+                  "read"=> true,
+                  "delete"=> false
+                },
+                "id"=> 378,
+                "repository"=> {
+                  "@type"=> "repository",
+                  "@href"=> "/v3/repo/107495",
+                  "@representation"=> "minimal",
+                  "id"=> 107495,
+                  "name"=> "SWT-Demo",
+                  "slug"=> "HPI-BP2015H/SWT-Demo"
+                },
+                "branch"=> {
+                  "@type"=> "branch",
+                  "@href"=> "/v3/repo/107495/branch/master",
+                  "@representation"=> "minimal",
+                  "name"=> "master"
+                },
+                "interval"=> "weekly",
+                "disable_by_build"=> false,
+                "next_enqueuing"=> "2016-03-08T13:00:00Z"}]}.to_json
+        end
+
+        delete '/v3/cron/378' do
+          { "@type"=> "cron",
+            "@href"=> "/v3/cron/378",
+            "@representation"=> "standard",
+            "@permissions"=> {
+              "read"=> true,
+              "delete"=> false
+            },
+            "id"=> 378,
+            "repository"=> {
+              "@type"=> "repository",
+              "@href"=> "/v3/repo/39682",
+              "@representation"=> "minimal",
+              "id"=> 39682,
+              "name"=> "SWT-Demo",
+              "slug"=> "HPI-BP2015H/SWT-Demo"
+            },
+            "branch"=> {
+              "@type"=> "branch",
+              "@href"=> "/v3/repo/39682/branch/master",
+              "@representation"=> "minimal",
+              "name"=> "master"
+            },
+            "interval"=> "weekly",
+            "disable_by_build"=> false,
+            "next_enqueuing"=> "2016-03-08T12:00:00Z"}.to_json
+        end
+
+        post '/v3/repo/891/branch/debug/cron' do
+          { "@type"=> "cron",
+            "@href"=> "/v3/cron/378",
+            "@representation"=> "standard",
+            "@permissions"=> {
+              "read"=> true,
+              "delete"=> false
+            },
+            "id"=> 378,
+            "repository"=> {
+              "@type"=> "repository",
+              "@href"=> "/v3/repo/39682",
+              "@representation"=> "minimal",
+              "id"=> 39682,
+              "name"=> "SWT-Demo",
+              "slug"=> "HPI-BP2015H/SWT-Demo"
+            },
+            "branch"=> {
+              "@type"=> "branch",
+              "@href"=> "/v3/repo/39682/branch/master",
+              "@representation"=> "minimal",
+              "name"=> "master"
+            },
+            "interval"=> "weekly",
+            "disable_by_build"=> false,
+            "next_enqueuing"=> "2016-03-08T12:00:00Z"}.to_json
+        end
+
+        get '/v3/repo/891/crons' do
+          { "@type"=> "crons",
+            "@href"=> "/v3/repo/891/crons",
+            "@representation"=> "standard",
+            "@pagination"=> {},
+            "crons"=> [
+              {
+                "@type"=> "cron",
+                "@href"=> "/v3/cron/378",
+                "@representation"=> "standard",
+                "@permissions"=> {
+                  "read"=> true,
+                  "delete"=> false
+                },
+                "id"=> 378,
+                "repository"=> {
+                  "@type"=> "repository",
+                  "@href"=> "/v3/repo/891",
+                  "@representation"=> "minimal",
+                  "id"=> 39682,
+                  "name"=> "SWT-Demo",
+                  "slug"=> "HPI-BP2015H/SWT-Demo"
+                },
+                "branch"=> {
+                  "@type"=> "branch",
+                  "@href"=> "/v3/repo/891/branch/master",
+                  "@representation"=> "minimal",
+                  "name"=> "master"
+                },
+                "interval"=> "weekly",
+                "disable_by_build"=> false,
+                "next_enqueuing"=> "2016-03-08T13:00:00Z"}]}.to_json
+        end
+
         get '/jobs/4125097' do
           {"job"=>
             {"id"=>4125097,
@@ -91,6 +215,15 @@ module Travis
               "provider_name"=>"Travis CI",
               "url"=>"https://travis-ci.org/rails/rails/jobs/4125097",
               "status"=>''}]}.to_json
+        end
+
+        get '/users/permissions' do
+          {
+            "permissions"=>[891],
+            "admin"=>[891],
+            "pull"=>[891],
+            "push"=>[891]
+          }.to_json
         end
 
         get '/builds/4125095' do
