@@ -36,6 +36,7 @@ module Travis
     autoload :Logs,         'travis/cli/logs'
     autoload :Monitor,      'travis/cli/monitor'
     autoload :Open,         'travis/cli/open'
+    autoload :Overview,     'travis/cli/overview'
     autoload :Parser,       'travis/cli/parser'
     autoload :Pubkey,       'travis/cli/pubkey'
     autoload :Raw,          'travis/cli/raw'

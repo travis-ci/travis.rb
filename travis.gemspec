@@ -177,6 +177,7 @@ Gem::Specification.new do |s|
     "lib/travis/cli/logs.rb",
     "lib/travis/cli/monitor.rb",
     "lib/travis/cli/open.rb",
+    "lib/travis/cli/overview.rb",
     "lib/travis/cli/parser.rb",
     "lib/travis/cli/pubkey.rb",
     "lib/travis/cli/raw.rb",
