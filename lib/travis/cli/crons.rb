@@ -12,12 +12,7 @@ module Travis
           result = session.get("v3/repo/#{repo.id}/crons")
           say color(repo.slug, [:bold, repo.color])
           result['crons'].each do | cron |
-            say 'ID: ' + cron.id.to_s
-            say 'Branch: ' + cron.branch_name
-            say 'Interval: ' + cron.interval
-            say 'Disable by build: ' + cron.disable_by_build.to_s
-            say 'Next Enqueuing: ' + cron.next_enqueuing
-            say "\n"
+            info "Cron #{cron.id} builds #{cron.interval} on #{cron.branch_name}."
           end
         end
       end
