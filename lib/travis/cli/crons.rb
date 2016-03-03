@@ -11,8 +11,8 @@ module Travis
         recent.each do |repo|
           result = session.get("v3/repo/#{repo.id}/crons")
           say color(repo.slug, [:bold, repo.color])
-          result['crons'].each do | cron |
-            info "Cron #{cron.id} builds #{cron.interval} on #{cron.branch_name}."
+          result['crons'].each do |cron|
+            say "Cron #{cron.id} builds #{cron.interval} on #{cron.branch_name}."
           end
         end
       end
