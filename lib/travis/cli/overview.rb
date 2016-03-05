@@ -15,7 +15,7 @@ module Travis
       def branches
         result = session.get_raw("v3/repo/#{repository.id}/overview/branches")
         info "passing builds in last 30 days"
-        info "no data" unless !result['branches'].empty?
+        info "no data" if result['branches'].empty?
         result['branches'].each_pair do | key, value |
           say "#{key}: #{(100*value).round}%"
         end
@@ -24,7 +24,7 @@ module Travis
       def duration
         result = session.get_raw("v3/repo/#{repository.id}/overview/build_duration")
         info "duration of last 20 builds"
-        info "no data" unless !result['build_duration'].empty?
+        info "no data" if result['build_duration'].empty?
         result['build_duration'].each do | build |
           say "build #{build['number']} #{build['state']} in #{build['duration']} seconds"
         end
@@ -33,7 +33,7 @@ module Travis
       def history
         result = session.get_raw("v3/repo/#{repository.id}/overview/build_history")
         info "build statuses in last 10 days"
-        info "no data" unless !result['recent_build_history'].empty?
+        info "no data" if result['recent_build_history'].empty?
         result['recent_build_history'].each_pair do | key, value |
           say "#{key}:"
           value.each_pair do | key2, value2 |
@@ -45,7 +45,7 @@ module Travis
       def eventType
         result = session.get_raw("v3/repo/#{repository.id}/overview/event_type")
         info "statuses by event type"
-        info "no data" unless !result['event_type'].empty?
+        info "no data" if result['event_type'].empty?
         result['event_type'].each_pair do | key, value |
           say "#{key}:"
           value.each_pair do | key2, value2 |
