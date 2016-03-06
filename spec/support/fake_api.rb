@@ -49,6 +49,15 @@ module Travis
           }.to_json
         end
 
+        get '/v3/repo/107495/overview/branches' do
+          {
+            "@type"=> "overview",
+            "@href"=> "/v3/repo/107495/overview/branches",
+            "@representation"=> "standard",
+            "branches"=> {}
+          }.to_json
+        end
+
         get '/v3/repo/891/overview/build_duration' do
           {
             "@type"=> "overview",
@@ -77,6 +86,15 @@ module Travis
           }.to_json
         end
 
+        get '/v3/repo/107495/overview/build_duration' do
+          {
+            "@type"=> "overview",
+            "@href"=> "/v3/repo/107495/overview/build_duration",
+            "@representation"=> "standard",
+            "build_duration"=> []
+          }.to_json
+        end
+
         get '/v3/repo/891/overview/build_history' do
           {
             "@type"=> "overview",
@@ -90,6 +108,15 @@ module Travis
                 "canceled"=> 1
               }
             }
+          }.to_json
+        end
+
+        get '/v3/repo/107495/overview/build_history' do
+          {
+            "@type"=> "overview",
+            "@href"=> "/v3/repo/107495/overview/build_history",
+            "@representation"=> "standard",
+            "recent_build_history"=> {}
           }.to_json
         end
 
@@ -112,6 +139,15 @@ module Travis
                 "canceled"=> 2
               }
             }
+          }.to_json
+        end
+
+        get '/v3/repo/107495/overview/event_type' do
+          {
+            "@type"=> "overview",
+            "@href"=> "/v3/repo/107495/overview/event_type",
+            "@representation"=> "standard",
+            "event_type"=> {}
           }.to_json
         end
 
@@ -782,6 +818,21 @@ module Travis
              "last_build_started_at"=>"2013-01-13T15:55:17Z",
              "last_build_finished_at"=>nil,
              "github_language"=>"Ruby"}}.to_json
+        end
+
+        get '/repos/pypug/django-mango' do
+          {"repo"=>
+            {"id"=>107495,
+              "slug"=>"pypug/django-mango",
+              "description"=>"More Mango, less Django!",
+              "last_build_id"=>4125823,
+              "last_build_number"=>"39",
+              "last_build_state"=>"failed",
+              "last_build_duration"=>31,
+              "last_build_language"=>nil,
+              "last_build_started_at"=>"2013-01-13T16:58:43Z",
+              "last_build_finished_at"=>"2013-01-13T16:55:08Z",
+              "github_language"=>"Python"}}.to_json
         end
 
         get '/repos/891/key' do

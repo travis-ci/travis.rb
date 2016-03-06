@@ -7,14 +7,27 @@ describe Travis::CLI::Overview do
     stderr.should include("passing builds in last 30 days")
   end
 
+  example 'overview branches no data' do
+    run_cli('overview', 'branches', '-t', 'token', '-r', 'pypug/django-mango').should be_success
+    stdout.should be == ""
+    stderr.should include("passing builds in last 30 days")
+    stderr.should include("no data")
+  end
+
   example 'overview duration' do
     run_cli('overview', 'duration', '-t', 'token').should be_success
     stdout.should be ==
       "build 5 passed in 29 seconds\n" +
       "build 3 passed in 30 seconds\n" +
       "build 1 errored in 24 seconds\n"
-      
     stderr.should include("duration of last 20 builds")
+  end
+
+  example 'overview duration no data' do
+    run_cli('overview', 'duration', '-t', 'token', '-r', 'pypug/django-mango').should be_success
+    stdout.should be == ""
+    stderr.should include("duration of last 20 builds")
+    stderr.should include("no data")
   end
 
   example 'overview history' do
@@ -24,8 +37,14 @@ describe Travis::CLI::Overview do
       "   passed: 1\n" +
       "2016-03-01:\n" +
       "   canceled: 1\n"
-
     stderr.should include("build statuses in last 10 days")
+  end
+
+  example 'overview history no data' do
+    run_cli('overview', 'history', '-t', 'token', '-r', 'pypug/django-mango').should be_success
+    stdout.should be == ""
+    stderr.should include("build statuses in last 10 days")
+    stderr.should include("no data")
   end
 
   example 'overview eventType' do
@@ -40,8 +59,14 @@ describe Travis::CLI::Overview do
       "cron:\n" +
       "   failed: 1\n" +
       "   canceled: 2\n"
-
     stderr.should include("statuses by event type")
+  end
+
+  example 'overview eventType no data' do
+    run_cli('overview', 'eventType', '-t', 'token', '-r', 'pypug/django-mango').should be_success
+    stdout.should be == ""
+    stderr.should include("statuses by event type")
+    stderr.should include("no data")
   end
 
   example 'overview streak' do
