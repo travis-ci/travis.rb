@@ -3,7 +3,7 @@ require 'travis/cli'
 module Travis
   module CLI
     class Overview < RepoCommand
-      description "shows overview"
+      description "shows statistics"
       subcommands :branches, :duration, :history, :eventType, :streak
 
       def setup
@@ -14,7 +14,7 @@ module Travis
 
       def branches
         result = session.get_raw("v3/repo/#{repository.id}/overview/branches")
-        info "passing builds in last 30 days"
+        say color("passing builds in last 30 days", :info)
         info "no data" if result['branches'].empty?
         result['branches'].each_pair do | key, value |
           say "#{key}: #{(100*value).round}%"
@@ -23,7 +23,7 @@ module Travis
 
       def duration
         result = session.get_raw("v3/repo/#{repository.id}/overview/build_duration")
-        info "duration of last 20 builds"
+        say color("duration of last 20 builds", :info)
         info "no data" if result['build_duration'].empty?
         result['build_duration'].each do | build |
           say "build #{build['number']} #{build['state']} in #{build['duration']} seconds"
@@ -32,7 +32,7 @@ module Travis
 
       def history
         result = session.get_raw("v3/repo/#{repository.id}/overview/build_history")
-        info "build statuses in last 10 days"
+        say color("build statuses in last 10 days", :info)
         info "no data" if result['recent_build_history'].empty?
         result['recent_build_history'].each_pair do | key, value |
           say "#{key}:"
@@ -44,7 +44,7 @@ module Travis
 
       def eventType
         result = session.get_raw("v3/repo/#{repository.id}/overview/event_type")
-        info "statuses by event type"
+        say color("statuses by event type", :info)
         info "no data" if result['event_type'].empty?
         result['event_type'].each_pair do | key, value |
           say "#{key}:"
