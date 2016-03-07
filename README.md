@@ -1141,14 +1141,14 @@ Summary of build statuses grouped by event type:
 $ travis overview eventType
 statuses by event type
 push:
-   failed: 3
-   errored: 1
+   failed: 3 (75.0%)
+   errored: 1 (25.0%)
 pull_request:
-   passed: 11
-   errored: 1
+   passed: 11 (91.67%)
+   errored: 1 (8.33%)
 cron:
-   failed: 1
-   canceled: 2
+   failed: 1 (33.33%)
+   canceled: 2 (66.67%)
 ```
 
 Show for how many days and builds the test are passing on the default branch (usually `master`):
