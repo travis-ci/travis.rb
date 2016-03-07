@@ -48,8 +48,10 @@ module Travis
         info "no data" if result['event_type'].empty?
         result['event_type'].each_pair do | key, value |
           say "#{key}:"
+          sum = value.reduce(0) { |s, (k, v)| s += v}
           value.each_pair do | key2, value2 |
-            say "   #{key2}: #{value2}"
+            percentage = (value2.to_f / sum.to_f) * 100
+            say "   #{key2}: #{value2} (#{percentage.round(2)}%)"
           end
         end
       end

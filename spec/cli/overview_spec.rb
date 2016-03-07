@@ -51,14 +51,14 @@ describe Travis::CLI::Overview do
     stdout.should be ==
       "statuses by event type\n" +
       "push:\n" +
-      "   failed: 3\n" +
-      "   errored: 1\n" +
+      "   failed: 3 (75.0%)\n" +
+      "   errored: 1 (25.0%)\n" +
       "pull_request:\n" +
-      "   passed: 11\n" +
-      "   errored: 1\n" +
+      "   passed: 11 (91.67%)\n" +
+      "   errored: 1 (8.33%)\n" +
       "cron:\n" +
-      "   failed: 1\n" +
-      "   canceled: 2\n"
+      "   failed: 1 (33.33%)\n" +
+      "   canceled: 2 (66.67%)\n"
   end
 
   example 'overview eventType no data' do
