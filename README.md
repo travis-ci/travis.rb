@@ -1095,26 +1095,66 @@ Available statistics:
 Percentage of passing build in last 30 days grouped by branches:
 ``` console
 $ travis overview branches
+passing builds in last 30 days
+feature-xyz: 58%
+master: 100%
+development: 60%
 ```
 
 Duration of the last 20 builds:
 ``` console
 $ travis overview duration
+duration of last 20 builds
+build 32 failed in 314 seconds
+build 30 passed in 315 seconds
+build 29 passed in 236 seconds
+build 27 failed in 189 seconds
+build 26 failed in 197 seconds
+build 25 failed in 39 seconds
+build 23 passed in 86 seconds
+build 21 passed in 79 seconds
+build 19 passed in 65 seconds
+build 17 passed in 68 seconds
+build 13 passed in 39 seconds
+build 11 errored in 30 seconds
+build 9 passed in 28 seconds
+build 7 passed in 29 seconds
+build 5 passed in 29 seconds
+build 3 passed in 30 seconds
+build 1 errored in 24 seconds
 ```
 
 History of build statuses in last 10 days:
 ``` console
 $ travis overview history
+build statuses in last 10 days
+2016-03-02:
+   passed: 1
+2016-03-01:
+   passed: 2
+   failed: 1
+   canceled: 1
 ```
 
 Summary of build statuses grouped by event type:
 ``` console
 $ travis overview eventType
+statuses by event type
+push:
+   failed: 3
+   errored: 1
+pull_request:
+   passed: 11
+   errored: 1
+cron:
+   failed: 1
+   canceled: 2
 ```
 
 Show for how many days and builds the test are passing:
 ``` console
 $ travis overview streak
+Your streak is 4 days and 1 builds.
 ```
 
 #### `pubkey`
