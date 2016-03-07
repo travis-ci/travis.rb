@@ -37,6 +37,7 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a [command line
         * [`init`](#init) - generates a .travis.yml and enables the project
         * [`logs`](#logs) - streams test logs
         * [`open`](#open) - opens a build or job in the browser
+        * [`overview`](#overview) - shows statistics
         * [`pubkey`](#pubkey) - prints out a repository's public key
         * [`requests`](#requests) - lists recent requests
         * [`restart`](#restart) - restarts a build or job
@@ -1083,6 +1084,37 @@ If instead you want to open the repository, compare or pull request view on GitH
 ``` console
 $ travis open 56 --print --github
 web view: https://github.com/travis-ci/travis.rb/pull/5
+```
+
+#### `overview`
+
+Show statistics about the repository in a textual form.
+
+Available statistics:
+
+Percentage of passing build in last 30 days grouped by branches:
+``` console
+$ travis overview branches
+```
+
+Duration of the last 20 builds:
+``` console
+$ travis overview duration
+```
+
+History of build statuses in last 10 days:
+``` console
+$ travis overview history
+```
+
+Summary of build statuses grouped by event type:
+``` console
+$ travis overview eventType
+```
+
+Show for how many days and builds the test are passing:
+``` console
+$ travis overview streak
 ```
 
 #### `pubkey`
