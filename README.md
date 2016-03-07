@@ -1151,7 +1151,7 @@ cron:
    canceled: 2
 ```
 
-Show for how many days and builds the test are passing:
+Show for how many days and builds the test are passing on the default branch (usually `master`):
 ``` console
 $ travis overview streak
 Your streak is 4 days and 1 builds.
