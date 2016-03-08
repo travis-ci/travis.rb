@@ -13,6 +13,7 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a [command line
     * [General API Commands](#general-api-commands)
         * [`accounts`](#accounts) - displays accounts and their subscription status
         * [`console`](#console) - interactive shell
+        * [`crons`](#crons) - lists all cron jobs of all repositories
         * [`endpoint`](#endpoint) - displays or changes the API endpoint
         * [`login`](#login) - authenticates against the API and stores the token
         * [`monitor`](#monitor) - live monitor for what's going on
@@ -28,6 +29,7 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a [command line
         * [`branches`](#branches) - displays the most recent build for each branch
         * [`cache`](#cache) - lists or deletes repository caches
         * [`cancel`](#cancel) - cancels a job or build
+        * [`cron`](#cron) - shows or modifies cron jobs
         * [`disable`](#disable) - disables a project
         * [`enable`](#enable) - enables a project
         * [`encrypt`](#encrypt) - encrypts values for the .travis.yml
@@ -172,6 +174,18 @@ $ travis console
 => #<Repository: sinatra/sinatra>
 >> _.last_build
 => #<Travis::Client::Build: sinatra/sinatra#360>
+```
+
+#### `crons`
+
+Shows all cron jobs of all repositories (may produce large output):
+
+``` console
+$ travis crons
+rails/rails
+Cron 123 builds weekly on master.
+travis-ci/travis-api
+Cron 100 builds daily on master.
 ```
 
 #### `endpoint`
@@ -671,6 +685,62 @@ Or a single job:
 ``` console
 $ travis cancel 57.1
 job #57.1 has been canceled
+```
+
+#### `cron`
+
+Shows or modifies cron jobs.
+
+List all cron jobs of a repository:
+
+``` console
+$ travis cron list [OPTIONS]
+```
+
+``` console
+$ travis cron list
+ID: 267
+Branch: master
+Interval: weekly
+Disable by build: false
+Next Enqueuing: 2016-03-08T12:00:00Z
+ID: 268
+Branch: development
+Interval: daily
+Disable by build: false
+Next Enqueuing: 2016-03-08T12:00:00Z
+```
+The output shows for each cron job:
+ * which branch will be build by the cron job,
+ * how long the interval of the cron job is,
+ * whether the it is disabled by a build (triggered by pushing on github)
+between the cron builds and
+ * when it runs next.
+
+Note that we can not ensure that the build starts at a given time.
+It is just enqueued at that time and will be scheduled as soon as possible.
+
+Create new cron jobs:
+
+``` console
+$ travis cron create BRANCH INTERVAL [DISABLE_BY_BUILD] [OPTIONS]
+```
+Default for `DISABLE_BY_BUILD` is `false`.
+
+``` console
+$ travis cron create master weekly true
+Cron with id 300 created.
+```
+
+Delete existing cron jobs:
+
+``` console
+$ travis cron delete ID [OPTIONS]
+```
+
+``` console
+$ travis cron delete 300
+Cron with id 300 deleted.
 ```
 
 #### `disable`

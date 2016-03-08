@@ -3,7 +3,7 @@ require 'travis/cli'
 module Travis
   module CLI
     class Crons < ApiCommand
-      description "lists crons for all repos"
+      description "lists all cron jobs of all repositories"
       on('-m', '--my-repos', 'Only display my own repositories')
 
       def run
@@ -12,7 +12,13 @@ module Travis
           result = session.get("v3/repo/#{repo.id}/crons")
           say color(repo.slug, [:bold, repo.color])
           result['crons'].each do |cron|
-            say "Cron #{cron.id} builds #{cron.interval} on #{cron.branch_name}."
+            say "Cron " +
+              color("#{cron.id}", :bold) +
+              " builds " +
+              color("#{cron.interval}", :bold) +
+              " on " +
+              color("#{cron.branch_name}", :bold) +
+              "."
           end
         end
       end
