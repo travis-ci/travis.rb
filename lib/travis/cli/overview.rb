@@ -33,13 +33,51 @@ module Travis
       def history
         result = session.get_raw("v3/repo/#{repository.id}/overview/build_history")
         say color("build statuses in last 10 days", :info)
-        info "no data" if result['recent_build_history'].empty?
-        result['recent_build_history'].each_pair do | key, value |
-          say "#{key}:"
-          value.each_pair do | key2, value2 |
-            say "   #{key2}: #{value2}"
-          end
-        end
+	if result['recent_build_history'].empty?
+		info "no data"
+		return
+	end 
+	string = ""
+	max = 1
+	maxStatuses = 1	
+	result['recent_build_history'].each_pair do | key, value |
+		builds = 0
+		value.each_value do |v|
+			builds= builds+v
+		end
+		maxStatuses = value.size if value.size > maxStatuses
+		max = builds if builds > max
+	end
+        (0..9).to_a.reverse.each do | num |
+		result['recent_build_history'].each_pair do | key, value |
+			builds = 0
+			value.default= 0
+			passed = value['passed'] 
+			value.each_value do |v| builds= builds+v end
+			if passed * 10.0 / max > num 
+				string = string + color("\t||\t", :success) 
+			elsif builds * 10.0 / max > num 
+				string = string + color("\t||\t", :error)
+			else
+				string = string + "\t\t"
+			end 
+		end
+		string = string + "\n"
+	end
+	result['recent_build_history'].each_pair do | key, value |
+		string = string + "#{key}\t"
+	end
+	string = string + "\n"
+	(0..maxStatuses-1).each do |statNum|
+		result['recent_build_history'].each_value do |day|
+			key = day.keys.at(statNum)
+			if key != nil
+				string = string + " #{key}: #{day[key]}\t"
+			end
+		end
+	string = string + "\n"
+	end
+	say string
       end
 
       def eventType

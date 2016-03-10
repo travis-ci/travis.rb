@@ -32,12 +32,11 @@ describe Travis::CLI::Overview do
 
   example 'overview history' do
     run_cli('overview', 'history', '-t', 'token').should be_success
-    stdout.should be ==
-      "build statuses in last 10 days\n" +
-      "2016-02-25:\n" +
-      "   passed: 1\n" +
-      "2016-03-01:\n" +
-      "   canceled: 1\n"
+    stdout.should include("build statuses in last 10 days\n")
+    stdout.should include("2016-02-25")
+    stdout.should include("passed: 1")
+    stdout.should include("2016-03-01")
+    stdout.should include("canceled: 1")
   end
 
   example 'overview history no data' do
