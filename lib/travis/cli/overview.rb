@@ -42,7 +42,7 @@ module Travis
 		else
 			bar = color(bar, :error)
 		end
-		say "build #{build['number']}\t" + bar + " #{build['duration']}s"
+		say "build #{build['number']}\t" + bar + " #{build['duration']}s - #{build['state']}"
         end
       end
 
