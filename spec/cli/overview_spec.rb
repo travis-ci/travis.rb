@@ -17,11 +17,13 @@ describe Travis::CLI::Overview do
 
   example 'overview duration' do
     run_cli('overview', 'duration', '-t', 'token').should be_success
-    stdout.should be ==
-      "duration of last 20 builds\n" +
-      "build 5 passed in 29 seconds\n" +
-      "build 3 passed in 30 seconds\n" +
-      "build 1 errored in 24 seconds\n"
+    stdout.should  include("duration of last 20 builds\n")
+    stdout.should  include("build 5")
+    stdout.should  include("29")
+    stdout.should  include("build 3")
+    stdout.should  include("30")
+    stdout.should  include("build 1")
+    stdout.should  include("24")
   end
 
   example 'overview duration no data' do

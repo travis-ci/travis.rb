@@ -24,9 +24,25 @@ module Travis
       def duration
         result = session.get_raw("v3/repo/#{repository.id}/overview/build_duration")
         say color("duration of last 20 builds", :info)
-        info "no data" if result['build_duration'].empty?
+	if result['build_duration'].empty?
+		info "no data"
+		return
+	end
+	maxDuration = 1
         result['build_duration'].each do | build |
-          say "build #{build['number']} #{build['state']} in #{build['duration']} seconds"
+		maxDuration = build['duration'] if build['duration'] > maxDuration
+        end
+        result['build_duration'].each do | build |
+		bar = ""
+		(0..19).each do | num |
+			bar = bar + '=' if build['duration'] * 20.0 / maxDuration > num 
+		end
+		if build['state'] == 'passed'
+			bar = color(bar, :success) 
+		else
+			bar = color(bar, :error)
+		end
+		say "build #{build['number']}\t" + bar + " #{build['duration']}s"
         end
       end
 
