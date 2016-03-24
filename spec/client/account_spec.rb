@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'rspec/its'
 
 describe Travis::Client::Account do
   context "from all accounts" do
