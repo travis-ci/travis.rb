@@ -144,7 +144,7 @@ module Travis
         end
 
         def save_travis_config(file = travis_yaml)
-          yaml = travis_config.to_yaml
+          yaml = travis_config.to_yaml(line_width: -1)
           yaml.gsub! /^(\s+)('on'|true):/, "\\1on:"
           yaml.gsub! /\A---\s*\n/, ''
           File.write(file, yaml)
