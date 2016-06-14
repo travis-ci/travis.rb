@@ -36,7 +36,7 @@ module Travis
         options.each_pair { |key, value| public_send("#{key}=", value) }
 
         raise ArgumentError, "neither :uri nor :connection specified" unless connection
-        headers['Accept'] = 'text/json'
+        headers['Accept'] = 'application/vnd.travis-ci.2+json'
         set_user_agent
         check_ssl
       end
@@ -204,6 +204,7 @@ module Travis
 
       def raw(verb, url, *args)
         url     = url.sub(/^\//, '')
+        headers['Accept'] = 'text/json' if url == "/login"
         result  = instrumented(verb.to_s.upcase, url, *args) do
           if url !~ /^https?:/ or url.start_with? api_endpoint
             connection.public_send(verb, url, *args)

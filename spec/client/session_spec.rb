@@ -15,12 +15,6 @@ describe Travis::Client::Session do
     end
   end
 
-  describe '#initialize' do
-    it 'should set accept header to text/json' do
-      Travis::Client::Session.new.headers['Accept'].should eq("text/json")
-    end
-  end
-
   describe "access_token" do
     its(:access_token) { should be_nil }
 
