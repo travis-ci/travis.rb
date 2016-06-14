@@ -36,7 +36,7 @@ module Travis
         options.each_pair { |key, value| public_send("#{key}=", value) }
 
         raise ArgumentError, "neither :uri nor :connection specified" unless connection
-        headers['Accept'] = 'application/vnd.travis-ci.2+json'
+        headers['Accept'] = 'text/json'
         set_user_agent
         check_ssl
       end
