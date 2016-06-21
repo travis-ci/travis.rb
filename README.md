@@ -1,6 +1,6 @@
 # The Travis Client [![Build Status](https://travis-ci.org/travis-ci/travis.rb.svg?branch=master)](https://travis-ci.org/travis-ci/travis.rb)
 
-Making some changes. Yup.
+Making some changes. Yup. change is good
 
 ![The Travis Mascot](http://about.travis-ci.org/images/travis-mascot-200px.png)
 
