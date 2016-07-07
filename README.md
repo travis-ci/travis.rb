@@ -1390,6 +1390,7 @@ See the [private dependencies example](examples/cli/private_dependencies.md) for
             --debug                      show API requests
         -r, --repo SLUG                  repository to use (will try to detect from current git clone)
         -R, --store-repo SLUG            like --repo, but remembers value for current directory
+        -b, --branch BRANCH              only check status for the given branch
         -x, --[no-]exit-code             sets the exit code to 1 if the build failed
         -q, --[no-]quiet                 does not print anything
         -p, --[no-]fail-pending          sets the status code to 1 if the build is pending
