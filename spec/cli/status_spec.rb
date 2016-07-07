@@ -17,7 +17,7 @@ describe Travis::CLI::Status do
   end
 
   example "travis status -pqx" do
-    run_cli('endpoint', '-pqx').should_not be_success
+    run_cli('status', '-pqx').should_not be_success
     stdout.should be_empty
   end
 
