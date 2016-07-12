@@ -245,7 +245,7 @@ module Travis
 
         def gh_error(error)
           raise error if explode
-          JSON.parse(error.info[:response_body])["message"].to_s
+          error.info[:error] || JSON.parse(error.info[:response_body])["message"].to_s
         end
 
         def debug(line)
