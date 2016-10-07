@@ -36,6 +36,7 @@ module Travis
         end
 
         data = split? ? data.split("\n") : [data.strip]
+        warn_env_assignments(data)
         encrypted = data.map { |data| repository.encrypt(data) }
 
         if config_key
@@ -95,6 +96,12 @@ module Travis
                       end
 
           traverse_config(hash[key], *rest)
+        end
+
+        def warn_env_assignments(data)
+          if /env/.match(config_key) && data.find { |d| /=/.match(d).nil? }
+            warn "Environment variables in #{config_key} should be formatted as FOO=bar"
+          end
         end
     end
   end
