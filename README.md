@@ -1966,12 +1966,12 @@ You can check your Ruby version by running `ruby -v`:
 
 Then run:
 
-    $ gem install travis -v 1.8.2 --no-rdoc --no-ri
+    $ gem install travis -v 1.8.4 --no-rdoc --no-ri
 
 Now make sure everything is working:
 
     $ travis version
-    1.8.2
+    1.8.4
 
 See also [Note on Ubuntu](#ubuntu) below.
 
