@@ -2,7 +2,7 @@
 Gem::Specification.new do |s|
   # general infos
   s.name        = "travis"
-  s.version     = "1.8.2"
+  s.version     = "1.8.3"
   s.description = "CLI and Ruby client library for Travis CI"
   s.homepage    = "https://github.com/travis-ci/travis.rb"
   s.summary     = "Travis CI client"
@@ -59,7 +59,8 @@ Gem::Specification.new do |s|
     "George Millo",
     "Daniel Chatfield",
     "Jacob Burkhart",
-    "Joe Rafaniello"
+    "Joe Rafaniello",
+    "Joe Corcoran"
   ]
 
   # generated from git shortlog -sne
