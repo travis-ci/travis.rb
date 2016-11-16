@@ -95,7 +95,7 @@ Every Travis command takes three global options:
 
 The `--help` option is equivalent to running `travis help COMMAND`.
 
-The `--interactive` options determines wether to include additional information and colors in the output or not (except on Windows, we never display colors on Windows, sorry). If you don't set this option explicitly, you will run in interactive mode if you invoke the command directly in a shell and in non-interactive mode if you pipe it somewhere.
+The `--interactive` options determines whether to include additional information and colors in the output or not (except on Windows, we never display colors on Windows, sorry). If you don't set this option explicitly, you will run in interactive mode if you invoke the command directly in a shell and in non-interactive mode if you pipe it somewhere.
 
 You probably want to use `--explode` if you are working on a patch for the Travis client, as it will give you the Ruby exception instead of a nice error message.
 
