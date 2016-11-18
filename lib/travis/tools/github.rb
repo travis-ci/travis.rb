@@ -205,22 +205,44 @@ module Travis
       end
 
       def basic_auth(user, password, die = true, otp = nil, &block)
-        opt           = { :username => user, :password => password }
-        opt[:headers] = { "X-GitHub-OTP" => otp } if otp
-        yield GH.with(opt)
-      rescue GH::Error => error
-        if error.info[:response_status] == 401 and error.info[:response_headers]['x-github-otp'].to_s =~ /required/
-          otp = ask_otp.arity == 0 ? ask_otp.call : ask_otp.call(user)
-          basic_auth(user, password, die, otp, &block)
-        elsif die
-          raise gh_error(error)
+        opt = { :username => user, :password => password }
+        with_otp(user, otp) do |new_otp|
+          opt[:headers] = { "X-GitHub-OTP" => new_otp } if new_otp
+          yield GH.with(opt)
         end
+      rescue GH::Error => error
+        raise gh_error(error) if die
+      end
+
+      def each_token
+        require 'gh' unless defined? GH
+        possible_tokens { |t| yield(t) if acceptable?(t) }
+      ensure
+        callback, self.callback = self.callback, nil
+        callback.call if callback
+      end
+
+      def with_otp(user, otp, &block)
+        yield otp
+      rescue GH::Error => error
+        raise unless error.info[:response_status] == 401 and error.info[:response_headers]['x-github-otp'].to_s =~ /required/
+        otp = ask_otp.arity == 0 ? ask_otp.call : ask_otp.call(user)
+        with_otp(user, otp, &block)
       end
 
       def login(user, password, die = true, otp = nil)
         basic_auth(user, password, die, otp) do |gh|
           reply         = gh.post('/authorizations', :scopes => scopes, :note => note)
-          self.callback = proc { gh.delete reply['_links']['self']['href'] } if drop_token
+
+          if drop_token
+            self.callback = proc do
+              with_otp(user, otp) do |new_otp|
+                gh.headers['X-GitHub-OTP'] = new_otp if new_otp
+                gh.delete reply['_links']['self']['href']
+              end
+            end
+          end
+
           reply['token']
         end
       end
