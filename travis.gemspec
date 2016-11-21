@@ -311,7 +311,7 @@ Gem::Specification.new do |s|
   s.add_dependency "highline",              "~> 1.6"
   s.add_dependency "backports"
   s.add_dependency "net-http-persistent",   "~> 2.9" if RUBY_VERSION < "2.1"
-  # s.add_dependency "gh",                    "~> 0.13"
+  s.add_dependency "gh",                    "~> 0.15"
   s.add_dependency "addressable",           "~> 2.4.0" if RUBY_VERSION < "2.0"
   s.add_dependency "launchy",               "~> 2.1"
   s.add_dependency "typhoeus",              "~> 0.6", ">= 0.6.8"
