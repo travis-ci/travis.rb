@@ -81,7 +81,8 @@ module Travis
         say [
           color(formatter.time(time), entity.color),
           color(entity.inspect_info, [entity.color, :bold]),
-          color(entity.state, entity.color)
+          color(entity.state, entity.color),
+          color(entity.commit.subject, entity.color)
         ].join(" ")
         notification.notify(entity.repository.slug, [
           entity.class.name[/[^:]+$/],
