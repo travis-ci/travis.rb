@@ -213,7 +213,7 @@ module Travis
 
       def login(user, password, die = true, otp = nil)
         basic_auth(user, password, die, otp) do |gh|
-          reply         = create_token(gh) #gh.post('/authorizations', :scopes => scopes, :note => note)
+          reply         = create_token(gh)
           auth_href     = reply['_links']['self']['href']
           self.callback = proc { with_otp(gh, user, otp) { |g| g.delete(auth_href) } } if drop_token
           reply['token']
