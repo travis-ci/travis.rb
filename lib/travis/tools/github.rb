@@ -38,7 +38,7 @@ module Travis
 
       def with_basic_auth(&block)
         user, password = ask_credentials
-        basic_auth(user, password, true) do |gh|
+        basic_auth(user, password, true) do |gh, _|
           gh['user'] # so otp kicks in
           yield gh
         end
@@ -212,10 +212,10 @@ module Travis
       end
 
       def login(user, password, die = true, otp = nil)
-        basic_auth(user, password, die, otp) do |gh|
+        basic_auth(user, password, die, otp) do |gh, new_otp|
           reply         = create_token(gh)
           auth_href     = reply['_links']['self']['href']
-          self.callback = proc { with_otp(gh, user, otp) { |g| g.delete(auth_href) } } if drop_token
+          self.callback = proc { with_otp(gh, user, new_otp) { |g| g.delete(auth_href) } } if drop_token
           reply['token']
         end
       end
@@ -232,7 +232,7 @@ module Travis
 
       def with_otp(gh, user, otp, &block)
         gh = GH.with(gh.options.merge(:headers => { "X-GitHub-OTP" => otp })) if otp
-        block.call(gh)
+        block.call(gh, otp)
       rescue GH::Error => error
         raise error unless error.info[:response_status] == 401 and error.info[:response_headers]['x-github-otp'].to_s =~ /required/
         otp = ask_otp.arity == 0 ? ask_otp.call : ask_otp.call(user)
