@@ -422,7 +422,7 @@ travis-ci/gh: disabled :(
         -b, --background                 will trigger sync but not block until sync is done
         -f, --force                      will force sync, even if one is already running
 
-Sometimes the infos Travis CI has about users and repositories become out of date. If that should happen, you can manually trigger a sync:
+Sometimes the info Travis CI has about users and repositories become out of date. If that should happen, you can manually trigger a sync:
 
 ``` console
 $ travis sync
@@ -1232,7 +1232,7 @@ Encrypt API key? |yes|
 
 #### `show`
 
-Displays general infos about the latest build:
+Displays general info about the latest build:
 
 ``` console
 $ travis show
