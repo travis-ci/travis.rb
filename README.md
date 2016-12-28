@@ -2044,6 +2044,10 @@ If you updated to Ruby 2.1 as shown above:
 
     $ sudo apt-get install ruby2.1-dev
 
+For newer versions of Ubuntu (16.04 and above), it should be enough to run:
+
+    $ sudo apt-get install ruby-dev
+
 #### Mac OS X
 
 If you start with a clean Mac OS X, you will have to install the XCode Command Line Tools, which are necessary for installing native extensions. You can do so via `xcode-select`:
