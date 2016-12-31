@@ -23,7 +23,9 @@ module Travis
         require 'pry'
         true
       rescue LoadError
-        $stderr.puts 'You need to install pry to use Travis CLI console.'
+        $stderr.puts 'You need to install pry to use Travis CLI console. Try'
+        $stderr.puts
+        $stderr.puts '$ (sudo) gem install pry'
         false
       end
     end
