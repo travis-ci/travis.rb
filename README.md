@@ -1220,7 +1220,7 @@ Helps you configure Travis addons.
         -R, --store-repo SLUG            like --repo, but remembers value for current directory
         -f, --force                      override config section if it already exists
 
-Available services: `anynines`, `appfog`, `artifacts`, `biicode`, `cloudcontrol`, `cloudfiles`, `cloudfoundry`, `cloud66`, `codedeploy`, `deis`, `divshot`, `elasticbeanstalk`, `engineyard`, `gcs`, `hackage`, `heroku`, `modulus`, `npm`, `ninefold`, `nodejitsu`, `openshift`, `opsworks`, `pypi`, `releases`, `rubygems`, `s3` and `sauce_connect`.
+Available services: `anynines`, `appfog`, `artifacts`, `biicode`, `bluemixcloudfoundry`, `cloudcontrol`, `cloudfiles`, `cloudfoundry`, `cloud66`, `codedeploy`, `deis`, `divshot`, `elasticbeanstalk`, `engineyard`, `gcs`, `hackage`, `heroku`, `modulus`, `npm`, `ninefold`, `nodejitsu`, `openshift`, `opsworks`, `pypi`, `releases`, `rubygems`, `s3` and `sauce_connect`.
 
 Example:
 
