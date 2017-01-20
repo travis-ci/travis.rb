@@ -8,6 +8,7 @@ module Travis
 
         def run
           deploy 'bluemixcloudfoundry' do |config|
+            config['edge']         = true
             config['username']     ||= ask("Bluemix username: ").to_s
             config['password']     ||= ask("Bluemix password: ") { |q| q.echo = "*" }.to_s
             config['organization'] ||= ask("Bluemix organization: ").to_s
