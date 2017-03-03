@@ -17,7 +17,7 @@ module Travis
       end
 
       def authenticate
-        return unless session.access_token = cli_token
+        return if session.access_token = cli_token
         github.with_token { |t| session.github_auth(t) }
       end
 
