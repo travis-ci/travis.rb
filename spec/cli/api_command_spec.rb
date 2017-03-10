@@ -23,7 +23,7 @@ describe Travis::CLI::ApiCommand do
       end
 
       it 'keeps verifying peers' do
-        subject.insecure.should be_false
+        subject.insecure.should be_falsey
       end
 
       it 'flags endpoint' do
