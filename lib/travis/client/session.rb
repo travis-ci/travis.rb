@@ -17,7 +17,7 @@ module Travis
   module Client
     class Session
       PRIMITIVE   = [nil, false, true]
-      SSL_OPTIONS = {}
+      SSL_OPTIONS = { :ca_file => Tools::Assets['cacert.pem'] }
 
       include Methods
       attr_reader :connection, :headers, :access_token, :instruments, :faraday_adapter, :agent_info, :ssl

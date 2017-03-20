@@ -26,6 +26,10 @@ describe Travis::CLI::ApiCommand do
         subject.insecure.should be_falsey
       end
 
+      it 'uses default CAs' do
+        subject.session.ssl.should_not include(:ca_file)
+      end
+
       it 'flags endpoint' do
         subject.endpoint_config.should include('enterprise' => true)
       end
