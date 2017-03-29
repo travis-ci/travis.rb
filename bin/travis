@@ -14,5 +14,17 @@ Dir.glob(File.expand_path('*/init.rb', config_path)) do |file|
   load(file)
 end
 
+if Dir.exists?('.git')
+  require 'git'
+  g = Git.open(Dir.pwd)
+  remote = g.config('remote.origin.url')
+  if remote.start_with?('http')
+    require 'uri'
+    repo = URI(remote).path[1..-1]
+  else
+    repo = remote.split(':').pop
+  end
+end
+  
 # and off we go then
 Travis::CLI.run(ARGV)
