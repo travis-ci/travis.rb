@@ -1111,7 +1111,7 @@ Public key for travis-ci/travis.rb:
 Whereas the `--fingerprint` flag will print out the key's fingerprint:
 
 ``` console
-$ travis pubkey --pem
+$ travis pubkey --fingerprint
 Public key for travis-ci/travis.rb:
 
 9f:57:01:4b:af:42:67:1e:b4:3c:0f:b6:cd:cc:c0:04
