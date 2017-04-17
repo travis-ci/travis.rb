@@ -11,9 +11,9 @@ module Travis
             config['user']     ||= ask("Username: ").to_s
             config['password'] ||= ask("Password: ") { |q| q.echo = "*" }.to_s
 
-            on("release only tagged commits? ", config, 'tags' => true)
             # the default of pypi `setup.py build` is the `sdist`
-            on("deploy as wheel file too? ", config, 'distributions' => 'sdist bdist_wheel')
+            config['distributions'] = 'sdist bdist_wheel' if agree("deploy as wheel file too?: ") { |q| q.default = 'no' }
+            on("release only tagged commits? ", config, 'tags' => true)
           end
         end
       end
