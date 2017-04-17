@@ -1993,6 +1993,7 @@ Mac OSX prior to 10.9 ships with a very dated Ruby version. You can use [Homebre
 
     $ brew install ruby
     $ gem update --system
+    $ sudo gem install -n /usr/local/bin travis -v 1.8.8 --no-rdoc --no-ri
 
 #### Windows
 
