@@ -20,7 +20,9 @@ module Travis
       def has_passphrase?(key)
         OpenSSL::PKey::RSA.new(key, key)
         false
-      rescue OpenSSL::PKey::RSAError
+      rescue OpenSSL::PKey::RSAError, OpenSSL::OpenSSLError
+        # ruby  < 2.4.0 OpenSSL::PKey::RSAError
+        # ruby >= 2.4.0 OpenSSL::OpenSSLError
         true
       end
 
