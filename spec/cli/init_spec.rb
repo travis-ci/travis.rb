@@ -139,8 +139,9 @@ describe Travis::CLI::Init do
 
     it 'sets compiler' do
       result.should include('node_js')
-      result['node_js'].should include('0.11')
-      result['node_js'].should include('0.10')
+      result['node_js'].should include('stable')
+      result['node_js'].should include('6')
+      result['node_js'].should include('4')
     end
   end
 
