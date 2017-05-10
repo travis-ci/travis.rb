@@ -204,6 +204,7 @@ module Travis
 
       def raw(verb, url, *args)
         url     = url.sub(/^\//, '')
+        headers['Accept'] = 'text/json' if url == "/login"
         result  = instrumented(verb.to_s.upcase, url, *args) do
           if url !~ /^https?:/ or url.start_with? api_endpoint
             connection.public_send(verb, url, *args)
