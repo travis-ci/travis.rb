@@ -223,7 +223,7 @@ Successfully logged in!
 
 As you can see above, it will ask you for your GitHub user name and password, but not send these to Travis CI. Instead, it will use them to create a GitHub API token, show the token to Travis, which then on its own checks if you really are who you say you are, and gives you an access token for the Travis API in return. The client will then delete the GitHub token again, just to be sure. But don't worry, all that happens under the hood and fully automatic.
 
-If you don't want it to send your credentials to GitHub, you can create a GitHub token on your own and supply it via `--github-token`. In that case, the client will not delete the GitHub token (as it can't, it needs your password to do this). Travis CI will not store the token, though - after all, it already should have a valid token for you in the database.
+If you don't want it to send your credentials to GitHub, you can create a GitHub token on your own and supply it via `--github-token`. This token needs to have the user:email and repo scopes. In that case, the client will not delete the GitHub token (as it can't, it needs your password to do this). Travis CI will not store the token, though - after all, it already should have a valid token for you in the database.
 
 A third option is for the really lazy: `--auto`. In this mode the client will try to find a GitHub token for you and just use that. This will only work if you have a [global GitHub token](https://help.github.com/articles/git-over-https-using-oauth-token) stored in your [.netrc](http://blogdown.io/c4d42f87-80dd-45d5-8927-4299cbdf261c/posts/574baa68-f663-4dcf-88b9-9d41310baf2f). If you haven't heard of this, it's worth looking into in general. Again: Travis CI will not store that token.
 
