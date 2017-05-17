@@ -136,6 +136,9 @@ module Travis
 
       def load(data)
         result = {}
+        if data.has_key?('@type')
+          data = {data['@type'] => data} unless data.has_key?('@pagination')
+        end
         (data || {}).each_pair do |key, value|
           entity      = load_entity(key, value)
           result[key] = entity if entity
