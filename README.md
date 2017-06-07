@@ -2033,16 +2033,12 @@ You can of course always compile Ruby from source, though then you are left with
 
 #### Ubuntu
 
-On certain versions of Ubuntu (e.g., 13.10), you need to install the corresponding `-dev` package
-in order to build the C extension on which `travis` gem depends.
+On certain versions of Ubuntu (e.g., 16.04), you need to install the corresponding `-dev` package
+and `make` with `gcc` in order to build the C extension on which `travis` gem depends.
 
-For the stock Ubuntu 13.10, run:
+For the stock Ubuntu 16.04, run:
 
-    $ sudo apt-get install ruby1.9.1-dev
-
-If you updated to Ruby 2.1 as shown above:
-
-    $ sudo apt-get install ruby2.1-dev
+    $ sudo apt-get install ruby-dev make gcc
 
 #### Mac OS X
 
