@@ -5,6 +5,7 @@ require 'support/helpers'
 require 'fileutils'
 require 'travis'
 require 'highline'
+require "highline/io_console_compatible"
 require 'tmpdir'
 
 temp_dir = nil
