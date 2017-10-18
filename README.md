@@ -1111,7 +1111,7 @@ Public key for travis-ci/travis.rb:
 Whereas the `--fingerprint` flag will print out the key's fingerprint:
 
 ``` console
-$ travis pubkey --pem
+$ travis pubkey --fingerprint
 Public key for travis-ci/travis.rb:
 
 9f:57:01:4b:af:42:67:1e:b4:3c:0f:b6:cd:cc:c0:04
@@ -1966,12 +1966,12 @@ You can check your Ruby version by running `ruby -v`:
 
 Then run:
 
-    $ gem install travis -v 1.8.4 --no-rdoc --no-ri
+    $ gem install travis -v 1.8.8 --no-rdoc --no-ri
 
 Now make sure everything is working:
 
     $ travis version
-    1.8.4
+    1.8.8
 
 See also [Note on Ubuntu](#ubuntu) below.
 
@@ -2059,6 +2059,10 @@ Mac OS X 10.9.2 shipped with a slightly broken Ruby version. If you want to inst
 If you have the old `travis-cli` gem installed, you should `gem uninstall travis-cli`, just to be sure, as it ships with an executable that is also named `travis`.
 
 ## Version History
+
+**1.8.8** (March 3, 2017)
+
+* Fix auto-login for when token is locally available
 
 **1.8.0** (July 15, 2015)
 
