@@ -28,6 +28,7 @@ module Travis
         repo(slug)
       rescue Travis::Client::NotFound
         error "repository not known to #{api_endpoint}: #{color(slug, :important)}"
+        error "you can override the auto-detected repo slug with the -r option"
       end
 
       private
