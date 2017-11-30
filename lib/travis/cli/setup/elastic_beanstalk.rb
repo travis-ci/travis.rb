@@ -13,6 +13,7 @@ module Travis
             config['region'] = ask("Elastic Beanstalk region: ") {|q| q.default = 'us-east-1'}.to_s
             config['app'] = ask("Elastic Beanstalk application name: ").to_s
             config['env'] = ask("Elastic Beanstalk environment to update: ").to_s
+            config['bucket_name'] = ask("Bucket name to upload app to: ").to_s
 
             encrypt(config, 'secret_access_key') if agree("Encrypt secret access key? ") { |q| q.default = 'yes' }
           end
