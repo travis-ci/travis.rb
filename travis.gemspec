@@ -220,6 +220,7 @@ Gem::Specification.new do |s|
     "lib/travis/cli/setup/npm.rb",
     "lib/travis/cli/setup/open_shift.rb",
     "lib/travis/cli/setup/opsworks.rb",
+    "lib/travis/cli/setup/packagecloud.rb",
     "lib/travis/cli/setup/pypi.rb",
     "lib/travis/cli/setup/releases.rb",
     "lib/travis/cli/setup/ruby_gems.rb",
