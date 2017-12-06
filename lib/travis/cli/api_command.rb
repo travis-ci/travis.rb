@@ -108,7 +108,8 @@ module Travis
             endpoint
           end
           self.api_endpoint             = c[enterprise_name]
-          self.insecure                 = true if insecure.nil?
+          self.insecure                 = insecure unless insecure.nil?
+          self.session.ssl.delete :ca_file
           endpoint_config['enterprise'] = true
           @setup_ennterpise             = true
         end
