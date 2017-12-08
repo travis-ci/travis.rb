@@ -33,7 +33,7 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a [command line
         * [`encrypt`](#encrypt) - encrypts values for the .travis.yml
         * [`encrypt-file`](#encrypt-file) - encrypts a file and adds decryption steps to .travis.yml
         * [`env`](#env) - show or modify build environment variables
-        * [`history`](#history) - displays a projects build history
+        * [`history`](#history) - displays a project's build history
         * [`init`](#init) - generates a .travis.yml and enables the project
         * [`logs`](#logs) - streams test logs
         * [`open`](#open) - opens a build or job in the browser
@@ -882,7 +882,7 @@ $ travis env unset foo bar
 
 #### `history`
 
-    Displays a projects build history.
+    Displays a project's build history.
     Usage: travis history [options]
         -h, --help                       Display help
         -i, --[no-]interactive           be interactive and colorful
