@@ -40,18 +40,6 @@ module Travis
           say color("Allow Failure: ", :info) + entity.allow_failures?.inspect
           say color("Config:        ", :info) + config unless config.empty?
         end
-
-        if entity.respond_to? :annotations and entity.annotations.any?
-          empty_line
-          say color("Annotations:", :bold)
-          entity.annotations.each do |annotation|
-            say [
-              color("#{annotation.provider_name} #{annotation.status}:", [annotation.color, :bold]),
-              color(annotation.description, annotation.color),
-              color("(%s)" % annotation.url, :info)
-            ].compact.join(" ").rstrip
-          end
-        end
       end
     end
   end
