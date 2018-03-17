@@ -37,6 +37,7 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a [command line
         * [`init`](#init) - generates a .travis.yml and enables the project
         * [`logs`](#logs) - streams test logs
         * [`open`](#open) - opens a build or job in the browser
+        * [`overview`](#overview) - shows statistics
         * [`pubkey`](#pubkey) - prints out a repository's public key
         * [`requests`](#requests) - lists recent requests
         * [`restart`](#restart) - restarts a build or job
@@ -1083,6 +1084,77 @@ If instead you want to open the repository, compare or pull request view on GitH
 ``` console
 $ travis open 56 --print --github
 web view: https://github.com/travis-ci/travis.rb/pull/5
+```
+
+#### `overview`
+
+Show statistics about the repository in a textual form.
+
+Available statistics:
+
+Percentage of passing build in last 30 days grouped by branches:
+``` console
+$ travis overview branches
+passing builds in last 30 days
+feature-xyz: 58%
+master: 100%
+development: 60%
+```
+
+Duration of the last 20 builds:
+``` console
+$ travis overview duration
+duration of last 20 builds
+build 32 failed in 314 seconds
+build 30 passed in 315 seconds
+build 29 passed in 236 seconds
+build 27 failed in 189 seconds
+build 26 failed in 197 seconds
+build 25 failed in 39 seconds
+build 23 passed in 86 seconds
+build 21 passed in 79 seconds
+build 19 passed in 65 seconds
+build 17 passed in 68 seconds
+build 13 passed in 39 seconds
+build 11 errored in 30 seconds
+build 9 passed in 28 seconds
+build 7 passed in 29 seconds
+build 5 passed in 29 seconds
+build 3 passed in 30 seconds
+build 1 errored in 24 seconds
+```
+
+History of build statuses in last 10 days:
+``` console
+$ travis overview history
+build statuses in last 10 days
+2016-03-02:
+   passed: 1
+2016-03-01:
+   passed: 2
+   failed: 1
+   canceled: 1
+```
+
+Summary of build statuses grouped by event type:
+``` console
+$ travis overview eventType
+statuses by event type
+push:
+   failed: 3 (75.0%)
+   errored: 1 (25.0%)
+pull_request:
+   passed: 11 (91.67%)
+   errored: 1 (8.33%)
+cron:
+   failed: 1 (33.33%)
+   canceled: 2 (66.67%)
+```
+
+Show for how many days and builds the test are passing on the default branch (usually `master`):
+``` console
+$ travis overview streak
+Your streak is 4 days and 1 builds.
 ```
 
 #### `pubkey`

@@ -37,6 +37,132 @@ module Travis
              "correct_scopes"=>true}}.to_json
         end
 
+        get '/v3/repo/891/overview/branches' do
+          {
+            "@type"=> "overview",
+            "@href"=> "/v3/repo/891/overview/branches",
+            "@representation"=> "standard",
+            "branches"=> {
+              "master"=> 0.66666666,
+              "devel" => 0.512
+            }
+          }.to_json
+        end
+
+        get '/v3/repo/107495/overview/branches' do
+          {
+            "@type"=> "overview",
+            "@href"=> "/v3/repo/107495/overview/branches",
+            "@representation"=> "standard",
+            "branches"=> {}
+          }.to_json
+        end
+
+        get '/v3/repo/891/overview/build_duration' do
+          {
+            "@type"=> "overview",
+            "@href"=> "/v3/repo/891/overview/build_duration",
+            "@representation"=> "standard",
+            "build_duration"=> [
+              {
+                "id"=> 446534,
+                "number"=> "5",
+                "state"=> "passed",
+                "duration"=> 29
+              },
+              {
+                "id"=> 446530,
+                "number"=> "3",
+                "state"=> "passed",
+                "duration"=> 30
+              },
+              {
+                "id"=> 446504,
+                "number"=> "1",
+                "state"=> "errored",
+                "duration"=> 24
+              }
+            ]
+          }.to_json
+        end
+
+        get '/v3/repo/107495/overview/build_duration' do
+          {
+            "@type"=> "overview",
+            "@href"=> "/v3/repo/107495/overview/build_duration",
+            "@representation"=> "standard",
+            "build_duration"=> []
+          }.to_json
+        end
+
+        get '/v3/repo/891/overview/build_history' do
+          {
+            "@type"=> "overview",
+            "@href"=> "/v3/repo/891/overview/build_history",
+            "@representation"=> "standard",
+            "recent_build_history"=> {
+              "2016-02-25"=> {
+                "passed"=> 1
+              },
+              "2016-03-01"=> {
+                "canceled"=> 1
+              }
+            }
+          }.to_json
+        end
+
+        get '/v3/repo/107495/overview/build_history' do
+          {
+            "@type"=> "overview",
+            "@href"=> "/v3/repo/107495/overview/build_history",
+            "@representation"=> "standard",
+            "recent_build_history"=> {}
+          }.to_json
+        end
+
+        get '/v3/repo/891/overview/event_type' do
+          {
+            "@type"=> "overview",
+            "@href"=> "/v3/repo/891/overview/event_type",
+            "@representation"=> "standard",
+            "event_type"=> {
+              "push"=> {
+                "failed"=> 3,
+                "errored"=> 1
+              },
+              "pull_request"=> {
+                "passed"=> 11,
+                "errored"=> 1
+              },
+              "cron"=> {
+                "failed"=> 1,
+                "canceled"=> 2
+              }
+            }
+          }.to_json
+        end
+
+        get '/v3/repo/107495/overview/event_type' do
+          {
+            "@type"=> "overview",
+            "@href"=> "/v3/repo/107495/overview/event_type",
+            "@representation"=> "standard",
+            "event_type"=> {}
+          }.to_json
+        end
+
+        get '/v3/repo/891/overview/streak' do
+          {
+            "@type"=> "overview",
+            "@href"=> "/v3/repo/891/overview/streak",
+            "@representation"=> "standard",
+            "streak"=> {
+              "days"=> 0,
+              "builds"=> 0
+            }
+          }.to_json
+        end
+
         get '/jobs/4125097' do
           {"job"=>
             {"id"=>4125097,
@@ -685,6 +811,21 @@ module Travis
              "last_build_started_at"=>"2013-01-13T15:55:17Z",
              "last_build_finished_at"=>nil,
              "github_language"=>"Ruby"}}.to_json
+        end
+
+        get '/repos/pypug/django-mango' do
+          {"repo"=>
+            {"id"=>107495,
+              "slug"=>"pypug/django-mango",
+              "description"=>"More Mango, less Django!",
+              "last_build_id"=>4125823,
+              "last_build_number"=>"39",
+              "last_build_state"=>"failed",
+              "last_build_duration"=>31,
+              "last_build_language"=>nil,
+              "last_build_started_at"=>"2013-01-13T16:58:43Z",
+              "last_build_finished_at"=>"2013-01-13T16:55:08Z",
+              "github_language"=>"Python"}}.to_json
         end
 
         get '/repos/891/key' do
