@@ -15,6 +15,7 @@ module Travis
       autoload :Nodejitsu,        'travis/cli/setup/nodejitsu'
       autoload :NPM,              'travis/cli/setup/npm'
       autoload :OpenShift,        'travis/cli/setup/open_shift'
+      autoload :Packagecloud,     'travis/cli/setup/packagecloud'
       autoload :PyPI,             'travis/cli/setup/pypi'
       autoload :RubyGems,         'travis/cli/setup/ruby_gems'
       autoload :Ninefold,         'travis/cli/setup/ninefold'
