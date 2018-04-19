@@ -18,7 +18,7 @@ module Travis
       private
 
         def longest
-          repository.branches.keys.map { |b| b.size }.max
+          repository.branches.keys.compact.map { |b| b.size }.max
         end
     end
   end
