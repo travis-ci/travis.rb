@@ -2018,6 +2018,10 @@ Ubuntu:
 Fedora:
 
     $ sudo yum install ruby ruby-devel
+    
+Fedora 26/27/28:
+
+    $ sudo dnf install gcc make ruby-devel redhat-rpm-config
 
 Arch Linux:
 
