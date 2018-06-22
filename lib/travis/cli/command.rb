@@ -173,7 +173,7 @@ module Travis
         else
           write_to($stderr) do
             next Tools::Completion.update_completion if Tools::Completion.completion_installed?
-            next unless agree('Shell completion not installed. Would you like to like to install it now? ') { |q| q.default = "y" }
+            next unless agree('Shell completion not installed. Would you like to install it now? ') { |q| q.default = "y" }
             Tools::Completion.install_completion
           end
         end

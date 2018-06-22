@@ -18,7 +18,7 @@ module Travis
 
       def setup
         setup_enterprise
-        error "Can't figure out GitHub repo name. Ensure you're in the repo directory, or specify the repo name via the -r option (e.g. travis <command> -r <repo-name>)" unless self.slug ||= find_slug
+        error "Can't figure out GitHub repo name. Ensure you're in the repo directory, or specify the repo name via the -r option (e.g. travis <command> -r <owner>/<repo>)" unless self.slug ||= find_slug
         error "GitHub repo name is invalid, it should be on the form 'owner/repo'" unless self.slug.include?("/")
         self.api_endpoint = detect_api_endpoint
         super
@@ -56,14 +56,17 @@ module Travis
         end
 
         def find_slug
-          load_slug || store_slug(detect_slug)
+          load_slug || begin
+            slug = detect_slug
+            interactive? ? store_slug(slug) : slug if slug
+          end
         end
 
         def detect_slug
           git_head    = `git name-rev --name-only HEAD 2>#{IO::NULL}`.chomp
           git_remote  = `git config --get branch.#{git_head}.remote 2>#{IO::NULL}`.chomp
           git_remote  = 'origin' if git_remote.empty?
-          git_info    = `git config --get remote.#{git_remote}.url 2>#{IO::NULL}`.chomp
+          git_info    = `git ls-remote --get-url #{git_remote} 2>#{IO::NULL}`.chomp
 
           if Addressable::URI.parse(git_info).path =~ GIT_REGEX
             detectected_slug = $1
@@ -71,7 +74,7 @@ module Travis
               if agree("Detected repository as #{color(detectected_slug, :info)}, is this correct? ") { |q| q.default = 'yes' }
                 detectected_slug
               else
-                ask("Repository slug: ") { |q| q.default = detectected_slug }
+                ask("Repository slug (owner/name): ") { |q| q.default = detectected_slug }
               end
             else
               info "detected repository as #{color(detectected_slug, :bold)}"

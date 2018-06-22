@@ -12,7 +12,8 @@ module Travis
       def run
         Travis::CLI.silent { require 'pry' }
         Object.send(:include, Client::Namespace.new(session))
-        binding.pry(:quiet => true, :prompt => Pry::SIMPLE_PROMPT, :output => $stdout)
+        hooks = defined?(Pry::Hooks) ? Pry::Hooks.new : {}
+        binding.pry(:quiet => true, :prompt => Pry::SIMPLE_PROMPT, :output => $stdout, :hooks => hooks)
       end
     end
   end

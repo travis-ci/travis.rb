@@ -5,8 +5,10 @@ module Travis
     class Setup < RepoCommand
       autoload :Appfog,           'travis/cli/setup/appfog'
       autoload :Artifacts,        'travis/cli/setup/artifacts'
+      autoload :Biicode,          'travis/cli/setup/biicode'
       autoload :CloudControl,     'travis/cli/setup/cloud_control'
       autoload :CloudFoundry,     'travis/cli/setup/cloud_foundry'
+      autoload :CodeDeploy,       'travis/cli/setup/code_deploy'
       autoload :EngineYard,       'travis/cli/setup/engine_yard'
       autoload :Heroku,           'travis/cli/setup/heroku'
       autoload :Nodejitsu,        'travis/cli/setup/nodejitsu'
