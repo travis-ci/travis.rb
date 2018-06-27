@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.authors = [
     "Konstantin Haase",
     "Hiro Asari",
-    "Henrik Hodne",
+    "Sarah Hodne",
     "joshua-anderson",
     "Aaron Hill",
     "Peter Souter",
@@ -78,7 +78,6 @@ Gem::Specification.new do |s|
   s.email = [
     "konstantin.mailinglists@googlemail.com",
     "asari.ruby@gmail.com",
-    "me@henrikhodne.com",
     "j@zatigo.com",
     "aa1ronham@gmail.com",
     "p.morsou@gmail.com",
