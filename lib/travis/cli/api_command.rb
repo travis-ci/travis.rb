@@ -11,6 +11,7 @@ module Travis
       on('-e', '--api-endpoint URL', 'Travis API server to talk to')
       on('-I', '--[no-]insecure', 'do not verify SSL certificate of API endpoint')
       on('--pro', "short-cut for --api-endpoint '#{Travis::Client::PRO_URI}'") { |c,_| c.api_endpoint = Travis::Client::PRO_URI }
+      on('--com', "short-cut for --api-endpoint '#{Travis::Client::PRO_URI}'") { |c,_| c.api_endpoint = Travis::Client::PRO_URI }
       on('--org', "short-cut for --api-endpoint '#{Travis::Client::ORG_URI}'") { |c,_| c.api_endpoint = Travis::Client::ORG_URI }
       on('--staging', 'talks to staging system') { |c,_| c.api_endpoint = c.api_endpoint.gsub(/api/, 'api-staging') }
       on('-t', '--token [ACCESS_TOKEN]', 'access token to use') { |c, t| c.access_token = t }
