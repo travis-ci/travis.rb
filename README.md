@@ -125,6 +125,7 @@ Additionally, every API command understands the following options:
 
     -e, --api-endpoint URL           Travis API server to talk to
         --pro                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
+        --com                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
         --org                        short-cut for --api-endpoint 'https://api.travis-ci.org/'
     -t, --token [ACCESS_TOKEN]       access token to use
         --debug                      show API requests
