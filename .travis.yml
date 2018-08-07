@@ -13,6 +13,15 @@ rvm:
   - 2.1.0
   - 2.1.5
 
+matrix:
+  exclude:
+    - rvm: 1.9.2
+      os: osx
+    - rvm: 1.9.3
+      os: osx
+    - rvm: jruby
+      os: osx
+
 jobs:
   include:
     - os: osx
@@ -30,12 +39,3 @@ jobs:
         on:
           repo: travis-ci/travis.rb
           ruby: 2.0.0
-
-matrix:
-  exclude:
-    - rvm: 1.9.2
-      os: osx
-    - rvm: 1.9.3
-      os: osx
-    - rvm: jruby
-      os: osx
