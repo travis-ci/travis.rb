@@ -120,7 +120,7 @@ module Travis
               GH.head("/repos/#{slug}")
               Travis::Client::ORG_URI
             rescue GH::Error
-              Travis::Client::PRO_URI
+              Travis::Client::COM_URI
             end
           end
         end
