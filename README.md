@@ -1983,6 +1983,15 @@ You can also install the development version via RubyGems:
 
 We automatically publish a new development version after every successful build.
 
+### Running Locally
+
+If you want to try out your changes locally:
+
+```
+bundle install # install the dependencies
+bundle exec bin/travis a-command # run your command
+```
+
 ### Updating your Ruby
 
 If you have an outdated Ruby version, you should use your package system or a Ruby Installer to install a recent Ruby.
