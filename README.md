@@ -1435,7 +1435,7 @@ Note that currently [Repository Commands](#repository-commands) will not be able
 
 You can set the following environment variables to influence the travis behavior:
 
-* `$TRAVIS_TOKEN` - access token to use when the `--token` flag is not user
+* `$TRAVIS_TOKEN` - access token to use when the `--token` flag is not used
 * `$TRAVIS_ENDPOINT` - API endpoint to use when the `--api-endpoint`, `--org` or `--com` flag is not used
 * `$TRAVIS_CONFIG_PATH` - directory to store configuration in (defaults to ~/.travis)
 
