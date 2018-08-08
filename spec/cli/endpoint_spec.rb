@@ -11,6 +11,11 @@ describe Travis::CLI::Endpoint do
     stdout.should be == "https://api.travis-ci.com/\n"
   end
 
+  example "travis endpoint --com" do
+    run_cli('endpoint', '--com').should be_success
+    stdout.should be == "https://api.travis-ci.com/\n"
+  end
+
   example "travis endpoint -e http://localhost:3000/" do
     run_cli('endpoint', '-e', 'http://localhost:3000/').should be_success
     stdout.should be == "http://localhost:3000/\n"
