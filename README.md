@@ -45,7 +45,7 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a [command line
         * [`show`](#show) - displays a build or job
         * [`sshkey`](#sshkey) - checks, updates or deletes an SSH key
         * [`status`](#status) - checks status of the latest build
-    * [Pro and Enterprise](#pro-and-enterprise)
+    * [Travis CI and Travis CI Enterprise](#travis-ci-and-travis-ci-enterprise)
     * [Environment Variables](#environment-variables)
     * [Desktop Notifications](#desktop-notifications)
     * [Plugins](#plugins)
@@ -559,7 +559,7 @@ Repository commands have all the options [General API Commands](#general-api-com
 
 Additionally, you can specify the Repository to talk to by providing `--repo owner/name`. However, if you invoke the command inside a clone of the project, the client will figure out this option on its own. Note that it uses the tracked [git remote](http://www.kernel.org/pub/software/scm/git/docs/git-remote.html) for the current branch (and defaults to 'origin' if no tracking is set) to do so. You can use `--store-repo SLUG` once to override it permanently.
 
-It will also automatically pick [Travis Pro](https://travis-ci.com) if it is a private project. You can of course override this decission with `--com`, `--org` or `--api-endpoint URL`
+It will also automatically pick [travis-ci.com](https://travis-ci.com) if it is a private project. You can of course override this decission with `--com`, `--org` or `--api-endpoint URL`
 
 #### `branches`
 
@@ -1333,7 +1333,7 @@ Config:        rvm: 1.9.3
         -g, --generate                   generate SSH key and set up for given GitHub user
         -p, --passphrase PASSPHRASE      pass phrase to decrypt with when using --upload
 
-*This feature is for [Pro and Enterprise](#pro-and-enterprise) only.*
+*This feature is for [private and Enterprise](#travis-ci-and-travis-ci-enterprise) only.*
 
 With the `sshkey` command you can check if there is a custom SSH key set up. Custom SSH keys are used for cloning the repository.
 
@@ -1401,7 +1401,7 @@ Outputs a one line status message about the project's last build. With `-q` that
 $ travis status -qpx && cap deploy
 ```
 
-### Pro and Enterprise
+### Travis CI and Travis CI Enterprise
 
 By default, [General API Commands](#general-api-commands) will talk to [api.travis-ci.org](https://api.travis-ci.org). You can change this by supplying `--com` for [api.travis-ci.com](https://api.travis-ci.com) or `--api-endpoint` with your own endpoint. Note that all [Repository Commands](#repository-commands) will try to figure out the API endpoint to talk to automatically depending on the project's visibility on GitHub.
 
