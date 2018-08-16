@@ -21,7 +21,6 @@ task :update => :completion do
 
   # :(
   fields[:email].delete("konstantin.haase@gmail.com")
-  fields[:authors]
 
   # insert data
   fields.each do |field, values|
