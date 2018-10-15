@@ -1969,6 +1969,8 @@ Then run:
 
     $ gem install travis -v 1.8.9 --no-rdoc --no-ri
 
+If you do not have write access to the system gem directory, you'll need to perform a local install by adding ```--user-install```. You also need to ensure the local gem directory is on your PATH.
+
 Now make sure everything is working:
 
     $ travis version
