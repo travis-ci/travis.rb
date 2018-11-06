@@ -1,5 +1,5 @@
 name: travis
-version: '1.8.9snap1'
+version: '1.8.9'
 summary: Travis CI client
 description: CLI and Ruby client library for Travis CI
 
