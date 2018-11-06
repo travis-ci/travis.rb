@@ -21,4 +21,4 @@ parts:
       gem build travis.gemspec
       gem install travis-*.gem --env-shebang
     prime: ['-lib/ruby/gems/*/gems/ffi-*/ext/ffi_c/libffi-*/include/ffitarget.h']
-stage-packages: [git]
+    stage-packages: [git]
