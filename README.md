@@ -1958,12 +1958,17 @@ MyTravis::Repository.find('rails/rails')
 
 ## Installation
 
-Make sure you have at least [Ruby](http://www.ruby-lang.org/en/downloads/) 1.9.3 (2.0.0 recommended) installed.
+Make sure you have at least [Ruby](http://www.ruby-lang.org/en/downloads/) 1.9.3 (2.0.0 recommended) and its development header files installed.
 
 You can check your Ruby version by running `ruby -v`:
 
     $ ruby -v
     ruby 2.0.0p195 (2013-05-14 revision 40734) [x86_64-darwin12.3.0]
+
+On many systems the Ruby development headers are available through a
+package named `ruby-dev` or `ruby-devel`.
+You can find the development header package name in the
+[Ruby updating instructions](# Updating your Ruby).
 
 Then run:
 
