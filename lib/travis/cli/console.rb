@@ -14,7 +14,7 @@ module Travis
 
         Object.send(:include, Client::Namespace.new(session))
         hooks = defined?(Pry::Hooks) ? Pry::Hooks.new : {}
-        binding.pry(:quiet => true, :prompt => Pry::SIMPLE_PROMPT, :output => $stdout, :hooks => hooks)
+        binding.pry(:quiet => true, :prompt => Pry::Prompt[:simple][:value], :output => $stdout, :hooks => hooks)
       end
 
       private
