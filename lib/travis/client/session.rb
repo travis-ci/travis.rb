@@ -316,7 +316,13 @@ module Travis
         end
 
         def fetch_one(entity, id = nil)
-          get("/#{entity.base_path}/#{id}")[entity.one]
+          path = "/#{entity.base_path}/#{id}"
+
+          if entity == Travis::Client::Artifact
+            load({'log' => {'id' => id, 'body' => get_raw(path)}})[entity.one]
+          else
+            get(path)[entity.one]
+          end
         end
 
         def fetch_many(entity, params = {})
