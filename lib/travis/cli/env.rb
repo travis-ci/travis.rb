@@ -15,7 +15,7 @@ module Travis
       def setup
         super
         authenticate
-        error "not allowed to access environment variables for #{color(repository.slug, :bold)}" unless repository.admin?
+        error "not allowed to access environment variables for #{color(repository.slug, :bold)}" unless repository.push? && repository.pull?
       end
 
       def set(name, value)
