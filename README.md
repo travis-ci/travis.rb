@@ -68,6 +68,7 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a [command line
     * [Dealing with Sessions](#dealing-with-sessions)
     * [Using Namespaces](#using-namespaces)
 * [Installation](#installation)
+    * [Install Travis CI Client on Mac OS X via Homebrew](#install-travis-ci-client-on-mac-os-x-via-homebrew)
     * [Updating your Ruby](#updating-your-ruby)
         * [Mac OS X via Homebrew](#mac-os-x-via-homebrew)
         * [Windows](#windows)
@@ -1991,6 +1992,11 @@ If you want to try out your changes locally:
 ```
 bundle install # install the dependencies
 bundle exec bin/travis a-command # run your command
+```
+
+### Install Travis CI Client on Mac OS X via Homebrew
+```
+brew install travis
 ```
 
 ### Updating your Ruby
