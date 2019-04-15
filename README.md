@@ -676,7 +676,7 @@ job #57.1 has been canceled
 
 #### `disable`
 
-If you want to turn of a repository temporarily or indefinitely, you can do so with the `disable` command:
+If you want to turn off a repository temporarily or indefinitely, you can do so with the `disable` command:
 
 ``` console
 $ travis disable
