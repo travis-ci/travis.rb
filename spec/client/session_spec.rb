@@ -62,7 +62,7 @@ describe Travis::Client::Session do
       subject.headers['User-Agent'].should include("Ruby #{RUBY_VERSION}")
     end
 
-    it 'allows adding custom infos to the User-Agent' do
+    it 'allows adding custom info to the User-Agent' do
       subject.agent_info = "foo"
       subject.headers['User-Agent'].should include("foo")
       subject.headers['User-Agent'].should include("Travis/#{Travis::VERSION}")

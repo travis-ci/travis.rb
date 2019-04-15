@@ -1,6 +1,6 @@
 # Run `rake travis.gemspec` to update the gemspec.
 Gem::Specification.new do |s|
-  # general infos
+  # general info
   s.name        = "travis"
   s.version     = "1.8.9"
   s.description = "CLI and Ruby client library for Travis CI"
