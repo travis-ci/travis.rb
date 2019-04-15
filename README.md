@@ -740,7 +740,7 @@ For deploy keys, it is really handy to pipe them into the command:
 $ cat id_rsa | travis encrypt
 ```
 
-Another use case for piping files into it: If you have a file with sensitive environment variables, like foreman's [.env](http://ddollar.github.com/foreman/#ENVIRONMENT) file, you can add tell the client to encrypt every line separately via `--split`:
+Another use case for piping files into it: If you have a file with sensitive environment variables, like foreman's [.env](http://ddollar.github.com/foreman/#ENVIRONMENT) file, you can tell the client to encrypt every line separately via `--split`:
 
 ``` console
 $ cat .env | travis encrypt --split
