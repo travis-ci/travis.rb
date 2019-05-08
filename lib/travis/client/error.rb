@@ -14,6 +14,9 @@ module Travis
     class NotLoggedIn < Error
     end
 
+    class RepositoryMigrated < Error
+    end
+
     class ValidationFailed < Error
       attr_reader :errors
 
