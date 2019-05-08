@@ -17,15 +17,13 @@ jobs:
       osx_image: xcode7.3
       rvm: 1.9.3
     - os: osx
-      rvm: 2.0.0
+      rvm: 2.5.5
     - os: osx
-      rvm: 2.1.0
-    - os: osx
-      rvm: 2.1.5
+      rvm: 2.6.3
     - stage: deploy
       if: branch = master
       os: linux
-      rvm: 2.0.0
+      rvm: 2.6.3
       deploy:
         provider: rubygems
         api_key:
@@ -33,4 +31,4 @@ jobs:
         gem: travis
         on:
           repo: travis-ci/travis.rb
-          ruby: 2.0.0
+          ruby: 2.6.3
