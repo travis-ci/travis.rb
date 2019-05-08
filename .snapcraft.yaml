@@ -1,5 +1,5 @@
 name: travis
-version: '1.8.9'
+version: '1.8.10'
 summary: Travis CI client
 description: CLI and Ruby client library for Travis CI
 
@@ -15,7 +15,7 @@ apps:
 parts:
   travis:
     plugin: ruby
-    source: https://github.com/travis-ci/travis.rb/archive/v1.8.9.tar.gz
+    source: https://github.com/travis-ci/travis.rb/archive/v1.8.10.tar.gz
     override-build: |
       snapcraftctl build
       gem build travis.gemspec
