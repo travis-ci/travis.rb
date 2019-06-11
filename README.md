@@ -2057,6 +2057,9 @@ If you updated to Ruby 2.1 as shown above:
 For newer versions of Ubuntu (16.04 and above), it should be enough to run:
 
     $ sudo apt-get install ruby-dev
+    
+ #### Ubuntu 18.04 LTS in Windows Subsystem for Linux (WSL)
+Running the travis command line client (e.g. `travis --help`) may crash with a verbose core dump to the console followed by a note saying "You may have encountered a bug in the Ruby interpreter or extension libraries.". Try uninstalling the travis Ruby gem with `gem uninstall travis`, running the Ubuntu/Debian Linux command `sudo apt install make gcc` and reinstall the travis gem. 
 
 #### Mac OS X
 
