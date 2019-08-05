@@ -8,7 +8,7 @@ describe Travis::Client::User do
   its(:email) { should be == 'konstantin.haase@gmail.com' }
   its(:gravatar_id) { should be == '5c2b452f6eea4a6d84c105ebd971d2a4' }
   its(:locale) { should be == 'en' }
-  its(:is_syncing) { should be_false }
+  its(:is_syncing) { should be false }
   its(:synced_at) { should be_a(Time) }
 
   it { should_not be_syncing }
