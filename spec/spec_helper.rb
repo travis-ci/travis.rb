@@ -6,6 +6,7 @@ require 'fileutils'
 require 'travis'
 require 'highline'
 require 'tmpdir'
+require 'rspec/its'
 
 temp_dir = nil
 

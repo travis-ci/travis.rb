@@ -37,7 +37,7 @@ module Travis
 
           error "requires --decrypt-to option when reading from stdin" unless decrypt_to?
 
-          set_env_vars
+          set_env_vars(input_path)
 
           command = decrypt_command(output_path)
           stage ? store_command(command) : print_command(command)
@@ -70,14 +70,14 @@ module Travis
         "openssl aes-256-cbc -K $#{env_name(:key)} -iv $#{env_name(:iv)} -in #{escape_path(path)} -out #{escape_path(decrypt_to)} -d"
       end
 
-      def set_env_vars
+      def set_env_vars(input_path)
         say "storing secure env variables for decryption"
-        repository.env_vars.upsert env_name(:key), key, :public => false
-        repository.env_vars.upsert env_name(:iv),  iv,  :public => false
+        repository.env_vars.upsert env_name(input_path, :key), key, :public => false
+        repository.env_vars.upsert env_name(input_path, :iv),  iv,  :public => false
       end
 
-      def env_name(name)
-        @env_prefix ||= "encrypted_#{Digest.hexencode(Digest::SHA1.digest(Dir.pwd)[0..5])}"
+      def env_name(input_path, name)
+        @env_prefix ||= "encrypted_#{Digest.hexencode(Digest::SHA1.digest(input_path)[0..5])}"
         "#{@env_prefix}_#{name}"
       end
 
