@@ -34,3 +34,4 @@ jobs:
         on:
           repo: travis-ci/travis.rb
           ruby: 2.6.3
+        edge: true
