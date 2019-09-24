@@ -10,6 +10,7 @@ module Travis
       on('-b', '--branch BRANCH', 'Only show history for the given branch')
       on('-l', '--limit LIMIT', 'Maximum number of history items')
       on('-d', '--date', 'Include date in output')
+      on('-t', '--duration', 'Include build time in secs in output')
       on('-c', '--committer', 'Include committer in output')
       on('--[no-]all', 'Display all history items')
 
@@ -39,6 +40,7 @@ module Travis
           say [
             date? && color(formatter.time(build.finished_at || build.started_at), build.color),
             color("##{build.number} #{build.state}:".ljust(16), [build.color, :bold]),
+            duration? && color(build.duration.to_s.ljust(6), :info),
             color("#{build.branch_info}", :info),
             committer? && build.commit.author_name.ljust(25),
             build.commit.subject
