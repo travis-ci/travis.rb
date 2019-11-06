@@ -175,7 +175,7 @@ module Travis
         end
 
         def fetch_token
-          ENV['TRAVIS_TOKEN'] || endpoint_config['access_token']
+          endpoint_config['access_token'] || ENV['TRAVIS_TOKEN']
         end
     end
   end
