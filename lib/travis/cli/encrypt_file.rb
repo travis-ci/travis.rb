@@ -14,6 +14,7 @@ module Travis
       description 'encrypts a file and adds decryption steps to .travis.yml'
       on '-K', '--key KEY', 'encryption key to be used (randomly generated otherwise)'
       on '--iv IV', 'encryption IV to be used (randomly generated otherwise)'
+      on '--env-prefix ENV_PREFIX', 'prefix of the names of the encryption key/IV environment variables (randomly generated otherwise)'
       on '-d', '--decrypt', 'decrypt the file instead of encrypting it, requires key and iv'
       on '-f', '--force', 'override output file if it exists'
       on '-p', '--print-key', 'print (possibly generated) key and iv'
