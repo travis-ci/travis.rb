@@ -2058,6 +2058,12 @@ For newer versions of Ubuntu (16.04 and above), it should be enough to run:
 
     $ sudo apt-get install ruby-dev
 
+If you have error about `mkmf.rb can't find header files for ruby at /usr/lib/ruby/include/ruby.h`
+```console
+# try to run following cmd
+sudo apt install ruby-dev libffi-dev make gcc
+sudo gem install travis
+```
 #### Mac OS X
 
 If you start with a clean Mac OS X, you will have to install the XCode Command Line Tools, which are necessary for installing native extensions. You can do so via `xcode-select`:
