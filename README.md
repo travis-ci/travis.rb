@@ -2061,7 +2061,7 @@ For newer versions of Ubuntu (16.04 and above), it should be enough to run:
 If you have error about `mkmf.rb can't find header files for ruby at /usr/lib/ruby/include/ruby.h`
 ```console
 # try to run following cmd
-sudo apt install ruby-dev libffi-dev make gcc
+sudo apt-get install ruby-dev libffi-dev make gcc -y
 sudo gem install travis
 ```
 #### Mac OS X
