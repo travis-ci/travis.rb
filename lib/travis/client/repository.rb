@@ -13,7 +13,7 @@ module Travis
         end
 
         def encrypt(value)
-          encrypted = to_rsa.public_encrypt(value)
+          encrypted = to_rsa.public_encrypt(value, OpenSSL::PKey::RSA::PKCS1_OAEP_PADDING)
           Base64.encode64(encrypted).gsub(/\s+/, "")
         end
 
