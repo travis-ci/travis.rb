@@ -347,7 +347,8 @@ Gem::Specification.new do |s|
   ]
 
   # dependencies
-  s.add_dependency "faraday",               "~> 0.9"
+  s.add_dependency "faraday",               "~> 0.9", "< 0.17.1" if RUBY_VERSION < "2.0"
+  s.add_dependency "faraday",               "~> 0.9" if RUBY_VERSION >= "2.0"
   s.add_dependency "faraday_middleware",    "~> 0.9", ">= 0.9.1"
   s.add_dependency "highline",              "~> 1.6"
   s.add_dependency "backports"
