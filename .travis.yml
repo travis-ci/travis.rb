@@ -23,7 +23,7 @@ jobs:
     - os: osx
       rvm: 2.6.3
     - stage: deploy
-      if: branch = master
+      if: branch = master and type = push
       os: linux
       rvm: 2.6.3
       deploy:
