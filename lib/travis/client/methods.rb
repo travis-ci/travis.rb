@@ -84,6 +84,10 @@ module Travis
         entity.reload
       end
 
+      def logout
+        session.get_raw("/logout")
+      end
+
       def listen(*entities, &block)
         listener = Listener.new(session)
         listener.subscribe(*entities, &block)
