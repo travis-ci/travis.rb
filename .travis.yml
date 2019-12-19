@@ -18,15 +18,11 @@ jobs:
     - os: osx
       osx_image: xcode7.3
       rvm: 1.9.3
-      before_install:
-        - "gem install bundler -v 1.17.3"
     - os: osx
       rvm: 2.5.5
     - os: osx
       rvm: 2.6.3
     - stage: deploy
-      before_install:
-        - "gem install bundler -v 1.17.3"
       if: branch = master
       os: linux
       rvm: 2.6.3
