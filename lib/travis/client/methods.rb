@@ -85,7 +85,7 @@ module Travis
       end
 
       def logout
-        session.get_raw("/logout")
+        session.get_raw('/logout')
       end
 
       def listen(*entities, &block)
