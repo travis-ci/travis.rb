@@ -37,6 +37,20 @@ module Travis
              "correct_scopes"=>true}}.to_json
         end
 
+        get '/logout' do
+          halt(403, 'wrong token') unless authorized?
+          {"user"=>
+            {"id"=>267,
+             "name"=>"Konstantin Haase",
+             "login"=>"rkh",
+             "email"=>"konstantin.haase@gmail.com",
+             "gravatar_id"=>"5c2b452f6eea4a6d84c105ebd971d2a4",
+             "locale"=>"en",
+             "is_syncing"=>false,
+             "synced_at"=>"2012-10-27T12:52:25Z",
+             "correct_scopes"=>true}}.to_json
+        end
+
         get '/jobs/4125097' do
           {"job"=>
             {"id"=>4125097,
