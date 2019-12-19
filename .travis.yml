@@ -18,6 +18,9 @@ jobs:
     - os: osx
       osx_image: xcode7.3
       rvm: 1.9.3
+      before_install:
+        - gem uninstall -v '>= 2' -i $(rvm gemdir)@global -ax bundler || true
+        - gem install bundler -v '< 2'
     - os: osx
       rvm: 2.5.5
     - os: osx
