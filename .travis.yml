@@ -1,4 +1,4 @@
- language: ruby
+language: ruby
 cache: bundler
 
 os:
