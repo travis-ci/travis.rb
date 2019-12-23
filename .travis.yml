@@ -6,7 +6,6 @@ os:
 
 rvm:
   - jruby
-  - 1.9.3
   - 2.2.7
   - 2.3.8
   - 2.4.5
@@ -15,9 +14,6 @@ rvm:
 
 jobs:
   include:
-    - os: osx
-      osx_image: xcode7.3
-      rvm: 1.9.3
     - os: osx
       rvm: 2.5.5
     - os: osx
