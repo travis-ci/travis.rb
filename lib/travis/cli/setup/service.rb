@@ -63,6 +63,8 @@ module Travis
               on("#{verb.capitalize} only from #{repository.slug}? ", config, 'repo' => repository.slug)
               on("#{verb.capitalize} from #{branch} branch? ", config, 'branch' => branch) if branch != 'master' and branch != 'HEAD'
 
+              config['skip_cleanup'] = 'true' if not ( config.has_key?('skip_cleanup') or config.fetch('edge', 'false') != 'false' )
+
               encrypt(config, 'password') if config['password'] and agree("Encrypt Password? ") { |q| q.default = 'yes' }
               encrypt(config, 'api_key')  if config['api_key']  and agree("Encrypt API key? ") { |q| q.default = 'yes' }
             end
