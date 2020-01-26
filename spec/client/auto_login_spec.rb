@@ -9,7 +9,7 @@ describe Travis::Client::AutoLogin do
   context "authenticate" do
     context "when user has a token in cli config" do
       it "does not call Tools::Github#with_token" do
-        expect(Travis::Tools::Github.any_instance).to_not receive(:with_token)
+        expect_any_instance_of(Travis::Tools::Github).to_not receive(:with_token)
         auto_login_with_token.authenticate
       end
     end
