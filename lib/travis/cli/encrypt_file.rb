@@ -67,7 +67,7 @@ module Travis
       end
 
       def decrypt_command(path)
-        "openssl aes-256-cbc -K $#{env_name(:key)} -iv $#{env_name(:iv)} -in #{escape_path(path)} -out #{escape_path(decrypt_to)} -d"
+        "openssl aes-256-cbc -K $#{env_name(path, :key)} -iv $#{env_name(path, :iv)} -in #{escape_path(path)} -out #{escape_path(decrypt_to)} -d"
       end
 
       def set_env_vars(input_path)
