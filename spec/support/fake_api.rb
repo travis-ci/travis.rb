@@ -721,6 +721,56 @@ module Travis
           }]}.to_json
         end
 
+        #### for encrypt_file spec
+        get '/settings/env_vars/' do
+          # p params
+          $params = params
+          {
+            "env_vars":[
+              {
+                "id": "8aa1c74d-dcc4-4e41-9087-1326b7c68abd",
+                "name": "encrypted_randomhex_key",
+                "value": "super_secret_key",
+                "public": false,
+                "repository_id": 891
+              },
+              {
+                "id": "b2ed30b9-622d-4bd7-928b-ba5aad7ba6a1",
+                "name": "encrypted_randomhex_iv",
+                "value": "super_secret_iv",
+                "public": false,
+                "repository_id": 891
+              }
+            ]
+          }.to_json
+        end
+
+        patch '/settings/env_vars/8aa1c74d-dcc4-4e41-9087-1326b7c68abd' do
+          $params = params
+          {
+            "env_var": {
+              "id": "8aa1c74d-dcc4-4e41-9087-1326b7c68abd",
+              "name": "encrypted_randomhex_key",
+              "value": "new_super_secret_key",
+              "public": false,
+              "repository_id": 891
+            }
+          }.to_json
+        end
+
+        patch '/settings/env_vars/b2ed30b9-622d-4bd7-928b-ba5aad7ba6a1' do
+          $params = params
+          {
+            "env_var": {
+              "id": "b2ed30b9-622d-4bd7-928b-ba5aad7ba6a1",
+              "name": "encrypted_randomhex_iv",
+              "value": "new_super_secret_iv",
+              "public": false,
+              "repository_id": 891
+            }
+          }.to_json
+        end
+
         post '/requests' do
           $params = params
           "{}"
