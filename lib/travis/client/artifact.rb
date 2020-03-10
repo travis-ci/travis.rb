@@ -1,6 +1,7 @@
 # encoding: utf-8
 require 'travis/client'
 require 'travis/tools/safe_string'
+require 'ostruct'
 
 module Travis
   module Client
@@ -44,11 +45,15 @@ module Travis
           end
           body
         end
+      rescue NoMethodError => e
+        # Most likely `#load_attribute` failed because the logs have already
+        # been archived and API returned a bare string, so we will use that instead
+        session.get_raw("logs/#{id}", nil, "Accept" => TEXT)
       end
 
       def body(stream = block_given?)
         return current_body unless block_given? or stream
-        return yield(current_body) unless stream and job.pending?
+        return yield(current_body) unless stream and raw_job.pending?
         number = 0
 
         session.listen(self) do |listener|
@@ -78,6 +83,17 @@ module Travis
 
       def pusher_entity
         job
+      end
+
+      # wrapper to rescue errors while constructing the job object
+      # https://github.com/travis-ci/travis.rb/issues/578
+      def raw_job
+        job
+      rescue
+        # Exception arises because the logs have been archived, so in this case
+        # the job is obviously no longer pending. This is the only call we have
+        # to stub
+        OpenStruct.new(:pending? => false)
       end
 
       one :log
