@@ -8,20 +8,21 @@ rvm:
   - jruby
   - 2.2.7
   - 2.3.8
-  - 2.4.5
-  - 2.5.5
-  - 2.6.3
+  - 2.4.9
+  - 2.5.7
+  - 2.6.5
+  - 2.7.0
 
 jobs:
   include:
     - os: osx
-      rvm: 2.5.5
+      rvm: 2.6.5
     - os: osx
-      rvm: 2.6.3
+      rvm: 2.7.0
     - stage: deploy
       if: branch = master and type = push
       os: linux
-      rvm: 2.6.3
+      rvm: 2.7.0
       deploy:
         provider: rubygems
         api_key:
@@ -29,5 +30,5 @@ jobs:
         gem: travis
         on:
           repo: travis-ci/travis.rb
-          ruby: 2.6.3
+          ruby: 2.7.0
         edge: true
