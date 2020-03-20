@@ -18,7 +18,7 @@ module Travis
       def setup
         setup_enterprise
         error "Can't figure out GitHub repo name. Ensure you're in the repo directory, or specify the repo name via the -r option (e.g. travis <command> -r <owner>/<repo>)" unless self.slug ||= find_slug
-        error "GitHub repo name is invalid, it should be in the form 'owner/repo'" unless self.slug.include?("/")
+        error "GitHub repo name is invalid, it should be of the form 'owner/repo'" unless self.slug.include?("/")
         self.api_endpoint = detect_api_endpoint
         super
         repository.load # makes sure we actually have access to the repo
