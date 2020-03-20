@@ -144,7 +144,6 @@ module Travis
         end
 
         def confirm_and_save_travis_config(confirm = true, file = travis_yaml)
-          overwrite = true
           if confirm
             ans = ask [
               nil,
@@ -153,10 +152,10 @@ module Travis
               travis_config.to_yaml,
               color("(y/N)", [:info, :yellow])
             ].join("\n\n")
-            overwrite = ans =~ /^y/i
+            confirm = ans =~ /^y/i
           end
 
-          save_travis_config if overwrite
+          save_travis_config if confirm
         end
 
         def save_travis_config(file = travis_yaml)
