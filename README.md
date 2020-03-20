@@ -1971,6 +1971,8 @@ On OSX and Linux:
 
     $ gem install travis --no-rdoc --no-ri
 
+(For older versions of `gem`, replace `--no-document` with `--no-rdoc --no-ri`.)
+
 On Windows:
 
     $ gem install travis
@@ -1978,7 +1980,7 @@ On Windows:
 Now make sure everything is working:
 
     $ travis version
-    1.8.10
+    1.8.11
 
 See also [Note on Ubuntu](#ubuntu) below.
 
@@ -2085,6 +2087,8 @@ Mac OS X 10.9.2 shipped with a slightly broken Ruby version. If you want to inst
 If you have the old `travis-cli` gem installed, you should `gem uninstall travis-cli`, just to be sure, as it ships with an executable that is also named `travis`.
 
 ## Version History
+
+**1.8.11** (March 2, 2020)
 
 **1.8.10** (May 5, 2019)
 
