@@ -11,15 +11,12 @@ module Travis
         c.config_key = value || 'env.global'
       end
 
-      on('-C', '--[no-]confirm', "when used with '-a', confirm overwrite of '.travis.yml' (default: true); ignored with --no-interactive") do |c, v|
-        define_method(:confirm?) { v }
-      end
-      define_method(:confirm?) { true } unless method_defined?(:confirm?)
       on('-s', '--[no-]split', "treat each line as a separate input")
       on('-p', '--append',     "don't override existing values, instead treat as list")
       on('-x', '--override',   "override existing value")
 
       def run(*args)
+        confirm = force_interactive.nil? || force_interactive
         error "cannot combine --override and --append"   if append?   and override?
         error "--append without --add makes no sense"    if append?   and not add?
         error "--override without --add makes no sense"  if override? and not add?
@@ -45,7 +42,7 @@ module Travis
 
         if config_key
           set_config encrypted.map { |e| { 'secure' => e } }
-          confirm_and_save_travis_config confirm?
+          confirm_and_save_travis_config confirm
         else
           list = encrypted.map { |data| format(data.inspect, "  secure: %s") }
           say(list.join("\n"), template(__FILE__), :none)

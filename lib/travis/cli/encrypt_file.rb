@@ -21,12 +21,10 @@ module Travis
       on '-a', '--add [STAGE]', 'automatically add command to .travis.yml (default stage is before_install)' do |c, stage|
         c.stage = stage || 'before_install'
       end
-      on('-C', '--[no-]confirm', "when used with '-a', confirm overwrite of '.travis.yml' (default: true)") do |c, v|
-        define_method(:confirm?) { v }
-      end
-      define_method(:confirm?) { true } unless method_defined?(:confirm?)
 
       def run(input_path, output_path = nil)
+        confirm = force_interactive.nil? || force_interactive
+
         self.decrypt_to ||= decrypt_to_for(input_path)
         output_path     ||= File.basename(output_path_for(input_path))
         self.output       = $stdout.tty? ? StringIO.new : $stderr if output_path == '-'
@@ -44,7 +42,7 @@ module Travis
           set_env_vars(input_path)
 
           command = decrypt_command(output_path)
-          stage ? store_command(command) : print_command(command)
+          stage ? store_command(command, confirm) : print_command(command)
 
           notes(input_path, output_path)
         end
@@ -63,11 +61,11 @@ module Travis
         say command, template(__FILE__)
       end
 
-      def store_command(command)
+      def store_command(command, confirm)
         travis_config[stage] = Array(travis_config[stage])
         travis_config[stage].delete(command)
         travis_config[stage].unshift(command)
-        confirm_and_save_travis_config confirm?
+        confirm_and_save_travis_config confirm
       end
 
       def decrypt_command(path)
