@@ -1967,9 +1967,15 @@ You can check your Ruby version by running `ruby -v`:
 
 Then run:
 
-    $ gem install travis -v 1.8.11 --no-document
+On OSX and Linux:
+
+    $ gem install travis --no-rdoc --no-ri
 
 (For older versions of `gem`, replace `--no-document` with `--no-rdoc --no-ri`.)
+
+On Windows:
+
+    $ gem install travis
 
 Now make sure everything is working:
 
