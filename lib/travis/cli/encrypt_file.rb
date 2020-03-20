@@ -21,6 +21,10 @@ module Travis
       on '-a', '--add [STAGE]', 'automatically add command to .travis.yml (default stage is before_install)' do |c, stage|
         c.stage = stage || 'before_install'
       end
+      on('-C', '--[no-]confirm', "when used with '-a', confirm overwrite of '.travis.yml' (default: true)") do |c, v|
+        define_method(:confirm?) { v }
+      end
+      define_method(:confirm?) { true } unless method_defined?(:confirm?)
 
       def run(input_path, output_path = nil)
         self.decrypt_to ||= decrypt_to_for(input_path)
@@ -63,7 +67,7 @@ module Travis
         travis_config[stage] = Array(travis_config[stage])
         travis_config[stage].delete(command)
         travis_config[stage].unshift(command)
-        save_travis_config
+        confirm_and_save_travis_config confirm?
       end
 
       def decrypt_command(path)
