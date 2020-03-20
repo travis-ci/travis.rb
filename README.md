@@ -705,6 +705,7 @@ If you don't want the sync to be triggered, use `--skip-sync`.
 
 #### `encrypt`
 
+    Encrypts values for the .travis.yml.
     Usage: travis encrypt [ARGS..] [OPTIONS]
         -h, --help                       Display help
         -i, --[no-]interactive           be interactive and colorful
@@ -725,7 +726,6 @@ If you don't want the sync to be triggered, use `--skip-sync`.
         -r, --repo SLUG                  repository to use (will try to detect from current git clone)
         -R, --store-repo SLUG            like --repo, but remembers value for current directory
         -a, --add [KEY]                  adds it to .travis.yml under KEY (default: env.global)
-        -C, --[no-]confirm               when used with '-a', confirm overwrite of '.travis.yml' (default: true); ignored with --no-interactive
         -s, --[no-]split                 treat each line as a separate input
         -p, --append                     don't override existing values, instead treat as list
         -x, --override                   override existing value
@@ -805,7 +805,6 @@ There are two ways the client can treat existing values:
         -p, --print-key                  print (possibly generated) key and iv
         -w, --decrypt-to PATH            where to write the decrypted file to on the Travis CI VM
         -a, --add [STAGE]                automatically add command to .travis.yml (default stage is before_install)
-        -C, --[no-]confirm               when used with '-a', confirm overwrite of '.travis.yml' (default: true)
 
 This command will encrypt a file for you using a symmetric encryption (AES-256), and it will store the secret in a [secure variable](#env). It will output the command you can use in your build script to decrypt the file.
 
