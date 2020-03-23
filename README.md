@@ -161,9 +161,13 @@ travis-ci (Travis CI): subscribed, 57 repositories
 
 #### `console`
 
+Provides an interactive shell via [pry](http://pry.github.io/).
+
 Running `travis console` gives you an interactive Ruby session with all the [entities](#entities) imported into global namespace.
 
-But why use this over just `irb -r travis`? For one, it will take care of authentication, setting the correct endpoint, etc, and it also allows you to pass in `--debug` if you are curious as to what's actually going on.
+This has advantages over `irb -r travis`, such as:
+* It will take care of authentication, setting the correct endpoint, etc.
+* It also allows you to pass in `--debug` if you are curious as to what's actually going on.
 
 ``` console
 $ travis console
@@ -174,6 +178,26 @@ $ travis console
 >> _.last_build
 => #<Travis::Client::Build: sinatra/sinatra#360>
 ```
+
+    Interactive shell; requires `pry`.
+    Usage: travis console [OPTIONS]
+    -h, --help                       Display help
+    -i, --[no-]interactive           be interactive and colorful
+    -E, --[no-]explode               don't rescue exceptions
+        --skip-version-check         don't check if travis client is up to date
+        --skip-completion-check      don't check if auto-completion is set up
+    -e, --api-endpoint URL           Travis API server to talk to
+    -I, --[no-]insecure              do not verify SSL certificate of API endpoint
+        --pro                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
+        --com                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
+        --org                        short-cut for --api-endpoint 'https://api.travis-ci.org/'
+        --staging                    talks to staging system
+    -t, --token [ACCESS_TOKEN]       access token to use
+        --debug                      show API requests
+        --debug-http                 show HTTP(S) exchange
+    -X, --enterprise [NAME]          use enterprise setup (optionally takes name for multiple setups)
+        --adapter ADAPTER            Faraday adapter to use for HTTP requests
+    -x, --eval LINE                  run line of ruby
 
 #### `endpoint`
 
