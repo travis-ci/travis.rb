@@ -2123,7 +2123,17 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
+**1.8.12** (March 23, 2020)
+
+* Fix `encrypt-file` command (https://github.com/travis-ci/travis.rb/pull/715)
+* Fix `console` command (https://github.com/travis-ci/travis.rb/issues/654)
+* Ask for confirmation when `encrypt` and `encrypt-file` commands receive
+  `-a`, `--add` flag (https://github.com/travis-ci/travis.rb/issues/651)
+
 **1.8.11** (March 2, 2020)
+
+* Generate unique key-iv pair for each file (https://github.com/travis-ci/travis.rb/pull/678)
+* Add logout command
 
 **1.8.10** (May 5, 2019)
 
