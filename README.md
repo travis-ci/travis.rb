@@ -705,16 +705,23 @@ If you don't want the sync to be triggered, use `--skip-sync`.
 
 #### `encrypt`
 
-    Usage: travis encrypt [args..] [options]
+    Encrypts values for the .travis.yml.
+    Usage: travis encrypt [ARGS..] [OPTIONS]
         -h, --help                       Display help
         -i, --[no-]interactive           be interactive and colorful
         -E, --[no-]explode               don't rescue exceptions
             --skip-version-check         don't check if travis client is up to date
+            --skip-completion-check      don't check if auto-completion is set up
         -e, --api-endpoint URL           Travis API server to talk to
+        -I, --[no-]insecure              do not verify SSL certificate of API endpoint
+            --pro                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
             --com                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
             --org                        short-cut for --api-endpoint 'https://api.travis-ci.org/'
+            --staging                    talks to staging system
         -t, --token [ACCESS_TOKEN]       access token to use
             --debug                      show API requests
+            --debug-http                 show HTTP(S) exchange
+        -X, --enterprise [NAME]          use enterprise setup (optionally takes name for multiple setups)
             --adapter ADAPTER            Faraday adapter to use for HTTP requests
         -r, --repo SLUG                  repository to use (will try to detect from current git clone)
         -R, --store-repo SLUG            like --repo, but remembers value for current directory
@@ -780,11 +787,15 @@ There are two ways the client can treat existing values:
             --skip-completion-check      don't check if auto-completion is set up
         -e, --api-endpoint URL           Travis API server to talk to
         -I, --[no-]insecure              do not verify SSL certificate of API endpoint
+            --pro                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
             --com                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
             --org                        short-cut for --api-endpoint 'https://api.travis-ci.org/'
+            --staging                    talks to staging system
         -t, --token [ACCESS_TOKEN]       access token to use
             --debug                      show API requests
+            --debug-http                 show HTTP(S) exchange
         -X, --enterprise [NAME]          use enterprise setup (optionally takes name for multiple setups)
+            --adapter ADAPTER            Faraday adapter to use for HTTP requests
         -r, --repo SLUG                  repository to use (will try to detect from current git clone)
         -R, --store-repo SLUG            like --repo, but remembers value for current directory
         -K, --key KEY                    encryption key to be used (randomly generated otherwise)

@@ -143,6 +143,21 @@ module Travis
           end
         end
 
+        def confirm_and_save_travis_config(confirm = true, file = travis_yaml)
+          if confirm
+            ans = ask [
+              nil,
+              color("Overwrite the config file #{travis_yaml} with the content below?", [:info, :yellow]),
+              color("This reformats the existing file.", [:info, :red]),
+              travis_config.to_yaml,
+              color("(y/N)", [:info, :yellow])
+            ].join("\n\n")
+            confirm = ans =~ /^y/i
+          end
+
+          save_travis_config if confirm
+        end
+
         def save_travis_config(file = travis_yaml)
           yaml = travis_config.to_yaml
           yaml.gsub! /^(\s+)('on'|true):/, "\\1on:"

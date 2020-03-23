@@ -17,4 +17,10 @@ describe Travis::CLI::EncryptFile do
     run_cli('encrypt-file', CMD_TARGET).should be_success
     File.exists?("#{CMD_TARGET}.enc").should be true
   end
+
+  example "travis encrypt-file #{CMD_TARGET} -a" do
+    run_cli('encrypt-file', CMD_TARGET, '-a') { |i| i.puts "n" }.should be_success
+    stdout.should match /Overwrite the config file/
+    File.exists?("#{CMD_TARGET}.enc").should be true
+  end
 end

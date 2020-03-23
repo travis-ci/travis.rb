@@ -16,6 +16,7 @@ module Travis
       on('-x', '--override',   "override existing value")
 
       def run(*args)
+        confirm = force_interactive.nil? || force_interactive
         error "cannot combine --override and --append"   if append?   and override?
         error "--append without --add makes no sense"    if append?   and not add?
         error "--override without --add makes no sense"  if override? and not add?
@@ -41,7 +42,7 @@ module Travis
 
         if config_key
           set_config encrypted.map { |e| { 'secure' => e } }
-          save_travis_config
+          confirm_and_save_travis_config confirm
         else
           list = encrypted.map { |data| format(data.inspect, "  secure: %s") }
           say(list.join("\n"), template(__FILE__), :none)
