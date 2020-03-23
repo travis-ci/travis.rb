@@ -3,14 +3,14 @@ require 'travis/cli'
 module Travis
   module CLI
     class Console < ApiCommand
-      description "interactive shell"
+      description "interactive shell; requires `pry`"
       on '-x', '--eval LINE', 'run line of ruby' do |c, line|
         c.instance_eval(line)
         exit
       end
 
       def run
-        return unless pry_installed?
+        ensure_pry
 
         Object.send(:include, Client::Namespace.new(session))
         hooks = defined?(Pry::Hooks) ? Pry::Hooks.new : {}
@@ -21,14 +21,15 @@ module Travis
 
       private
 
-      def pry_installed?
+      def ensure_pry
         require 'pry'
-        true
       rescue LoadError
-        $stderr.puts 'You need to install pry to use Travis CLI console. Try'
-        $stderr.puts
-        $stderr.puts '$ (sudo) gem install pry'
-        false
+        msg = [
+          'You need to install pry to use Travis CLI console. Try',
+          nil,
+          '$ (sudo) gem install pry'
+        ].join("\n")
+        error msg
       end
 
       def prompt
