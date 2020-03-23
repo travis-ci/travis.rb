@@ -14,7 +14,9 @@ module Travis
 
         Object.send(:include, Client::Namespace.new(session))
         hooks = defined?(Pry::Hooks) ? Pry::Hooks.new : {}
-        binding.pry(:quiet => true, :prompt => Pry::SIMPLE_PROMPT, :output => $stdout, :hooks => hooks)
+        opts = {quiet: true, output: $stdout, hooks: hooks }
+        opts.merge!({prompt: prompt}) if prompt
+        binding.pry(opts)
       end
 
       private
@@ -27,6 +29,16 @@ module Travis
         $stderr.puts
         $stderr.puts '$ (sudo) gem install pry'
         false
+      end
+
+      def prompt
+        if Pry.const_defined? :SIMPLE_PROMPT
+          Pry::SIMPLE_PROMPT
+        elsif defined?(Pry::Prompt)
+          Pry::Prompt[:simple]
+        else
+          nil
+        end
       end
     end
   end
