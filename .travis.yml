@@ -6,28 +6,26 @@ os:
 
 rvm:
   - jruby
-  - 2.2.7
-  - 2.3.8
-  - 2.4.5
-  - 2.5.5
-  - 2.6.3
+  - "2.2"
+  - "2.3"
+  - "2.4"
+  - "2.5"
+  - "2.6"
+  - "2.7"
 
 jobs:
   include:
     - os: osx
-      rvm: 2.5.5
+      rvm: "2.5"
     - os: osx
-      rvm: 2.6.3
+      rvm: "2.6"
     - stage: deploy
-      if: branch = master and type = push
+      if: repo = travis-ci/travis.rb and branch = master and type = push
       os: linux
-      rvm: 2.6.3
+      rvm: "2.6"
       deploy:
         provider: rubygems
         api_key:
           secure: KcBpkFaes74KGMm8X/rRA8e13+t3PmkefsAvOAR+iF4g1GyuLSPkP92Fb9vFfsXBph+qmFh5rNa2lIRf/3RXW6COxY7CMMaARxUfJOKE0rmIwF0qfKI+RZDh6abg92iYngunMZVN8WVft6Lv9ZTOYCWxr1Zs1Ll/Rl4PfvHNd1g=
         gem: travis
-        on:
-          repo: travis-ci/travis.rb
-          ruby: 2.6.3
         edge: true
