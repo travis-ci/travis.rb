@@ -1,4 +1,5 @@
 require 'travis/cli'
+require 'travis/tools/github'
 
 module Travis
   module CLI
@@ -121,9 +122,6 @@ module Travis
         end
 
         def load_gh
-          return if defined? GH
-          debug "Loading gh"
-          require 'gh'
 
           gh_config       = session.config['github']
           gh_config     &&= gh_config.inject({}) { |h,(k,v)| h.update(k.to_sym => v) }

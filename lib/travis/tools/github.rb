@@ -1,6 +1,7 @@
 require 'travis/tools/system'
 require 'yaml'
 require 'json'
+require 'gh'
 
 module Travis
   module Tools
@@ -259,7 +260,11 @@ module Travis
 
         def gh_error(error)
           raise error if explode
-          JSON.parse(error.info[:response_body])["message"].to_s
+          if error.info.key? :response_body
+            JSON.parse(error.info[:response_body])["message"].to_s
+          else
+            "Unknown error"
+          end
         end
 
         def debug(line)
