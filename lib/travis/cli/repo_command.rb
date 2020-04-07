@@ -6,7 +6,10 @@ module Travis
     class RepoCommand < ApiCommand
       GIT_REGEX = %r{/?(.*/.+?)(\.git)?$}
       TRAVIS    = %r{^https://(staging-)?api\.travis-ci\.(org|com)}
-      on('-r', '--repo SLUG', 'repository to use (will try to detect from current git clone)') { |c, slug| c.slug = slug }
+      on('-r', '--repo SLUG', 'repository to use (will try to detect from current git clone)') do |c, slug|
+        c.slug = slug
+        c.error "SLUG should be of the form OWNER/REPO" unless slug.split('/').compact.size == 2
+      end
       on('-R', '--store-repo SLUG', 'like --repo, but remembers value for current directory') do |c, slug|
         c.slug = slug
         c.send(:store_slug, slug)

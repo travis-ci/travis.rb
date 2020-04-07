@@ -9,6 +9,7 @@ module Travis
 
       on('-r', '--repo SLUG', 'monitor given repository (can be used more than once)') do |c, slug|
         c.repos << slug
+        c.send(:error, "SLUG should be of the form OWNER/REPO") unless slug.split('/').compact.size == 2
       end
 
       types = Tools::Notification::DEFAULT.map(&:to_s).join(", ")
