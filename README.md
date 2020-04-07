@@ -12,7 +12,7 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a [command line
         * [`version`](#version) - outputs the client version
     * [General API Commands](#general-api-commands)
         * [`accounts`](#accounts) - displays accounts and their subscription status
-        * [`console`](#console) - interactive shell
+        * [`console`](#console) - interactive shell; requires `pry`
         * [`endpoint`](#endpoint) - displays or changes the API endpoint
         * [`login`](#login) - authenticates against the API and stores the token
         * [`monitor`](#monitor) - live monitor for what's going on
@@ -2015,7 +2015,7 @@ On Windows:
 Now make sure everything is working:
 
     $ travis version
-    1.8.11
+    1.8.13
 
 See also [Note on Ubuntu](#ubuntu) below.
 
