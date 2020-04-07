@@ -583,7 +583,7 @@ Repository commands have all the options [General API Commands](#general-api-com
 
 Additionally, you can specify the Repository to talk to by providing `--repo owner/name`. However, if you invoke the command inside a clone of the project, the client will figure out this option on its own. Note that it uses the tracked [git remote](http://www.kernel.org/pub/software/scm/git/docs/git-remote.html) for the current branch (and defaults to 'origin' if no tracking is set) to do so. You can use `--store-repo SLUG` once to override it permanently.
 
-It will also automatically pick [travis-ci.com](https://travis-ci.com) if it is a private project. You can of course override this decission with `--com`, `--org` or `--api-endpoint URL`
+It will also automatically pick [travis-ci.com](https://travis-ci.com) if it is a private project. You can of course override this decision with `--com`, `--org` or `--api-endpoint URL`
 
 #### `branches`
 
