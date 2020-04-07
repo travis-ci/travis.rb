@@ -163,6 +163,8 @@ module Travis
         end
       rescue Timeout::Error, Faraday::Error::ClientError => error
         debug "#{error.class}: #{error.message}"
+      rescue JSON::ParseError => error
+        warn "Unable to determine the most recent travis gem version. http://rubygems.org may be down."
       end
 
       def check_completion
