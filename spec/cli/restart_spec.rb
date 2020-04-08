@@ -3,13 +3,13 @@ require 'spec_helper'
 describe Travis::CLI::Restart do
   example 'travis restart' do
     run_cli('restart', '-t', 'token').should be_success
-    $params['build_id'].should be == "4125095"
-    $params['job_id'].should be_nil
+    $params['id'].should be == "4125095"
+    $params['entity'].should be == "builds"
   end
 
   example 'travis restart 6180.1' do
     run_cli('restart', '6180.1', '-t', 'token').should be_success
-    $params['build_id'].should be_nil
-    $params['job_id'].should be == "4125096"
+    $params['entity'].should be == "jobs"
+    $params['id'].should be == "4125096"
   end
 end

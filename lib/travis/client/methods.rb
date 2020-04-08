@@ -74,7 +74,7 @@ module Travis
         # btw, internally we call this reset, not restart, as it resets the state machine
         # but we thought that would be too confusing
         raise Error, "cannot restart a #{entity.class.one}" unless entity.restartable?
-        session.post_raw('/requests', "#{entity.class.one}_id" => entity.id)
+        session.post_raw("/#{entity.class.many}/#{entity.id}/restart")
         entity.reload
       end
 
