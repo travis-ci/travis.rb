@@ -771,9 +771,9 @@ module Travis
           }.to_json
         end
 
-        post '/requests' do
+        post '/:entity/:id/restart' do
           $params = params
-          "{}"
+          {}
         end
 
         post '/:entity/:id/cancel' do
