@@ -1,0 +1,14 @@
+---
+last_check:
+  etag: '"fake_etaag"'
+  version: 1.8.8
+  at: 1487940199
+checked_completion: true
+completion_version: 1.8.8
+endpoints:
+  https://api.travis-ci.com/:
+    access_token: fake-travis-com-token
+  https://api.travis-ci.org/:
+    access_token: fake-travis-org-token
+  https://travis-ci-enterprise/api:
+    access_token: fake-travis-enterprise-token

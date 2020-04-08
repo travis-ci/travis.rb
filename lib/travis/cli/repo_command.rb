@@ -6,7 +6,10 @@ module Travis
     class RepoCommand < ApiCommand
       GIT_REGEX = %r{/?(.*/.+?)(\.git)?$}
       TRAVIS    = %r{^https://(staging-)?api\.travis-ci\.(org|com)}
-      on('-r', '--repo SLUG', 'repository to use (will try to detect from current git clone)') { |c, slug| c.slug = slug }
+      on('-r', '--repo SLUG', 'repository to use (will try to detect from current git clone)') do |c, slug|
+        c.slug = slug
+        c.error "SLUG should be of the form OWNER/REPO" unless slug.split('/').compact.size == 2
+      end
       on('-R', '--store-repo SLUG', 'like --repo, but remembers value for current directory') do |c, slug|
         c.slug = slug
         c.send(:store_slug, slug)
@@ -18,7 +21,7 @@ module Travis
       def setup
         setup_enterprise
         error "Can't figure out GitHub repo name. Ensure you're in the repo directory, or specify the repo name via the -r option (e.g. travis <command> -r <owner>/<repo>)" unless self.slug ||= find_slug
-        error "GitHub repo name is invalid, it should be on the form 'owner/repo'" unless self.slug.include?("/")
+        error "GitHub repo name is invalid, it should be of the form 'owner/repo'" unless self.slug.include?("/")
         self.api_endpoint = detect_api_endpoint
         super
         repository.load # makes sure we actually have access to the repo
@@ -68,16 +71,16 @@ module Travis
           git_info    = `git ls-remote --get-url #{git_remote} 2>#{IO::NULL}`.chomp
 
           if parse_remote(git_info) =~ GIT_REGEX
-            detectected_slug = $1
+            detected_slug = $1
             if interactive?
-              if agree("Detected repository as #{color(detectected_slug, :info)}, is this correct? ") { |q| q.default = 'yes' }
-                detectected_slug
+              if agree("Detected repository as #{color(detected_slug, :info)}, is this correct? ") { |q| q.default = 'yes' }
+                detected_slug
               else
-                ask("Repository slug (owner/name): ") { |q| q.default = detectected_slug }
+                ask("Repository slug (owner/name): ") { |q| q.default = detected_slug }
               end
             else
-              info "detected repository as #{color(detectected_slug, :bold)}"
-              detectected_slug
+              info "detected repository as #{color(detected_slug, :bold)}"
+              detected_slug
             end
           end
         end
@@ -120,7 +123,7 @@ module Travis
               GH.head("/repos/#{slug}")
               Travis::Client::ORG_URI
             rescue GH::Error
-              Travis::Client::PRO_URI
+              Travis::Client::COM_URI
             end
           end
         end
@@ -141,6 +144,21 @@ module Travis
             error "no .travis.yml found" if parent == dir
             travis_yaml(parent)
           end
+        end
+
+        def confirm_and_save_travis_config(confirm = true, file = travis_yaml)
+          if confirm
+            ans = ask [
+              nil,
+              color("Overwrite the config file #{travis_yaml} with the content below?", [:info, :yellow]),
+              color("This reformats the existing file.", [:info, :red]),
+              travis_config.to_yaml,
+              color("(y/N)", [:info, :yellow])
+            ].join("\n\n")
+            confirm = ans =~ /^y/i
+          end
+
+          save_travis_config if confirm
         end
 
         def save_travis_config(file = travis_yaml)

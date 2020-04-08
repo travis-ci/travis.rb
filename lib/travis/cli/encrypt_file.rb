@@ -23,6 +23,8 @@ module Travis
       end
 
       def run(input_path, output_path = nil)
+        confirm = force_interactive.nil? || force_interactive
+
         self.decrypt_to ||= decrypt_to_for(input_path)
         output_path     ||= File.basename(output_path_for(input_path))
         self.output       = $stdout.tty? ? StringIO.new : $stderr if output_path == '-'
@@ -37,10 +39,10 @@ module Travis
 
           error "requires --decrypt-to option when reading from stdin" unless decrypt_to?
 
-          set_env_vars
+          set_env_vars(input_path)
 
           command = decrypt_command(output_path)
-          stage ? store_command(command) : print_command(command)
+          stage ? store_command(command, confirm) : print_command(command)
 
           notes(input_path, output_path)
         end
@@ -59,25 +61,25 @@ module Travis
         say command, template(__FILE__)
       end
 
-      def store_command(command)
+      def store_command(command, confirm)
         travis_config[stage] = Array(travis_config[stage])
         travis_config[stage].delete(command)
         travis_config[stage].unshift(command)
-        save_travis_config
+        confirm_and_save_travis_config confirm
       end
 
       def decrypt_command(path)
-        "openssl aes-256-cbc -K $#{env_name(:key)} -iv $#{env_name(:iv)} -in #{escape_path(path)} -out #{escape_path(decrypt_to)} -d"
+        "openssl aes-256-cbc -K $#{env_name(path, :key)} -iv $#{env_name(path, :iv)} -in #{escape_path(path)} -out #{escape_path(decrypt_to)} -d"
       end
 
-      def set_env_vars
+      def set_env_vars(input_path)
         say "storing secure env variables for decryption"
-        repository.env_vars.upsert env_name(:key), key, :public => false
-        repository.env_vars.upsert env_name(:iv),  iv,  :public => false
+        repository.env_vars.upsert env_name(input_path, :key), key, :public => false
+        repository.env_vars.upsert env_name(input_path, :iv),  iv,  :public => false
       end
 
-      def env_name(name)
-        @env_prefix ||= "encrypted_#{Digest.hexencode(Digest::SHA1.digest(Dir.pwd)[0..5])}"
+      def env_name(input_path, name)
+        @env_prefix ||= "encrypted_#{Digest.hexencode(Digest::SHA1.digest(input_path)[0..5])}"
         "#{@env_prefix}_#{name}"
       end
 

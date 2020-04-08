@@ -16,7 +16,9 @@ module Travis
         :builds_only_with_travis_yml => "Only run builds with a .travis.yml",
         :build_pushes                => "Build pushes",
         :build_pull_requests         => "Build pull requests",
-        :maximum_number_of_builds    => "Maximum number of concurrent builds"
+        :maximum_number_of_builds    => "Maximum number of concurrent builds",
+        :auto_cancel_pushes          => "Cancel older push builds that are not yet running",
+        :auto_cancel_pull_requests   => "Cancel older pull request builds that are not yet running"
       }
 
       def run(*keys)

@@ -1,4 +1,5 @@
 require 'travis/cli'
+require 'yaml'
 
 module Travis
   module CLI
@@ -19,6 +20,12 @@ module Travis
           debug "reading stdin"
           file    = 'STDIN'
           content = $stdin.read
+        end
+
+        begin
+          YAML.load(content)
+        rescue Psych::SyntaxError => e
+          error "#{file} is not valid YAML: #{e.message}"
         end
 
         lint = session.lint(content)

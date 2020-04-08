@@ -81,7 +81,7 @@ module Travis
 
       def running?(app)
         return false unless unix?
-        system "pgrep -u $(whoami) #{app} >/dev/null"
+        system "/usr/bin/pgrep -u $(whoami) #{app} >/dev/null"
       end
     end
   end

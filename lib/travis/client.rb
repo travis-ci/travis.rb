@@ -10,7 +10,6 @@ require 'travis/client/entity'
 require 'travis/client/user'
 require 'travis/client/repository'
 require 'travis/client/env_var'
-require 'travis/client/annotation'
 require 'travis/client/build'
 require 'travis/client/artifact'
 require 'travis/client/cache'
@@ -29,7 +28,7 @@ require 'travis/client/lint_result'
 module Travis
   module Client
     ORG_URI = 'https://api.travis-ci.org/'
-    PRO_URI = 'https://api.travis-ci.com/'
+    COM_URI = 'https://api.travis-ci.com/'
 
     def self.new(options = {})
       options[:uri] ||= ORG_URI if options.is_a? Hash and not options['uri']

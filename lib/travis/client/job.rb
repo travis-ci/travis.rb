@@ -7,13 +7,13 @@ module Travis
       preloadable
 
       # @!parse attr_reader :repository_id, :build_id, :commit_id, :log_id, :number, :config, :state, :started_at, :finished_at, :queue, :allow_failure, :tags
-      attributes :repository_id, :build_id, :commit_id, :log_id, :number, :config, :state, :started_at, :finished_at, :queue, :allow_failure, :tags, :annotation_ids
+      attributes :repository_id, :build_id, :commit_id, :log_id, :number, :config, :state, :started_at, :finished_at, :queue, :allow_failure, :tags
       time :started_at, :finished_at
 
       alias allow_failure? allow_failure
 
-      # @!parse attr_reader :commit, :repository, :build, :annotations
-      has :commit, :repository, :build, :log, :annotations
+      # @!parse attr_reader :commit, :repository, :build
+      has :commit, :repository, :build, :log
 
       one :job
       many :jobs

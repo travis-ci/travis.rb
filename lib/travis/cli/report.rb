@@ -77,10 +77,10 @@ module Travis
       def endpoint_name(url, prefix = "")
         case url
         when Travis::Client::ORG_URI  then "#{prefix}org"
-        when Travis::Client::PRO_URI  then "#{prefix}pro"
+        when Travis::Client::COM_URI  then "#{prefix}com"
         when /api-staging\.travis-ci/ then endpoint_name(url.sub("api-staging.", "api."), "staging-")
         else
-          key, _ = config['enterprise'].detect { |k,v| v.start_with? url }
+          key, _ = config['enterprise'].detect { |k,v| v.start_with? url } if config['enterprise'].respond_to?(:detect)
           key ? "enterprise %p" % key : "???"
         end
       end
