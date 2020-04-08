@@ -371,7 +371,7 @@ Gem::Specification.new do |s|
   # dependencies
   s.add_dependency "faraday",               "~> 0.9"
   s.add_dependency "faraday_middleware",    "~> 0.9", ">= 0.9.1"
-  s.add_dependency "highline"
+  s.add_dependency "highline",              "~> 2.0"
   s.add_dependency "gh",                    "~> 0.13"
   s.add_dependency "launchy",               "~> 2.1"
   s.add_dependency "typhoeus",              "~> 0.6", ">= 0.6.8"
