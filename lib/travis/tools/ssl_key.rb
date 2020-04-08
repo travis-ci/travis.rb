@@ -18,9 +18,9 @@ module Travis
       end
 
       def has_passphrase?(key)
-        OpenSSL::PKey::RSA.new(key, key)
+        OpenSSL::PKey::RSA.new(key, key[0..1023])
         false
-      rescue OpenSSL::PKey::RSAError
+      rescue OpenSSL::OpenSSLError
         true
       end
 

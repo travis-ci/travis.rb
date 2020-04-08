@@ -163,6 +163,8 @@ module Travis
         end
       rescue Timeout::Error, Faraday::Error::ClientError => error
         debug "#{error.class}: #{error.message}"
+      rescue JSON::ParseError => error
+        warn "Unable to determine the most recent travis gem version. http://rubygems.org may be down."
       end
 
       def check_completion
@@ -201,6 +203,9 @@ module Travis
       rescue Travis::Client::NotLoggedIn => e
         raise(e) if explode?
         error "#{e.message} - try running #{command("login#{endpoint_option}")}"
+      rescue Travis::Client::RepositoryMigrated => e
+        raise (e) if explode?
+        error e.message
       rescue Travis::Client::NotFound => e
         raise(e) if explode?
         error "resource not found (#{e.message})"

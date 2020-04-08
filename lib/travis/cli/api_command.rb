@@ -1,4 +1,5 @@
 require 'travis/cli'
+require 'travis/tools/github'
 
 module Travis
   module CLI
@@ -10,7 +11,8 @@ module Travis
 
       on('-e', '--api-endpoint URL', 'Travis API server to talk to')
       on('-I', '--[no-]insecure', 'do not verify SSL certificate of API endpoint')
-      on('--pro', "short-cut for --api-endpoint '#{Travis::Client::PRO_URI}'") { |c,_| c.api_endpoint = Travis::Client::PRO_URI }
+      on('--pro', "short-cut for --api-endpoint '#{Travis::Client::COM_URI}'") { |c,_| c.api_endpoint = Travis::Client::COM_URI }
+      on('--com', "short-cut for --api-endpoint '#{Travis::Client::COM_URI}'") { |c,_| c.api_endpoint = Travis::Client::COM_URI }
       on('--org', "short-cut for --api-endpoint '#{Travis::Client::ORG_URI}'") { |c,_| c.api_endpoint = Travis::Client::ORG_URI }
       on('--staging', 'talks to staging system') { |c,_| c.api_endpoint = c.api_endpoint.gsub(/api/, 'api-staging') }
       on('-t', '--token [ACCESS_TOKEN]', 'access token to use') { |c, t| c.access_token = t }
@@ -63,7 +65,7 @@ module Travis
       end
 
       def pro?
-        api_endpoint == Travis::Client::PRO_URI
+        api_endpoint == Travis::Client::COM_URI
       end
 
       def org?
@@ -108,7 +110,8 @@ module Travis
             endpoint
           end
           self.api_endpoint             = c[enterprise_name]
-          self.insecure                 = true if insecure.nil?
+          self.insecure                 = insecure unless insecure.nil?
+          self.session.ssl.delete :ca_file
           endpoint_config['enterprise'] = true
           @setup_ennterpise             = true
         end
@@ -119,9 +122,6 @@ module Travis
         end
 
         def load_gh
-          return if defined? GH
-          debug "Loading gh"
-          require 'gh'
 
           gh_config       = session.config['github']
           gh_config     &&= gh_config.inject({}) { |h,(k,v)| h.update(k.to_sym => v) }

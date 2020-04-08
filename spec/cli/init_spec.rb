@@ -21,10 +21,10 @@ describe Travis::CLI::Init do
 
   shared_examples_for 'travis init' do |language|
     example "travis init #{language} (empty directory)" do
-      File.exist?('.travis.yml').should be_false
+      File.exist?('.travis.yml').should be false
       run_cli('init', language, '--skip-enable', '-r', 'travis-ci/travis.rb').should be_success
       stdout.should be == ".travis.yml file created!\n"
-      File.exist?('.travis.yml').should be_true
+      File.exist?('.travis.yml').should be true
       File.read('.travis.yml').should include("language: #{language}")
     end
 
@@ -139,8 +139,9 @@ describe Travis::CLI::Init do
 
     it 'sets compiler' do
       result.should include('node_js')
-      result['node_js'].should include('0.11')
-      result['node_js'].should include('0.10')
+      result['node_js'].should include('stable')
+      result['node_js'].should include('6')
+      result['node_js'].should include('4')
     end
   end
 

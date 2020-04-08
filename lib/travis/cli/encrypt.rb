@@ -16,6 +16,7 @@ module Travis
       on('-x', '--override',   "override existing value")
 
       def run(*args)
+        confirm = force_interactive.nil? || force_interactive
         error "cannot combine --override and --append"   if append?   and override?
         error "--append without --add makes no sense"    if append?   and not add?
         error "--override without --add makes no sense"  if override? and not add?
@@ -36,11 +37,12 @@ module Travis
         end
 
         data = split? ? data.split("\n") : [data.strip]
+        warn_env_assignments(data)
         encrypted = data.map { |data| repository.encrypt(data) }
 
         if config_key
           set_config encrypted.map { |e| { 'secure' => e } }
-          save_travis_config
+          confirm_and_save_travis_config confirm
         else
           list = encrypted.map { |data| format(data.inspect, "  secure: %s") }
           say(list.join("\n"), template(__FILE__), :none)
@@ -95,6 +97,12 @@ module Travis
                       end
 
           traverse_config(hash[key], *rest)
+        end
+
+        def warn_env_assignments(data)
+          if /env/.match(config_key) && data.find { |d| /=/.match(d).nil? }
+            warn "Environment variables in #{config_key} should be formatted as FOO=bar"
+          end
         end
     end
   end

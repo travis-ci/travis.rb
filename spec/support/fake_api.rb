@@ -37,6 +37,20 @@ module Travis
              "correct_scopes"=>true}}.to_json
         end
 
+        get '/logout' do
+          halt(403, 'wrong token') unless authorized?
+          {"user"=>
+            {"id"=>267,
+             "name"=>"Konstantin Haase",
+             "login"=>"rkh",
+             "email"=>"konstantin.haase@gmail.com",
+             "gravatar_id"=>"5c2b452f6eea4a6d84c105ebd971d2a4",
+             "locale"=>"en",
+             "is_syncing"=>false,
+             "synced_at"=>"2012-10-27T12:52:25Z",
+             "correct_scopes"=>true}}.to_json
+        end
+
         get '/jobs/4125097' do
           {"job"=>
             {"id"=>4125097,
@@ -70,8 +84,7 @@ module Travis
              "finished_at"=>"2013-01-13T16:11:04Z",
              "queue"=>"builds.rails",
              "allow_failure"=>false,
-             "tags"=>"",
-             "annotation_ids"=>[1]},
+             "tags"=>""},
            "commit"=>
             {"id"=>1201631,
              "sha"=>"a0265b98f16c6e33be32aa3f57231d1189302400",
@@ -84,13 +97,7 @@ module Travis
              "committer_email"=>"steve@steveklabnik.com",
              "compare_url"=>
               "https://github.com/rails/rails/compare/6581d798e830...a0265b98f16c"},
-           "annotations"=>
-            [{"id"=>1,
-              "job_id"=>4125097,
-              "description"=>"The job passed.",
-              "provider_name"=>"Travis CI",
-              "url"=>"https://travis-ci.org/rails/rails/jobs/4125097",
-              "status"=>''}]}.to_json
+           }.to_json
         end
 
         get '/builds/4125095' do
@@ -712,6 +719,56 @@ module Travis
           [{'id' => 1,
             'message' => 'Hello!'
           }]}.to_json
+        end
+
+        #### for encrypt_file spec
+        get '/settings/env_vars/' do
+          # p params
+          $params = params
+          {
+            "env_vars":[
+              {
+                "id": "8aa1c74d-dcc4-4e41-9087-1326b7c68abd",
+                "name": "encrypted_randomhex_key",
+                "value": "super_secret_key",
+                "public": false,
+                "repository_id": 891
+              },
+              {
+                "id": "b2ed30b9-622d-4bd7-928b-ba5aad7ba6a1",
+                "name": "encrypted_randomhex_iv",
+                "value": "super_secret_iv",
+                "public": false,
+                "repository_id": 891
+              }
+            ]
+          }.to_json
+        end
+
+        patch '/settings/env_vars/8aa1c74d-dcc4-4e41-9087-1326b7c68abd' do
+          $params = params
+          {
+            "env_var": {
+              "id": "8aa1c74d-dcc4-4e41-9087-1326b7c68abd",
+              "name": "encrypted_randomhex_key",
+              "value": "new_super_secret_key",
+              "public": false,
+              "repository_id": 891
+            }
+          }.to_json
+        end
+
+        patch '/settings/env_vars/b2ed30b9-622d-4bd7-928b-ba5aad7ba6a1' do
+          $params = params
+          {
+            "env_var": {
+              "id": "b2ed30b9-622d-4bd7-928b-ba5aad7ba6a1",
+              "name": "encrypted_randomhex_iv",
+              "value": "new_super_secret_iv",
+              "public": false,
+              "repository_id": 891
+            }
+          }.to_json
         end
 
         post '/requests' do

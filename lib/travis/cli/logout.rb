@@ -6,6 +6,7 @@ module Travis
       description "deletes the stored API token"
 
       def run
+        session.logout
         endpoint_config.delete('access_token')
         success("Successfully logged out!")
       end

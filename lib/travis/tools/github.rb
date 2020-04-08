@@ -1,6 +1,7 @@
 require 'travis/tools/system'
 require 'yaml'
 require 'json'
+require 'gh'
 
 module Travis
   module Tools
@@ -38,7 +39,7 @@ module Travis
 
       def with_basic_auth(&block)
         user, password = ask_credentials
-        basic_auth(user, password, true) do |gh|
+        basic_auth(user, password, true) do |gh, _|
           gh['user'] # so otp kicks in
           yield gh
         end
@@ -205,24 +206,38 @@ module Travis
       end
 
       def basic_auth(user, password, die = true, otp = nil, &block)
-        opt           = { :username => user, :password => password }
-        opt[:headers] = { "X-GitHub-OTP" => otp } if otp
-        yield GH.with(opt)
+        gh = GH.with(:username => user, :password => password)
+        with_otp(gh, user, otp, &block)
       rescue GH::Error => error
-        if error.info[:response_status] == 401 and error.info[:response_headers]['x-github-otp'].to_s =~ /required/
-          otp = ask_otp.arity == 0 ? ask_otp.call : ask_otp.call(user)
-          basic_auth(user, password, die, otp, &block)
-        elsif die
-          raise gh_error(error)
-        end
+        raise gh_error(error) if die
       end
 
       def login(user, password, die = true, otp = nil)
-        basic_auth(user, password, die, otp) do |gh|
-          reply         = gh.post('/authorizations', :scopes => scopes, :note => note)
-          self.callback = proc { gh.delete reply['_links']['self']['href'] } if drop_token
+        basic_auth(user, password, die, otp) do |gh, new_otp|
+          reply         = create_token(gh)
+          auth_href     = reply['_links']['self']['href']
+          self.callback = proc { with_otp(gh, user, new_otp) { |g| g.delete(auth_href) } } if drop_token
           reply['token']
         end
+      end
+
+      def create_token(gh)
+        gh.post('/authorizations', :scopes => scopes, :note => note)
+      rescue GH::Error => error
+        # token might already exist due to bug in earlier CLI version, we'll have to delete it first
+        raise error unless error.info[:response_status] == 422 and error.info[:response_body].to_s =~ /already_exists/
+        raise error unless reply = gh['/authorizations'].detect { |a| a['note'] == note }
+        gh.delete(reply['_links']['self']['href'])
+        retry
+      end
+
+      def with_otp(gh, user, otp, &block)
+        gh = GH.with(gh.options.merge(:headers => { "X-GitHub-OTP" => otp })) if otp
+        block.call(gh, otp)
+      rescue GH::Error => error
+        raise error unless error.info[:response_status] == 401 and error.info[:response_headers]['x-github-otp'].to_s =~ /required/
+        otp = ask_otp.arity == 0 ? ask_otp.call : ask_otp.call(user)
+        retry
       end
 
       def acceptable?(token)
@@ -245,7 +260,11 @@ module Travis
 
         def gh_error(error)
           raise error if explode
-          JSON.parse(error.info[:response_body])["message"].to_s
+          if error.info.key? :response_body
+            JSON.parse(error.info[:response_body])["message"].to_s
+          else
+            "Unknown error"
+          end
         end
 
         def debug(line)

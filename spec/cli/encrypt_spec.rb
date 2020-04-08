@@ -40,4 +40,28 @@ describe Travis::CLI::Encrypt do
     run_cli("encrypt", "foo=foo/bar").should be_success
     stderr.should_not match(/WARNING/)
   end
+
+  example "travis encrypt FOO bar -a" do
+    described_class.any_instance.stub(:save_travis_config)
+    run_cli("encrypt", "FOO", "bar", "-a") { |i| i.puts "foo" }.should be_success
+    stderr.should match(/Environment variables in env\.global should be formatted as FOO=bar/)
+  end
+
+  example "travis encrypt FOO bar -a foo" do
+    described_class.any_instance.stub(:save_travis_config)
+    run_cli("encrypt", "FOO", "bar", "-a", "foo") { |i| i.puts "foo" }.should be_success
+    stdout.should match(/Overwrite the config file/)
+  end
+
+  example "travis encrypt FOO bar -a --no-interactive" do
+    described_class.any_instance.stub(:save_travis_config)
+    run_cli("encrypt", "FOO", "bar", "-a", "--no-interactive").should be_success
+    stderr.should match(/Environment variables in env\.global should be formatted as FOO=bar/)
+  end
+
+  example "travis encrypt FOO bar -a foo --no-interactive" do
+    described_class.any_instance.stub(:save_travis_config)
+    run_cli("encrypt", "FOO", "bar", "-a", "foo", "--no-interactive").should be_success
+    stdout.should be_empty
+  end
 end

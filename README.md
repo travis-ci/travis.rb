@@ -1,4 +1,4 @@
-# The Travis Client [![Build Status](https://travis-ci.org/travis-ci/travis.rb.svg?branch=master)](https://travis-ci.org/travis-ci/travis.rb)
+# The Travis Client [![Build Status](https://travis-ci.com/travis-ci/travis.rb.svg?branch=master)](https://travis-ci.com/travis-ci/travis.rb)
 
 ![The Travis Mascot](http://about.travis-ci.org/images/travis-mascot-200px.png)
 
@@ -12,7 +12,7 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a [command line
         * [`version`](#version) - outputs the client version
     * [General API Commands](#general-api-commands)
         * [`accounts`](#accounts) - displays accounts and their subscription status
-        * [`console`](#console) - interactive shell
+        * [`console`](#console) - interactive shell; requires `pry`
         * [`endpoint`](#endpoint) - displays or changes the API endpoint
         * [`login`](#login) - authenticates against the API and stores the token
         * [`monitor`](#monitor) - live monitor for what's going on
@@ -33,7 +33,7 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a [command line
         * [`encrypt`](#encrypt) - encrypts values for the .travis.yml
         * [`encrypt-file`](#encrypt-file) - encrypts a file and adds decryption steps to .travis.yml
         * [`env`](#env) - show or modify build environment variables
-        * [`history`](#history) - displays a projects build history
+        * [`history`](#history) - displays a project's build history
         * [`init`](#init) - generates a .travis.yml and enables the project
         * [`logs`](#logs) - streams test logs
         * [`open`](#open) - opens a build or job in the browser
@@ -45,7 +45,7 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a [command line
         * [`show`](#show) - displays a build or job
         * [`sshkey`](#sshkey) - checks, updates or deletes an SSH key
         * [`status`](#status) - checks status of the latest build
-    * [Pro and Enterprise](#pro-and-enterprise)
+    * [Travis CI and Travis CI Enterprise](#travis-ci-and-travis-ci-enterprise)
     * [Environment Variables](#environment-variables)
     * [Desktop Notifications](#desktop-notifications)
     * [Plugins](#plugins)
@@ -95,7 +95,7 @@ Every Travis command takes three global options:
 
 The `--help` option is equivalent to running `travis help COMMAND`.
 
-The `--interactive` options determines wether to include additional information and colors in the output or not (except on Windows, we never display colors on Windows, sorry). If you don't set this option explicitly, you will run in interactive mode if you invoke the command directly in a shell and in non-interactive mode if you pipe it somewhere.
+The `--interactive` options determines whether to include additional information and colors in the output or not (except on Windows, we never display colors on Windows, sorry). If you don't set this option explicitly, you will run in interactive mode if you invoke the command directly in a shell and in non-interactive mode if you pipe it somewhere.
 
 You probably want to use `--explode` if you are working on a patch for the Travis client, as it will give you the Ruby exception instead of a nice error message.
 
@@ -124,6 +124,7 @@ API commands inherit all options from [Non-API Commands](#non-api-commands).
 Additionally, every API command understands the following options:
 
     -e, --api-endpoint URL           Travis API server to talk to
+        --com                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
         --pro                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
         --org                        short-cut for --api-endpoint 'https://api.travis-ci.org/'
     -t, --token [ACCESS_TOKEN]       access token to use
@@ -160,9 +161,13 @@ travis-ci (Travis CI): subscribed, 57 repositories
 
 #### `console`
 
+Provides an interactive shell via [pry](http://pry.github.io/).
+
 Running `travis console` gives you an interactive Ruby session with all the [entities](#entities) imported into global namespace.
 
-But why use this over just `irb -r travis`? For one, it will take care of authentication, setting the correct endpoint, etc, and it also allows you to pass in `--debug` if you are curious as to what's actually going on.
+This has advantages over `irb -r travis`, such as:
+* It will take care of authentication, setting the correct endpoint, etc.
+* It also allows you to pass in `--debug` if you are curious as to what's actually going on.
 
 ``` console
 $ travis console
@@ -173,6 +178,26 @@ $ travis console
 >> _.last_build
 => #<Travis::Client::Build: sinatra/sinatra#360>
 ```
+
+    Interactive shell; requires `pry`.
+    Usage: travis console [OPTIONS]
+    -h, --help                       Display help
+    -i, --[no-]interactive           be interactive and colorful
+    -E, --[no-]explode               don't rescue exceptions
+        --skip-version-check         don't check if travis client is up to date
+        --skip-completion-check      don't check if auto-completion is set up
+    -e, --api-endpoint URL           Travis API server to talk to
+    -I, --[no-]insecure              do not verify SSL certificate of API endpoint
+        --pro                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
+        --com                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
+        --org                        short-cut for --api-endpoint 'https://api.travis-ci.org/'
+        --staging                    talks to staging system
+    -t, --token [ACCESS_TOKEN]       access token to use
+        --debug                      show API requests
+        --debug-http                 show HTTP(S) exchange
+    -X, --enterprise [NAME]          use enterprise setup (optionally takes name for multiple setups)
+        --adapter ADAPTER            Faraday adapter to use for HTTP requests
+    -x, --eval LINE                  run line of ruby
 
 #### `endpoint`
 
@@ -192,7 +217,7 @@ $ curl "$(travis endpoint)/docs" > docs.html
 It can also be used to set the default API endpoint used for [General API Commands](#general-api-commands):
 
 ``` console
-$ travis endpoint --pro --set-default
+$ travis endpoint --com --set-default
 API endpoint: https://api.travis-ci.com/ (stored as default)
 ```
 
@@ -232,7 +257,7 @@ A third option is for the really lazy: `--auto`. In this mode the client will tr
 This command makes Travis CI forget your access token.
 
 ``` console
-$ travis logout --pro
+$ travis logout --com
 Successfully logged out!
 ```
 
@@ -244,7 +269,7 @@ Successfully logged out!
         -E, --[no-]explode               don't rescue exceptions
             --skip-version-check         don't check if travis client is up to date
         -e, --api-endpoint URL           Travis API server to talk to
-            --pro                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
+            --com                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
             --org                        short-cut for --api-endpoint 'https://api.travis-ci.org/'
         -t, --token [ACCESS_TOKEN]       access token to use
             --debug                      show API requests
@@ -286,7 +311,7 @@ Similarly, you can limit it to builds/jobs for pull requests via `--pull` and fo
 The monitor command can also send out [desktop notifications](#desktop-notifications):
 
 ``` console
-$ travis monitor --pro -n
+$ travis monitor --com -n
 Monitoring travis-ci.com:
 ...
 ```
@@ -319,7 +344,7 @@ Use `--json` if you'd rather prefer the output to be JSON.
 When inspecting a bug or reporting an issue, it can be handy to include a report about the system and configuration used for running a command.
 
 ``` console
-$ travis report --pro
+$ travis report --com
 System
 Ruby:                     Ruby 2.0.0-p195
 Operating System:         Mac OS X 10.8.5
@@ -342,7 +367,7 @@ pro:                      https://api.travis-ci.com/ (access token, current)
 org:                      https://api.travis-ci.org/ (access token)
 
 Last Exception
-An error occurred running `travis whoami --pro`:
+An error occurred running `travis whoami --com`:
     Travis::Client::Error: access denied
         from ...
 
@@ -364,7 +389,7 @@ This command can also list all known repos and the endpoint to use for them via 
             --skip-completion-check      don't check if auto-completion is set up
         -e, --api-endpoint URL           Travis API server to talk to
         -I, --[no-]insecure              do not verify SSL certificate of API endpoint
-            --pro                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
+            --com                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
             --org                        short-cut for --api-endpoint 'https://api.travis-ci.org/'
         -t, --token [ACCESS_TOKEN]       access token to use
             --debug                      show API requests
@@ -414,7 +439,7 @@ travis-ci/gh: disabled :(
         -i, --[no-]interactive           be interactive and colorful
         -E, --[no-]explode               don't rescue exceptions
         -e, --api-endpoint URL           Travis API server to talk to
-            --pro                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
+            --com                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
             --org                        short-cut for --api-endpoint 'https://api.travis-ci.org/'
         -t, --token [ACCESS_TOKEN]       access token to use
             --debug                      show API requests
@@ -546,7 +571,7 @@ $ git clone "https://github.com/$(travis whoami)/some_project"
         --skip-completion-check      don't check if auto-completion is set up
     -e, --api-endpoint URL           Travis API server to talk to
     -I, --[no-]insecure              do not verify SSL certificate of API endpoint
-        --pro                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
+        --com                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
         --org                        short-cut for --api-endpoint 'https://api.travis-ci.org/'
     -t, --token [ACCESS_TOKEN]       access token to use
         --debug                      show API requests
@@ -558,7 +583,7 @@ Repository commands have all the options [General API Commands](#general-api-com
 
 Additionally, you can specify the Repository to talk to by providing `--repo owner/name`. However, if you invoke the command inside a clone of the project, the client will figure out this option on its own. Note that it uses the tracked [git remote](http://www.kernel.org/pub/software/scm/git/docs/git-remote.html) for the current branch (and defaults to 'origin' if no tracking is set) to do so. You can use `--store-repo SLUG` once to override it permanently.
 
-It will also automatically pick [Travis Pro](https://travis-ci.com) if it is a private project. You can of course override this decission with `--pro`, `--org` or `--api-endpoint URL`
+It will also automatically pick [travis-ci.com](https://travis-ci.com) if it is a private project. You can of course override this decision with `--com`, `--org` or `--api-endpoint URL`
 
 #### `branches`
 
@@ -590,7 +615,7 @@ For more fine grained control and older builds on a specific branch, see [`histo
             --skip-completion-check      don't check if auto-completion is set up
         -e, --api-endpoint URL           Travis API server to talk to
         -I, --[no-]insecure              do not verify SSL certificate of API endpoint
-            --pro                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
+            --com                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
             --org                        short-cut for --api-endpoint 'https://api.travis-ci.org/'
         -t, --token [ACCESS_TOKEN]       access token to use
             --debug                      show API requests
@@ -704,16 +729,23 @@ If you don't want the sync to be triggered, use `--skip-sync`.
 
 #### `encrypt`
 
-    Usage: travis encrypt [args..] [options]
+    Encrypts values for the .travis.yml.
+    Usage: travis encrypt [ARGS..] [OPTIONS]
         -h, --help                       Display help
         -i, --[no-]interactive           be interactive and colorful
         -E, --[no-]explode               don't rescue exceptions
             --skip-version-check         don't check if travis client is up to date
+            --skip-completion-check      don't check if auto-completion is set up
         -e, --api-endpoint URL           Travis API server to talk to
+        -I, --[no-]insecure              do not verify SSL certificate of API endpoint
             --pro                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
+            --com                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
             --org                        short-cut for --api-endpoint 'https://api.travis-ci.org/'
+            --staging                    talks to staging system
         -t, --token [ACCESS_TOKEN]       access token to use
             --debug                      show API requests
+            --debug-http                 show HTTP(S) exchange
+        -X, --enterprise [NAME]          use enterprise setup (optionally takes name for multiple setups)
             --adapter ADAPTER            Faraday adapter to use for HTTP requests
         -r, --repo SLUG                  repository to use (will try to detect from current git clone)
         -R, --store-repo SLUG            like --repo, but remembers value for current directory
@@ -780,10 +812,14 @@ There are two ways the client can treat existing values:
         -e, --api-endpoint URL           Travis API server to talk to
         -I, --[no-]insecure              do not verify SSL certificate of API endpoint
             --pro                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
+            --com                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
             --org                        short-cut for --api-endpoint 'https://api.travis-ci.org/'
+            --staging                    talks to staging system
         -t, --token [ACCESS_TOKEN]       access token to use
             --debug                      show API requests
+            --debug-http                 show HTTP(S) exchange
         -X, --enterprise [NAME]          use enterprise setup (optionally takes name for multiple setups)
+            --adapter ADAPTER            Faraday adapter to use for HTTP requests
         -r, --repo SLUG                  repository to use (will try to detect from current git clone)
         -R, --store-repo SLUG            like --repo, but remembers value for current directory
         -K, --key KEY                    encryption key to be used (randomly generated otherwise)
@@ -843,7 +879,7 @@ Commit all changes to your .travis.yml.
             --skip-completion-check      don't check if auto-completion is set up
         -e, --api-endpoint URL           Travis API server to talk to
         -I, --[no-]insecure              do not verify SSL certificate of API endpoint
-            --pro                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
+            --com                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
             --org                        short-cut for --api-endpoint 'https://api.travis-ci.org/'
             --staging                    talks to staging system
         -t, --token [ACCESS_TOKEN]       access token to use
@@ -882,7 +918,7 @@ $ travis env unset foo bar
 
 #### `history`
 
-    Displays a projects build history.
+    Displays a project's build history.
     Usage: travis history [options]
         -h, --help                       Display help
         -i, --[no-]interactive           be interactive and colorful
@@ -891,7 +927,7 @@ $ travis env unset foo bar
             --skip-completion-check      don't check if auto-completion is set up
         -e, --api-endpoint URL           Travis API server to talk to
         -I, --[no-]insecure              do not verify SSL certificate of API endpoint
-            --pro                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
+            --com                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
             --org                        short-cut for --api-endpoint 'https://api.travis-ci.org/'
         -t, --token [ACCESS_TOKEN]       access token to use
             --debug                      show API requests
@@ -963,7 +999,7 @@ $ travis history --limit 3 --pull-request 5
         -E, --[no-]explode               don't rescue exceptions
             --skip-version-check         don't check if travis client is up to date
         -e, --api-endpoint URL           Travis API server to talk to
-            --pro                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
+            --com                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
             --org                        short-cut for --api-endpoint 'https://api.travis-ci.org/'
         -t, --token [ACCESS_TOKEN]       access token to use
             --debug                      show API requests
@@ -1111,7 +1147,7 @@ Public key for travis-ci/travis.rb:
 Whereas the `--fingerprint` flag will print out the key's fingerprint:
 
 ``` console
-$ travis pubkey --pem
+$ travis pubkey --fingerprint
 Public key for travis-ci/travis.rb:
 
 9f:57:01:4b:af:42:67:1e:b4:3c:0f:b6:cd:cc:c0:04
@@ -1211,7 +1247,7 @@ Helps you configure Travis addons.
         -E, --[no-]explode               don't rescue exceptions
             --skip-version-check         don't check if travis client is up to date
         -e, --api-endpoint URL           Travis API server to talk to
-            --pro                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
+            --com                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
             --org                        short-cut for --api-endpoint 'https://api.travis-ci.org/'
         -t, --token [ACCESS_TOKEN]       access token to use
             --debug                      show API requests
@@ -1317,7 +1353,7 @@ Config:        rvm: 1.9.3
         -E, --[no-]explode               don't rescue exceptions
         -e, --api-endpoint URL           Travis API server to talk to
         -I, --[no-]insecure              do not verify SSL certificate of API endpoint
-            --pro                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
+            --com                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
             --org                        short-cut for --api-endpoint 'https://api.travis-ci.org/'
         -t, --token [ACCESS_TOKEN]       access token to use
             --debug                      show API requests
@@ -1332,7 +1368,7 @@ Config:        rvm: 1.9.3
         -g, --generate                   generate SSH key and set up for given GitHub user
         -p, --passphrase PASSPHRASE      pass phrase to decrypt with when using --upload
 
-*This feature is for [Pro and Enterprise](#pro-and-enterprise) only.*
+*This feature is for [private and Enterprise](#travis-ci-and-travis-ci-enterprise) only.*
 
 With the `sshkey` command you can check if there is a custom SSH key set up. Custom SSH keys are used for cloning the repository.
 
@@ -1384,7 +1420,7 @@ See the [private dependencies example](examples/cli/private_dependencies.md) for
         -i, --[no-]interactive           be interactive and colorful
         -E, --[no-]explode               don't rescue exceptions
         -e, --api-endpoint URL           Travis API server to talk to
-            --pro                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
+            --com                        short-cut for --api-endpoint 'https://api.travis-ci.com/'
             --org                        short-cut for --api-endpoint 'https://api.travis-ci.org/'
         -t, --token [ACCESS_TOKEN]       access token to use
             --debug                      show API requests
@@ -1400,14 +1436,14 @@ Outputs a one line status message about the project's last build. With `-q` that
 $ travis status -qpx && cap deploy
 ```
 
-### Pro and Enterprise
+### Travis CI and Travis CI Enterprise
 
-By default, [General API Commands](#general-api-commands) will talk to [api.travis-ci.org](https://api.travis-ci.org). You can change this by supplying `--pro` for [api.travis-ci.com](https://api.travis-ci.com) or `--api-endpoint` with your own endpoint. Note that all [Repository Commands](#repository-commands) will try to figure out the API endpoint to talk to automatically depending on the project's visibility on GitHub.
+By default, [General API Commands](#general-api-commands) will talk to [api.travis-ci.org](https://api.travis-ci.org). You can change this by supplying `--com` for [api.travis-ci.com](https://api.travis-ci.com) or `--api-endpoint` with your own endpoint. Note that all [Repository Commands](#repository-commands) will try to figure out the API endpoint to talk to automatically depending on the project's visibility on GitHub.
 
 ``` console
-$ travis login --pro
+$ travis login --com
 ...
-$ travis monitor --pro -m
+$ travis monitor --com -m
 ...
 ```
 
@@ -1434,8 +1470,8 @@ Note that currently [Repository Commands](#repository-commands) will not be able
 
 You can set the following environment variables to influence the travis behavior:
 
-* `$TRAVIS_TOKEN` - access token to use when the `--token` flag is not user
-* `$TRAVIS_ENDPOINT` - API endpoint to use when the `--api-endpoint`, `--org` or `--pro` flag is not used
+* `$TRAVIS_TOKEN` - access token to use when the `--token` flag is not used
+* `$TRAVIS_ENDPOINT` - API endpoint to use when the `--api-endpoint`, `--org` or `--com` flag is not used
 * `$TRAVIS_CONFIG_PATH` - directory to store configuration in (defaults to ~/.travis)
 
 ### Desktop Notifications
@@ -1966,12 +2002,20 @@ You can check your Ruby version by running `ruby -v`:
 
 Then run:
 
-    $ gem install travis -v 1.8.2 --no-rdoc --no-ri
+On OSX and Linux:
+
+    $ gem install travis --no-rdoc --no-ri
+
+(For older versions of `gem`, replace `--no-document` with `--no-rdoc --no-ri`.)
+
+On Windows:
+
+    $ gem install travis
 
 Now make sure everything is working:
 
     $ travis version
-    1.8.2
+    1.8.13
 
 See also [Note on Ubuntu](#ubuntu) below.
 
@@ -1982,6 +2026,15 @@ You can also install the development version via RubyGems:
     $ gem install travis --pre
 
 We automatically publish a new development version after every successful build.
+
+### Running Locally
+
+If you want to try out your changes locally:
+
+```
+bundle install # install the dependencies
+bundle exec bin/travis a-command # run your command
+```
 
 ### Updating your Ruby
 
@@ -2012,7 +2065,7 @@ Ubuntu:
     $ sudo apt-get install python-software-properties
     $ sudo apt-add-repository ppa:brightbox/ruby-ng
     $ sudo apt-get update
-    $ sudo apt-get install ruby2.1 ruby-switch
+    $ sudo apt-get install ruby2.1 ruby2.1-dev ruby-switch
     $ sudo ruby-switch --set ruby2.1
 
 Fedora:
@@ -2044,6 +2097,16 @@ If you updated to Ruby 2.1 as shown above:
 
     $ sudo apt-get install ruby2.1-dev
 
+For newer versions of Ubuntu (16.04 and above), it should be enough to run:
+
+    $ sudo apt-get install ruby-dev
+
+If you have error about `mkmf.rb can't find header files for ruby at /usr/lib/ruby/include/ruby.h`
+```console
+# try to run following cmd
+sudo apt-get install ruby-dev libffi-dev make gcc -y
+sudo gem install travis
+```
 #### Mac OS X
 
 If you start with a clean Mac OS X, you will have to install the XCode Command Line Tools, which are necessary for installing native extensions. You can do so via `xcode-select`:
@@ -2059,6 +2122,24 @@ Mac OS X 10.9.2 shipped with a slightly broken Ruby version. If you want to inst
 If you have the old `travis-cli` gem installed, you should `gem uninstall travis-cli`, just to be sure, as it ships with an executable that is also named `travis`.
 
 ## Version History
+
+**1.8.12** (March 23, 2020)
+
+* Fix `encrypt-file` command (https://github.com/travis-ci/travis.rb/pull/715)
+* Fix `console` command (https://github.com/travis-ci/travis.rb/issues/654)
+* Ask for confirmation when `encrypt` and `encrypt-file` commands receive
+  `-a`, `--add` flag (https://github.com/travis-ci/travis.rb/issues/651)
+
+**1.8.11** (March 2, 2020)
+
+* Generate unique key-iv pair for each file (https://github.com/travis-ci/travis.rb/pull/678)
+* Add logout command
+
+**1.8.10** (May 5, 2019)
+
+**1.8.8** (March 3, 2017)
+
+* Fix auto-login for when token is locally available
 
 **1.8.0** (July 15, 2015)
 
@@ -2197,7 +2278,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 **1.6.6** (December 16, 2013)
 
-* Fix `travis login --pro` for new users.
+* Fix `travis login --com` for new users.
 
 **1.6.5** (December 16, 2013)
 

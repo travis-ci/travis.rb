@@ -218,7 +218,13 @@ module Travis
         when 301, 303      then raw(:get, result.headers['Location'])
         when 302, 307, 308 then raw(verb, result.headers['Location'])
         when 401           then raise Travis::Client::NotLoggedIn,      'not logged in'
-        when 403           then raise Travis::Client::NotLoggedIn,      'invalid access token'
+        when 403           then
+          body = JSON.parse(result.body) rescue {}
+          if body["error_type"] == "migrated_repository"
+            raise Travis::Client::RepositoryMigrated, body["error_message"]
+          else
+            raise Travis::Client::NotLoggedIn,      'invalid access token'
+          end
         when 404           then raise Travis::Client::NotFound,         result.body
         when 422           then raise Travis::Client::ValidationFailed, result.body
         when 400..499      then raise Travis::Client::Error,            "%s: %p" % [result.status, result.body]
@@ -331,8 +337,8 @@ module Travis
 
         def check_ssl
           raw(:head, '/') if ssl == SSL_OPTIONS
-        rescue SSLError => error
-          self.ssl = {}
+        rescue Exception => error
+          self.ssl = {} if error.class == Travis::Client::SSLError
         end
     end
   end

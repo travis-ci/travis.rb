@@ -1,0 +1,24 @@
+name: travis
+version: '1.8.13'
+summary: Travis CI client
+description: CLI and Ruby client library for Travis CI
+
+grade: stable
+
+confinement: strict
+
+apps:
+  travis:
+    command: travis
+    plugs: [network, home, removable-media]
+
+parts:
+  travis:
+    plugin: ruby
+    source: https://github.com/travis-ci/travis.rb/archive/v1.8.13.tar.gz
+    override-build: |
+      snapcraftctl build
+      gem build travis.gemspec
+      gem install travis-*.gem --env-shebang
+    prime: ['-lib/ruby/gems/*/gems/ffi-*/ext/ffi_c/libffi-*/include/ffitarget.h']
+    stage-packages: [git]
