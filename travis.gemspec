@@ -3,6 +3,7 @@ Gem::Specification.new do |s|
   # general infos
   s.name        = "travis"
   s.version     = "1.8.13"
+  s.required_ruby_version = ">= 2.3.0"
   s.description = "CLI and Ruby client library for Travis CI"
   s.homepage    = "https://github.com/travis-ci/travis.rb"
   s.summary     = "Travis CI client"
@@ -368,17 +369,13 @@ Gem::Specification.new do |s|
   ]
 
   # dependencies
-  s.add_dependency "faraday",               "~> 0.9", "< 0.17.1" if RUBY_VERSION < "2.0"
-  s.add_dependency "faraday",               "~> 0.9" if RUBY_VERSION >= "2.0"
-  s.add_dependency "faraday_middleware",    "~> 0.9", ">= 0.9.1"
-  s.add_dependency "highline",              "~> 1.6"
-  s.add_dependency "backports"
-  s.add_dependency "net-http-persistent",   "~> 2.9" if RUBY_VERSION < "2.1"
+  s.add_dependency "faraday",               "~> 1.0"
+  s.add_dependency "faraday_middleware",    "~> 1.0"
+  s.add_dependency "highline",              "~> 2.0"
   s.add_dependency "gh",                    "~> 0.13"
-  s.add_dependency "addressable",           "~> 2.4.0" if RUBY_VERSION < "2.0"
   s.add_dependency "launchy",               "~> 2.1"
   s.add_dependency "typhoeus",              "~> 0.6", ">= 0.6.8"
-  s.add_dependency "json",                  "~> 1.8"
+  s.add_dependency "json",                  "~> 2.3"
   s.add_dependency "pusher-client",         "~> 0.4"
   s.add_development_dependency "rspec",     "~> 2.12"
   s.add_development_dependency "rspec-its"
