@@ -1,6 +1,6 @@
 # Run `rake travis.gemspec` to update the gemspec.
 Gem::Specification.new do |s|
-  # general infos
+  # general info
   s.name        = "travis"
   s.version     = "1.8.13"
   s.required_ruby_version = ">= 2.3.0"

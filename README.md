@@ -448,7 +448,7 @@ travis-ci/gh: disabled :(
         -b, --background                 will trigger sync but not block until sync is done
         -f, --force                      will force sync, even if one is already running
 
-Sometimes the infos Travis CI has about users and repositories become out of date. If that should happen, you can manually trigger a sync:
+Sometimes the info Travis CI has about users and repositories become out of date. If that should happen, you can manually trigger a sync:
 
 ``` console
 $ travis sync
@@ -701,7 +701,7 @@ job #57.1 has been canceled
 
 #### `disable`
 
-If you want to turn of a repository temporarily or indefinitely, you can do so with the `disable` command:
+If you want to turn off a repository temporarily or indefinitely, you can do so with the `disable` command:
 
 ``` console
 $ travis disable
@@ -772,7 +772,7 @@ For deploy keys, it is really handy to pipe them into the command:
 $ cat id_rsa | travis encrypt
 ```
 
-Another use case for piping files into it: If you have a file with sensitive environment variables, like foreman's [.env](http://ddollar.github.com/foreman/#ENVIRONMENT) file, you can add tell the client to encrypt every line separately via `--split`:
+Another use case for piping files into it: If you have a file with sensitive environment variables, like foreman's [.env](http://ddollar.github.com/foreman/#ENVIRONMENT) file, you can tell the client to encrypt every line separately via `--split`:
 
 ``` console
 $ cat .env | travis encrypt --split
@@ -1269,7 +1269,7 @@ Encrypt API key? |yes|
 
 #### `show`
 
-Displays general infos about the latest build:
+Displays general info about the latest build:
 
 ``` console
 $ travis show
@@ -1412,7 +1412,7 @@ Uploading public key to GitHub.
 Uploading private key to Travis CI.
 ```
 
-See the [private dependencies example](examples/cli/private_dependencies.md) for an in-detail description.
+See [Private Dependencies](https://docs.travis-ci.com/user/private-dependencies/) for an in-detail description.
 
 #### `status`
 
