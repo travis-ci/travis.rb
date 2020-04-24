@@ -14,8 +14,8 @@ task :update => :completion do
 
   # fetch data
   fields = {
-    :authors => `git shortlog -sn`.b.scan(/[^\d\s].*/),
-    :email   => `git shortlog -sne`.b.scan(/[^<]+@[^>]+/),
+    :authors => sort_by_commits_alpha(`git shortlog -sn`.b, /[^\d\s].*/).uniq,
+    :email   => sort_by_commits_alpha(`git shortlog -sne`.b, /[^<]+@[^>]+/).uniq,
     :files   => `git ls-files`.b.split("\n").reject { |f| f =~ /^(\.|Gemfile)/ }
   }
 
@@ -62,3 +62,16 @@ task :gemspec => :update
 task :default => :spec
 task :default => :gemspec unless windows or RUBY_VERSION < '2.0'
 task :test    => :spec
+
+def sort_by_commits_alpha(shortlog_output, patt)
+  shortlog_output.split("\n").sort do |a,b|
+    a_comm, a_name = a.strip.split(/\t/)
+    b_comm, b_name = b.strip.split(/\t/)
+
+    if a_comm.to_i != b_comm.to_i
+      a_comm.to_i <=> b_comm.to_i
+    else
+      b_name <=> a_name # we will reserve this sort afterwards, so we need the opposite order here
+    end
+  end.join("\n").scan(patt).reverse
+end
