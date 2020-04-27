@@ -2016,7 +2016,7 @@ On Windows:
 Now make sure everything is working:
 
     $ travis version
-    1.8.13
+    1.9.0
 
 See also [Note on Ubuntu](#ubuntu) below.
 
@@ -2123,6 +2123,33 @@ Mac OS X 10.9.2 shipped with a slightly broken Ruby version. If you want to inst
 If you have the old `travis-cli` gem installed, you should `gem uninstall travis-cli`, just to be sure, as it ships with an executable that is also named `travis`.
 
 ## Version History
+
+**1.9.0**
+
+* Require Ruby 2.3 and up
+* Add Ruby 2.7 support
+
+* Validate `-r` argument form https://github.com/travis-ci/travis.rb/issues/281
+* Verify `.travis.yml` is valid before sending to the server https://github.com/travis-ci/travis.rb/issues/706
+* Skip version check if rubygems.org is down https://github.com/travis-ci/travis.rb/issues/246
+* Documentation updates
+  https://github.com/travis-ci/travis.rb/pull/641
+  https://github.com/travis-ci/travis.rb/pull/567
+  https://github.com/travis-ci/travis.rb/pull/446
+  https://github.com/travis-ci/travis.rb/pull/363
+  https://github.com/travis-ci/travis.rb/pull/665
+  https://github.com/travis-ci/travis.rb/pull/737
+* Fix `json` dependency https://github.com/travis-ci/travis.rb/issues/508
+* Add `bash` template https://github.com/travis-ci/travis.rb/pull/332
+* Add `elixir` template https://github.com/travis-ci/travis.rb/pull/471
+* Hardcode `pgrep` path https://github.com/travis-ci/travis.rb/pull/570
+* Fix `travis restart` command https://github.com/travis-ci/travis.rb/pull/416
+* Define `skip_cleanup` for `setup` command if using `dpl` v1 https://github.com/travis-ci/travis.rb/pull/704
+* Prevent `.bashrc` from failing when init file is not present https://github.com/travis-ci/travis.rb/pull/595
+
+**1.8.13** (April 7, 2020)
+
+* Add support for [`gh`](https://github.com/travis-ci/gh) [0.16.0](https://rubygems.org/gems/gh/versions/0.16.0)
 
 **1.8.12** (March 23, 2020)
 
