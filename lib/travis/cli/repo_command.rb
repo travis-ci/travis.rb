@@ -155,10 +155,12 @@ module Travis
               travis_config.to_yaml,
               color("(y/N)", [:info, :yellow])
             ].join("\n\n")
-            confirm = ans =~ /^y/i
+            proceed = ans =~ /^y/i
+          else
+            proceed = true
           end
 
-          save_travis_config if confirm
+          save_travis_config if proceed
         end
 
         def save_travis_config(file = travis_yaml)
