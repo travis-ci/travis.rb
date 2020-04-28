@@ -18,6 +18,10 @@ module Travis
 
       def github_auth(github_token)
         reply = session.post_raw("/auth/github", :github_token => github_token)
+        unless reply.respond_to?(:key?) && reply.key?("access_token")
+          raise InvalidTokenError, 'token is invalid, or does not have sufficient scope; see https://docs.travis-ci.com/user/github-oauth-scopes/ for more information on scope'
+        end
+
         session.access_token = reply["access_token"]
       end
 

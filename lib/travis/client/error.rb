@@ -14,6 +14,9 @@ module Travis
     class NotLoggedIn < Error
     end
 
+    class InvalidTokenError < Error
+    end
+
     class RepositoryMigrated < Error
     end
 
