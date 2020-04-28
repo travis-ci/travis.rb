@@ -2128,6 +2128,8 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 * Fix `--no-interactive` flag in `encrypt` and `encryt-file` commands https://github.com/travis-ci/travis.rb/pull/738
 * Display commit SHA in `show` https://github.com/travis-ci/travis.rb/pull/739
+* Display more helpful message when GitHub token given by `--github-token` is
+  deficient https://github.com/travis-ci/travis.rb/issues/708
 
 ### 1.9.0 (April 27, 2020)
 
