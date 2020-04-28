@@ -17,6 +17,9 @@ module Travis
     class InvalidTokenError < Error
     end
 
+    class GitHubLoginFailed < Error
+    end
+
     class RepositoryMigrated < Error
     end
 

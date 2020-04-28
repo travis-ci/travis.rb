@@ -34,6 +34,10 @@ module Travis
           error("#{user.login} has not granted Travis CI the required permissions, please log in via #{session.config['host']}") unless user.correct_scopes?
           success("Successfully logged in as #{user.login}!")
         end
+
+        unless session.access_token
+          raise Travis::Client::GitHubLoginFailed, "all GitHub tokens given were invalid"
+        end
       end
 
       def run
