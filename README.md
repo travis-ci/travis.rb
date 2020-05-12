@@ -2005,7 +2005,7 @@ Then run:
 
 On OSX and Linux:
 
-    $ gem install travis --no-rdoc --no-ri
+    $ gem install travis --no-document
 
 (For older versions of `gem`, replace `--no-document` with `--no-rdoc --no-ri`.)
 
