@@ -30,8 +30,8 @@ module Travis
       private
 
         def display?(build)
-          return build.pr_number   == pull_request if pull_request
-          return build.branch_info == branch       if branch
+          return build.pr_number   == pull_request.to_i if pull_request
+          return build.branch_info == branch            if branch
           true
         end
 
