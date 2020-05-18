@@ -2132,6 +2132,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 * Display commit SHA in `show` https://github.com/travis-ci/travis.rb/pull/739
 * Display more helpful message when GitHub token given by `--github-token` is
   deficient https://github.com/travis-ci/travis.rb/issues/708
+* Fix `--pull-request` flag in `history` command https://github.com/travis-ci/travis.rb/issues/382
 
 ### 1.9.0 (April 27, 2020)
 
