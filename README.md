@@ -2018,7 +2018,7 @@ If you do not have write access to the system gem directory, you'll need to perf
 Now make sure everything is working:
 
     $ travis version
-    1.9.0
+    1.9.1
 
 See also [Note on Ubuntu](#ubuntu) below.
 
@@ -2126,7 +2126,7 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
-### 1.9.1
+### 1.9.1 (May 19, 2020)
 
 * Fix `--no-interactive` flag in `encrypt` and `encryt-file` commands https://github.com/travis-ci/travis.rb/pull/738
 * Display commit SHA in `show` https://github.com/travis-ci/travis.rb/pull/739

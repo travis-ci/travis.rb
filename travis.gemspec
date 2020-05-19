@@ -2,7 +2,7 @@
 Gem::Specification.new do |s|
   # general info
   s.name        = "travis"
-  s.version     = "1.9.0"
+  s.version     = "1.9.1"
   s.required_ruby_version = ">= 2.3.0"
   s.description = "CLI and Ruby client library for Travis CI"
   s.homepage    = "https://github.com/travis-ci/travis.rb"
@@ -55,6 +55,7 @@ Gem::Specification.new do |s|
     "Adam Lavin",
     "Adrien Brault",
     "Alfie John",
+    "Alo\xC3\xAFs Th\xC3\xA9venot",
     "Basarat Ali Syed",
     "Benjamin Manns",
     "Christian H\xC3\xB6ltje",
@@ -62,6 +63,7 @@ Gem::Specification.new do |s|
     "Daniel Chatfield",
     "Dominic Jodoin",
     "Eric Herot",
+    "Eugene K",
     "George Millo",
     "Gunter Grodotzki",
     "Harald Nordgren",
@@ -79,6 +81,7 @@ Gem::Specification.new do |s|
     "Justin Lambert",
     "Laurent Petit",
     "Maarten van Vliet",
+    "Marco Craveiro",
     "Mario Visic",
     "Matt",
     "Matteo Sumberaz",
@@ -89,6 +92,7 @@ Gem::Specification.new do |s|
     "Neamar",
     "Nero Leung",
     "Nicolas Bessi (nbessi)",
+    "Nikhil Owalekar",
     "Peter Bengtsson",
     "Peter Drake",
     "Rapha\xC3\xABl Pinson",
@@ -153,6 +157,7 @@ Gem::Specification.new do |s|
     "adam@lavoaster.co.uk",
     "adrien.brault@gmail.com",
     "33c6c91f3bb4a391082e8a29642cafaf@alfie.wtf",
+    "aloisthevenot@srxp.com",
     "basaratali@gmail.com",
     "benmanns@gmail.com",
     "docwhat@gerf.org",
@@ -160,6 +165,7 @@ Gem::Specification.new do |s|
     "chatfielddaniel@gmail.com",
     "dominic@travis-ci.com",
     "eric.github@herot.com",
+    "34233075+eugene-kulak@users.noreply.github.com",
     "georgejulianmillo@gmail.com",
     "gunter@grodotzki.co.za",
     "haraldnordgren@gmail.com",
@@ -178,6 +184,7 @@ Gem::Specification.new do |s|
     "jlambert@eml.cc",
     "laurent.petit@gmail.com",
     "maartenvanvliet@gmail.com",
+    "marco.craveiro@gmail.com",
     "mario@mariovisic.com",
     "mtoothman@users.noreply.github.com",
     "gnappoms@gmail.com",
@@ -188,6 +195,7 @@ Gem::Specification.new do |s|
     "neamar@neamar.fr",
     "neroleung@gmail.com",
     "nbessi@users.noreply.github.com",
+    "nowalekar@tigetext.com",
     "peterbe@mozilla.com",
     "peter.drake@acquia.com",
     "raphael.pinson@camptocamp.com",
