@@ -26,10 +26,6 @@ module Travis
         end
       end
 
-      def commands
-        CLI.commands.sort_by { |c| c.command_name }
-      end
-
       def cmd_group_header(title)
         say "    #{color(title, :green)}"
       end
