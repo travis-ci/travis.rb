@@ -161,9 +161,9 @@ module Travis
         unless Tools::System.recent_version? Travis::VERSION, last_check['version']
           warn "Outdated CLI version, run `gem install travis`."
         end
-      rescue Timeout::Error, Faraday::Error::ClientError => error
+      rescue Timeout::Error, Faraday::ClientError => error
         debug "#{error.class}: #{error.message}"
-      rescue JSON::ParseError => error
+      rescue JSON::ParserError => error
         warn "Unable to determine the most recent travis gem version. http://rubygems.org may be down."
       end
 
