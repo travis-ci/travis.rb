@@ -279,6 +279,18 @@ module Travis
         @on_signal << block
       end
 
+      def warn(message)
+        write_to($stderr) do
+          say color(message, :error)
+          yield if block_given?
+        end
+      end
+
+      def error(message, &block)
+        warn(message, &block)
+        exit 1
+      end
+
       private
 
         def store_error(exception)
@@ -324,18 +336,6 @@ module Travis
 
         def empty_line
           say "\n"
-        end
-
-        def warn(message)
-          write_to($stderr) do
-            say color(message, :error)
-            yield if block_given?
-          end
-        end
-
-        def error(message, &block)
-          warn(message, &block)
-          exit 1
         end
 
         def command(name)
