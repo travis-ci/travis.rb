@@ -31,7 +31,13 @@ module Travis
         github.with_token do |token|
           endpoint_config['access_token'] = github_auth(token)
           error("user mismatch: logged in as %p instead of %p" % [user.login, user_login]) if user_login and user.login != user_login
-          error("#{user.login} has not granted Travis CI the required permissions, please log in via #{session.config['host']}") unless user.correct_scopes?
+          unless user.correct_scopes?
+            error(
+              "#{user.login} has not granted Travis CI the required permissions. " \
+              "Please try re-syncing your user data at https://#{session.config['host']}/account/preferences " \
+              "and try logging in via #{session.config['host']}"
+            )
+          end
           success("Successfully logged in as #{user.login}!")
         end
 
