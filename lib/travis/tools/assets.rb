@@ -5,7 +5,9 @@ module Travis
       extend self
 
       def asset_path(file)
-        File.expand_path(file, BASE)
+        File.expand_path(file, BASE).tap do |x|
+          raise Travis::Client::FileNotFound, "#{x} does not exist" unless File.exist?(x) }
+        end
       end
 
       def asset(file)

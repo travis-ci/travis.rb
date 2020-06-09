@@ -23,6 +23,9 @@ module Travis
     class RepositoryMigrated < Error
     end
 
+    class FileNotFound < Error
+    end
+
     class ValidationFailed < Error
       attr_reader :errors
 
