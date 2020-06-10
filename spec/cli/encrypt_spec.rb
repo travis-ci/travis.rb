@@ -59,9 +59,9 @@ describe Travis::CLI::Encrypt do
     stderr.should match(/Environment variables in env\.global should be formatted as FOO=bar/)
   end
 
-  example "travis encrypt FOO=bar -a foo --no-interactive" do
+  example "travis encrypt FOO bar -a foo --no-interactive" do
     described_class.any_instance.stub(:save_travis_config)
-    run_cli("encrypt", "FOO=bar", "-a", "foo", "--no-interactive").should be_success
+    run_cli("encrypt", "FOO", "bar", "-a", "foo", "--no-interactive").should be_success
     stdout.should be_empty
   end
 end
