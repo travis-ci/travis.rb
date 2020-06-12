@@ -1,3 +1,4 @@
+require 'pathname'
 module Travis
   module Tools
     module Assets
@@ -5,13 +6,13 @@ module Travis
       extend self
 
       def asset_path(file)
-        File.expand_path(file, BASE).tap do |x|
-          raise Travis::Client::AssetNotFound.new(x) unless File.exist?(x)
+        Pathname.glob(File.expand_path(file, BASE)).tap do |x|
+          raise Travis::Client::AssetNotFound.new(file) if x.empty?
         end
       end
 
       def asset(file)
-        File.read(asset_path(file))
+        File.read(asset_path(file).first)
       end
 
       class << self

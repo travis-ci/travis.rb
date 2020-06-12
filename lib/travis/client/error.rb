@@ -24,7 +24,7 @@ module Travis
     end
 
     class AssetNotFound < Error
-      def initialize(file = nil, *args)
+      def initialize(file, *args)
         if md = file.match(%r[init/(?<lang>[^\.]+)\.yml$])
           super "unknown language #{md[:lang]}", *args
         else

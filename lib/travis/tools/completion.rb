@@ -47,7 +47,7 @@ module Travis
         commands = Travis::CLI.commands.sort_by { |c| c.command_name }
         template = Assets.read('travis.sh.erb')
         source   = ERB.new(template).result(binding).gsub(/^ +\n/, '')
-        File.write(Assets['travis.sh'], source)
+        File.write(Assets['travis.sh'].first, source)
       end
     end
   end
