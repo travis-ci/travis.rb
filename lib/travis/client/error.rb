@@ -23,6 +23,16 @@ module Travis
     class RepositoryMigrated < Error
     end
 
+    class AssetNotFound < Error
+      def initialize(file, *args)
+        if md = file.match(%r[init/(?<lang>[^\.]+)\.yml$])
+          super "unknown language #{md[:lang]}", *args
+        else
+          super file, *args
+        end
+      end
+    end
+
     class ValidationFailed < Error
       attr_reader :errors
 
