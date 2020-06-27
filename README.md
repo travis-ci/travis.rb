@@ -2073,7 +2073,7 @@ Ubuntu:
 
 Fedora:
 
-    $ sudo yum install ruby ruby-devel
+    $ sudo dnf install ruby ruby-devel redhat-rpm-config libffi-devel
 
 Arch Linux:
 
