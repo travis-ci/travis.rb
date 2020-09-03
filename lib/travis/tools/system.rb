@@ -76,7 +76,7 @@ module Travis
       def has?(command)
         return false unless unix?
         @has ||= {}
-        @has.fetch(command) { @has[command] = system "which #{command} 2>/dev/null >/dev/null" }
+        @has.fetch(command) { @has[command] = system "command -v #{command} 2>/dev/null >/dev/null" }
       end
 
       def running?(app)
