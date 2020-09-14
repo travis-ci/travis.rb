@@ -62,7 +62,7 @@ module Travis
             g.auto_password = auto_password
             g.github_login  = user_login
             g.check_token   = !skip_token_check?
-            g.drop_token    = true
+            g.drop_token    = !list_github_token
             g.ask_login     = proc { ask("Username: ") }
             g.ask_password  = proc { |user| ask("Password for #{user}: ") { |q| q.echo = "*" } }
             g.ask_otp       = proc { |user| ask("Two-factor authentication code for #{user}: ") }
