@@ -32,11 +32,17 @@ module Travis
         c.enterprise_name = name || 'default'
       end
 
-      on('--adapter ADAPTER', 'Faraday adapter to use for HTTP requests') do |c, adapter|
-        adapter.gsub! '-', '_'
-        require "faraday/adapter/#{adapter}"
-        require 'typhoeus/adapters/faraday' if adapter == 'typhoeus'
-        c.session.faraday_adapter = adapter.to_sym
+      on('--adapter ADAPTER', 'Faraday adapter to use for HTTP requests. If omitted, use Typhoeus if it is installed, ' \
+        'and Net::HTTP otherwise. See https://lostisland.github.io/faraday/adapters/ for more info') do |c, adapter|
+        begin
+          adapter.gsub! '-', '_'
+          require "faraday/adapter/#{adapter}"
+          require 'typhoeus/adapters/faraday' if adapter == 'typhoeus'
+          c.session.faraday_adapter = adapter.to_sym
+        rescue LoadError => e
+          warn "\`--adapter #{adapter}\` is given, but it is not installed. Run \`gem install #{adapter}\` and try again"
+          exit 1
+        end
       end
 
       def initialize(*)
