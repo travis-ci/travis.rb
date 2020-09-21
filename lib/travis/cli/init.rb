@@ -63,7 +63,7 @@ module Travis
       private
 
         def template_name(language)
-          asset_path("init/#{language}.yml").first
+          asset_path("init/#{language}.yml")
         end
 
         def template(language)
