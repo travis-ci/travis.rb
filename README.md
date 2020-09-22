@@ -2080,6 +2080,15 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
+### 1.10.0 (September 22, 2020)
+
+* Requires Ruby 2.3.0 or later (2.6.0 or later is recommended)
+* Display a meaningful message when Travis API is unavailable. https://github.com/travis-ci/travis.rb/issues/753
+* Eschew `which` to find a command on the system. https://github.com/travis-ci/travis.rb/pull/765
+* Fix `--list-github-token` flag. https://github.com/travis-ci/travis.rb/pull/766
+* FFI is no longer required. https://github.com/travis-ci/travis.rb/pull/758
+* Typhoeus is no longer required, but remains supported (used if installed). https://github.com/travis-ci/travis.rb/pull/756
+
 ### 1.9.1 (May 19, 2020)
 
 * Fix `--no-interactive` flag in `encrypt` and `encryt-file` commands https://github.com/travis-ci/travis.rb/pull/738
