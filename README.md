@@ -2041,11 +2041,12 @@ bundle exec bin/travis a-command # run your command
 
 ### Updating your Ruby
 
-If you have an outdated Ruby version, you should use your package system or a Ruby Installer to install a recent Ruby.
+If you have an outdated Ruby version, or your OS doesn't come with Ruby pre-installed,
+you should use your package system or a Ruby Installer to install a recent Ruby.
 
 #### Mac OS X via Homebrew
 
-Mac OSX prior to 10.9 ships with a very dated Ruby version. You can use [Homebrew](http://mxcl.github.io/homebrew/) to install a recent version:
+You can use [Homebrew](http://mxcl.github.io/homebrew/) to install a recent version:
 
     $ brew install ruby
     $ gem update --system
@@ -2056,28 +2057,14 @@ On Windows, we recommend using the [RubyInstaller](http://rubyinstaller.org/), w
 
 #### Other Unix systems
 
-On other Unix systems, like Linux, use your package system to install Ruby. Please inquire before hand which package you might actually want to install, as for some distributions `ruby` might actually still be 1.8.7 or older.
+On other Unix systems, like Linux, use your package system to install Ruby.
 
-Debian:
+Debian, Ubuntu:
 
-    $ sudo apt-get install ruby1.9.3 ruby1.9.3-dev ruby-switch
-    $ sudo ruby-switch --set ruby1.9.3
-
-Ubuntu:
-
-    $ sudo apt-get install python-software-properties
-    $ sudo apt-add-repository ppa:brightbox/ruby-ng
     $ sudo apt-get update
-    $ sudo apt-get install ruby2.1 ruby2.1-dev ruby-switch
-    $ sudo ruby-switch --set ruby2.1
+    $ sudo apt-get install ruby
 
-Fedora:
-
-    $ sudo yum install ruby ruby-devel
-
-Arch Linux:
-
-    $ sudo pacman -S ruby
+For other Linux distributions, refer to their respective documentation.
 
 #### Ruby versioning tools
 
@@ -2086,39 +2073,6 @@ Alternatively, you can use a Ruby version management tool such as [rvm](https://
 You can of course always compile Ruby from source, though then you are left with the hassle of keeping it up to date and making sure that everything is set up properly.
 
 ### Troubleshooting
-
-#### Ubuntu
-
-On certain versions of Ubuntu (e.g., 13.10), you need to install the corresponding `-dev` package
-in order to build the C extension on which `travis` gem depends.
-
-For the stock Ubuntu 13.10, run:
-
-    $ sudo apt-get install ruby1.9.1-dev
-
-If you updated to Ruby 2.1 as shown above:
-
-    $ sudo apt-get install ruby2.1-dev
-
-For newer versions of Ubuntu (16.04 and above), it should be enough to run:
-
-    $ sudo apt-get install ruby-dev
-
-If you have error about `mkmf.rb can't find header files for ruby at /usr/lib/ruby/include/ruby.h`
-```console
-# try to run following cmd
-sudo apt-get install ruby-dev libffi-dev make gcc -y
-sudo gem install travis
-```
-#### Mac OS X
-
-If you start with a clean Mac OS X, you will have to install the XCode Command Line Tools, which are necessary for installing native extensions. You can do so via `xcode-select`:
-
-    $ xcode-select --install
-
-Mac OS X 10.9.2 shipped with a slightly broken Ruby version. If you want to install the gem via the system Ruby and you get an error, you might have to run the following instead:
-
-    $ ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future gem install travis
 
 #### Upgrading from travis-cli
 
