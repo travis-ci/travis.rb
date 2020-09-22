@@ -34,7 +34,8 @@ module Travis
       attr_writer :travis_config
 
       def self.languages
-        asset_path('init/*.yml').map { |f| File.basename(f, '.yml') }.sort
+        Dir[File.expand_path('init/*.yml', Travis::Tools::Assets::BASE)]
+          .map { |f| File.basename(f, '.yml') }.sort
       end
 
       def help
@@ -63,7 +64,7 @@ module Travis
       private
 
         def template_name(language)
-          asset_path("init/#{language}.yml").first
+          asset_path("init/#{language}.yml")
         end
 
         def template(language)

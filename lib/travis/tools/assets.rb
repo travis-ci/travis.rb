@@ -8,11 +8,11 @@ module Travis
       def asset_path(file)
         Pathname.glob(File.expand_path(file, BASE)).tap do |x|
           raise Travis::Client::AssetNotFound.new(file) if x.empty?
-        end
+        end.first.to_s
       end
 
       def asset(file)
-        File.read(asset_path(file).first)
+        File.read(asset_path(file))
       end
 
       class << self
