@@ -2078,6 +2078,17 @@ You can of course always compile Ruby from source, though then you are left with
 
 If you have the old `travis-cli` gem installed, you should `gem uninstall travis-cli`, just to be sure, as it ships with an executable that is also named `travis`.
 
+#### `uninitialized constant Faraday::Error::ConnectionFailed`
+
+You might see this error message if you have Typhoeus version prior to version 1.4.0
+and Faraday 1.0 and up.
+You can eradicate this problem by either:
+
+1. Update Typhoeus to version 1.4.0 or later
+1. Remove typhoeus entirely
+
+See https://github.com/travis-ci/travis.rb/issues/768#issuecomment-700220351 for more details.
+
 ## Version History
 
 ### 1.10.0 (September 22, 2020)
