@@ -24,7 +24,6 @@ module Travis
       end
 
       class Dummy
-        BIN_PATH = Assets['Travis CI.app/Contents/MacOS/Travis CI']
         def notify(title, body)
         end
 
