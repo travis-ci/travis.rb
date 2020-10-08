@@ -2080,6 +2080,10 @@ If you have the old `travis-cli` gem installed, you should `gem uninstall travis
 
 ## Version History
 
+### 1.10.1
+
+* Fix `travis monitor` command https://github.com/travis-ci/travis.rb/pull/770
+
 ### 1.10.0 (September 22, 2020)
 
 * Requires Ruby 2.3.0 or later (2.6.0 or later is recommended)
