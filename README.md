@@ -2022,6 +2022,12 @@ Now make sure everything is working:
 
 See also [Note on Ubuntu](#ubuntu) below.
 
+### Note on Ruby 2.3
+
+For Ruby 2.3.x, be sure to have a compatible version of `faraday` installed; e.g.,
+
+    $ gem install faraday -v 1.0.1
+    
 ### Development Version
 
 You can also install the development version via RubyGems:
