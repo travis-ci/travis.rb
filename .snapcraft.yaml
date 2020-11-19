@@ -1,5 +1,5 @@
 name: travis
-version: '1.8.13'
+adopt-info: travis
 summary: Travis CI client
 description: CLI and Ruby client library for Travis CI
 
@@ -15,9 +15,14 @@ apps:
 parts:
   travis:
     plugin: ruby
-    source: https://github.com/travis-ci/travis.rb/archive/v1.8.13.tar.gz
+    build-packages: [wget]
     override-build: |
       snapcraftctl build
+      GEM_VERSION=`ruby -e 'require "rubygems"' -e 'puts Gem::Specification::load("travis.gemspec").version'`
+      snapcraftctl set-version $GEM_VERSION
+      GEM_VERSION=v$GEM_VERSION
+      wget  "https://github.com/travis-ci/travis.rb/archive/$GEM_VERSION.tar.gz"
+      mv $GEM_VERSION.tar.gz $SNAPCRAFT_PART_SRC
       gem build travis.gemspec
       gem install travis-*.gem --env-shebang
     prime: ['-lib/ruby/gems/*/gems/ffi-*/ext/ffi_c/libffi-*/include/ffitarget.h']
