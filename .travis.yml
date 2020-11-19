@@ -67,10 +67,13 @@ matrix:
 
     after_failure:
     - sudo journalctl -u snapd
-
-    deploy:
-      provider: snap
-      snap: travis_*.snap
-      channel: stable
-      cleanup: false
-      skip_cleanup: true
+    
+    - stage: deploy
+          if: repo = travis-ci/travis.rb and branch = master and type = push
+          os: linux
+          deploy:
+            provider: snap
+            snap: travis_*.snap
+            channel: stable
+            cleanup: false
+            skip_cleanup: true
