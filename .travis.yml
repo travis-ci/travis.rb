@@ -74,6 +74,6 @@ matrix:
           deploy:
             provider: snap
             snap: travis_*.snap
-            channel: stable
+            channel: ${SNAP_DEPLOY_TRACK:-latest}/stable
             cleanup: false
             skip_cleanup: true
