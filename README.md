@@ -2112,7 +2112,7 @@ See https://github.com/travis-ci/travis.rb/issues/768#issuecomment-700220351 for
 
 ### 1.9.1 (May 19, 2020)
 
-* Fix `--no-interactive` flag in `encrypt` and `encryt-file` commands https://github.com/travis-ci/travis.rb/pull/738
+* Fix `--no-interactive` flag in `encrypt` and `encrypt-file` commands https://github.com/travis-ci/travis.rb/pull/738
 * Display commit SHA in `show` https://github.com/travis-ci/travis.rb/pull/739
 * Display more helpful message when GitHub token given by `--github-token` is
   deficient https://github.com/travis-ci/travis.rb/issues/708
@@ -2203,7 +2203,7 @@ See https://github.com/travis-ci/travis.rb/issues/768#issuecomment-700220351 for
 * Fix SSL verification issue on OS X Yosemite and certain Linux setups.
 * Be more forgiving with outdated API version (Enterprise).
 * Better handling of multibyte characters in archived logs.
-* Use more restricitve permissions for the config file.
+* Use more restrictive permissions for the config file.
 
 ### 1.7.1 (August 9, 2014)
 
