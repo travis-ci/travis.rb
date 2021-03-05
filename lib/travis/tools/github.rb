@@ -2,6 +2,7 @@ require 'travis/tools/system'
 require 'yaml'
 require 'json'
 require 'gh'
+require 'open3'
 
 module Travis
   module Tools
@@ -171,7 +172,7 @@ module Travis
       end
 
       def netrc
-        file(netrc_path, []) do |contents|
+        gpg_file_or_file(netrc_path, []) do |contents|
           contents.scan(/^\s*(\S+)\s+(\S+)\s*$/).inject([]) do |mapping, (key, value)|
             mapping << {} if key == "machine"
             mapping.last[key] = value if mapping.last
@@ -282,12 +283,37 @@ module Travis
           raise e if explode
         end
 
+        def gpg_file_or_file(path, default = nil)
+          gpg_path = File.expand_path("#{path}.gpg")
+
+          if File.file?(gpg_path)
+            path   &&= gpg_path
+          else
+            path   &&= File.expand_path(path)
+          end
+
+          file(path, default)
+        end
+
         def file(path, default = nil)
           path        &&= File.expand_path(path)
           @file       ||= {}
           @file[path] ||= if path and File.readable?(path)
             debug "reading #{path}"
-            yield File.read(path)
+            if path.end_with?(".gpg")
+              stdout_str, stderr_str, status = Open3.capture3("gpg", "-d", path)
+              if status.success?
+                yield stdout_str
+              else
+                debug "unable to decrypt #{path} file because of:"
+                debug stderr_str
+                unencrypted_path = path.sub(/#{File.extname(path)}$/, '')
+                debug "falling back to reading #{unencrypted_path}"
+                yield File.read(unencrypted_path)
+              end
+            else
+              yield File.read(path)
+            end
           end
           @file[path] || default
         rescue => e
