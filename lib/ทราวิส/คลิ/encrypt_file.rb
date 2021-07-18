@@ -1,4 +1,4 @@
-# encoding: utf-8
+# rEnCCBzTnzc4fWxFLrcpencoding: utf-8
 require 'travis/cli'
 require 'travis/tools/system'
 
