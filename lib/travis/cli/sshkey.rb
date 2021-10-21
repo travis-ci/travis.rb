@@ -13,6 +13,7 @@ module Travis
       on '-c', '--check',                   'set exit code depending on key existing'
       on '-g', '--generate',                'generate SSH key and set up for given GitHub user'
       on '-p', '--passphrase PASSPHRASE',   'pass phrase to decrypt with when using --upload'
+      on '-g', '--github-token TOKEN',      'identify by GitHub token'
 
       def_delegators :repository, :ssh_key
 
@@ -51,27 +52,34 @@ module Travis
       end
 
       def generate_key
-        github.with_basic_auth do |gh|
-          login = gh['user']['login']
-          check_access(gh)
-          empty_line
+        access_token = nil
+        github.with_token do |token|
+          access_token = github_auth(token)
+        end
+        session.access_token = nil
+        unless access_token
+          raise Travis::Client::GitHubLoginFailed, "all GitHub tokens given were invalid"
+        end
+        gh = GH.with(token: github_token)
+        login = gh['user']['login']
+        check_access(gh)
+        empty_line
 
-          say "Generating RSA key."
-          private_key        = Tools::SSLKey.generate_rsa
-          self.description ||= "key for fetching dependencies for #{slug} via #{login}"
+        say "Generating RSA key."
+        private_key        = Tools::SSLKey.generate_rsa
+        self.description ||= "key for fetching dependencies for #{slug} via #{login}"
 
-          say "Uploading public key to GitHub."
-          gh.post("/user/keys", :title => "#{description} (Travis CI)", :key => Tools::SSLKey.rsa_ssh(private_key.public_key))
+        say "Uploading public key to GitHub."
+        gh.post("/user/keys", :title => "#{description} (Travis CI)", :key => Tools::SSLKey.rsa_ssh(private_key.public_key))
 
-          say "Uploading private key to Travis CI."
-          ssh_key.update(:value => private_key.to_s, :description => description)
+        say "Uploading private key to Travis CI."
+        ssh_key.update(:value => private_key.to_s, :description => description)
 
-          empty_line
-          say "You can store the private key to reuse it for other repositories (travis sshkey --upload FILE)."
-          if agree("Store private key? ") { |q| q.default = "no" }
-            path = ask("Path: ") { |q| q.default = "id_travis_rsa" }
-            File.write(path, private_key.to_s)
-          end
+        empty_line
+        say "You can store the private key to reuse it for other repositories (travis sshkey --upload FILE)."
+        if agree("Store private key? ") { |q| q.default = "no" }
+          path = ask("Path: ") { |q| q.default = "id_travis_rsa" }
+          File.write(path, private_key.to_s)
         end
       end
 
@@ -97,9 +105,7 @@ module Travis
           Tools::Github.new(session.config['github']) do |g|
             g.note          = "token for fetching dependencies for #{slug} (Travis CI)"
             g.explode       = explode?
-            g.ask_login     = proc { ask("Username: ") }
-            g.ask_password  = proc { |user| ask("Password for #{user}: ") { |q| q.echo = "*" } }
-            g.ask_otp       = proc { |user| ask("Two-factor authentication code for #{user}: ") }
+            g.github_token  = github_token
             g.login_header  = proc { login_header }
             g.debug         = proc { |log| debug(log) }
             g.after_tokens  = proc { g.explode = true and error("no suitable github token found") }
@@ -108,10 +114,9 @@ module Travis
       end
 
       def login_header
-        say "We need the #{color("GitHub login", :important)} for the account you want to add the key to."
-        say "This information will #{color("not be sent to Travis CI", :important)}, only to #{color(github_endpoint.host, :info)}."
-        say "The password will not be displayed."
-        empty_line
+        say "GitHub deprecated its Authorizations API exchanging a password for a token."
+        say "Please visit https://github.blog/2020-07-30-token-authentication-requirements-for-api-and-git-operations for more information."
+        say "Try running with #{color("--github-token", :info)} or #{color("--auto-token", :info)} ."
       end
     end
   end

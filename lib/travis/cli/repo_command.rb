@@ -6,6 +6,7 @@ module Travis
     class RepoCommand < ApiCommand
       GIT_REGEX = %r{/?(.*/.+?)(\.git)?$}
       TRAVIS    = %r{^https://(staging-)?api\.travis-ci\.(org|com)}
+      on('-g', '--github-token TOKEN', 'identify by GitHub token')
       on('-r', '--repo SLUG', 'repository to use (will try to detect from current git clone)') do |c, slug|
         c.slug = slug
         c.error "SLUG should be of the form OWNER/REPO" unless slug.split('/').compact.size == 2

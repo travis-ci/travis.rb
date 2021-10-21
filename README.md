@@ -233,22 +233,11 @@ default API endpoint dropped (was https://api.travis-ci.com/)
 The `login` command will, well, log you in. That way, all subsequent commands that run against the same endpoint will be authenticated.
 
 ``` console
-$ travis login
-We need your GitHub login to identify you.
-This information will not be sent to Travis CI, only to GitHub.
-The password will not be displayed.
-
-Try running with --github-token or --auto if you don't want to enter your password anyway.
-
-Username: rkh
-Password: *******************
-
-Successfully logged in!
+$ travis login --pro --github-token ghp_********
+Successfully logged in as rkh!
 ```
 
-As you can see above, it will ask you for your GitHub user name and password, but not send these to Travis CI. Instead, it will use them to create a GitHub API token, show the token to Travis, which then on its own checks if you really are who you say you are, and gives you an access token for the Travis API in return. The client will then delete the GitHub token again, just to be sure. But don't worry, all that happens under the hood and fully automatic.
-
-If you don't want it to send your credentials to GitHub, you can create a GitHub token on your own and supply it via `--github-token`. In that case, the client will not delete the GitHub token (as it can't, it needs your password to do this). Travis CI will not store the token, though - after all, it already should have a valid token for you in the database.
+You need to use a GitHub token and supply it via `--github-token`. Travis CI will not store the token, though - after all, it already should have a valid token for you in the database.
 *NOTE*: When creating a GitHub token, see [GitHub Permissions used by travis-ci.com](https://docs.travis-ci.com/user/github-oauth-scopes/#travis-ci-for-private-projects) or [GitHub Permissions used by travis-ci.org](https://docs.travis-ci.com/user/github-oauth-scopes/#travis-ci-for-open-source-projects). The token permissions are dependent on use of travis-ci.com or travis-ci.org and not if they are public or private repositories.
 
 A third option is for the really lazy: `--auto`. In this mode the client will try to find a GitHub token for you and just use that. This will only work if you have a [global GitHub token](https://help.github.com/articles/git-over-https-using-oauth-token) stored in your [.netrc](http://blogdown.io/c4d42f87-80dd-45d5-8927-4299cbdf261c/posts/574baa68-f663-4dcf-88b9-9d41310baf2f). If you haven't heard of this, it's worth looking into in general. Again: Travis CI will not store that token.
@@ -1560,26 +1549,6 @@ puts "Hello #{Travis::User.current.name}!"
 
 Travis CI will not store that token.
 
-It also ships with a tool for generating a GitHub token from a user name and password via the GitHub API:
-
-``` ruby
-require 'travis'
-require 'travis/tools/github'
-
-# drop_token will make the token a temporary one
-github = Travis::Tools::Github.new(drop_token: true) do |g|
-  g.ask_login    = -> { print("GitHub login:     "); gets }
-  g.ask_password = -> { print("Password:         "); gets }
-  g.ask_otp      = -> { print("Two-factor token: "); gets }
-end
-
-github.with_token do |token|
-  Travis.github_auth(token)
-end
-
-puts "Hello #{Travis::User.current.name}!"
-```
-
 There is also `travis/auto_login`, which will try to read the CLI configuration or .netrc for a Travis CI or GitHub token to authenticate with automatically:
 
 ``` ruby
@@ -2027,7 +1996,7 @@ See also [Note on Ubuntu](#ubuntu) below.
 For Ruby 2.3.x, be sure to have a compatible version of `faraday` installed; e.g.,
 
     $ gem install faraday -v 1.0.1
-    
+
 ### Development Version
 
 You can also install the development version via RubyGems:

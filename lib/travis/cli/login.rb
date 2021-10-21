@@ -10,10 +10,6 @@ module Travis
       description "authenticates against the API and stores the token"
       on('-g', '--github-token TOKEN', 'identify by GitHub token')
       on('-T', '--auto-token',         'try to figure out who you are automatically (might send another apps token to Travis, token will not be stored)')
-      on('-p', '--auto-password',      'try to load password from OSX keychain (will not be stored)')
-      on('-a', '--auto',               'shorthand for --auto-token --auto-password') { |c| c.auto_token = c.auto_password = true }
-      on('-u', '--user LOGIN',         'user to log in as') { |c,n| c.user_login = n }
-      on('-M', '--no-manual',          'do not use interactive login')
       on('--list-github-token',        'instead of actually logging in, list found GitHub tokens')
       on('--skip-token-check',         'don\'t verify the token with github')
 
@@ -55,17 +51,11 @@ module Travis
           load_gh
           Tools::Github.new(session.config['github']) do |g|
             g.note          = "temporary token to identify with the travis command line client against #{api_endpoint}"
-            g.manual_login  = no_manual.nil?
             g.explode       = explode?
             g.github_token  = github_token
             g.auto_token    = auto_token
-            g.auto_password = auto_password
-            g.github_login  = user_login
             g.check_token   = !skip_token_check?
             g.drop_token    = !list_github_token
-            g.ask_login     = proc { ask("Username: ") }
-            g.ask_password  = proc { |user| ask("Password for #{user}: ") { |q| q.echo = "*" } }
-            g.ask_otp       = proc { |user| ask("Two-factor authentication code for #{user}: ") }
             g.login_header  = proc { login_header }
             g.debug         = proc { |log| debug(log) }
             g.after_tokens  = proc { g.explode = true and error("no suitable github token found") }
@@ -74,12 +64,9 @@ module Travis
       end
 
       def login_header
-        say "We need your #{color("GitHub login", :important)} to identify you."
-        say "This information will #{color("not be sent to Travis CI", :important)}, only to #{color(github_endpoint.host, :info)}."
-        say "The password will not be displayed."
-        empty_line
-        say "Try running with #{color("--github-token", :info)} or #{color("--auto", :info)} if you don't want to enter your password anyway."
-        empty_line
+        say "GitHub deprecated its Authorizations API exchanging a password for a token."
+        say "Please visit https://github.blog/2020-07-30-token-authentication-requirements-for-api-and-git-operations for more information."
+        say "Try running with #{color("--github-token", :info)} or #{color("--auto-token", :info)} ."
       end
     end
   end
