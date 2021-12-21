@@ -2,7 +2,7 @@
 Gem::Specification.new do |s|
   # general info
   s.name        = "travis"
-  s.version     = "1.11.0"
+  s.version     = "1.12.0"
   s.required_ruby_version = ">= 2.3.0"
   s.description = "CLI and Ruby client library for Travis CI"
   s.homepage    = "https://github.com/travis-ci/travis.rb"
@@ -325,6 +325,7 @@ Gem::Specification.new do |s|
     "lib/travis/cli/sshkey.rb",
     "lib/travis/cli/status.rb",
     "lib/travis/cli/sync.rb",
+    "lib/travis/cli/tam.rb",
     "lib/travis/cli/token.rb",
     "lib/travis/cli/version.rb",
     "lib/travis/cli/whatsup.rb",
