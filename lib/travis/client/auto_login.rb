@@ -24,7 +24,6 @@ module Travis
       def github
         @github         ||= Tools::Github.new(session.config['github']) do |g|
           g.explode       = true
-          g.manual_login  = false
           g.auto_token    = @auto_token
           g.after_tokens  = proc { raise NoTokenError, "no suitable github token found" } if @raise
         end

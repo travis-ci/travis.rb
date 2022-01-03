@@ -10,19 +10,15 @@ module Travis
       GITHUB_API  = 'api.github.com'
       GITHUB_HOST = 'github.com'
 
-      attr_accessor :api_url, :scopes, :github_token, :github_login, :drop_token, :callback, :explode, :after_tokens,
-        :ask_login, :ask_password, :ask_otp, :login_header, :auto_token, :auto_password, :manual_login, :note,
-        :netrc_path, :hub_path, :oauth_paths, :composer_path, :git_config_keys, :debug, :no_token, :check_token
+      attr_accessor :api_url, :scopes, :github_token, :drop_token, :callback, :explode, :after_tokens,
+        :login_header, :auto_token, :note,
+        :hub_path, :oauth_paths, :composer_path, :git_config_keys, :debug, :no_token, :check_token
 
       def initialize(options = nil)
         @check_token     = true
-        @manual_login    = true
         @ask_login       = proc { raise "ask_login callback not set" }
         @after_tokens    = proc { }
-        @ask_password    = proc { |_| raise "ask_password callback not set" }
-        @ask_otp         = proc { |_| raise "ask_otp callback not set" }
         @debug           = proc { |_| }
-        @netrc_path      = '~/.netrc'
         @hub_path        = ENV['HUB_CONFIG'] || '~/.config/hub'
         @oauth_paths     = ['~/.github-oauth-token']
         @composer_path   = "~/.composer/config.json"
@@ -35,14 +31,6 @@ module Travis
 
       def with_token
         each_token { |t| break yield(t) }
-      end
-
-      def with_basic_auth(&block)
-        user, password = ask_credentials
-        basic_auth(user, password, true) do |gh, _|
-          gh['user'] # so otp kicks in
-          yield gh
-        end
       end
 
       def each_token
@@ -61,7 +49,6 @@ module Travis
         return block[github_token] if github_token
 
         if auto_token
-          netrc_tokens(&block)
           git_tokens(&block)
           hub_tokens(&block)
           oauth_file_tokens(&block)
@@ -70,41 +57,10 @@ module Travis
           composer_token(&block)
         end
 
-        if auto_password
-          possible_logins do |user, password|
-            yield login(user, password, false)
-          end
-        end
-
-        if manual_login
-          user, password = ask_credentials
-          yield login(user, password, true)
-        end
-
-        after_tokens.call
-      end
-
-      def ask_credentials
-        login_header.call if login_header
-        user     = github_login || ask_login.call
-        password = ask_password.arity == 0 ? ask_password.call : ask_password.call(user)
-        [user, password]
-      end
-
-      def possible_logins(&block)
-        netrc_logins(&block)
-        hub_logins(&block)
-        keychain_login(&block)
-      end
-
-      def netrc_tokens
-        netrc.each do |entry|
-          next unless entry["machine"] == api_host or entry["machine"] == host
-          entry.values_at("token", "login", "password").each do |entry|
-            next if entry.to_s.size != TOKEN_SIZE
-            debug "found oauth token in netrc"
-            yield entry
-          end
+        if github_token || auto_token
+          after_tokens.call
+        elsif login_header
+          login_header.call
         end
       end
 
@@ -127,7 +83,6 @@ module Travis
 
       def hub_tokens
         hub.fetch(host, []).each do |entry|
-          next if github_login and github_login != entry["user"]
           yield entry["oauth_token"] if entry["oauth_token"]
         end
       end
@@ -137,45 +92,6 @@ module Travis
           file(path) do |content|
             token = content.strip
             yield token unless token.empty?
-          end
-        end
-      end
-
-      def netrc_logins
-        netrc.each do |entry|
-          next unless entry["machine"] == api_host or entry["machine"] == host
-          next if github_login and github_login != entry["login"]
-          yield entry["login"], entry["password"] if entry["login"] and entry["password"]
-        end
-      end
-
-      def hub_logins
-        hub.fetch(host, []).each do |entry|
-          next if github_login and github_login != entry["user"]
-          yield entry["user"], entry["password"] if entry["user"] and entry["password"]
-        end
-      end
-
-      def keychain_login
-        if github_login
-          security(:internet, :w, "-s #{host} -a #{github_login}", "#{host} password for #{github_login}") do |password|
-            yield github_login, password if password and not password.empty?
-          end
-        else
-          security(:internet, :g, "-s #{host}", "#{host} login and password") do |data|
-            username = data[/^\s+"acct"<blob>="(.*)"$/, 1].to_s
-            password = data[/^password: "(.*)"$/, 1].to_s
-            yield username, password unless username.empty? or password.empty?
-          end
-        end
-      end
-
-      def netrc
-        file(netrc_path, []) do |contents|
-          contents.scan(/^\s*(\S+)\s+(\S+)\s*$/).inject([]) do |mapping, (key, value)|
-            mapping << {} if key == "machine"
-            mapping.last[key] = value if mapping.last
-            mapping
           end
         end
       end
@@ -192,7 +108,6 @@ module Travis
 
       def github_for_mac_token(&block)
         command = '-s "github.com/mac"'
-        command << " -a #{github_login}" if github_login
         security(:internet, :w, command, "GitHub for Mac token", &block) if host == 'github.com'
       end
 
@@ -205,52 +120,12 @@ module Travis
         api_url[%r{^(?:https?://)?([^/]+)}, 1]
       end
 
-      def basic_auth(user, password, die = true, otp = nil, &block)
-        gh = GH.with(:username => user, :password => password)
-        with_otp(gh, user, otp, &block)
-      rescue GH::Error => error
-        raise gh_error(error) if die
-      end
-
-      def login(user, password, die = true, otp = nil)
-        basic_auth(user, password, die, otp) do |gh, new_otp|
-          reply         = create_token(gh)
-          auth_href     = reply['_links']['self']['href']
-          self.callback = proc { with_otp(gh, user, new_otp) { |g| g.delete(auth_href) } } if drop_token
-          reply['token']
-        end
-      end
-
-      def create_token(gh)
-        gh.post('/authorizations', :scopes => scopes, :note => note)
-      rescue GH::Error => error
-        # token might already exist due to bug in earlier CLI version, we'll have to delete it first
-        raise error unless error.info[:response_status] == 422 and error.info[:response_body].to_s =~ /already_exists/
-        raise error unless reply = gh['/authorizations'].detect { |a| a['note'] == note }
-        gh.delete(reply['_links']['self']['href'])
-        retry
-      end
-
-      def with_otp(gh, user, otp, &block)
-        gh = GH.with(gh.options.merge(:headers => { "X-GitHub-OTP" => otp })) if otp
-        block.call(gh, otp)
-      rescue GH::Error => error
-        raise error unless error.info[:response_status] == 401 and error.info[:response_headers]['x-github-otp'].to_s =~ /required/
-        otp = ask_otp.arity == 0 ? ask_otp.call : ask_otp.call(user)
-        retry
-      end
-
       def acceptable?(token)
         return true unless check_token
         gh   = GH.with(:token => token)
         user = gh['user']
 
-        if github_login and github_login != user['login']
-          debug "token is not acceptable: identifies %p instead of %p" % [user['login'], github_login]
-          false
-        else
-          true
-        end
+        true
       rescue GH::Error => error
         debug "token is not acceptable: #{gh_error(error)}"
         false
