@@ -333,6 +333,7 @@ Gem::Specification.new do |s|
     "lib/travis/client.rb",
     "lib/travis/client/account.rb",
     "lib/travis/client/artifact.rb",
+    "lib/travis/client/artifacts_image_info.rb",
     "lib/travis/client/auto_login.rb",
     "lib/travis/client/broadcast.rb",
     "lib/travis/client/build.rb",

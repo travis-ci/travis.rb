@@ -23,6 +23,7 @@ require 'travis/client/ssh_key'
 require 'travis/client/request'
 require 'travis/client/listener'
 require 'travis/client/lint_result'
+require 'travis/client/artifacts_image_info'
 
 module Travis
   module Client

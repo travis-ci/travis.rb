@@ -3,15 +3,18 @@ require 'travis/cli'
 module Travis
   module CLI
     class Tam < ApiCommand
-      description "TAM (Travis Artifact Manager) actions"
+      description 'TAM (Travis Artifact Manager) actions'
 
-      on('-c', '--create-image IMAGE_NAME', 'Create image with given name')
-      on('-u', '--update-image IMAGE_NAME', 'Update image with given name')
-      on('-d', '--delete-image IMAGE_NAME', 'Delete image with given name')
+      on('-c', '--create-image', 'Create an image from .travis.lxd.yml')
+      on('-u', '--update-image', 'Update the image based on .travis.lxd.yml')
+      on('-d', '--delete-image IMAGE_NAME', 'Delete the image with the given name')
+      on('-i', '--image-info IMAGE_NAME', 'Get info about the image')
+      on('-l', '--logs IMAGE_NAME', 'Get the latest build log for the image')
+      on('-s', '--build-status IMAGE_NAME', 'Get the latest build status for the image')
 
       def run
-        error("Please specify an action") if !create_image? && !update_image? && !delete_image?
-        error(".travis.lxd.yml file not found in the current directory or is empty") if (create_image? || update_image?) && (!File.exist?('.travis.lxd.yml') || File.read('.travis.lxd.yml').empty?)
+        error('Please specify an action') if !create_image? && !update_image? && !delete_image? && !image_info? && !logs? && !build_status?
+        error('.travis.lxd.yml file not found in the current directory or is empty') if (create_image? || update_image?) && (!File.exist?('.travis.lxd.yml') || File.read('.travis.lxd.yml').empty?)
 
         authenticate
 
@@ -19,22 +22,69 @@ module Travis
                      'v3/artifacts/config/create'
                    elsif update_image?
                      'v3/artifacts/config/update'
+                   elsif delete_image?
+                     "v3/artifacts/#{delete_image}"
+                   elsif image_info?
+                     "v3/artifacts/#{image_info}/info"
+                   elsif logs?
+                     "v3/artifacts/#{logs}/logs"
                    else
-                     # TODO
+                     "v3/artifacts/#{build_status}/build_status"
                    end
 
-        params = JSON.dump(
-          image_name: create_image || update_image || delete_image,
-          config: File.read('.travis.lxd.yml')
-        )
-        response = session.post(endpoint, params, 'Content-Type' => 'application/json')
+        if delete_image?
+          session.delete(endpoint)
+        elsif create_image? || update_image?
+          params = {
+            config: File.read('.travis.lxd.yml')
+          }
+
+          session.post(endpoint, JSON.dump(params), 'Content-Type' => 'application/json')
+        else
+          data = nil
+          begin
+            data = session.get_raw(endpoint)
+          rescue Travis::Client::ValidationFailed => e
+            error 'Failed to fetch build status'
+            return
+          end
+          if image_info?
+            image_information = Travis::Client::ArtifactsImageInfo.new(session, 0)
+            image_information.update_attributes(data)
+          end
+        end
 
         if create_image?
           say 'Image created'
-        elsif update_image?
+          return
+        end
+
+        if update_image?
           say 'Image updated'
-        else
-          warn 'Image deleted'
+          return
+        end
+
+        if delete_image?
+          warn 'Image deleted!'
+          return
+        end
+
+        if image_info?
+          say "Name: #{image_information.name}"
+          say "Size: #{(image_information.image_size.to_f / 1024**2).round(2)}MB"
+          say "Description: #{image_information.description.presence || '<no description>'}"
+          return
+        end
+
+        if logs?
+          say data['log']
+          return
+        end
+
+        if build_status?
+          say data['status']
+
+          return
         end
       end
     end
