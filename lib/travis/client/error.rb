@@ -47,6 +47,8 @@ module Travis
         if @errors = response['errors'] and @errors.any?
           readable = @errors.map { |e| "#{e['field']}: #{e['code'].gsub('_', ' ')}" }
           message += " (#{readable.join(', ')})"
+        elsif @errors = response['error_message']
+          message = response['error_message']
         end
         message
       rescue JSON::ParserError

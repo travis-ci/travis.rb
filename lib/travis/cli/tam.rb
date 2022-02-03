@@ -39,7 +39,12 @@ module Travis
             config: File.read('.travis.lxd.yml')
           }
 
-          session.post(endpoint, JSON.dump(params), 'Content-Type' => 'application/json')
+          begin
+            session.post(endpoint, JSON.dump(params), 'Content-Type' => 'application/json')
+          rescue Travis::Client::ValidationFailed => e
+            error e.message
+            return
+          end
         else
           data = nil
           begin
