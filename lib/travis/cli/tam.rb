@@ -33,7 +33,7 @@ module Travis
                    end
 
         if delete_image?
-          session.delete(endpoint)
+          session.delete_raw(endpoint)
         elsif create_image? || update_image?
           params = {
             config: File.read('.travis.lxd.yml')
