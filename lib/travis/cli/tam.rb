@@ -23,13 +23,13 @@ module Travis
                    elsif update_image?
                      'v3/artifacts/config/update'
                    elsif delete_image?
-                     "v3/artifacts/#{delete_image}"
+                     "v3/artifacts/#{CGI.escape(delete_image)}"
                    elsif image_info?
-                     "v3/artifacts/#{image_info}/info"
+                     "v3/artifacts/#{CGI.escape(image_info)}/info"
                    elsif logs?
-                     "v3/artifacts/#{logs}/logs"
+                     "v3/artifacts/#{CGI.escape(logs)}/logs"
                    else
-                     "v3/artifacts/#{build_status}/build_status"
+                     "v3/artifacts/#{CGI.escape(build_status)}/build_status"
                    end
 
         if delete_image?
