@@ -40,7 +40,11 @@ module Travis
           }
 
           begin
-            session.post(endpoint, JSON.dump(params), 'Content-Type' => 'application/json')
+            response = session.post_raw(endpoint, JSON.dump(params), 'Content-Type' => 'application/json')
+            unless response['warnings'].nil?
+              warn color('Following warnings were generated:', [:bold, 'yellow'])
+              response['warnings'].each { |warning| warn color(warning, 'yellow') }
+            end
           rescue Travis::Client::ValidationFailed => e
             error e.message
             return
