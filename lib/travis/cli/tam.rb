@@ -41,7 +41,7 @@ module Travis
 
           begin
             response = session.post_raw(endpoint, JSON.dump(params), 'Content-Type' => 'application/json')
-            unless response['warnings'].nil?
+            unless response['warnings'].empty?
               warn color('Following warnings were generated:', [:bold, 'yellow'])
               response['warnings'].each { |warning| warn color(warning, 'yellow') }
             end
