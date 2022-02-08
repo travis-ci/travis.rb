@@ -50,6 +50,7 @@ module Travis
     autoload :Sshkey,       'travis/cli/sshkey'
     autoload :Status,       'travis/cli/status'
     autoload :Sync,         'travis/cli/sync'
+    autoload :Tam,          'travis/cli/tam'
     autoload :Version,      'travis/cli/version'
     autoload :Whatsup,      'travis/cli/whatsup'
     autoload :Whoami,       'travis/cli/whoami'
