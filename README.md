@@ -1,6 +1,6 @@
 # The Travis Client [![Build Status](https://travis-ci.com/travis-ci/travis.rb.svg?branch=master)](https://travis-ci.com/travis-ci/travis.rb)
 
-![The Travis Mascot](http://about.travis-ci.org/images/travis-mascot-200px.png)
+![The_Travis_Mascot](https://avatars0.githubusercontent.com/u/639823?s=200&v=4&hight=x48px)
 
 The [travis gem](https://rubygems.org/gems/travis) includes both a [command line client](#command-line-client) and a [Ruby library](#ruby-library) to interface with a Travis CI service. Both work with [travis-ci.org](https://travis-ci.org), [travis-ci.com](https://travis-ci.com) or any custom Travis CI setup you might have. Check out the [installation instructions](#installation) to get it running in no time.
 
