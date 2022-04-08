@@ -56,7 +56,6 @@ module Travis
         github.with_token do |token|
           access_token = github_auth(token)
         end
-        session.access_token = nil
         unless access_token
           raise Travis::Client::GitHubLoginFailed, "all GitHub tokens given were invalid"
         end
