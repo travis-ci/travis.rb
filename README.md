@@ -2066,6 +2066,14 @@ See https://github.com/travis-ci/travis.rb/issues/768#issuecomment-700220351 for
 
 ## Version History
 
+### 1.11.1
+
+* Fix `travis sshkey --generate` https://github.com/travis-ci/travis.rb/pull/820
+
+### 1.11.0
+
+* Removed authentication with password https://github.com/travis-ci/travis.rb/pull/811
+
 ### 1.10.1
 
 * Fix `travis monitor` command https://github.com/travis-ci/travis.rb/pull/770
