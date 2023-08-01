@@ -15,12 +15,12 @@ describe Travis::CLI::EncryptFile do
 
   example "travis encrypt-file #{CMD_TARGET}" do
     run_cli('encrypt-file', CMD_TARGET).should be_success
-    File.exists?("#{CMD_TARGET}.enc").should be true
+    File.exist?("#{CMD_TARGET}.enc").should be true
   end
 
   example "travis encrypt-file #{CMD_TARGET} -a" do
     run_cli('encrypt-file', CMD_TARGET, '-a') { |i| i.puts "n" }.should be_success
     stdout.should match /Overwrite the config file/
-    File.exists?("#{CMD_TARGET}.enc").should be true
+    File.exist?("#{CMD_TARGET}.enc").should be true
   end
 end

@@ -3,7 +3,7 @@ Gem::Specification.new do |s|
   # general info
   s.name        = "travis"
   s.version     = "1.11.1"
-  s.required_ruby_version = ">= 2.3.0"
+  s.required_ruby_version = ">= 3.2.0"
   s.description = "CLI and Ruby client library for Travis CI"
   s.homepage    = "https://github.com/travis-ci/travis.rb"
   s.summary     = "Travis CI client"
@@ -410,17 +410,18 @@ Gem::Specification.new do |s|
   ]
 
   # dependencies
-  s.add_dependency "faraday",               "~> 1.0"
-  s.add_dependency "faraday_middleware",    "~> 1.0"
-  s.add_dependency "highline",              "~> 2.0"
-  s.add_dependency "gh",                    "~> 0.13"
-  s.add_dependency "launchy",               "~> 2.1", "< 2.5.0"
-  s.add_dependency "json_pure",             "~> 2.3"
-  s.add_dependency "pusher-client",         "~> 0.4"
-  s.add_development_dependency "rspec",     "~> 2.12"
-  s.add_development_dependency "rspec-its"
-  s.add_development_dependency "sinatra",   "~> 1.3"
-  s.add_development_dependency "rack-test", "~> 0.6"
+  s.add_dependency "faraday",               "~> 2.7.10"
+  s.add_dependency 'faraday-retry'
+  s.add_dependency 'faraday-typhoeus'
+  s.add_dependency 'faraday-rack'
+  s.add_dependency "highline",              "~> 2.1.0"
+  s.add_dependency "launchy",               "~> 2.5.2"
+  s.add_dependency "json_pure",             "~> 2.6.3"
+  s.add_dependency "pusher-client",         "~> 0.6.2"
+  s.add_development_dependency "rspec",     "~> 3.12"
+  s.add_development_dependency "rspec-its", '~> 1.3.0'
+  s.add_development_dependency "sinatra",   "~> 3.0.6"
+  s.add_development_dependency "rack-test", "~> 2.1.0"
 
   # Prereleasing on Travis CI
   if ENV['TRAVIS_JOB_NUMBER'] and ENV['TRAVIS_REPO_SLUG'] == 'travis-ci/travis.rb'
