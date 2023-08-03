@@ -4,6 +4,7 @@ require 'travis/version'
 require 'faraday'
 require 'travis/tools/system'
 require 'travis/tools/assets'
+require 'faraday/rack'
 
 begin
   require 'faraday/typhoeus' unless Travis::Tools::System.windows?

@@ -411,8 +411,6 @@ Gem::Specification.new do |s|
 
   # dependencies
   s.add_dependency "faraday",               "~> 2.7.10"
-  s.add_dependency 'faraday-retry'
-  s.add_dependency 'faraday-typhoeus'
   s.add_dependency 'faraday-rack'
   s.add_dependency "highline",              "~> 2.1.0"
   s.add_dependency "launchy",               "~> 2.5.2"
