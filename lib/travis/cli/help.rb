@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'travis/cli'
 
 module Travis
@@ -23,7 +24,7 @@ module Travis
               say "        #{color(cmd.command_name, :command).ljust(22)} #{color(cmd.description, :info)}"
             end
           end
-          say "\nrun `#{$0} help COMMAND` for more info"
+          say "\nrun `#{$PROGRAM_NAME} help COMMAND` for more info"
         end
       end
 
@@ -45,8 +46,8 @@ module Travis
       end
 
       def other_commands
-        CLI.commands.select do |cmd|
-          !cmd.ancestors.include? CLI::ApiCommand
+        CLI.commands.reject do |cmd|
+          cmd.ancestors.include? CLI::ApiCommand
         end.sort_by { |c| c.command_name }
       end
     end

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'travis/cli/setup'
 
 module Travis
@@ -50,7 +51,7 @@ module Travis
         end
 
         def configure(key, value = {}, config = travis_config)
-          if config.include? key and !force?
+          if config.include?(key) && !force?
             error "#{key} section already exists in .travis.yml, run with --force to override"
           end
           yield(config[key] = value)
@@ -65,18 +66,18 @@ module Travis
             yield config
 
             on("#{verb.capitalize} only from #{repository.slug}? ", config, 'repo' => repository.slug)
-            if branch != 'master' and branch != 'HEAD'
+            if (branch != 'master') && (branch != 'HEAD')
               on("#{verb.capitalize} from #{branch} branch? ", config,
                  'branch' => branch)
             end
 
-            config['skip_cleanup'] = 'true' unless config.has_key?('skip_cleanup') or config.fetch('edge',
-                                                                                                   'false') != 'false'
+            config['skip_cleanup'] = 'true' unless config.key?('skip_cleanup') || (config.fetch('edge',
+                                                                                                'false') != 'false')
 
-            encrypt(config, 'password') if config['password'] and agree('Encrypt Password? ') do |q|
+            encrypt(config, 'password') if config['password'] && agree('Encrypt Password? ') do |q|
                                              q.default = 'yes'
                                            end
-            encrypt(config, 'api_key')  if config['api_key']  and agree('Encrypt API key? ') { |q| q.default = 'yes' }
+            encrypt(config, 'api_key')  if config['api_key']  && agree('Encrypt API key? ') { |q| q.default = 'yes' }
           end
         end
       end

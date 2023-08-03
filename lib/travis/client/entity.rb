@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'travis/client'
 require 'time'
 
@@ -167,7 +168,7 @@ module Travis
 
       def inspect
         klass = self.class
-        klass = curry if curry and curry.name and curry.to_s.size < klass.to_s.size
+        klass = curry if curry&.name && curry.to_s.size < klass.to_s.size
         "#<#{klass}: #{inspect_info}>"
       end
 
@@ -226,7 +227,7 @@ module Travis
           Time.local(value.year, value.mon, value.mday)
         elsif value.is_a? Numeric
           Time.at value
-        elsif value.nil? or value.empty?
+        elsif value.nil? || value.empty?
           nil
         else
           Time.parse value.to_s

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'travis/client'
 
 module Travis
@@ -23,7 +24,7 @@ module Travis
       end
 
       def inspect_info
-        short_sha + ' ' + subject.inspect
+        "#{short_sha} #{subject.inspect}"
       end
     end
   end

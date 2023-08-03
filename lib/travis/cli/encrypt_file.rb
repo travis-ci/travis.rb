@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'travis/cli'
 require 'travis/tools/system'
 
@@ -133,8 +134,8 @@ module Travis
         when /^(.+)\.dec$/ then return ::Regexp.last_match(1) unless decrypt?
         end
 
-        if interactive? and input_path =~ /(\.enc|\.dec)$/ && !(danger_zone? "File extension of input file is #{color(::Regexp.last_match(1),
-                                                                                                                      :info)}, are you sure that is correct?")
+        if interactive? && input_path =~ /(\.enc|\.dec)$/ && !(danger_zone? "File extension of input file is #{color(::Regexp.last_match(1),
+                                                                                                                     :info)}, are you sure that is correct?")
           exit 1
         end
 

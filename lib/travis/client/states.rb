@@ -1,10 +1,11 @@
 # frozen_string_literal: true
+
 require 'travis/client'
 
 module Travis
   module Client
     module States
-      STATES = %w[created queued received started passed failed errored canceled ready]
+      STATES = %w[created queued received started passed failed errored canceled ready].freeze
 
       def ready?
         state == 'ready'

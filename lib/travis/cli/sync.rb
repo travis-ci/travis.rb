@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'travis/cli'
 
 module Travis
@@ -15,7 +16,7 @@ module Travis
 
         if check?
           say "#{'not ' unless user.syncing?}syncing", "#{user.login} is currently %s"
-        elsif user.syncing? and !force?
+        elsif user.syncing? && !force?
           error 'user is already syncing'
         elsif background?
           say 'starting synchronization'

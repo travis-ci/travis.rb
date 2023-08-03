@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+
+require 'English'
 require 'travis/tools/system'
 require 'yaml'
 require 'json'
@@ -26,7 +28,7 @@ module Travis
         @note            = 'temporary token'
         @git_config_keys = %w[github.token github.oauth-token]
         @scopes          = ['user', 'user:email', 'repo'] # overridden by value from /config
-        options.each_pair { |k, v| send("#{k}=", v) if respond_to? "#{k}=" } if options
+        options&.each_pair { |k, v| send("#{k}=", v) if respond_to? "#{k}=" }
         yield self if block_given?
       end
 
@@ -40,7 +42,7 @@ module Travis
       ensure
         callback = self.callback
         self.callback = nil
-        callback.call if callback
+        callback&.call
       end
 
       def with_session
@@ -127,8 +129,8 @@ module Travis
       def acceptable?(token)
         return true unless check_token
 
-        gh   = GH.with(token:)
-        user = gh['user']
+        gh = GH.with(token:)
+        gh['user']
 
         true
       rescue GH::Error => e
@@ -160,7 +162,7 @@ module Travis
 
         debug "requesting to load #{name} from keychain"
         result = `security find-#{type}-password #{arg} -#{key} 2>&1`.chomp
-        $?.success? ? yield(result) : debug('request denied')
+        $CHILD_STATUS.success? ? yield(result) : debug('request denied')
       rescue StandardError => e
         raise e if explode
       end
@@ -168,7 +170,7 @@ module Travis
       def file(path, default = nil)
         path        &&= File.expand_path(path)
         @file       ||= {}
-        @file[path] ||= if path and File.readable?(path)
+        @file[path] ||= if path && File.readable?(path)
                           debug "reading #{path}"
                           yield File.read(path)
                         end

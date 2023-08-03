@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'travis/cli'
 require 'yaml'
 
@@ -10,9 +11,9 @@ module Travis
       on '-x', '--[no-]exit-code', 'sets the exit code to 1 if there are warning'
 
       def run(file = nil)
-        file ||= '.travis.yml' if $stdin.tty? or $stdin.eof?
+        file ||= '.travis.yml' if $stdin.tty? || $stdin.eof?
 
-        if file and file != '-'
+        if file && (file != '-')
           debug "reading #{file}"
           error "file does not exist: #{color(file, :bold)}" unless File.exist? file
           error "cannot read #{color(file, :bold)}"          unless File.readable? file
@@ -37,7 +38,7 @@ module Travis
           else
             say "Warnings for #{color(file, :info)}:"
             lint.warnings.each do |warning|
-              say color('[x]', %i[red bold]) + ' '
+              say "#{color('[x]', %i[red bold])} "
               if warning.key.any?
                 say [
                   color('in ', :info),
@@ -50,7 +51,7 @@ module Travis
           end
         end
 
-        exit 1 if lint.warnings? and exit_code?
+        exit 1 if lint.warnings? && exit_code?
       end
     end
   end

@@ -424,7 +424,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'sinatra',   '~> 3.0.6'
 
   # Prereleasing on Travis CI
-  if ENV['TRAVIS_JOB_NUMBER'] and ENV['TRAVIS_REPO_SLUG'] == 'travis-ci/travis.rb'
+  if ENV['TRAVIS_JOB_NUMBER'] && (ENV['TRAVIS_REPO_SLUG'] == 'travis-ci/travis.rb')
     digits = s.version.to_s.split '.'
     digits[-1] = digits[-1].to_s.succ
     s.version = digits.join('.') + ".travis.#{ENV['TRAVIS_JOB_NUMBER']}"

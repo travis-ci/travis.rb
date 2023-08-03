@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'travis/cli'
 require 'shellwords'
 
@@ -42,15 +43,15 @@ module Travis
 
       def clear
         exit   if env_vars.empty?
-        exit 1 if interactive? and !force? and !danger_zone? "Clear out all env variables for #{color(
+        exit 1 if interactive? && !force? && !danger_zone?("Clear out all env variables for #{color(
           repository.slug, :bold
-        )}?"
+        )}?")
         remove_vars
       end
 
       def remove_vars
         env_vars.each do |var|
-          next if block_given? and !yield(var)
+          next if block_given? && !yield(var)
 
           say color('[x] ', %i[red bold]) + "removing environment variable #{color "$#{var.name}", :info}"
           var.delete

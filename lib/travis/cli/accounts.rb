@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'travis/cli'
 
 module Travis
@@ -17,7 +18,7 @@ module Travis
             account.repos_count == 1 ? '1 repository' : "#{account.repos_count} repositories"
           ].join(' ')
         end
-        return if accounts.none?(&:on_trial?) or session.config['host'].nil?
+        return if accounts.none?(&:on_trial?) || session.config['host'].nil?
 
         say session.config['host'], 'To set up a subscription, please visit %s.'
       end

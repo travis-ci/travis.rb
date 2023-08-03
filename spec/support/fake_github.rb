@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'gh'
 
 module GH
@@ -13,7 +14,7 @@ module GH
     end
 
     def post(key, _body)
-      raise GH::Error unless @authenticated and key == '/authorizations'
+      raise GH::Error unless @authenticated && (key == '/authorizations')
 
       frontend.load('url' => 'https://api.github.com/authorizations/1', 'token' => 'github_token')
     end

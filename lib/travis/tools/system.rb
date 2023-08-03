@@ -1,8 +1,9 @@
 # frozen_string_literal: true
+
 module Travis
   module Tools
     module System
-      extend self
+      module_function
 
       def recent_version?(version, minimum)
         version = version.split('.').map { |s| s.to_i }

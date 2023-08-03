@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'travis/cli'
 
 module Travis
@@ -11,7 +12,7 @@ module Travis
         'coffeescript' => 'node_js',
         'c++' => 'cpp',
         'obj-c' => 'objective-c'
-      }
+      }.freeze
 
       description 'generates a .travis.yml and enables the project'
 
@@ -45,7 +46,7 @@ module Travis
       end
 
       def run(language = nil, file = '.travis.yml')
-        error "#{file} already exists, use --force to override" if File.exist?(file) and !force? and !print_conf?
+        error "#{file} already exists, use --force to override" if File.exist?(file) && !force? && !print_conf?
         language ||= ask('Main programming language used: ') { |q| q.default = detect_language }
         self.travis_config = template(language).merge(custom_config)
 

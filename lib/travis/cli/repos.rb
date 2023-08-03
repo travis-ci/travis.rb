@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'travis/cli'
 
 module Travis
@@ -18,7 +19,7 @@ module Travis
           next say(repo.slug) unless interactive?
 
           state_color = repo.active? ? :green : :yellow
-          say color(repo.slug, [:bold, state_color]) + ' '
+          say "#{color(repo.slug, [:bold, state_color])} "
           say color('(' << attributes(repo).map { |n, v| "#{n}: #{v ? 'yes' : 'no'}" }.join(', ') << ')', state_color)
           description = repo.description.lines.first.chomp unless repo.description.to_s.empty?
           say "Description: #{description || '???'}"
@@ -31,10 +32,10 @@ module Travis
           repos = session.hooks.concat(user.repositories).uniq
           session.preload(repos).sort_by(&:slug).select do |repo|
             next false unless match? repo.slug
-            next false unless active.nil? or repo.active?    == active
-            next false unless owner.nil?  or repo.owner_name == owner
-            next false unless name.nil?   or repo.name       == name
-            next false unless admin.nil?  or repo.admin?     == admin
+            next false unless active.nil? || (repo.active?    == active)
+            next false unless owner.nil?  || (repo.owner_name == owner)
+            next false unless name.nil?   || (repo.name       == name)
+            next false unless admin.nil?  || (repo.admin?     == admin)
 
             true
           end

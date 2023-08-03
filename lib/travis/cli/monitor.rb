@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'travis/cli'
 require 'travis/tools/notification'
 
@@ -90,7 +91,7 @@ module Travis
         notification.notify(entity.repository.slug, [
           entity.class.name[/[^:]+$/],
           entity.number,
-          entity.state + ':',
+          "#{entity.state}:",
           entity.commit.subject
         ].join(' '))
       end

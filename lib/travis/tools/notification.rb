@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'travis'
 require 'travis/tools/system'
 require 'travis/tools/assets'
@@ -7,8 +8,9 @@ require 'cgi'
 module Travis
   module Tools
     module Notification
-      extend self
-      DEFAULT = %i[osx growl libnotify]
+      module_function
+
+      DEFAULT = %i[osx growl libnotify].freeze
       ICON    = Assets['notifications/icon.png']
 
       def new(*list)

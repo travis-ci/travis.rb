@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'travis/cli'
 
 module Travis
@@ -19,7 +20,7 @@ module Travis
           when 'push'
             result      = request.result || 'received'
             message     = request.message
-            message   ||= 'validation pending'  unless request.rejected? or request.accepted?
+            message   ||= 'validation pending'  unless request.rejected? || request.accepted?
             message   ||= 'unknown reason'      unless request.accepted?
             message   ||= 'triggered new build' unless request.rejected?
             description = "push to #{request.branch || request.tag || '???'}"
@@ -28,7 +29,6 @@ module Travis
             message     = request.message
             message   ||= 'HEAD commit not updated' unless request.accepted?
             message   ||= 'triggered new build'     unless request.rejected?
-            description = "push to #{request.branch || request.tag || '???'}"
             description = "PR ##{request.pull_request_number}"
           end
 
@@ -38,7 +38,7 @@ module Travis
             color("(#{message})", style)
           ].join(' ').strip + "\n"
 
-          say '  ' + color(request.commit.short_sha, :bold) + ' - ' + request.commit.subject if request.commit
+          say "  #{color(request.commit.short_sha, :bold)} - #{request.commit.subject}" if request.commit
           say "  received at: #{formatter.time(request.created_at)}"
           empty_line
         end

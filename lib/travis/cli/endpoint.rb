@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'travis/cli'
 
 module Travis
@@ -19,7 +20,7 @@ module Travis
       end
 
       def run_travis
-        if drop_default? and was = config['default_endpoint']
+        if drop_default? && (was = config['default_endpoint'])
           config.delete('default_endpoint')
           say was, 'default API endpoint dropped (was %s)'
         else

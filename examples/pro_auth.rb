@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'travis/pro'
 require 'travis/tools/github'
 require 'highline/import' # so we can hide the password

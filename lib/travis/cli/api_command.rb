@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'travis/cli'
 require 'travis/tools/github'
 
@@ -13,15 +14,9 @@ module Travis
 
       on('-e', '--api-endpoint URL', 'Travis API server to talk to')
       on('-I', '--[no-]insecure', 'do not verify SSL certificate of API endpoint')
-      on('--pro', "short-cut for --api-endpoint '#{Travis::Client::COM_URI}'") do |c, _|
-        c.api_endpoint = Travis::Client::COM_URI
-      end
-      on('--com', "short-cut for --api-endpoint '#{Travis::Client::COM_URI}'") do |c, _|
-        c.api_endpoint = Travis::Client::COM_URI
-      end
-      on('--org', "short-cut for --api-endpoint '#{Travis::Client::ORG_URI}'") do |c, _|
-        c.api_endpoint = Travis::Client::ORG_URI
-      end
+      on('--pro', "short-cut for --api-endpoint '#{Travis::Client::COM_URI}'") { |c, _| c.api_endpoint = Travis::Client::COM_URI }
+      on('--com', "short-cut for --api-endpoint '#{Travis::Client::COM_URI}'") { |c, _| c.api_endpoint = Travis::Client::COM_URI }
+      on('--org', "short-cut for --api-endpoint '#{Travis::Client::ORG_URI}'") { |c, _| c.api_endpoint = Travis::Client::ORG_URI }
       on('--staging', 'talks to staging system') { |c, _| c.api_endpoint = c.api_endpoint.gsub(/api/, 'api-staging') }
       on('-t', '--token [ACCESS_TOKEN]', 'access token to use') { |c, t| c.access_token = t }
 
@@ -46,7 +41,7 @@ module Travis
         require "faraday/adapter/#{adapter}"
         require 'typhoeus/adapters/faraday' if adapter == 'typhoeus'
         c.session.faraday_adapter = adapter.to_sym
-      rescue LoadError => e
+      rescue LoadError
         warn "\`--adapter #{adapter}\` is given, but it is not installed. Run \`gem install #{adapter}\` and try again"
         exit 1
       end
@@ -63,13 +58,13 @@ module Travis
 
       def setup
         setup_enterprise
-        self.api_endpoint = default_endpoint if default_endpoint and !explicit_api_endpoint?
+        self.api_endpoint = default_endpoint if default_endpoint and not explicit_api_endpoint?
         self.access_token               ||= fetch_token
         endpoint_config['access_token'] ||= access_token
         endpoint_config['insecure']       = insecure unless insecure.nil?
         self.insecure                     = endpoint_config['insecure']
         session.ssl                       = { verify: false } if insecure?
-        authenticate if pro? or enterprise?
+        authenticate if pro? || enterprise?
       end
 
       def enterprise?
@@ -96,11 +91,11 @@ module Travis
         user.sync
 
         steps = count = 1
-        while block and user.reload.syncing?
+        while block && user.reload.syncing?
           count += 1
           sleep(1)
 
-          if count % steps == 0
+          if (count % steps).zero?
             steps = count / 10 + 1
             output.print dot
           end
@@ -119,9 +114,7 @@ module Travis
           user_input                  = ask(color('Enterprise domain: ', :bold)).to_s
           domain                      = user_input[%r{^(?:https?://)?(.*?)/?(?:/api/?)?$}, 1]
           endpoint                    = "https://#{domain}/api"
-          config['default_endpoint']  = endpoint if agree("Use #{color domain, :bold} as default endpoint? ") do |q|
-                                                      q.default = 'yes'
-                                                    end
+          config['default_endpoint']  = endpoint if agree("Use #{color domain, :bold} as default endpoint? ") { |q| q.default = 'yes' }
           endpoint
         end
         self.api_endpoint             = c[enterprise_name]
@@ -133,7 +126,7 @@ module Travis
 
       def setup_enterprise?
         @setup_ennterpise ||= false
-        !!enterprise_name and !@setup_ennterpise
+        !!enterprise_name and not @setup_ennterpise
       end
 
       def load_gh
@@ -141,7 +134,7 @@ module Travis
         gh_config     &&= gh_config.inject({}) { |h, (k, v)| h.update(k.to_sym => v) }
         gh_config     ||= {}
         gh_config[:ssl] = Travis::Client::Session::SSL_OPTIONS
-        gh_config[:ssl] = { verify: false } if gh_config[:api_url] and gh_config[:api_url] != 'https://api.github.com'
+        gh_config[:ssl] = { verify: false } if gh_config[:api_url] && gh_config[:api_url] != 'https://api.github.com'
         gh_config.delete :scopes
 
         if debug?
@@ -176,7 +169,7 @@ module Travis
       end
 
       def endpoint_option
-        return ''       if org? and detected_endpoint?
+        return ''       if org? && detected_endpoint?
         return ' --org' if org?
         return ' --pro' if pro?
 

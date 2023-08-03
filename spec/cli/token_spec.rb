@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'spec_helper'
 
 describe Travis::CLI::Token do
@@ -18,6 +19,6 @@ describe Travis::CLI::Token do
     run_cli('token').should_not be_success
 
     stdout.should be_empty
-    stderr.should == "not logged in, please run #{File.basename($0)} login\n"
+    stderr.should == "not logged in, please run #{File.basename($PROGRAM_NAME)} login\n"
   end
 end

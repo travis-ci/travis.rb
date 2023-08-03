@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'travis/cli'
 require 'travis/tools/system'
 
@@ -25,7 +26,7 @@ module Travis
       end
 
       def display_error
-        return unless error = load_file('error.log')
+        return unless (error = load_file('error.log'))
 
         display('Last Exception', :say, color(error, :info))
       end

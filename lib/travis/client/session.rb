@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'travis/client'
 require 'travis/version'
 
@@ -17,7 +18,7 @@ require 'json'
 module Travis
   module Client
     class Session
-      PRIMITIVE   = [nil, false, true]
+      PRIMITIVE   = [nil, false, true].freeze
       SSL_OPTIONS = { ca_file: Tools::Assets['cacert.pem'] }
 
       include Methods
@@ -95,20 +96,20 @@ module Travis
       end
 
       def find_one(entity, id = nil)
-        raise Travis::Client::Error, "cannot fetch #{entity}" unless entity.respond_to?(:many) and entity.many
+        raise Travis::Client::Error, "cannot fetch #{entity}" unless entity.respond_to?(:many) && entity.many
         return create_entity(entity, entity.id_field => id) if entity.id? id
 
         cached(entity, :by, id) { fetch_one(entity, id) }
       end
 
       def find_many(entity, args = {})
-        raise Travis::Client::Error, "cannot fetch #{entity}" unless entity.respond_to?(:many) and entity.many
+        raise Travis::Client::Error, "cannot fetch #{entity}" unless entity.respond_to?(:many) && entity.many
 
         cached(entity, :many, args) { fetch_many(entity, args) }
       end
 
       def find_one_or_many(entity, args = nil)
-        raise Travis::Client::Error, "cannot fetch #{entity}" unless entity.respond_to?(:many) and entity.many
+        raise Travis::Client::Error, "cannot fetch #{entity}" unless entity.respond_to?(:many) && entity.many
 
         cached(entity, :one_or_many, args) do
           path = "/#{entity.many}"
@@ -215,7 +216,7 @@ module Travis
       def raw(verb, url, *args)
         url     = url.sub(%r{^/}, '')
         result  = instrumented(verb.to_s.upcase, url, *args) do
-          if url !~ /^https?:/ or url.start_with? api_endpoint
+          if url !~ (/^https?:/) || url.start_with?(api_endpoint)
             connection.public_send(verb, url, *args)
           else
             Faraday.public_send(verb, url, *args) { |r| r.headers.delete('Authorization') }

@@ -1,13 +1,14 @@
 # frozen_string_literal: true
+
 require 'travis/cli'
 
 module Travis
   module CLI
     class Show < RepoCommand
-      description "displays a build or job"
+      description 'displays a build or job'
 
       def run(number = last_build.number)
-        number = repository.branch(number).number if number !~ /^\d+(\.\d+)?$/ and repository.branch(number)
+        number = repository.branch(number).number if number !~ /^\d+(\.\d+)?$/ && repository.branch(number)
         entity = job(number) || build(number)
 
         error "could not find job or build #{repository.slug}##{number}" unless entity
@@ -18,7 +19,7 @@ module Travis
           entity.commit.subject,
           entity.state,
           entity.color,
-          entity.pull_request? ? "pull request" : "push",
+          entity.pull_request? ? 'pull request' : 'push',
           entity.branch_info,
           entity.commit.short_sha,
           entity.commit.compare_url,
@@ -31,16 +32,16 @@ module Travis
           empty_line
           entity.jobs.each do |job|
             say [
-                  color("##{job.number} #{job.state}:".ljust(16), [job.color, :bold]),
-                  formatter.duration(job.duration).ljust(14),
-                  formatter.job_config(job.config),
-                  (color("(failure allowed)", :info) if job.allow_failures?)
-                ].compact.join(" ").rstrip
+              color("##{job.number} #{job.state}:".ljust(16), [job.color, :bold]),
+              formatter.duration(job.duration).ljust(14),
+              formatter.job_config(job.config),
+              (color('(failure allowed)', :info) if job.allow_failures?)
+            ].compact.join(' ').rstrip
           end
         else
           config = formatter.job_config(entity.config)
-          say color("Allow Failure: ", :info) + entity.allow_failures?.inspect
-          say color("Config:        ", :info) + config unless config.empty?
+          say color('Allow Failure: ', :info) + entity.allow_failures?.inspect
+          say color('Config:        ', :info) + config unless config.empty?
         end
       end
     end

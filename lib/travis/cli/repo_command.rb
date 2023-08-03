@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'travis/cli'
 require 'yaml'
 
@@ -122,11 +123,11 @@ module Travis
       end
 
       def detect_api_endpoint
-        if explicit_api_endpoint? or enterprise?
+        if explicit_api_endpoint? || enterprise?
           repo_config['endpoint'] = api_endpoint
         elsif ENV['TRAVIS_ENDPOINT']
           ENV['TRAVIS_ENDPOINT']
-        elsif config['default_endpoint'] and config['default_endpoint'] !~ TRAVIS
+        elsif config['default_endpoint'] && config['default_endpoint'] !~ (TRAVIS)
           repo_config['endpoint'] ||= config['default_endpoint']
         else
           repo_config['endpoint'] ||= begin

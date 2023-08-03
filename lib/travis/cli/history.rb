@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'travis/cli'
 
 module Travis
@@ -42,7 +43,7 @@ module Travis
         say [
           date? && color(formatter.time(build.finished_at || build.started_at), build.color),
           color("##{build.number} #{build.state}:".ljust(16), [build.color, :bold]),
-          color("#{build.branch_info}", :info),
+          color(build.branch_info.to_s, :info),
           committer? && build.commit.author_name.ljust(25),
           build.commit.subject
         ].compact.join(' ').strip + "\n"

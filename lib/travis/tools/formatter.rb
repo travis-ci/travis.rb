@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'time'
 
 module Travis
@@ -7,7 +8,7 @@ module Travis
       DAY         = 24 * 60 * 60
       TIME_FORMAT = '%Y-%m-%d %H:%M:%S'
       CONFIG_KEYS = %w[rvm gemfile env jdk otp_release php node_js perl python scala
-                       compiler os]
+                       compiler os].freeze
 
       def duration(seconds, suffix = nil)
         return 'none' if seconds.nil?
@@ -16,19 +17,19 @@ module Travis
         output           = []
         minutes, seconds = seconds.divmod(60)
         hours, minutes   = minutes.divmod(60)
-        output << "#{hours} hrs" if hours > 0
-        output << "#{minutes} min" if minutes > 0
-        output << "#{seconds} sec" if seconds > 0 or output.empty?
+        output << "#{hours} hrs" if hours.positive?
+        output << "#{minutes} min" if minutes.positive?
+        output << "#{seconds} sec" if seconds.positive? || output.empty?
         output << suffix           if suffix
         output.join(' ')
       end
 
-      def file_size(input, human = true)
+      def file_size(input, human: true)
         return "#{input} B" unless human
 
         format = 'B'
         iec    = %w[KiB MiB GiB TiB PiB EiB ZiB YiB]
-        while human and input > 512 and iec.any?
+        while human && (input > 512) && iec.any?
           input /= 1024.0
           format = iec.shift
         end

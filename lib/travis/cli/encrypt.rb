@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'travis/cli'
 
 module Travis
@@ -17,10 +18,10 @@ module Travis
 
       def run(*args)
         confirm = force_interactive.nil? || force_interactive
-        error 'cannot combine --override and --append'   if append?   and override?
-        error '--append without --add makes no sense'    if append?   and !add?
-        error '--override without --add makes no sense'  if override? and !add?
-        self.override |= !config_key.start_with?('env.') if add?      and !append?
+        error 'cannot combine --override and --append'   if append?   && override?
+        error '--append without --add makes no sense'    if append?   && !add?
+        error '--override without --add makes no sense'  if override? && !add?
+        self.override |= !config_key.start_with?('env.') if add?      && !append?
 
         if args.first =~ %r{\w+/\w+} && !args.first.include?('=')
           warn 'WARNING: The name of the repository is now passed to the command with the -r option:'

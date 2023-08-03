@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'travis/cli'
 require 'travis/tools/ssl_key'
 require 'travis/tools/github'
@@ -45,7 +46,7 @@ module Travis
       end
 
       def delete_key
-        return if interactive? and !danger_zone? "Remove SSH key for #{color slug, :info}?"
+        return if interactive? && !danger_zone?("Remove SSH key for #{color slug, :info}?")
 
         say "Removing ssh key for #{color slug, :info}"
         ssh_key.delete

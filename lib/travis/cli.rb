@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 begin
   require 'travis/client'
 rescue LoadError => e
@@ -65,7 +66,7 @@ module Travis
 
     def command(name)
       const_name = command_name(name)
-      constant   = CLI.const_get(const_name) if const_name =~ /^[A-Z][A-Za-z]+$/ and const_defined? const_name
+      constant   = CLI.const_get(const_name) if const_name =~ (/^[A-Z][A-Za-z]+$/) && const_defined?(const_name)
       if command? constant
         constant
       else
@@ -97,7 +98,7 @@ module Travis
     end
 
     def dummy_io
-      return StringIO.new unless defined? IO::NULL and IO::NULL
+      return StringIO.new unless defined? IO::NULL && IO::NULL
 
       File.open(IO::NULL, 'w')
     end
@@ -110,7 +111,7 @@ module Travis
       case name
       when nil, '-h', '-?' then 'Help'
       when '-v'            then 'Version'
-      when /^--/           then command_name(name[2..-1])
+      when /^--/           then command_name(name[2..])
       else name.split('-').map(&:capitalize).join
       end
     end

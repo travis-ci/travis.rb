@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'travis/client'
 require 'travis/tools/safe_string'
 
@@ -6,7 +7,7 @@ module Travis
   module Client
     class Artifact < Entity
       CHUNKED = 'application/json; chunked=true; version=2, application/json; version=2'
-      TEXT    = "#{CHUNKED}, text/plain"
+      TEXT    = "#{CHUNKED}, text/plain".freeze
 
       # @!parse attr_reader :job_id, :type, :body
       attributes :job_id, :type, :body
@@ -48,8 +49,8 @@ module Travis
       end
 
       def body(stream = block_given?)
-        return current_body unless block_given? or stream
-        return yield(current_body) unless stream and job.pending?
+        return current_body unless block_given? || stream
+        return yield(current_body) unless stream && job.pending?
 
         number = 0
 

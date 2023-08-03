@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'travis/cli/setup'
 require 'yaml'
 

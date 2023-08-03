@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'travis/cli'
 
 module Travis
@@ -40,7 +41,7 @@ module Travis
         normal_name = Service.normalized_name(name)
         const_name  = constants(false).detect { |c| Service.normalized_name(c) == normal_name }
         constant    = const_get(const_name) if const_name
-        constant if constant and constant < Service and constant.known_as? name
+        constant if constant && (constant < Service) && constant.known_as?(name)
       end
 
       def self.services

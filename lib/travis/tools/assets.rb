@@ -1,10 +1,12 @@
 # frozen_string_literal: true
+
 require 'pathname'
 module Travis
   module Tools
     module Assets
       BASE = File.expand_path('../../../assets', __dir__)
-      extend self
+
+      module_function
 
       def asset_path(file)
         Pathname.glob(File.expand_path(file, BASE)).tap do |x|

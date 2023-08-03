@@ -167,12 +167,12 @@ module Travis
         end
       rescue Timeout::Error, Faraday::ClientError => e
         debug "#{e.class}: #{e.message}"
-      rescue JSON::ParserError => e
+      rescue JSON::ParserError
         warn 'Unable to determine the most recent travis gem version. http://rubygems.org may be down.'
       end
 
       def check_completion
-        return if skip_completion_check? or !interactive?
+        return if skip_completion_check? || !interactive?
 
         if config['checked_completion']
           Tools::Completion.update_completion if config['completion_version'] != Travis::VERSION
@@ -192,7 +192,7 @@ module Travis
       end
 
       def check_ruby
-        return if RUBY_VERSION > '1.9.2' or skip_version_check?
+        return if (RUBY_VERSION > '1.9.2') || skip_version_check?
 
         warn "Your Ruby version is outdated, please consider upgrading, as we will drop support for #{RUBY_VERSION} soon!"
       end
@@ -262,7 +262,7 @@ module Travis
 
       def help(info = '')
         parser.banner = usage
-        self.class.description.sub(/./) { |c| c.upcase } + ".\n" + info + parser.to_s
+        "#{self.class.description.sub(/./) { |c| c.upcase }}.\n#{info}#{parser}"
       end
 
       def say(data, format = nil, style = nil)
@@ -333,7 +333,7 @@ module Travis
 
       def format(data, format = nil, style = nil)
         style ||= :important
-        data = format % color(data, style) if format and interactive?
+        data = format % color(data, style) if format && interactive?
         data = data.gsub(/<\[\[/, '<%=').gsub(/\]\]>/, '%>')
         data.encode! 'utf-8' if data.respond_to? :encode!
         data
@@ -360,7 +360,7 @@ module Travis
       end
 
       def command(name)
-        color("#{File.basename($0)} #{name}", :command)
+        color("#{File.basename($PROGRAM_NAME)} #{name}", :command)
       end
 
       def success(line)
@@ -374,14 +374,14 @@ module Travis
       end
 
       def load_file(name, default = nil)
-        return default unless path = config_path(name) and File.exist? path
+        return default unless (path = config_path(name)) && File.exist?(path)
 
         debug 'Loading %p' % path
         File.read(path)
       end
 
       def delete_file(name)
-        return unless path = config_path(name) and File.exist? path
+        return unless (path = config_path(name)) && File.exist?(path)
 
         debug 'Deleting %p' % path
         File.delete(path)
@@ -405,7 +405,7 @@ module Travis
         raise e if explode?
 
         warn "Broken config file: #{color config_path('config.yml'), :bold}"
-        exit 1 unless interactive? and agree('Remove config file? ') { |q| q.default = 'no' }
+        exit 1 unless interactive? && agree('Remove config file? ') { |q| q.default = 'no' }
         @original_config = {}
         @config = {}
       end
@@ -420,7 +420,7 @@ module Travis
         method.parameters.each do |type, _name|
           return if type == :rest
 
-          wrong_args('few') unless args.shift or type == :opt or type == :block
+          wrong_args('few') unless args.shift || (type == :opt) || (type == :block)
         end
         wrong_args('many') if args.any?
       end
@@ -435,7 +435,7 @@ module Travis
       end
 
       def write_file?(file, force)
-        return true if force or !File.exist?(file)
+        return true if force || !File.exist?(file)
         return false unless interactive?
 
         danger_zone? "Override existing #{color(file, :info)}?"

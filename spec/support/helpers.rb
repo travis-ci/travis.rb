@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'spec_helper'
 require 'stringio'
 require 'ostruct'
@@ -34,11 +35,11 @@ module Helpers
   end
 
   def stderr
-    last_run.err if last_run
+    last_run&.err
   end
 
   def stdout
-    last_run.out if last_run
+    last_run&.out
   end
 
   private

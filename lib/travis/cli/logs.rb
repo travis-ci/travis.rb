@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'travis/cli'
 require 'travis/tools/safe_string'
 require 'travis/tools/system'
@@ -64,7 +65,7 @@ module Travis
       def check_websocket
         require 'websocket-native' if stream?
       rescue LoadError => e
-        raise e if e.respond_to?(:path) and e.path != 'websocket-native'
+        raise e if e.respond_to?(:path) && (e.path != 'websocket-native')
 
         info 'speed up log streaming by installing the websocket-native gem'
       end

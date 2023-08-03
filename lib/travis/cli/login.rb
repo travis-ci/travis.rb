@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'travis/cli'
 require 'travis/tools/github'
 require 'json'
@@ -28,7 +29,7 @@ module Travis
         session.access_token = nil
         github.with_token do |token|
           endpoint_config['access_token'] = github_auth(token)
-          if user_login and user.login != user_login
+          if user_login && (user.login != user_login)
             error(format('user mismatch: logged in as %p instead of %p', user.login,
                          user_login))
           end

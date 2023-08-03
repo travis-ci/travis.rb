@@ -62,7 +62,7 @@ task 'README.md'      => :update
 
 task gemspec: :update
 task default: :spec
-task default: :gemspec unless windows or RUBY_VERSION < '2.0'
+task default: :gemspec unless windows || (RUBY_VERSION < '2.0')
 task test: :spec
 
 def sort_by_commits_alpha(shortlog_output, patt)

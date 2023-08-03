@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'travis/client'
 require 'travis/tools/ssl_key'
 
@@ -143,7 +144,7 @@ module Travis
         build_number = number.to_s[/^\d+/] or return nil
         build        = build(build_number) or return nil
         job          = build.jobs.detect { |j| j.number == number } if number != build_number
-        job        ||= build.jobs.first if build and build.jobs.size == 1
+        job        ||= build.jobs.first if build && (build.jobs.size == 1)
         job
       end
 

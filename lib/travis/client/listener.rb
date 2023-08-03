@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'travis/client'
 require 'forwardable'
 require 'json'
@@ -60,7 +61,7 @@ module Travis
 
         def reconnect(delay = nil)
           disconnect if connected
-          sleep delay if delay and delay > 0
+          sleep delay if delay&.positive?
           connect
         end
       end
@@ -68,7 +69,7 @@ module Travis
       EVENTS = %w[
         build:created build:started build:finished
         job:created job:started job:log job:finished
-      ]
+      ].freeze
 
       Event = Struct.new(:type, :repository, :build, :job, :payload)
 
@@ -176,10 +177,10 @@ module Travis
         encrypted            = pusher_options['scheme'] != 'http'
         options              = { encrypted:, session: }
         options[:ws_host]    = pusher_options['host'] if pusher_options['host']
-        options[:wss_port]   = pusher_options['port'] if encrypted  and pusher_options['port']
-        options[:ws_port]    = pusher_options['port'] if !encrypted and pusher_options['port']
+        options[:wss_port]   = pusher_options['port'] if encrypted  && pusher_options['port']
+        options[:ws_port]    = pusher_options['port'] if !encrypted && pusher_options['port']
         options[:ws_path]    = pusher_options['path'] if pusher_options['path']
-        unless options[:ws_path].nil? or options[:ws_path].start_with? '/'
+        unless options[:ws_path].nil? || options[:ws_path].start_with?('/')
           options[:ws_path] =
             '/' << options[:ws_path]
         end
