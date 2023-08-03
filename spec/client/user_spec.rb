@@ -1,8 +1,9 @@
+# frozen_string_literal: true
 require 'spec_helper'
 
 describe Travis::Client::User do
   # attributes :login, :name, :email, :gravatar_id, :locale, :is_syncing, :synced_at, :correct_scopes
-  subject { Travis::Client.new(:access_token => 'token').user }
+  subject { Travis::Client.new(access_token: 'token').user }
   its(:login) { should be == 'rkh' }
   its(:name) { should be == 'Konstantin Haase' }
   its(:email) { should be == 'konstantin.haase@gmail.com' }

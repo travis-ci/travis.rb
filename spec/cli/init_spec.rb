@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'spec_helper'
 
 describe Travis::CLI::Init do
@@ -14,7 +15,7 @@ describe Travis::CLI::Init do
     Dir.chdir(old_path)
   end
 
-  example "travis init fakelanguage" do
+  example 'travis init fakelanguage' do
     run_cli('init', 'fakelanguage', '--skip-enable', '-r', 'travis-ci/travis.rb').should_not be_success
     stderr.should be == "unknown language fakelanguage\n"
   end
@@ -29,17 +30,17 @@ describe Travis::CLI::Init do
     end
 
     example "travis init #{language} (.travis.yml already exists, using --force)" do
-      File.open(".travis.yml", "w") { |f| f << "old file" }
+      File.open('.travis.yml', 'w') { |f| f << 'old file' }
       run_cli('init', language, '--force', '--skip-enable', '-r', 'travis-ci/travis.rb').should be_success
       stdout.should be == ".travis.yml file created!\n"
-      File.read(".travis.yml").should_not be == "old file"
+      File.read('.travis.yml').should_not be == 'old file'
     end
 
     example "travis init #{language} (.travis.yml already exists, not using --force)" do
-      File.open(".travis.yml", "w") { |f| f << "old file" }
+      File.open('.travis.yml', 'w') { |f| f << 'old file' }
       run_cli('init', language, '--skip-enable', '-r', 'travis-ci/travis.rb').should_not be_success
       stderr.should be == ".travis.yml already exists, use --force to override\n"
-      File.read('.travis.yml').should be == "old file"
+      File.read('.travis.yml').should be == 'old file'
     end
   end
 

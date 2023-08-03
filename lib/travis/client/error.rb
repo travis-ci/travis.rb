@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'travis/client'
 
 module Travis
@@ -25,7 +26,7 @@ module Travis
 
     class AssetNotFound < Error
       def initialize(file, *args)
-        if md = file.match(%r[init/(?<lang>[^\.]+)\.yml$])
+        if md = file.match(%r{init/(?<lang>[^.]+)\.yml$})
           super "unknown language #{md[:lang]}", *args
         else
           super file, *args

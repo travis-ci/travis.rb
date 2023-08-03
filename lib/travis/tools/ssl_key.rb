@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'openssl'
 require 'base64'
 
@@ -41,6 +42,7 @@ module Travis
 
       def to_byte_array(num, *significant)
         return significant if num.between?(-1, 0) and significant[0][7] == num[7]
+
         to_byte_array(*num.divmod(256)) + significant
       end
     end

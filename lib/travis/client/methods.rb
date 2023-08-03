@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'travis/client'
 require 'yaml'
 
@@ -17,12 +18,13 @@ module Travis
       end
 
       def github_auth(github_token)
-        reply = session.post_raw("/auth/github", :github_token => github_token)
-        unless reply.respond_to?(:key?) && reply.key?("access_token")
-          raise InvalidTokenError, 'token is invalid, or does not have sufficient scope; see https://docs.travis-ci.com/user/github-oauth-scopes/ for more information on scope'
+        reply = session.post_raw('/auth/github', github_token:)
+        unless reply.respond_to?(:key?) && reply.key?('access_token')
+          raise InvalidTokenError,
+                'token is invalid, or does not have sufficient scope; see https://docs.travis-ci.com/user/github-oauth-scopes/ for more information on scope'
         end
 
-        session.access_token = reply["access_token"]
+        session.access_token = reply['access_token']
       end
 
       def explicit_api_endpoint?
@@ -67,7 +69,7 @@ module Travis
       end
 
       def accounts
-        session.find_many(Account, :all => true)
+        session.find_many(Account, all: true)
       end
 
       def broadcasts
@@ -78,12 +80,14 @@ module Travis
         # btw, internally we call this reset, not restart, as it resets the state machine
         # but we thought that would be too confusing
         raise Error, "cannot restart a #{entity.class.one}" unless entity.restartable?
+
         session.post_raw("/#{entity.class.many}/#{entity.id}/restart")
         entity.reload
       end
 
       def cancel(entity)
         raise Error, "cannot cancel a #{entity.class.one}" unless entity.cancelable?
+
         session.post_raw("/#{entity.class.many}/#{entity.id}/cancel")
         entity.reload
       end

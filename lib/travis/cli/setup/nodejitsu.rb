@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'travis/cli/setup'
 require 'json'
 
@@ -5,7 +6,7 @@ module Travis
   module CLI
     class Setup
       class Nodejitsu < Service
-        description "automatic deployment to Nodejitsu"
+        description 'automatic deployment to Nodejitsu'
 
         def run
           deploy 'nodejitsu' do |config|
@@ -17,8 +18,8 @@ module Travis
               config['api_key'] = jitsu_conf['apiToken']
             end
 
-            config['user']    ||= ask("Nodejitsu user: ").to_s
-            config['api_key'] ||= ask("Nodejitsu API token: ") { |q| q.echo = "*" }.to_s
+            config['user']    ||= ask('Nodejitsu user: ').to_s
+            config['api_key'] ||= ask('Nodejitsu API token: ') { |q| q.echo = '*' }.to_s
           end
         end
       end

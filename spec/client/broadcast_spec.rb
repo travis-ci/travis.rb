@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'spec_helper'
 
 describe Travis::Client::Broadcast do
@@ -5,6 +6,5 @@ describe Travis::Client::Broadcast do
   subject { session.broadcasts.first }
 
   its(:id) { should be == 1 }
-  its(:message) { should be == "Hello!" }
-
+  its(:message) { should be == 'Hello!' }
 end

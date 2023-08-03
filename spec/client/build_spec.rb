@@ -1,14 +1,15 @@
+# frozen_string_literal: true
 require 'spec_helper'
 
 describe Travis::Client::Build do
   let(:session) { Travis::Client.new }
-  subject { session.build(4125095) }
+  subject { session.build(4_125_095) }
   its(:number) { should be == '6180' }
   its(:state) { should be == 'failed' }
   its(:duration) { should be == 5019 }
   its(:started_at) { should be_a(Time) }
   its(:finished_at) { should be_nil }
-  its(:inspect) { should be == "#<Travis::Client::Build: rails/rails#6180>" }
+  its(:inspect) { should be == '#<Travis::Client::Build: rails/rails#6180>' }
   its(:color) { should be == 'red' }
   its(:commit) { should be_a(Travis::Client::Commit) }
   its(:jobs) { should be_an(Array) }

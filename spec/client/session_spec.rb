@@ -1,21 +1,22 @@
+# frozen_string_literal: true
 require 'spec_helper'
 
 describe Travis::Client::Session do
   it { should be_a(Travis::Client::Methods) }
 
-  describe "uri" do
-    its(:uri) { should be == "https://api.travis-ci.org/" }
+  describe 'uri' do
+    its(:uri) { should be == 'https://api.travis-ci.org/' }
 
     it 'can be set as argument' do
       Travis::Client::Session.new('http://foo/').uri.should be == 'http://foo/'
     end
 
     it 'can be set as hash argument' do
-      Travis::Client::Session.new(:uri => 'http://foo/').uri.should be == 'http://foo/'
+      Travis::Client::Session.new(uri: 'http://foo/').uri.should be == 'http://foo/'
     end
   end
 
-  describe "access_token" do
+  describe 'access_token' do
     its(:access_token) { should be_nil }
 
     it 'gives authenticated access if set' do
@@ -28,7 +29,7 @@ describe Travis::Client::Session do
     end
   end
 
-  describe "connection" do
+  describe 'connection' do
     its(:connection) { should be_a(Faraday::Connection) }
 
     it 'creates a new connection when changing the uri' do
@@ -38,7 +39,7 @@ describe Travis::Client::Session do
     end
   end
 
-  describe "headers" do
+  describe 'headers' do
     it 'propagates headers to connection headers' do
       subject.headers['foo'] = 'bar'
       subject.connection.headers.should include('foo')
@@ -51,8 +52,8 @@ describe Travis::Client::Session do
     end
 
     it 'is possible to set headers as constructor option' do
-      Travis::Client::Session.new(:headers => {'foo' => 'bar'}, :uri => 'http://localhost:3000/').
-        connection.headers['foo'].should be == 'bar'
+      Travis::Client::Session.new(headers: { 'foo' => 'bar' }, uri: 'http://localhost:3000/')
+                             .connection.headers['foo'].should be == 'bar'
     end
 
     it 'sets a User-Agent' do
@@ -63,8 +64,8 @@ describe Travis::Client::Session do
     end
 
     it 'allows adding custom info to the User-Agent' do
-      subject.agent_info = "foo"
-      subject.headers['User-Agent'].should include("foo")
+      subject.agent_info = 'foo'
+      subject.headers['User-Agent'].should include('foo')
       subject.headers['User-Agent'].should include("Travis/#{Travis::VERSION}")
       subject.headers['User-Agent'].should include("Faraday/#{Faraday::VERSION}")
       subject.headers['User-Agent'].should include("Rack/#{Rack.version}")
@@ -72,7 +73,7 @@ describe Travis::Client::Session do
     end
   end
 
-  describe "find_one" do
+  describe 'find_one' do
     it 'finds one instance' do
       repo = subject.find_one(Travis::Client::Repository, 'rails/rails')
       repo.should be_a(Travis::Client::Repository)
@@ -80,16 +81,16 @@ describe Travis::Client::Session do
     end
   end
 
-  describe "find_many" do
+  describe 'find_many' do
     it 'finds many instances' do
       repos = subject.find_many(Travis::Client::Repository)
       repos.should be_an(Array)
       repos.each { |repo| repo.should be_a(Travis::Client::Repository) }
-      repos.first.slug.should be == "pypug/django-mango"
+      repos.first.slug.should be == 'pypug/django-mango'
     end
   end
 
-  describe "find_one_or_many" do
+  describe 'find_one_or_many' do
     it 'finds one instance' do
       subject.access_token = 'token'
       subject.find_one_or_many(Travis::Client::User).should be_a(Travis::Client::User)
@@ -100,9 +101,9 @@ describe Travis::Client::Session do
     end
   end
 
-  describe "reload" do
+  describe 'reload' do
     it 'reloads an instance' do
-      Travis::Client::Session::FakeAPI.rails_description = "Ruby on Rails"
+      Travis::Client::Session::FakeAPI.rails_description = 'Ruby on Rails'
       rails = subject.find_one(Travis::Client::Repository, 'rails/rails')
       rails.description.should be == 'Ruby on Rails'
       Travis::Client::Session::FakeAPI.rails_description = 'Rails on the Rubies'
@@ -112,16 +113,16 @@ describe Travis::Client::Session do
     end
   end
 
-  describe "get" do
+  describe 'get' do
     it 'fetches a payload and substitutes values with entities' do
       result = subject.get('/repos/')
-      result['repos'].first.slug.should be == "pypug/django-mango"
+      result['repos'].first.slug.should be == 'pypug/django-mango'
     end
   end
 
-  describe "clear_cache" do
+  describe 'clear_cache' do
     it 'resets all the entities' do
-      Travis::Client::Session::FakeAPI.rails_description = "Ruby on Rails"
+      Travis::Client::Session::FakeAPI.rails_description = 'Ruby on Rails'
       rails = subject.find_one(Travis::Client::Repository, 'rails/rails')
       rails.description.should be == 'Ruby on Rails'
       Travis::Client::Session::FakeAPI.rails_description = 'Rails on the Rubies'
@@ -137,9 +138,9 @@ describe Travis::Client::Session do
     end
   end
 
-  describe "clear_cache!" do
+  describe 'clear_cache!' do
     it 'resets all the entities' do
-      Travis::Client::Session::FakeAPI.rails_description = "Ruby on Rails"
+      Travis::Client::Session::FakeAPI.rails_description = 'Ruby on Rails'
       rails = subject.find_one(Travis::Client::Repository, 'rails/rails')
       rails.description.should be == 'Ruby on Rails'
       Travis::Client::Session::FakeAPI.rails_description = 'Rails on the Rubies'
@@ -155,11 +156,11 @@ describe Travis::Client::Session do
     end
   end
 
-  describe "session" do
+  describe 'session' do
     its(:session) { should eq(subject) }
   end
 
-  describe "config" do
-    its(:config) { should be == {"host" => "travis-ci.org"}}
+  describe 'config' do
+    its(:config) { should be == { 'host' => 'travis-ci.org' } }
   end
 end

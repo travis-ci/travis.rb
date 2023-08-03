@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'spec_helper'
 require 'fileutils'
 require 'digest'
@@ -6,7 +7,7 @@ describe Travis::CLI::EncryptFile do
   CMD_TARGET = 'README.md'
 
   before :each do
-    Digest.stub(:hexencode).and_return "randomhex" # to avoid relying on Dir.pwd value for hex
+    Digest.stub(:hexencode).and_return 'randomhex' # to avoid relying on Dir.pwd value for hex
   end
 
   after :each do
@@ -19,8 +20,8 @@ describe Travis::CLI::EncryptFile do
   end
 
   example "travis encrypt-file #{CMD_TARGET} -a" do
-    run_cli('encrypt-file', CMD_TARGET, '-a') { |i| i.puts "n" }.should be_success
-    stdout.should match /Overwrite the config file/
+    run_cli('encrypt-file', CMD_TARGET, '-a') { |i| i.puts 'n' }.should be_success
+    stdout.should match(/Overwrite the config file/)
     File.exist?("#{CMD_TARGET}.enc").should be true
   end
 end

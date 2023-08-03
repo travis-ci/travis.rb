@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Travis
   module Tools
     module System
@@ -10,7 +11,7 @@ module Travis
       end
 
       def windows?
-        File::ALT_SEPARATOR == "\\"
+        File::ALT_SEPARATOR == '\\'
       end
 
       def mac?
@@ -22,7 +23,7 @@ module Travis
       end
 
       def unix?
-        not windows?
+        !windows?
       end
 
       def os
@@ -52,7 +53,7 @@ module Travis
       end
 
       def ruby_version
-        "%s-p%s" % [RUBY_VERSION, RUBY_PATCHLEVEL]
+        format('%s-p%s', RUBY_VERSION, RUBY_PATCHLEVEL)
       end
 
       def ruby
@@ -65,22 +66,25 @@ module Travis
       end
 
       def rubygems
-        return "no RubyGems" unless defined? Gem
+        return 'no RubyGems' unless defined? Gem
+
         "RubyGems #{Gem::VERSION}"
       end
 
       def description(*args)
-        [ full_os, ruby, rubygems, *args.flatten].compact.uniq.join("; ")
+        [full_os, ruby, rubygems, *args.flatten].compact.uniq.join('; ')
       end
 
       def has?(command)
         return false unless unix?
+
         @has ||= {}
         @has.fetch(command) { @has[command] = system "command -v #{command} 2>/dev/null >/dev/null" }
       end
 
       def running?(app)
         return false unless unix?
+
         system "/usr/bin/pgrep -u $(whoami) #{app} >/dev/null"
       end
     end

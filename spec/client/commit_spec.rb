@@ -1,8 +1,9 @@
+# frozen_string_literal: true
 require 'spec_helper'
 
 describe Travis::Client::Build do
   let(:session) { Travis::Client.new }
-  subject { session.build(4125095).commit }
+  subject { session.build(4_125_095).commit }
 
   its(:sha) { should be == 'a0265b98f16c6e33be32aa3f57231d1189302400' }
   its(:short_sha) { should be == 'a0265b9' }
@@ -16,7 +17,7 @@ describe Travis::Client::Build do
   its(:compare_url) { should be == 'https://github.com/rails/rails/compare/6581d798e830...a0265b98f16c' }
   its(:subject) { should be == 'Associaton -> Association' }
 
-  specify "with missing data" do
-    session.load("commit" => { "id" => 12 })['commit'].subject.should be_empty
+  specify 'with missing data' do
+    session.load('commit' => { 'id' => 12 })['commit'].subject.should be_empty
   end
 end

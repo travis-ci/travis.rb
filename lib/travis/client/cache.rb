@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'travis/client/weak_entity'
 
 module Travis
@@ -14,11 +15,11 @@ module Travis
       many :caches
 
       def delete
-        repository.delete_caches(:branch => branch, :match => slug)
+        repository.delete_caches(branch:, match: slug)
       end
 
       def inspect_info
-        [repository.slug, branch, slug].compact.join(" ")
+        [repository.slug, branch, slug].compact.join(' ')
       end
     end
   end

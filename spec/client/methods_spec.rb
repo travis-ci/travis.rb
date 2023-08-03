@@ -1,8 +1,9 @@
+# frozen_string_literal: true
 require 'spec_helper'
 
 describe Travis::Client::Methods do
   let(:session) { Travis::Client.new }
-  subject { OpenStruct.new(:session => session).extend(Travis::Client::Methods) }
+  subject { OpenStruct.new(session:).extend(Travis::Client::Methods) }
   before { subject.access_token = 'token' }
 
   its(:api_endpoint) { should be == 'https://api.travis-ci.org/' }

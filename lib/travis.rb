@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Travis
   autoload :Client,   'travis/client'
   autoload :CLI,      'travis/cli'

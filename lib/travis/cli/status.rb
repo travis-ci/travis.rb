@@ -1,9 +1,10 @@
+# frozen_string_literal: true
 require 'travis/cli'
 
 module Travis
   module CLI
     class Status < RepoCommand
-      description "checks status of the latest build"
+      description 'checks status of the latest build'
 
       on '-x', '--[no-]exit-code',    'sets the exit code to 1 if the build failed'
       on '-q', '--[no-]quiet',        'does not print anything'

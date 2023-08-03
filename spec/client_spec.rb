@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'spec_helper'
 
 describe Travis::Client do
@@ -12,6 +13,6 @@ describe Travis::Client do
   end
 
   it 'accepts options hash with symbol keys' do
-    Travis::Client.new(:uri => 'http://foo/').uri.should be == 'http://foo/'
+    Travis::Client.new(uri: 'http://foo/').uri.should be == 'http://foo/'
   end
 end

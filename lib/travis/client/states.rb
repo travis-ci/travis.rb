@@ -1,9 +1,10 @@
+# frozen_string_literal: true
 require 'travis/client'
 
 module Travis
   module Client
     module States
-      STATES  = %w[created queued received started passed failed errored canceled ready]
+      STATES = %w[created queued received started passed failed errored canceled ready]
 
       def ready?
         state == 'ready'
@@ -11,7 +12,7 @@ module Travis
 
       def pending?
         check_state
-        %w[created started queued received ].include? state
+        %w[created started queued received].include? state
       end
 
       def started?
@@ -30,7 +31,7 @@ module Travis
       end
 
       def finished?
-        not pending?
+        !pending?
       end
 
       def passed?
@@ -90,9 +91,9 @@ module Travis
 
       private
 
-        def check_state
-          raise Error, "unknown state %p for %p" % [state, self] unless STATES.include? state
-        end
+      def check_state
+        raise Error, format('unknown state %p for %p', state, self) unless STATES.include? state
+      end
     end
   end
 end

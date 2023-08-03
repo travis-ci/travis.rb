@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'travis/client'
 
 module Travis
@@ -6,7 +7,8 @@ module Travis
       include NotLoadable
 
       # @!parse attr_reader :sha, :branch, :message, :committed_at, :author_name, :author_email, :committer_name, :committer_email, :compare_url
-      attributes :sha, :branch, :message, :committed_at, :author_name, :author_email, :committer_name, :committer_email, :compare_url
+      attributes :sha, :branch, :message, :committed_at, :author_name, :author_email, :committer_name,
+                 :committer_email, :compare_url
       time :committed_at
 
       one :commit
@@ -21,7 +23,7 @@ module Travis
       end
 
       def inspect_info
-        short_sha + " " + subject.inspect
+        short_sha + ' ' + subject.inspect
       end
     end
   end

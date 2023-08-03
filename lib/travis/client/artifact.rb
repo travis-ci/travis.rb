@@ -1,11 +1,11 @@
-# encoding: utf-8
+# frozen_string_literal: true
 require 'travis/client'
 require 'travis/tools/safe_string'
 
 module Travis
   module Client
     class Artifact < Entity
-      CHUNKED = "application/json; chunked=true; version=2, application/json; version=2"
+      CHUNKED = 'application/json; chunked=true; version=2, application/json; version=2'
       TEXT    = "#{CHUNKED}, text/plain"
 
       # @!parse attr_reader :job_id, :type, :body
@@ -15,11 +15,12 @@ module Travis
       has :job
 
       def delete_body(reason = {})
-        reason = { :reason => reason } unless reason.is_a? Hash
+        reason = { reason: } unless reason.is_a? Hash
         session.patch_raw("jobs/#{job_id}/log", reason)
         reload
-      rescue Travis::Client::Error => error
-        raise unless error.message == '409'
+      rescue Travis::Client::Error => e
+        raise unless e.message == '409'
+
         self
       end
 
@@ -39,8 +40,8 @@ module Travis
         attributes['current_body'] ||= begin
           body = load_attribute('body')
           if body.to_s.empty?
-            log  = session.get_raw("jobs/#{job_id}/log", nil, "Accept" => TEXT)
-            body = String === log ? log : log['log']['body']
+            log  = session.get_raw("jobs/#{job_id}/log", nil, 'Accept' => TEXT)
+            body = log.is_a?(String) ? log : log['log']['body']
           end
           body
         end
@@ -49,22 +50,24 @@ module Travis
       def body(stream = block_given?)
         return current_body unless block_given? or stream
         return yield(current_body) unless stream and job.pending?
+
         number = 0
 
         session.listen(self) do |listener|
           listener.on 'job:log' do |event|
             next unless event.payload['number'] > number
+
             number = event.payload['number']
             yield event.payload['_log']
             listener.disconnect if event.payload['final']
           end
 
-          listener.on 'job:finished' do |event|
+          listener.on 'job:finished' do |_event|
             listener.disconnect
           end
 
           listener.on_connect do
-            data = session.get_raw("/logs/#{id}", nil, "Accept" => CHUNKED)['log']
+            data = session.get_raw("/logs/#{id}", nil, 'Accept' => CHUNKED)['log']
             if data['parts']
               data['parts'].each { |p| yield p['content'] }
               number = data['parts'].last['number'] if data['parts'].any?

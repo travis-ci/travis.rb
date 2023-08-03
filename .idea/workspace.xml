@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="64c7d848-008f-450f-bbb4-51047ff4531d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/Gemfile" beforeDir="false" afterPath="$PROJECT_DIR$/Gemfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Rakefile" beforeDir="false" afterPath="$PROJECT_DIR$/Rakefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/travis" beforeDir="false" afterPath="$PROJECT_DIR$/bin/travis" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/org_overview.rb" beforeDir="false" afterPath="$PROJECT_DIR$/examples/org_overview.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/pro_auth.rb" beforeDir="false" afterPath="$PROJECT_DIR$/examples/pro_auth.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/stream.rb" beforeDir="false" afterPath="$PROJECT_DIR$/examples/stream.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/auto_login.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/auto_login.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/accounts.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/accounts.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/api_command.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/api_command.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/branches.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/branches.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/cache.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/cache.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/cancel.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/cancel.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/command.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/command.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/console.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/console.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/disable.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/disable.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/enable.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/enable.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/encrypt.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/encrypt.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/encrypt_file.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/encrypt_file.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/endpoint.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/endpoint.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/env.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/env.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/help.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/help.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/history.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/history.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/init.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/init.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/lint.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/lint.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/login.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/login.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/logout.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/logout.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/logs.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/logs.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/monitor.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/monitor.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/open.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/open.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/parser.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/parser.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/pubkey.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/pubkey.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/raw.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/raw.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/repo_command.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/repo_command.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/report.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/report.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/repos.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/repos.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/requests.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/requests.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/restart.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/restart.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/settings.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/settings.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/setup.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/setup.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/setup/anynines.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/setup/anynines.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/setup/appfog.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/setup/appfog.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/setup/artifacts.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/setup/artifacts.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/setup/biicode.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/setup/biicode.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/setup/cloud_66.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/setup/cloud_66.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/setup/cloud_control.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/setup/cloud_control.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/setup/cloud_files.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/setup/cloud_files.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/setup/cloud_foundry.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/setup/cloud_foundry.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/setup/code_deploy.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/setup/code_deploy.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/setup/deis.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/setup/deis.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/setup/divshot.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/setup/divshot.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/setup/elastic_beanstalk.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/setup/elastic_beanstalk.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/setup/engine_yard.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/setup/engine_yard.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/setup/gcs.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/setup/gcs.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/setup/hackage.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/setup/hackage.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/setup/heroku.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/setup/heroku.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/setup/modulus.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/setup/modulus.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/setup/ninefold.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/setup/ninefold.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/setup/nodejitsu.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/setup/nodejitsu.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/setup/npm.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/setup/npm.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/setup/open_shift.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/setup/open_shift.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/setup/opsworks.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/setup/opsworks.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/setup/pypi.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/setup/pypi.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/setup/releases.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/setup/releases.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/setup/ruby_gems.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/setup/ruby_gems.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/setup/s3.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/setup/s3.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/setup/sauce_connect.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/setup/sauce_connect.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/setup/service.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/setup/service.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/show.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/show.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/sshkey.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/sshkey.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/status.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/status.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/sync.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/sync.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/token.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/token.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/version.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/version.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/whatsup.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/whatsup.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/cli/whoami.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/cli/whoami.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/client.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/client.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/client/account.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/client/account.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/client/artifact.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/client/artifact.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/client/auto_login.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/client/auto_login.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/client/broadcast.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/client/broadcast.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/client/build.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/client/build.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/client/cache.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/client/cache.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/client/commit.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/client/commit.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/client/entity.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/client/entity.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/client/env_var.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/client/env_var.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/client/error.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/client/error.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/client/has_uuid.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/client/has_uuid.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/client/job.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/client/job.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/client/lint_result.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/client/lint_result.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/client/listener.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/client/listener.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/client/methods.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/client/methods.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/client/namespace.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/client/namespace.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/client/not_loadable.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/client/not_loadable.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/client/repository.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/client/repository.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/client/request.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/client/request.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/client/restartable.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/client/restartable.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/client/session.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/client/session.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/client/settings.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/client/settings.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/client/singleton_setting.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/client/singleton_setting.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/client/ssh_key.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/client/ssh_key.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/client/states.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/client/states.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/client/user.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/client/user.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/client/weak_entity.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/client/weak_entity.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/pro.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/pro.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/pro/auto_login.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/pro/auto_login.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/tools/assets.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/tools/assets.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/tools/completion.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/tools/completion.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/tools/formatter.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/tools/formatter.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/tools/github.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/tools/github.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/tools/notification.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/tools/notification.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/tools/safe_string.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/tools/safe_string.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/tools/ssl_key.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/tools/ssl_key.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/tools/system.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/tools/system.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/travis/version.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/travis/version.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/cli/api_command_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/cli/api_command_spec.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/cli/cancel_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/cli/cancel_spec.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/cli/encrypt_file_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/cli/encrypt_file_spec.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/cli/encrypt_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/cli/encrypt_spec.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/cli/endpoint_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/cli/endpoint_spec.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/cli/help_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/cli/help_spec.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/cli/history_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/cli/history_spec.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/cli/init_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/cli/init_spec.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/cli/logs_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/cli/logs_spec.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/cli/open_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/cli/open_spec.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/cli/repo_command_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/cli/repo_command_spec.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/cli/restart_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/cli/restart_spec.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/cli/setup/service_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/cli/setup/service_spec.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/cli/setup_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/cli/setup_spec.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/cli/show_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/cli/show_spec.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/cli/status_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/cli/status_spec.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/cli/token_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/cli/token_spec.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/cli/version_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/cli/version_spec.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/cli/whoami_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/cli/whoami_spec.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/client/account_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/client/account_spec.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/client/auto_login_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/client/auto_login_spec.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/client/broadcast_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/client/broadcast_spec.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/client/build_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/client/build_spec.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/client/commit_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/client/commit_spec.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/client/job_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/client/job_spec.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/client/methods_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/client/methods_spec.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/client/namespace_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/client/namespace_spec.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/client/repository_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/client/repository_spec.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/client/session_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/client/session_spec.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/client/user_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/client/user_spec.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/client_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/client_spec.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/pro_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/pro_spec.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/spec_helper.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/spec_helper.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/support/fake_api.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/support/fake_api.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/support/fake_github.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/support/fake_github.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/support/helpers.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/support/helpers.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/travis_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/travis_spec.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/travis.gemspec" beforeDir="false" afterPath="$PROJECT_DIR$/travis.gemspec" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="ProjectId" id="2THvi7UeNrarsXutM9yuTuuKeCl" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Travis::CLI::EncryptFile tr..." type="RSpecRunConfigurationType" factoryName="RSpec" temporary="true" nameIsGenerated="true">
+      <module name="travis" />
+      <predefined_log_file enabled="true" id="RUBY_RSPEC" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="RUBY_ARGS" VALUE="" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="WORK DIR" VALUE="$MODULE_DIR$" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="SHOULD_USE_SDK" VALUE="false" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="ALTERN_SDK_NAME" VALUE="" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="myPassParentEnvs" VALUE="true" />
+      <envs>
+        <env name="JRUBY_OPTS" value="-X+O" />
+      </envs>
+      <EXTENSION ID="BundlerRunConfigurationExtension" bundleExecEnabled="false" />
+      <EXTENSION ID="JRubyRunConfigurationExtension" NailgunExecEnabled="false" />
+      <EXTENSION ID="RubyCoverageRunConfigurationExtension" track_test_folders="true" runner="rcov" IGNORE_RCOVRT="true" ENABLE_BRANCH_COVERAGE="true" ENABLE_FORKED_COVERAGE="true">
+        <COVERAGE_PATTERN ENABLED="true">
+          <PATTERN REGEXPS="/.rvm/" INCLUDED="false" />
+        </COVERAGE_PATTERN>
+      </EXTENSION>
+      <EXTENSION ID="org.jetbrains.plugins.ruby.rails.run.RailsRunConfigurationExtension" SCRATCH_USE_RAILS_RUNNER="false" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TESTS_FOLDER_PATH" VALUE="" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TEST_SCRIPT_PATH" VALUE="$MODULE_DIR$/spec/cli/encrypt_file_spec.rb" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TEST_SCRIPT_PATHS" VALUE="" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="SPEC_RUNNER_PATH" VALUE="" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TEST_FILE_MASK" VALUE="**/*_spec.rb" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="SPEC_EXAMPLE_NAME" VALUE="Travis::CLI::EncryptFile travis encrypt-file #{CMD_TARGET}" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TEST_TEST_TYPE" VALUE="TEST_SCRIPT" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="SPEC_ARGS" VALUE="" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="RUNNER_VERSION" VALUE="" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="USE_CUSTOM_SPEC_RUNNER" VALUE="false" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="DRB" VALUE="false" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="ZEUS" VALUE="false" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="SPRING" VALUE="false" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="FULL_BACKTRACE" VALUE="false" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="RSpec.Travis::CLI::EncryptFile tr..." />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SpringUtil" SPRING_PRE_LOADER_OPTION="true" RAKE_SPRING_PRE_LOADER_OPTION="true" RAILS_SPRING_PRE_LOADER_OPTION="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="64c7d848-008f-450f-bbb4-51047ff4531d" name="Default Changelist" comment="" />
+      <created>1690712945244</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1690712945244</updated>
+      <workItem from="1690712947499" duration="29726000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/travis@Travis__CLI__EncryptFile_tr___.rcov" NAME="Travis::CLI::EncryptFile tr... Coverage Results" MODIFIED="1691064552055" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="travis" />
+  </component>
+</project>

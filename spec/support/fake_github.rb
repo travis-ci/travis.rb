@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'gh'
 
 module GH
@@ -11,9 +12,10 @@ module GH
       raise NotImplementedError
     end
 
-    def post(key, body)
+    def post(key, _body)
       raise GH::Error unless @authenticated and key == '/authorizations'
-      frontend.load("url" => "https://api.github.com/authorizations/1", "token" => "github_token")
+
+      frontend.load('url' => 'https://api.github.com/authorizations/1', 'token' => 'github_token')
     end
 
     def head(*) end

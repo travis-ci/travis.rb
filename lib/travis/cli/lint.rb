@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'travis/cli'
 require 'yaml'
 
@@ -17,7 +18,7 @@ module Travis
           error "cannot read #{color(file, :bold)}"          unless File.readable? file
           content = File.read(file)
         else
-          debug "reading stdin"
+          debug 'reading stdin'
           file    = 'STDIN'
           content = $stdin.read
         end
@@ -32,19 +33,19 @@ module Travis
 
         unless quiet?
           if lint.ok?
-            say "valid", color("Hooray, #{file} looks %s :)", :success)
+            say 'valid', color("Hooray, #{file} looks %s :)", :success)
           else
             say "Warnings for #{color(file, :info)}:"
             lint.warnings.each do |warning|
-              say color('[x]', [:red, :bold]) + " "
+              say color('[x]', %i[red bold]) + ' '
               if warning.key.any?
                 say [
                   color('in ', :info),
-                  color(warning.key.join('.'), [:info, :bold, :underline]),
+                  color(warning.key.join('.'), %i[info bold underline]),
                   color(' section:', :info), ' '
                 ].join
               end
-              say warning.message.gsub(/"(.*?)"/) { color($1, [:info, :important]) }
+              say warning.message.gsub(/"(.*?)"/) { color(::Regexp.last_match(1), %i[info important]) }
             end
           end
         end

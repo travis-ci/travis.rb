@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'travis/cli'
 
 module Travis
@@ -30,11 +31,11 @@ module Travis
           empty_line
           entity.jobs.each do |job|
             say [
-              color("##{job.number} #{job.state}:".ljust(16), [job.color, :bold]),
-              formatter.duration(job.duration).ljust(14),
-              formatter.job_config(job.config),
-              (color("(failure allowed)", :info) if job.allow_failures?)
-            ].compact.join(" ").rstrip
+                  color("##{job.number} #{job.state}:".ljust(16), [job.color, :bold]),
+                  formatter.duration(job.duration).ljust(14),
+                  formatter.job_config(job.config),
+                  (color("(failure allowed)", :info) if job.allow_failures?)
+                ].compact.join(" ").rstrip
           end
         else
           config = formatter.job_config(entity.config)

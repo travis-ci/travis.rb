@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'travis/client/error'
 require 'travis/client/states'
 require 'travis/client/restartable'
@@ -30,7 +31,7 @@ module Travis
     COM_URI = 'https://api.travis-ci.com/'
 
     def self.new(options = {})
-      options[:uri] ||= ORG_URI if options.is_a? Hash and not options['uri']
+      options[:uri] ||= ORG_URI if options.is_a? Hash and !(options['uri'])
       Session.new(options)
     end
   end

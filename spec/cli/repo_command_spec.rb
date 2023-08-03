@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'spec_helper'
 require 'uri'
 
@@ -19,7 +20,7 @@ describe Travis::CLI::RepoCommand do
     end
 
     it 'raises URI::InvalidURIError for invalid URIs' do
-      expect { subject.send(:parse_remote, "foo@example.com:baz/bar.git") }.to raise_error(URI::InvalidURIError)
+      expect { subject.send(:parse_remote, 'foo@example.com:baz/bar.git') }.to raise_error(URI::InvalidURIError)
     end
   end
 end

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'travis/cli'
 
 module Travis
@@ -32,7 +33,7 @@ module Travis
       autoload :Deis,             'travis/cli/setup/deis'
       autoload :Service,          'travis/cli/setup/service'
 
-      description "sets up an addon or deploy target"
+      description 'sets up an addon or deploy target'
       on('-f', '--force', 'override config section if it already exists')
 
       def self.service(name)
@@ -47,7 +48,9 @@ module Travis
       end
 
       def help
-        services = self.class.services.map { |s| "\t" << color(s.service_name.ljust(20), :command) << color(s.description, :info) }.join("\n")
+        services = self.class.services.map do |s|
+          "\t" << color(s.service_name.ljust(20), :command) << color(s.description, :info)
+        end.join("\n")
         super("\nAvailable services:\n\n#{services}\n\n")
       end
 

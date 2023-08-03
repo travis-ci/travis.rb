@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'travis/client'
 require 'travis/tools/github'
 require 'yaml'
@@ -18,6 +19,7 @@ module Travis
 
       def authenticate
         return if session.access_token = cli_token
+
         github.with_token { |t| session.github_auth(t) }
       end
 
@@ -25,7 +27,7 @@ module Travis
         @github         ||= Tools::Github.new(session.config['github']) do |g|
           g.explode       = true
           g.auto_token    = @auto_token
-          g.after_tokens  = proc { raise NoTokenError, "no suitable github token found" } if @raise
+          g.after_tokens  = proc { raise NoTokenError, 'no suitable github token found' } if @raise
         end
       end
 

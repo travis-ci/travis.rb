@@ -1,7 +1,8 @@
+# frozen_string_literal: true
 module Travis
   module Client
     module NotLoadable
-      def missing?(attribute)
+      def missing?(_attribute)
         false
       end
 

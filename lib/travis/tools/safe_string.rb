@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Travis
   module Tools
     module SafeString
@@ -5,6 +6,7 @@ module Travis
 
       def encoded(string)
         return string unless string.respond_to? :encode
+
         string.encode 'utf-8'
       rescue Encoding::UndefinedConversionError
         string.force_encoding 'utf-8'
