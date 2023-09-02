@@ -1,37 +1,79 @@
-language: ruby
-cache: bundler
-
-os:
-  - linux
-
-rvm:
-  - jruby
-  - "2.4"
-  - "2.5"
-  - "2.6"
-  - "2.7"
-
-jobs:
+matrix:
   include:
-    - rvm: "2.3"
-      before_script:
-        - gem install faraday -v 1.0.1
-    - os: osx
-      rvm: "2.5"
-    - os: osx
-      rvm: "2.6"
-    - stage: deploy
-      if: repo = travis-ci/travis.rb and branch = master and type = push
-      os: linux
-      rvm: "2.6"
-      deploy:
-        provider: rubygems
-        api_key:
-          secure: KcBpkFaes74KGMm8X/rRA8e13+t3PmkefsAvOAR+iF4g1GyuLSPkP92Fb9vFfsXBph+qmFh5rNa2lIRf/3RXW6COxY7CMMaARxUfJOKE0rmIwF0qfKI+RZDh6abg92iYngunMZVN8WVft6Lv9ZTOYCWxr1Zs1Ll/Rl4PfvHNd1g=
-        gem: travis
-        edge: true
+  - language: ruby
+    cache: bundler
 
-script:
-  - bundle exec rake
-  - gem build travis.gemspec
-  - gem install travis-*.gem
+    os:
+      - linux
+
+    rvm:
+      - jruby
+      - "2.4"
+      - "2.5"
+      - "2.6"
+      - "2.7"
+
+    jobs:
+      include:
+        - rvm: "2.3"
+          before_script:
+            - gem install faraday -v 1.0.1
+        - os: osx
+          rvm: "2.5"
+        - os: osx
+          rvm: "2.6"
+        - stage: deploy
+          if: repo = travis-ci/travis.rb and branch = master and type = push
+          os: linux
+          rvm: "2.6"
+          deploy:
+            provider: rubygems
+            api_key:
+              secure: KcBpkFaes74KGMm8X/rRA8e13+t3PmkefsAvOAR+iF4g1GyuLSPkP92Fb9vFfsXBph+qmFh5rNa2lIRf/3RXW6COxY7CMMaARxUfJOKE0rmIwF0qfKI+RZDh6abg92iYngunMZVN8WVft6Lv9ZTOYCWxr1Zs1Ll/Rl4PfvHNd1g=
+            gem: travis
+            edge: true
+
+    script:
+      - bundle exec rake
+      - gem build travis.gemspec
+      - gem install travis-*.gem
+  
+  - language: shell
+    dist: xenial
+    os: linux
+
+    env:
+      global:
+        - LC_ALL: C.UTF-8
+        - LANG: C.UTF-8
+        - SNAPCRAFT_ENABLE_SILENT_REPORT: y
+        - SNAPCRAFT_BUILD_INFO: 1
+        - SNAPCRAFT_BUILD_ENVIRONMENT: 'lxd'
+
+    addons:
+      snaps:
+        - name: snapcraft
+          channel: stable
+          confinement: classic
+        - name: lxd
+          channel: stable
+
+    script:
+      - sudo usermod --append --groups lxd $USER
+      - sudo /snap/bin/lxd.migrate -yes
+      - sudo /snap/bin/lxd waitready
+      - sudo /snap/bin/lxd init --auto
+      - sg lxd -c snapcraft
+
+    after_failure:
+    - sudo journalctl -u snapd
+    
+    - stage: deploy
+          if: repo = travis-ci/travis.rb and branch = master and type = push
+          os: linux
+          deploy:
+            provider: snap
+            snap: travis_*.snap
+            channel: ${SNAP_DEPLOY_TRACK:-latest}/stable
+            cleanup: false
+            skip_cleanup: true
