@@ -92,6 +92,22 @@ module Travis
         session.get_raw('/logout')
       end
 
+      def regenerate_token
+        session.headers['Travis-Api-Version'] = '3'
+        token = session.patch_raw('/access_token')
+        session.headers.delete('Travis-Api-Version')
+
+        token
+      end
+
+      def remove_token
+        session.headers['Travis-Api-Version'] = '3'
+        resp = session.delete_raw('/access_token')
+        session.headers.delete('Travis-Api-Version')
+
+        resp
+      end
+
       def listen(*entities, &block)
         listener = Listener.new(session)
         listener.subscribe(*entities, &block)
