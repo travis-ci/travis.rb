@@ -23,7 +23,7 @@ module Travis
       attr_reader :connection, :headers, :access_token, :instruments, :faraday_adapter, :agent_info, :ssl
       attr_accessor :debug_http
 
-      def initialize(options = Travis::Client::ORG_URI)
+      def initialize(options = Travis::Client::COM_URI)
         @headers         = {}
         @cache           = {}
         @instruments     = []
