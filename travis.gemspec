@@ -421,6 +421,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rspec-its"
   s.add_development_dependency "sinatra",   "~> 1.3"
   s.add_development_dependency "rack-test", "~> 0.6"
+  s.add_development_dependency "activesupport", "5.2.8.15"
 
   # Prereleasing on Travis CI
   if ENV['TRAVIS_JOB_NUMBER'] and ENV['TRAVIS_REPO_SLUG'] == 'travis-ci/travis.rb'
