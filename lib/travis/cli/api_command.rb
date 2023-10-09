@@ -161,11 +161,11 @@ module Travis
         end
 
         def detected_endpoint
-          default_endpoint || Travis::Client::ORG_URI
+          default_endpoint || Travis::Client::COM_URI
         end
 
         def endpoint_option
-          return ""       if org? and detected_endpoint?
+          return ""       if pro? and detected_endpoint?
           return " --org" if org?
           return " --pro" if pro?
 

@@ -26,11 +26,12 @@ require 'travis/client/lint_result'
 
 module Travis
   module Client
+
     ORG_URI = 'https://api.travis-ci.org/'
     COM_URI = 'https://api.travis-ci.com/'
 
     def self.new(options = {})
-      options[:uri] ||= ORG_URI if options.is_a? Hash and not options['uri']
+      options[:uri] ||= COM_URI if options.is_a?(Hash) && !(options['uri'])
       Session.new(options)
     end
   end
