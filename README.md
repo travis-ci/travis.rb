@@ -17,6 +17,8 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a [command line
         * [`login`](#login) - authenticates against the API and stores the token
         * [`monitor`](#monitor) - live monitor for what's going on
         * [`raw`](#raw) - makes an (authenticated) API call and prints out the result
+        * [`regenerate-token`](#regenerate-token) - regenerates the stored API token
+        * [`remove-token`](#remove-token) - deletes the stored API token
         * [`report`](#report) - generates a report useful for filing issues
         * [`repos`](#repos) - lists repositories the user has certain permissions on
         * [`sync`](#sync) - triggers a new sync with GitHub
@@ -328,6 +330,24 @@ $ travis raw /repos/travis-ci/travis.rb
 ```
 
 Use `--json` if you'd rather prefer the output to be JSON.
+
+#### `regenerate-token`
+
+This command is used to regenerate the stored API token. New token will be stored in the config.
+
+``` console
+$ travis regenerate-token
+Successfully regenerated the token!
+```
+
+#### `remove-token`
+
+This command is used to remove the access token from the config, log out the user and disable the token.
+
+``` console
+$ travis remove-token
+Successfully removed the access token!
+```
 
 #### `report`
 
