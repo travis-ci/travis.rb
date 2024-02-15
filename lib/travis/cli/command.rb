@@ -15,21 +15,23 @@ module Travis
     class Command
       MINUTE = 60
       HOUR   = 3600
-      DAY    = 86400
-      WEEK   = 604800
+      DAY    = 86_400
+      WEEK   = 604_800
 
       include Tools::Assets
-      extend Parser, Forwardable, Tools::Assets
+      extend Tools::Assets
+      extend Forwardable
+      extend Parser
       def_delegators :terminal, :agree, :ask, :choose
 
       HighLine.use_color = Tools::System.unix? && $stdout.tty?
       HighLine.color_scheme = HighLine::ColorScheme.new do |cs|
-        cs[:command]   = [ :bold             ]
-        cs[:error]     = [ :red              ]
-        cs[:important] = [ :bold, :underline ]
-        cs[:success]   = [ :green            ]
-        cs[:info]      = [ :yellow           ]
-        cs[:debug]     = [ :magenta          ]
+        cs[:command]   = [:bold]
+        cs[:error]     = [:red]
+        cs[:important] = %i[bold underline]
+        cs[:success]   = [:green]
+        cs[:info]      = [:yellow]
+        cs[:debug]     = [:magenta]
       end
 
       on('-h', '--help', 'Display help') do |c, _|
@@ -37,7 +39,7 @@ module Travis
         exit
       end
 
-      on('-i', '--[no-]interactive', "be interactive and colorful") do |c, v|
+      on('-i', '--[no-]interactive', 'be interactive and colorful') do |c, v|
         HighLine.use_color = v if Tools::System.unix?
         c.force_interactive = v
       end
@@ -65,11 +67,12 @@ module Travis
 
       def self.description(description = nil)
         @description = description if description
-        @description ||= ""
+        @description ||= ''
       end
 
       def self.subcommands(*list)
         return @subcommands ||= [] if list.empty?
+
         @subcommands = list
 
         define_method :run do |subcommand, *args|
@@ -85,7 +88,7 @@ module Travis
 
       attr_accessor :arguments, :config, :force_interactive, :formatter, :debug
       attr_reader :input, :output
-      alias_method :debug?, :debug
+      alias debug? debug
 
       def initialize(options = {})
         @on_signal  = []
@@ -113,7 +116,8 @@ module Travis
       end
 
       def write_to(io)
-        io_was, self.output = output, io
+        io_was = output
+        self.output = io
         yield
       ensure
         self.output = io_was if io_was
@@ -126,13 +130,12 @@ module Travis
         error e.message
       end
 
-      def setup
-      end
+      def setup; end
 
       def last_check
         config['last_check'] ||= {
           # migrate from old values
-          'at'   => config.delete('last_version_check'),
+          'at' => config.delete('last_version_check'),
           'etag' => config.delete('etag')
         }
       end
@@ -144,38 +147,42 @@ module Travis
         return if skip_version_check?
         return if seconds_since < MINUTE
 
-        case seconds_since
-        when MINUTE .. HOUR then timeout = 0.5
-        when HOUR   .. DAY  then timeout = 1.0
-        when DAY    .. WEEK then timeout = 2.0
-        else                     timeout = 10.0
-        end
+        timeout = case seconds_since
+                  when MINUTE..HOUR then 0.5
+                  when HOUR..DAY then 1.0
+                  when DAY..WEEK then 2.0
+                  else 10.0
+                  end
 
         Timeout.timeout(timeout) do
-          response              = Faraday.get('https://rubygems.org/api/v1/gems/travis.json', {}, 'If-None-Match' => last_check['etag'].to_s)
+          response              = Faraday.get('https://rubygems.org/api/v1/gems/travis.json', {},
+                                              'If-None-Match' => last_check['etag'].to_s)
           last_check['etag']    = response.headers['etag']
           last_check['version'] = JSON.parse(response.body)['version'] if response.status == 200
         end
 
         last_check['at'] = Time.now.to_i
         unless Tools::System.recent_version? Travis::VERSION, last_check['version']
-          warn "Outdated CLI version, run `gem install travis`."
+          warn 'Outdated CLI version, run `gem install travis`.'
         end
-      rescue Timeout::Error, Faraday::ClientError => error
-        debug "#{error.class}: #{error.message}"
-      rescue JSON::ParserError => error
-        warn "Unable to determine the most recent travis gem version. http://rubygems.org may be down."
+      rescue Timeout::Error, Faraday::ClientError => e
+        debug "#{e.class}: #{e.message}"
+      rescue JSON::ParserError
+        warn 'Unable to determine the most recent travis gem version. http://rubygems.org may be down.'
       end
 
       def check_completion
-        return if skip_completion_check? or !interactive?
+        return if skip_completion_check? || !interactive?
 
         if config['checked_completion']
           Tools::Completion.update_completion if config['completion_version'] != Travis::VERSION
         else
           write_to($stderr) do
             next Tools::Completion.update_completion if Tools::Completion.completion_installed?
-            next unless agree('Shell completion not installed. Would you like to install it now? ') { |q| q.default = "y" }
+            next unless agree('Shell completion not installed. Would you like to install it now? ') do |q|
+                          q.default = 'y'
+                        end
+
             Tools::Completion.install_completion
           end
         end
@@ -185,7 +192,8 @@ module Travis
       end
 
       def check_ruby
-        return if RUBY_VERSION > '1.9.2' or skip_version_check?
+        return if (RUBY_VERSION > '1.9.2') || skip_version_check?
+
         warn "Your Ruby version is outdated, please consider upgrading, as we will drop support for #{RUBY_VERSION} soon!"
       end
 
@@ -202,20 +210,28 @@ module Travis
         store_config
       rescue Travis::Client::NotLoggedIn => e
         raise(e) if explode?
+
         error "#{e.message} - try running #{command("login#{endpoint_option}")}"
       rescue Travis::Client::RepositoryMigrated => e
-        raise (e) if explode?
+        raise(e) if explode?
+
         error e.message
       rescue Travis::Client::NotFound => e
         raise(e) if explode?
+
         error "resource not found (#{e.message})"
       rescue Travis::Client::Error => e
         raise(e) if explode?
+
         error e.message
       rescue StandardError => e
         raise(e) if explode?
+
         message = e.message
-        message += color("\nfor a full error report, run #{command("report#{endpoint_option}")}", :error) if interactive?
+        if interactive?
+          message += color("\nfor a full error report, run #{command("report#{endpoint_option}")}",
+                           :error)
+        end
         store_error(e)
         error(message)
       end
@@ -225,7 +241,7 @@ module Travis
       end
 
       def usage
-        "Usage: " << color(usage_for(command_name, :run), :command)
+        'Usage: ' << color(usage_for(command_name, :run), :command)
       end
 
       def usage_for(prefix, method)
@@ -239,14 +255,14 @@ module Travis
             usage << " #{name}"
           end
         elsif method.arity != 0
-          usage << " ..."
+          usage << ' ...'
         end
-        usage << " [OPTIONS]"
+        usage << ' [OPTIONS]'
       end
 
-      def help(info = "")
+      def help(info = '')
         parser.banner = usage
-        self.class.description.sub(/./) { |c| c.upcase } + ".\n" + info + parser.to_s
+        "#{self.class.description.sub(/./) { |c| c.upcase }}.\n#{info}#{parser}"
       end
 
       def say(data, format = nil, style = nil)
@@ -255,6 +271,7 @@ module Travis
 
       def debug(line)
         return unless debug?
+
         write_to($stderr) do
           say color("** #{line}", :debug)
         end
@@ -262,11 +279,12 @@ module Travis
 
       def time(info, callback = Proc.new)
         return callback.call unless debug?
+
         start = Time.now
         debug(info)
         callback.call
         duration = Time.now - start
-        debug("  took %.2g seconds" % duration)
+        debug('  took %.2g seconds' % duration)
       end
 
       def info(line)
@@ -293,135 +311,145 @@ module Travis
 
       private
 
-        def store_error(exception)
-          message = "An error occurred running `travis %s%s`:\n    %p: %s\n" % [command_name, endpoint_option, exception.class, exception.message]
-          exception.backtrace.each { |l| message << "        from #{l}\n" }
-          save_file("error.log", message)
-        end
+      def store_error(exception)
+        message = format("An error occurred running `travis %s%s`:\n    %p: %s\n", command_name, endpoint_option,
+                         exception.class, exception.message)
+        exception.backtrace.each { |l| message << "        from #{l}\n" }
+        save_file('error.log', message)
+      end
 
-        def clear_error
-          delete_file("error.log")
-        end
+      def clear_error
+        delete_file('error.log')
+      end
 
-        def setup_trap
-          [:INT, :TERM].each do |signal|
-            trap signal do
-              @on_signal.each { |c| c.call }
-              exit 1
-            end
+      def setup_trap
+        %i[INT TERM].each do |signal|
+          trap signal do
+            @on_signal.each { |c| c.call }
+            exit 1
           end
         end
+      end
 
-        def format(data, format = nil, style = nil)
-          style ||= :important
-          data = format % color(data, style) if format and interactive?
-          data = data.gsub(/<\[\[/, '<%=').gsub(/\]\]>/, '%>')
-          data.encode! 'utf-8' if data.respond_to? :encode!
-          data
-        end
+      def format(data, format = nil, style = nil)
+        style ||= :important
+        data = format % color(data, style) if format && interactive?
+        data = data.gsub(/<\[\[/, '<%=').gsub(/\]\]>/, '%>')
+        data.encode! 'utf-8' if data.respond_to? :encode!
+        data
+      end
 
-        def template(*args)
-          File.read(*args).split('__END__', 2)[1].strip
-        end
+      def template(*args)
+        File.read(*args).split('__END__', 2)[1].strip
+      end
 
-        def color(line, style)
-          return line.to_s unless interactive?
-          terminal.color(line || '???', Array(style).map(&:to_sym))
-        end
+      def color(line, style)
+        return line.to_s unless interactive?
 
-        def interactive?(io = output)
-          return io.tty? if force_interactive.nil?
-          force_interactive
-        end
+        terminal.color(line || '???', Array(style).map(&:to_sym))
+      end
 
-        def empty_line
-          say "\n"
-        end
+      def interactive?(io = output)
+        return io.tty? if force_interactive.nil?
 
-        def command(name)
-          color("#{File.basename($0)} #{name}", :command)
-        end
+        force_interactive
+      end
 
-        def success(line)
-          say color(line, :success) if interactive?
-        end
+      def empty_line
+        say "\n"
+      end
 
-        def config_path(name)
-          path = ENV.fetch('TRAVIS_CONFIG_PATH') { File.expand_path('.travis', Dir.home) }
-          Dir.mkdir(path, 0700) unless File.directory? path
-          File.join(path, name)
-        end
+      def command(name)
+        color("#{File.basename($PROGRAM_NAME)} #{name}", :command)
+      end
 
-        def load_file(name, default = nil)
-          return default unless path = config_path(name) and File.exist? path
-          debug "Loading %p" % path
-          File.read(path)
-        end
+      def success(line)
+        say color(line, :success) if interactive?
+      end
 
-        def delete_file(name)
-          return unless path = config_path(name) and File.exist? path
-          debug "Deleting %p" % path
-          File.delete(path)
-        end
+      def config_path(name)
+        path = ENV.fetch('TRAVIS_CONFIG_PATH') { File.expand_path('.travis', Dir.home) }
+        Dir.mkdir(path, 0o700) unless File.directory? path
+        File.join(path, name)
+      end
 
-        def save_file(name, content, read_only = false)
-          path = config_path(name)
-          debug "Storing %p" % path
-          File.open(path, 'w') do |file|
-            file.write(content.to_s)
-            file.chmod(0600) if read_only
-          end
-        end
+      def load_file(name, default = nil)
+        return default unless (path = config_path(name)) && File.exist?(path)
 
-        YAML_ERROR = defined?(Psych::SyntaxError) ? Psych::SyntaxError : ArgumentError
-        def load_config
-          @config          = YAML.load load_file('config.yml', '{}')
-          @config        ||= {}
-          @original_config = @config.dup
-        rescue YAML_ERROR => error
-          raise error if explode?
-          warn "Broken config file: #{color config_path('config.yml'), :bold}"
-          exit 1 unless interactive? and agree("Remove config file? ") { |q| q.default = "no" }
-          @original_config, @config = {}, {}
-        end
+        debug 'Loading %p' % path
+        File.read(path)
+      end
 
-        def store_config
-          save_file('config.yml', @config.to_yaml, true)
-        end
+      def delete_file(name)
+        return unless (path = config_path(name)) && File.exist?(path)
 
-        def check_arity(method, *args)
-          return unless method.respond_to? :parameters
-          method.parameters.each do |type, name|
-            return if type == :rest
-            wrong_args("few") unless args.shift or type == :opt or type == :block
-          end
-          wrong_args("many") if args.any?
-        end
+        debug 'Deleting %p' % path
+        File.delete(path)
+      end
 
-        def danger_zone?(message)
-          agree(color("DANGER ZONE: ", [:red, :bold]) << message << " ") { |q| q.default = "no" }
+      def save_file(name, content, read_only = false)
+        path = config_path(name)
+        debug 'Storing %p' % path
+        File.open(path, 'w') do |file|
+          file.write(content.to_s)
+          file.chmod(0o600) if read_only
         end
+      end
 
-        def write_file(file, content, force = false)
-          error "#{file} already exists" unless write_file?(file, force)
-          File.write(file, content)
-        end
+      YAML_ERROR = defined?(Psych::SyntaxError) ? Psych::SyntaxError : ArgumentError
+      def load_config
+        @config          = YAML.load load_file('config.yml', '{}')
+        @config        ||= {}
+        @original_config = @config.dup
+      rescue YAML_ERROR => e
+        raise e if explode?
 
-        def write_file?(file, force)
-          return true if force or not File.exist?(file)
-          return false unless interactive?
-          danger_zone? "Override existing #{color(file, :info)}?"
-        end
+        warn "Broken config file: #{color config_path('config.yml'), :bold}"
+        exit 1 unless interactive? && agree('Remove config file? ') { |q| q.default = 'no' }
+        @original_config = {}
+        @config = {}
+      end
 
-        def wrong_args(quantity)
-          error "too #{quantity} arguments" do
-            say help
-          end
-        end
+      def store_config
+        save_file('config.yml', @config.to_yaml, true)
+      end
 
-        def endpoint_option
-          ""
+      def check_arity(method, *args)
+        return unless method.respond_to? :parameters
+
+        method.parameters.each do |type, _name|
+          return if type == :rest
+
+          wrong_args('few') unless args.shift || (type == :opt) || (type == :block)
         end
+        wrong_args('many') if args.any?
+      end
+
+      def danger_zone?(message)
+        agree(color('DANGER ZONE: ', %i[red bold]) << message << ' ') { |q| q.default = 'no' }
+      end
+
+      def write_file(file, content, force = false)
+        error "#{file} already exists" unless write_file?(file, force)
+        File.write(file, content)
+      end
+
+      def write_file?(file, force)
+        return true if force || !File.exist?(file)
+        return false unless interactive?
+
+        danger_zone? "Override existing #{color(file, :info)}?"
+      end
+
+      def wrong_args(quantity)
+        error "too #{quantity} arguments" do
+          say help
+        end
+      end
+
+      def endpoint_option
+        ''
+      end
     end
   end
 end

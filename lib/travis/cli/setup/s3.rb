@@ -1,22 +1,26 @@
+# frozen_string_literal: true
+
 require 'travis/cli/setup'
 
 module Travis
   module CLI
     class Setup
       class S3 < Service
-        description "automatic pushing to S3"
+        description 'automatic pushing to S3'
 
         def run
           deploy 's3', 'push' do |config|
-            config['access_key_id'] = ask("Access key ID: ").to_s
-            config['secret_access_key'] = ask("Secret access key: ") { |q| q.echo = "*" }.to_s
-            config['bucket'] = ask("Bucket: ").to_s
-            local_dir = ask("Local project directory to upload (Optional): ").to_s
+            config['access_key_id'] = ask('Access key ID: ').to_s
+            config['secret_access_key'] = ask('Secret access key: ') { |q| q.echo = '*' }.to_s
+            config['bucket'] = ask('Bucket: ').to_s
+            local_dir = ask('Local project directory to upload (Optional): ').to_s
             config['local-dir'] = local_dir unless local_dir.empty?
-            upload_dir = ask("S3 upload directory (Optional): ").to_s
+            upload_dir = ask('S3 upload directory (Optional): ').to_s
             config['upload-dir'] = upload_dir unless upload_dir.empty?
-            config['acl'] = ask("S3 ACL Settings (private, public_read, public_read_write, authenticated_read, bucket_owner_read, bucket_owner_full_control): ").to_s { |q| q.default = 'private'}
-            encrypt(config, 'secret_access_key') if agree("Encrypt secret access key? ") { |q| q.default = 'yes' }
+            config['acl'] = ask('S3 ACL Settings (private, public_read, public_read_write, authenticated_read, bucket_owner_read, bucket_owner_full_control): ').to_s do |q|
+              q.default = 'private'
+            end
+            encrypt(config, 'secret_access_key') if agree('Encrypt secret access key? ') { |q| q.default = 'yes' }
           end
         end
       end

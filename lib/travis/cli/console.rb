@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'travis/cli'
 
 module Travis
   module CLI
     class Console < ApiCommand
-      description "interactive shell; requires `pry`"
+      description 'interactive shell; requires `pry`'
       on '-x', '--eval LINE', 'run line of ruby' do |c, line|
         c.instance_eval(line)
         exit
@@ -14,8 +16,8 @@ module Travis
 
         Object.send(:include, Client::Namespace.new(session))
         hooks = defined?(Pry::Hooks) ? Pry::Hooks.new : {}
-        opts = {quiet: true, output: $stdout, hooks: hooks }
-        opts.merge!({prompt: prompt}) if prompt
+        opts = { quiet: true, output: $stdout, hooks: }
+        opts.merge!({ prompt: }) if prompt
         binding.pry(opts)
       end
 
@@ -37,8 +39,6 @@ module Travis
           Pry::SIMPLE_PROMPT
         elsif defined?(Pry::Prompt)
           Pry::Prompt[:simple]
-        else
-          nil
         end
       end
     end

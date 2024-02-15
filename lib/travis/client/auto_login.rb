@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'travis/client'
 require 'travis/tools/github'
 require 'yaml'
@@ -12,12 +14,13 @@ module Travis
         @session     = session.session
         config_path  = ENV.fetch('TRAVIS_CONFIG_PATH') { File.expand_path('.travis', Dir.home) }
         @config_file = options.fetch(:config_file) { File.expand_path('config.yml', config_path) }
-        @auto_token  = options.fetch(:auto_token) { true }
-        @raise       = options.fetch(:raise) { true }
+        @auto_token  = options.fetch(:auto_token, true)
+        @raise       = options.fetch(:raise, true)
       end
 
       def authenticate
-        return if session.access_token = cli_token
+        return if (session.access_token = cli_token)
+
         github.with_token { |t| session.github_auth(t) }
       end
 
@@ -25,7 +28,7 @@ module Travis
         @github         ||= Tools::Github.new(session.config['github']) do |g|
           g.explode       = true
           g.auto_token    = @auto_token
-          g.after_tokens  = proc { raise NoTokenError, "no suitable github token found" } if @raise
+          g.after_tokens  = proc { raise NoTokenError, 'no suitable github token found' } if @raise
         end
       end
 

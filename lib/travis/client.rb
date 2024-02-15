@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'travis/client/error'
 require 'travis/client/states'
 require 'travis/client/restartable'

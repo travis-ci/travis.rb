@@ -1,18 +1,20 @@
+# frozen_string_literal: true
+
 require 'travis/cli'
 
 module Travis
   module CLI
     class Init < Enable
       LANGUAGE_MAPPING = {
-        "node"         => "node_js",
-        "node.js"      => "node_js",
-        "javascript"   => "node_js",
-        "coffeescript" => "node_js",
-        "c++"          => "cpp",
-        "obj-c"        => "objective-c"
-      }
+        'node' => 'node_js',
+        'node.js' => 'node_js',
+        'javascript' => 'node_js',
+        'coffeescript' => 'node_js',
+        'c++' => 'cpp',
+        'obj-c' => 'objective-c'
+      }.freeze
 
-      description "generates a .travis.yml and enables the project"
+      description 'generates a .travis.yml and enables the project'
 
       on('-f', '--force', 'override .travis.yml if it already exists')
       on('-k', '--skip-enable', 'do not enable project, only add .travis.yml')
@@ -25,7 +27,8 @@ module Travis
       ]
 
       options.each do |option|
-        on "--#{option.gsub('_', '-')} VALUE", "sets #{option} option in .travis.yml (can be used more than once)" do |c, value|
+        on "--#{option.gsub('_', '-')} VALUE",
+           "sets #{option} option in .travis.yml (can be used more than once)" do |c, value|
           c.custom_config[option] &&= Array(c.custom_config[option]) << value
           c.custom_config[option] ||= value
         end
@@ -39,11 +42,11 @@ module Travis
       end
 
       def help
-        super("Available languages: #{self.class.languages.join(", ")}\n\n")
+        super("Available languages: #{self.class.languages.join(', ')}\n\n")
       end
 
       def run(language = nil, file = '.travis.yml')
-        error "#{file} already exists, use --force to override" if File.exist?(file) and not force? and not print_conf?
+        error "#{file} already exists, use --force to override" if File.exist?(file) && !force? && !print_conf?
         language ||= ask('Main programming language used: ') { |q| q.default = detect_language }
         self.travis_config = template(language).merge(custom_config)
 
@@ -63,21 +66,21 @@ module Travis
 
       private
 
-        def template_name(language)
-          asset_path("init/#{language}.yml")
-        end
+      def template_name(language)
+        asset_path("init/#{language}.yml")
+      end
 
-        def template(language)
-          language = language.to_s.downcase
-          language = LANGUAGE_MAPPING[language] || language
-          file = template_name(language)
-          error "unknown language #{language}" unless File.exist? file
-          YAML.load_file(file)
-        end
+      def template(language)
+        language = language.to_s.downcase
+        language = LANGUAGE_MAPPING[language] || language
+        file = template_name(language)
+        error "unknown language #{language}" unless File.exist? file
+        YAML.load_file(file)
+      end
 
-        def detect_language
-          repository.github_language || "Ruby"
-        end
+      def detect_language
+        repository.github_language || 'Ruby'
+      end
     end
   end
 end

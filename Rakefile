@@ -1,26 +1,27 @@
-# encoding: utf-8
-$LOAD_PATH.unshift File.expand_path('../lib', __FILE__)
+# frozen_string_literal: true
+
+$LOAD_PATH.unshift File.expand_path('lib', __dir__)
 windows = RUBY_PLATFORM =~ /mswin|mingw/
 
 require 'bundler/gem_tasks'
 
-desc "run specs"
-task(:spec) { ruby "-S rspec spec#{" -c" unless windows}" }
+desc 'run specs'
+task(:spec) { ruby "-S rspec spec#{' -c' unless windows}" }
 
-desc "generate gemspec, update readme"
-task :update => :completion do
+desc 'generate gemspec, update readme'
+task update: :completion do
   require 'travis/version'
   content = File.read('travis.gemspec')
 
   # fetch data
   fields = {
-    :authors => sort_by_commits_alpha(`git shortlog -sn`.b, /[^\d\s].*/).uniq,
-    :email   => sort_by_commits_alpha(`git shortlog -sne`.b, /[^<]+@[^>]+/).uniq,
-    :files   => `git ls-files`.b.split("\n").reject { |f| f =~ /^(\.|Gemfile)/ }
+    authors: sort_by_commits_alpha(`git shortlog -sn`.b, /[^\d\s].*/).uniq,
+    email: sort_by_commits_alpha(`git shortlog -sne`.b, /[^<]+@[^>]+/).uniq,
+    files: `git ls-files`.b.split("\n").reject { |f| f =~ /^(\.|Gemfile)/ }
   }
 
   # :(
-  fields[:email].delete("konstantin.haase@gmail.com")
+  fields[:email].delete('konstantin.haase@gmail.com')
 
   # insert data
   fields.each do |field, values|
@@ -31,7 +32,7 @@ task :update => :completion do
   end
 
   # set version
-  content.sub! /(s\.version.*=\s+).*/, "\\1\"#{Travis::VERSION}\""
+  content.sub!(/(s\.version.*=\s+).*/, "\\1\"#{Travis::VERSION}\"")
 
   # escape unicode
   content.gsub!(/./) { |c| c.bytesize > 1 ? "\\u{#{c.codepoints.first.to_s(16)}}" : c }
@@ -39,12 +40,13 @@ task :update => :completion do
   File.open('travis.gemspec', 'w') { |f| f << content }
 
   readme = File.read('README.md').b
-  readme.gsub! /^(\s+\$ travis version\n\s+).*$/, "\\1#{Travis::VERSION}"
-  readme.gsub! /(gem install travis -v )\S+/, "\\1#{Travis::VERSION}"
-  readme.gsub! /^\*\*#{Regexp.escape(Travis::VERSION)}\*\* \(not yet released?\)\n/i, "**#{Travis::VERSION}** (#{Time.now.strftime("%B %-d, %Y")})\n"
+  readme.gsub!(/^(\s+\$ travis version\n\s+).*$/, "\\1#{Travis::VERSION}")
+  readme.gsub!(/(gem install travis -v )\S+/, "\\1#{Travis::VERSION}")
+  readme.gsub!(/^\*\*#{Regexp.escape(Travis::VERSION)}\*\* \(not yet released?\)\n/i,
+               "**#{Travis::VERSION}** (#{Time.now.strftime('%B %-d, %Y')})\n")
 
   Travis::CLI.commands.each do |c|
-    readme.sub! /^(        \* \[\`#{c.command_name}\`\]\(##{c.command_name}\)).*$/, "\\1 - #{c.description}"
+    readme.sub!(/^(        \* \[`#{c.command_name}`\]\(##{c.command_name}\)).*$/, "\\1 - #{c.description}")
   end
 
   File.write('README.md', readme)
@@ -58,13 +60,13 @@ end
 task 'travis.gemspec' => :update
 task 'README.md'      => :update
 
-task :gemspec => :update
-task :default => :spec
-task :default => :gemspec unless windows or RUBY_VERSION < '2.0'
-task :test    => :spec
+task gemspec: :update
+task default: :spec
+task default: :gemspec unless windows || (RUBY_VERSION < '2.0')
+task test: :spec
 
 def sort_by_commits_alpha(shortlog_output, patt)
-  shortlog_output.split("\n").sort do |a,b|
+  shortlog_output.split("\n").sort do |a, b|
     a_comm, a_name = a.strip.split(/\t/)
     b_comm, b_name = b.strip.split(/\t/)
 

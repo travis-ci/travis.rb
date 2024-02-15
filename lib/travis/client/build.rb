@@ -1,13 +1,17 @@
+# frozen_string_literal: true
+
 require 'travis/client'
 
 module Travis
   module Client
     class Build < Entity
-      include States, Restartable
+      include Restartable
+      include States
       preloadable
 
       # @!parse attr_reader :repository_id, :commit_id, :number, :pull_request, :pull_request_number, :pull_request_title, :config, :state, :started_at, :finished_at, :duration, :job_ids
-      attributes :repository_id, :commit_id, :number, :pull_request, :pull_request_number, :pull_request_title, :config, :state, :started_at, :finished_at, :duration, :job_ids
+      attributes :repository_id, :commit_id, :number, :pull_request, :pull_request_number, :pull_request_title,
+                 :config, :state, :started_at, :finished_at, :duration, :job_ids
       time :started_at, :finished_at
 
       alias pull_request? pull_request
@@ -27,7 +31,7 @@ module Travis
       end
 
       def push?
-        not pull_request?
+        !pull_request?
       end
 
       def branch_info

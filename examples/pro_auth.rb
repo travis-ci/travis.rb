@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'travis/pro'
 require 'travis/tools/github'
 require 'highline/import' # so we can hide the password
 
-github_token = ask("GitHub token: ")
+github_token = ask('GitHub token: ')
 
 # Set up GitHub tool for doing the login handshake.
 github = Travis::Tools::Github.new(drop_token: true) do |g|

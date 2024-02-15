@@ -1,20 +1,22 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe Travis::CLI::Init do
   old_path = Dir.pwd
   tmp_path = File.expand_path('travis-spec-init', Dir.tmpdir)
 
-  before(:each) do
+  before do
     FileUtils.mkdir_p(tmp_path)
     Dir.chdir(tmp_path)
     FileUtils.rm('.travis.yml') if File.exist?('.travis.yml')
   end
 
-  after(:each) do
+  after do
     Dir.chdir(old_path)
   end
 
-  example "travis init fakelanguage" do
+  example 'travis init fakelanguage' do
     run_cli('init', 'fakelanguage', '--skip-enable', '-r', 'travis-ci/travis.rb').should_not be_success
     stderr.should be == "unknown language fakelanguage\n"
   end
@@ -29,27 +31,27 @@ describe Travis::CLI::Init do
     end
 
     example "travis init #{language} (.travis.yml already exists, using --force)" do
-      File.open(".travis.yml", "w") { |f| f << "old file" }
+      File.open('.travis.yml', 'w') { |f| f << 'old file' }
       run_cli('init', language, '--force', '--skip-enable', '-r', 'travis-ci/travis.rb').should be_success
       stdout.should be == ".travis.yml file created!\n"
-      File.read(".travis.yml").should_not be == "old file"
+      File.read('.travis.yml').should_not be == 'old file'
     end
 
     example "travis init #{language} (.travis.yml already exists, not using --force)" do
-      File.open(".travis.yml", "w") { |f| f << "old file" }
+      File.open('.travis.yml', 'w') { |f| f << 'old file' }
       run_cli('init', language, '--skip-enable', '-r', 'travis-ci/travis.rb').should_not be_success
       stderr.should be == ".travis.yml already exists, use --force to override\n"
-      File.read('.travis.yml').should be == "old file"
+      File.read('.travis.yml').should be == 'old file'
     end
   end
 
   describe 'travis init c' do
-    it_should_behave_like 'travis init', 'c'
-
     let :result do
       run_cli('init', 'c', '--skip-enable', '-r', 'travis-ci/travis.rb')
       YAML.load_file('.travis.yml')
     end
+
+    it_behaves_like 'travis init', 'c'
 
     it 'sets compiler' do
       result.should include('compiler')
@@ -59,16 +61,16 @@ describe Travis::CLI::Init do
   end
 
   describe 'travis init clojure' do
-    it_should_behave_like 'travis init', 'clojure'
+    it_behaves_like 'travis init', 'clojure'
   end
 
   describe 'travis init cpp' do
-    it_should_behave_like 'travis init', 'cpp'
-
     let :result do
       run_cli('init', 'cpp', '--skip-enable', '-r', 'travis-ci/travis.rb')
       YAML.load_file('.travis.yml')
     end
+
+    it_behaves_like 'travis init', 'cpp'
 
     it 'sets compiler' do
       result.should include('compiler')
@@ -78,12 +80,12 @@ describe Travis::CLI::Init do
   end
 
   describe 'travis init erlang' do
-    it_should_behave_like 'travis init', 'erlang'
-
     let :result do
       run_cli('init', 'erlang', '--skip-enable', '-r', 'travis-ci/travis.rb')
       YAML.load_file('.travis.yml')
     end
+
+    it_behaves_like 'travis init', 'erlang'
 
     it 'sets compiler' do
       result.should include('otp_release')
@@ -92,12 +94,12 @@ describe Travis::CLI::Init do
   end
 
   describe 'travis init go' do
-    it_should_behave_like 'travis init', 'go'
-
     let :result do
       run_cli('init', 'go', '--skip-enable', '-r', 'travis-ci/travis.rb')
       YAML.load_file('.travis.yml')
     end
+
+    it_behaves_like 'travis init', 'go'
 
     it 'sets compiler' do
       result.should include('go')
@@ -107,20 +109,20 @@ describe Travis::CLI::Init do
   end
 
   describe 'travis init groovy' do
-    it_should_behave_like 'travis init', 'groovy'
+    it_behaves_like 'travis init', 'groovy'
   end
 
   describe 'travis init haskell' do
-    it_should_behave_like 'travis init', 'haskell'
+    it_behaves_like 'travis init', 'haskell'
   end
 
   describe 'travis init java' do
-    it_should_behave_like 'travis init', 'java'
-
     let :result do
       run_cli('init', 'java', '--skip-enable', '-r', 'travis-ci/travis.rb')
       YAML.load_file('.travis.yml')
     end
+
+    it_behaves_like 'travis init', 'java'
 
     it 'sets compiler' do
       result.should include('jdk')
@@ -130,12 +132,12 @@ describe Travis::CLI::Init do
   end
 
   describe 'travis init node_js' do
-    it_should_behave_like 'travis init', 'node_js'
-
     let :result do
       run_cli('init', 'node_js', '--skip-enable', '-r', 'travis-ci/travis.rb')
       YAML.load_file('.travis.yml')
     end
+
+    it_behaves_like 'travis init', 'node_js'
 
     it 'sets compiler' do
       result.should include('node_js')
@@ -146,16 +148,16 @@ describe Travis::CLI::Init do
   end
 
   describe 'travis init objective-c' do
-    it_should_behave_like 'travis init', 'objective-c'
+    it_behaves_like 'travis init', 'objective-c'
   end
 
   describe 'travis init perl' do
-    it_should_behave_like 'travis init', 'perl'
-
     let :result do
       run_cli('init', 'perl', '--skip-enable', '-r', 'travis-ci/travis.rb')
       YAML.load_file('.travis.yml')
     end
+
+    it_behaves_like 'travis init', 'perl'
 
     it 'sets compiler' do
       result.should include('perl')
@@ -165,12 +167,12 @@ describe Travis::CLI::Init do
   end
 
   describe 'travis init php' do
-    it_should_behave_like 'travis init', 'php'
-
     let :result do
       run_cli('init', 'php', '--skip-enable', '-r', 'travis-ci/travis.rb')
       YAML.load_file('.travis.yml')
     end
+
+    it_behaves_like 'travis init', 'php'
 
     it 'sets compiler' do
       result.should include('php')
@@ -180,12 +182,12 @@ describe Travis::CLI::Init do
   end
 
   describe 'travis init python' do
-    it_should_behave_like 'travis init', 'python'
-
     let :result do
       run_cli('init', 'python', '--skip-enable', '-r', 'travis-ci/travis.rb')
       YAML.load_file('.travis.yml')
     end
+
+    it_behaves_like 'travis init', 'python'
 
     it 'sets compiler' do
       result.should include('python')
@@ -195,12 +197,12 @@ describe Travis::CLI::Init do
   end
 
   describe 'travis init ruby' do
-    it_should_behave_like 'travis init', 'ruby'
-
     let :result do
       run_cli('init', 'ruby', '--skip-enable', '-r', 'travis-ci/travis.rb')
       YAML.load_file('.travis.yml')
     end
+
+    it_behaves_like 'travis init', 'ruby'
 
     it 'sets compiler' do
       result.should include('rvm')
@@ -211,12 +213,12 @@ describe Travis::CLI::Init do
   end
 
   describe 'travis init scala' do
-    it_should_behave_like 'travis init', 'scala'
-
     let :result do
       run_cli('init', 'scala', '--skip-enable', '-r', 'travis-ci/travis.rb')
       YAML.load_file('.travis.yml')
     end
+
+    it_behaves_like 'travis init', 'scala'
 
     it 'sets compiler' do
       result.should include('scala')

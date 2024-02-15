@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'openssl'
 require 'base64'
 
 module Travis
   module Tools
     module SSLKey
-      extend self
+      module_function
 
       def generate_rsa(size = 2048)
         OpenSSL::PKey::RSA.generate(size)
@@ -40,7 +42,8 @@ module Travis
       end
 
       def to_byte_array(num, *significant)
-        return significant if num.between?(-1, 0) and significant[0][7] == num[7]
+        return significant if num.between?(-1, 0) && (significant[0][7] == num[7])
+
         to_byte_array(*num.divmod(256)) + significant
       end
     end

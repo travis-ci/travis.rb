@@ -1,13 +1,16 @@
+# frozen_string_literal: true
+
 require 'pathname'
 module Travis
   module Tools
     module Assets
-      BASE = File.expand_path('../../../../assets', __FILE__)
-      extend self
+      BASE = File.expand_path('../../../assets', __dir__)
+
+      module_function
 
       def asset_path(file)
         Pathname.glob(File.expand_path(file, BASE)).tap do |x|
-          raise Travis::Client::AssetNotFound.new(file) if x.empty?
+          raise Travis::Client::AssetNotFound, file if x.empty?
         end.first.to_s
       end
 

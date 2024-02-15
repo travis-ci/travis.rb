@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'travis/cli'
 
 module Travis
   module CLI
     class Repos < ApiCommand
-      description "lists repositories the user has certain permissions on"
+      description 'lists repositories the user has certain permissions on'
       on('-m', '--match PATTERN', 'only list repositories matching the given pattern (shell style)')
       on('-o', '--owner LOGIN', 'only list repos for a certain owner')
       on('-n', '--name NAME', 'only list repos with a given name')
@@ -15,11 +17,12 @@ module Travis
       def run
         repositories.each do |repo|
           next say(repo.slug) unless interactive?
+
           state_color = repo.active? ? :green : :yellow
-          say color(repo.slug, [:bold, state_color]) + " "
-          say color("(" << attributes(repo).map { |n,v| "#{n}: #{v ? "yes" : "no"}" }.join(", ") << ")", state_color)
+          say "#{color(repo.slug, [:bold, state_color])} "
+          say color('(' << attributes(repo).map { |n, v| "#{n}: #{v ? 'yes' : 'no'}" }.join(', ') << ')', state_color)
           description = repo.description.lines.first.chomp unless repo.description.to_s.empty?
-          say "Description: #{description || "???"}"
+          say "Description: #{description || '???'}"
           empty_line unless repo == repositories.last
         end
       end
@@ -29,21 +32,23 @@ module Travis
           repos = session.hooks.concat(user.repositories).uniq
           session.preload(repos).sort_by(&:slug).select do |repo|
             next false unless match? repo.slug
-            next false unless active.nil? or repo.active?    == active
-            next false unless owner.nil?  or repo.owner_name == owner
-            next false unless name.nil?   or repo.name       == name
-            next false unless admin.nil?  or repo.admin?     == admin
+            next false unless active.nil? || (repo.active?    == active)
+            next false unless owner.nil?  || (repo.owner_name == owner)
+            next false unless name.nil?   || (repo.name       == name)
+            next false unless admin.nil?  || (repo.admin?     == admin)
+
             true
           end
         end
       end
 
       def attributes(repo)
-        { "active" => repo.active?, "admin" => repo.admin?, "push" => repo.push?, "pull" => repo.pull? }
+        { 'active' => repo.active?, 'admin' => repo.admin?, 'push' => repo.push?, 'pull' => repo.pull? }
       end
 
       def match?(string)
         return true if match.nil?
+
         flags = File::FNM_PATHNAME | File::FNM_DOTMATCH
         flags |= File::FNM_EXTGLOB if defined? File::FNM_EXTGLOB
         File.fnmatch?(match, string, flags)

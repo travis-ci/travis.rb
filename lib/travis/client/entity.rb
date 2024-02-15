@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'travis/client'
 require 'time'
 
@@ -48,7 +50,7 @@ module Travis
 
         list.each do |name|
           name = name.to_s
-          fail "can't call an attribute id" if name == "id"
+          raise "can't call an attribute id" if name == 'id'
 
           @attributes << name
           define_method(name) { load_attribute(name) }
@@ -111,6 +113,7 @@ module Travis
 
       def initialize(session, id)
         raise Travis::Client::Error, '%p is not a valid id' % id unless self.class.id? id
+
         @attributes = {}
         @session    = session
         @id         = self.class.cast_id(id) if id
@@ -155,6 +158,7 @@ module Travis
 
       def missing?(key)
         return false unless include? key
+
         !attributes.include?(key.to_s)
       end
 
@@ -164,7 +168,7 @@ module Travis
 
       def inspect
         klass = self.class
-        klass = curry if curry and curry.name and curry.to_s.size < klass.to_s.size
+        klass = curry if curry&.name && curry.to_s.size < klass.to_s.size
         "#<#{klass}: #{inspect_info}>"
       end
 
@@ -182,57 +186,57 @@ module Travis
 
       private
 
-        def relation(name)
-          name   = name.to_s
-          entity = Entity.subclass_for(name)
+      def relation(name)
+        name   = name.to_s
+        entity = Entity.subclass_for(name)
 
-          if entity.many == name
-            Array(send("#{entity.one}_ids")).map do |id|
-              session.find_one(entity, id)
-            end
-          else
-            id = send("#{name}_id")
-            session.find_one(entity, id) unless id.nil?
+        if entity.many == name
+          Array(send("#{entity.one}_ids")).map do |id|
+            session.find_one(entity, id)
           end
+        else
+          id = send("#{name}_id")
+          session.find_one(entity, id) unless id.nil?
         end
+      end
 
-        def inspect_info
-          id
-        end
+      def inspect_info
+        id
+      end
 
-        def set_attribute(name, value)
-          attributes[name.to_s] = value
-        end
+      def set_attribute(name, value)
+        attributes[name.to_s] = value
+      end
 
-        def load_attribute(name)
-          session.reload(self) if missing? name
-          attributes[name.to_s]
-        end
+      def load_attribute(name)
+        session.reload(self) if missing? name
+        attributes[name.to_s]
+      end
 
-        # shamelessly stolen from sinatra
-        def time(value)
-          if value.respond_to? :to_time
-            value.to_time
-          elsif value.is_a? Time
-            value
-          elsif value.respond_to? :new_offset
-            d = value.new_offset 0
-            t = Time.utc d.year, d.mon, d.mday, d.hour, d.min, d.sec + d.sec_fraction
-            t.getlocal
-          elsif value.respond_to? :mday
-            Time.local(value.year, value.mon, value.mday)
-          elsif value.is_a? Numeric
-            Time.at value
-          elsif value.nil? or value.empty?
-            nil
-          else
-            Time.parse value.to_s
-          end
-        rescue ArgumentError => boom
-          raise boom
-        rescue Exception
-          raise ArgumentError, "unable to convert #{value.inspect} to a Time object"
+      # shamelessly stolen from sinatra
+      def time(value)
+        if value.respond_to? :to_time
+          value.to_time
+        elsif value.is_a? Time
+          value
+        elsif value.respond_to? :new_offset
+          d = value.new_offset 0
+          t = Time.utc d.year, d.mon, d.mday, d.hour, d.min, d.sec + d.sec_fraction
+          t.getlocal
+        elsif value.respond_to? :mday
+          Time.local(value.year, value.mon, value.mday)
+        elsif value.is_a? Numeric
+          Time.at value
+        elsif value.nil? || value.empty?
+          nil
+        else
+          Time.parse value.to_s
         end
+      rescue ArgumentError => e
+        raise e
+      rescue Exception
+        raise ArgumentError, "unable to convert #{value.inspect} to a Time object"
+      end
     end
   end
 end

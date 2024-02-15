@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'travis/cli'
 
 module Travis
   module CLI
     class Accounts < ApiCommand
-      description "displays accounts and their subscription status"
+      description 'displays accounts and their subscription status'
 
       def run
         authenticate
@@ -13,18 +15,19 @@ module Travis
             color(account.login, [color, :bold]),
             color("(#{account.name || account.login.capitalize}):", color),
             "#{description(account)},",
-            account.repos_count == 1 ? "1 repository" : "#{account.repos_count} repositories"
-          ].join(" ")
+            account.repos_count == 1 ? '1 repository' : "#{account.repos_count} repositories"
+          ].join(' ')
         end
-        unless accounts.none?(&:on_trial?) or session.config['host'].nil?
-          say session.config['host'], "To set up a subscription, please visit %s."
-        end
+        return if accounts.none?(&:on_trial?) || session.config['host'].nil?
+
+        say session.config['host'], 'To set up a subscription, please visit %s.'
       end
 
       def description(account)
-        return "subscribed"          if account.subscribed?
-        return "educational account" if account.educational?
-        "not subscribed"
+        return 'subscribed'          if account.subscribed?
+        return 'educational account' if account.educational?
+
+        'not subscribed'
       end
     end
   end

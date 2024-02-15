@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'travis/cli'
 require 'travis/tools/ssl_key'
 require 'travis/tools/github'
@@ -5,7 +7,7 @@ require 'travis/tools/github'
 module Travis
   module CLI
     class Sshkey < RepoCommand
-      description "checks, updates or deletes an SSH key"
+      description 'checks, updates or deletes an SSH key'
       on '-D', '--delete',                  'remove SSH key'
       on '-d', '--description DESCRIPTION', 'set description'
       on '-u', '--upload FILE',             'upload key from given file'
@@ -30,25 +32,26 @@ module Travis
         say "Current SSH key: #{color(ssh_key.description, :info)}"
         say "Finger print:    #{color(ssh_key.fingerprint, :info)}"
       rescue Travis::Client::NotFound
-        say "No custom SSH key installed."
+        say 'No custom SSH key installed.'
         exit 1 if check?
       end
 
       def update_key(value, file)
         error "#{file} does not look like a private key" unless value.lines.first =~ /PRIVATE KEY/
         value = remove_passphrase(value)
-        self.description ||= ask("Key description: ") { |q| q.default = "Custom Key" } if interactive?
+        self.description ||= ask('Key description: ') { |q| q.default = 'Custom Key' } if interactive?
         say "Updating ssh key for #{color slug, :info} with key from #{color file, :info}"
         empty_line
-        ssh_key.update(:value => value, :description => description || file)
+        ssh_key.update(value:, description: description || file)
       end
 
       def delete_key
-        return if interactive? and not danger_zone? "Remove SSH key for #{color slug, :info}?"
+        return if interactive? && !danger_zone?("Remove SSH key for #{color slug, :info}?")
+
         say "Removing ssh key for #{color slug, :info}"
         ssh_key.delete
       rescue Travis::Client::NotFound
-        warn "no key found to remove"
+        warn 'no key found to remove'
       end
 
       def generate_key
@@ -56,38 +59,39 @@ module Travis
         github.with_token do |token|
           access_token = github_auth(token)
         end
-        unless access_token
-          raise Travis::Client::GitHubLoginFailed, "all GitHub tokens given were invalid"
-        end
+        raise Travis::Client::GitHubLoginFailed, 'all GitHub tokens given were invalid' unless access_token
+
         gh = GH.with(token: github_token)
         login = gh['user']['login']
         check_access(gh)
         empty_line
 
-        say "Generating RSA key."
+        say 'Generating RSA key.'
         private_key        = Tools::SSLKey.generate_rsa
         self.description ||= "key for fetching dependencies for #{slug} via #{login}"
 
-        say "Uploading public key to GitHub."
-        gh.post("/user/keys", :title => "#{description} (Travis CI)", :key => Tools::SSLKey.rsa_ssh(private_key.public_key))
+        say 'Uploading public key to GitHub.'
+        gh.post('/user/keys', title: "#{description} (Travis CI)",
+                              key: Tools::SSLKey.rsa_ssh(private_key.public_key))
 
-        say "Uploading private key to Travis CI."
-        ssh_key.update(:value => private_key.to_s, :description => description)
+        say 'Uploading private key to Travis CI.'
+        ssh_key.update(value: private_key.to_s, description:)
 
         empty_line
-        say "You can store the private key to reuse it for other repositories (travis sshkey --upload FILE)."
-        if agree("Store private key? ") { |q| q.default = "no" }
-          path = ask("Path: ") { |q| q.default = "id_travis_rsa" }
-          File.write(path, private_key.to_s)
-        end
+        say 'You can store the private key to reuse it for other repositories (travis sshkey --upload FILE).'
+        return unless agree('Store private key? ') { |q| q.default = 'no' }
+
+        path = ask('Path: ') { |q| q.default = 'id_travis_rsa' }
+        File.write(path, private_key.to_s)
       end
 
       def remove_passphrase(value)
         return value unless Tools::SSLKey.has_passphrase? value
-        return Tools::SSLKey.remove_passphrase(value, passphrase) || error("wrong pass phrase") if passphrase
-        error "Key is encrypted, but missing --passphrase option" unless interactive?
-        say "The private key is protected by a pass phrase."
-        result = Tools::SSLKey.remove_passphrase(value, ask("Enter pass phrase: ") { |q| q.echo = "*" }) until result
+        return Tools::SSLKey.remove_passphrase(value, passphrase) || error('wrong pass phrase') if passphrase
+
+        error 'Key is encrypted, but missing --passphrase option' unless interactive?
+        say 'The private key is protected by a pass phrase.'
+        result = Tools::SSLKey.remove_passphrase(value, ask('Enter pass phrase: ') { |q| q.echo = '*' }) until result
         empty_line
         result
       end
@@ -107,15 +111,15 @@ module Travis
             g.github_token  = github_token
             g.login_header  = proc { login_header }
             g.debug         = proc { |log| debug(log) }
-            g.after_tokens  = proc { g.explode = true and error("no suitable github token found") }
+            g.after_tokens  = proc { g.explode = true and error('no suitable github token found') }
           end
         end
       end
 
       def login_header
-        say "GitHub deprecated its Authorizations API exchanging a password for a token."
-        say "Please visit https://github.blog/2020-07-30-token-authentication-requirements-for-api-and-git-operations for more information."
-        say "Try running with #{color("--github-token", :info)} or #{color("--auto-token", :info)} ."
+        say 'GitHub deprecated its Authorizations API exchanging a password for a token.'
+        say 'Please visit https://github.blog/2020-07-30-token-authentication-requirements-for-api-and-git-operations for more information.'
+        say "Try running with #{color('--github-token', :info)} or #{color('--auto-token', :info)} ."
       end
     end
   end
