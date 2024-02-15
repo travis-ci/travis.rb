@@ -1,11 +1,11 @@
 language: ruby
 cache: bundler
+dist: bionic
 
 os:
   - linux
 
 rvm:
-  - jruby
   - "3.2"
 
 jobs:
