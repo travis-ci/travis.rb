@@ -74,8 +74,6 @@ The [travis gem](https://rubygems.org/gems/travis) includes both a [command line
         * [Other Unix systems](#other-unix-systems)
         * [Ruby versioning tools](#ruby-versioning-tools)
     * [Troubleshooting](#troubleshooting)
-        * [Ubuntu](#ubuntu)
-        * [Mac OS X](#mac-os-x)
         * [Upgrading from travis-cli](#upgrading-from-travis-cli)
 * [Version History](#version-history)
 
