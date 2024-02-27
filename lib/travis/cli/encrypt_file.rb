@@ -1,4 +1,5 @@
-# encoding: utf-8
+# frozen_string_literal: true
+
 require 'travis/cli'
 require 'travis/tools/system'
 
@@ -11,6 +12,7 @@ module Travis
   module CLI
     class EncryptFile < RepoCommand
       attr_accessor :stage
+
       description 'encrypts a file and adds decryption steps to .travis.yml'
       on '-K', '--key KEY', 'encryption key to be used (randomly generated otherwise)'
       on '--iv IV', 'encryption IV to be used (randomly generated otherwise)'
@@ -18,7 +20,8 @@ module Travis
       on '-f', '--force', 'override output file if it exists'
       on '-p', '--print-key', 'print (possibly generated) key and iv'
       on '-w', '--decrypt-to PATH', 'where to write the decrypted file to on the Travis CI VM'
-      on '-a', '--add [STAGE]', 'automatically add command to .travis.yml (default stage is before_install)' do |c, stage|
+      on '-a', '--add [STAGE]',
+         'automatically add command to .travis.yml (default stage is before_install)' do |c, stage|
         c.stage = stage || 'before_install'
       end
 
@@ -37,7 +40,7 @@ module Travis
           write_file(output_path, result, force)
           return if decrypt?
 
-          error "requires --decrypt-to option when reading from stdin" unless decrypt_to?
+          error 'requires --decrypt-to option when reading from stdin' unless decrypt_to?
 
           set_env_vars(input_path)
 
@@ -52,8 +55,8 @@ module Travis
         super
         self.key        ||= SecureRandom.hex(32) unless decrypt?
         self.iv         ||= SecureRandom.hex(16) unless decrypt?
-        error "key must be 64 characters long and a valid hex number" unless key =~ /^[a-f0-9]{64}$/
-        error "iv must be 32 characters long and a valid hex number"  unless iv  =~ /^[a-f0-9]{32}$/
+        error 'key must be 64 characters long and a valid hex number' unless key =~ /^[a-f0-9]{64}$/
+        error 'iv must be 32 characters long and a valid hex number'  unless iv  =~ /^[a-f0-9]{32}$/
       end
 
       def print_command(command)
@@ -69,13 +72,15 @@ module Travis
       end
 
       def decrypt_command(path)
-        "openssl aes-256-cbc -K $#{env_name(path, :key)} -iv $#{env_name(path, :iv)} -in #{escape_path(path)} -out #{escape_path(decrypt_to)} -d"
+        "openssl aes-256-cbc -K $#{env_name(path,
+                                            :key)} -iv $#{env_name(path,
+                                                                   :iv)} -in #{escape_path(path)} -out #{escape_path(decrypt_to)} -d"
       end
 
       def set_env_vars(input_path)
-        say "storing secure env variables for decryption"
-        repository.env_vars.upsert env_name(input_path, :key), key, :public => false
-        repository.env_vars.upsert env_name(input_path, :iv),  iv,  :public => false
+        say 'storing secure env variables for decryption'
+        repository.env_vars.upsert env_name(input_path, :key), key, public: false
+        repository.env_vars.upsert env_name(input_path, :iv),  iv,  public: false
       end
 
       def env_name(input_path, name)
@@ -84,20 +89,24 @@ module Travis
       end
 
       def notes(input_path, output_path)
-        say "\nkey: #{color(key, :info)}\niv:  #{color(iv,  :info)}" if print_key?
+        say "\nkey: #{color(key, :info)}\niv:  #{color(iv, :info)}" if print_key?
         empty_line
         say "Make sure to add #{color(output_path, :info)} to the git repository."
-        say "Make sure #{color("not", :underline)} to add #{color(input_path, :info)} to the git repository." if input_path != '-'
+        if input_path != '-'
+          say "Make sure #{color('not',
+                                 :underline)} to add #{color(input_path,
+                                                             :info)} to the git repository."
+        end
         say "Commit all changes to your #{color('.travis.yml', :info)}."
       end
 
       def transcode(input_path)
         description = "stdin#{' (waiting for input)' if $stdin.tty?}" if input_path == '-'
-        say "#{decrypt ? "de" : "en"}crypting #{color(description || input_path, :info)} for #{color(slug, :info)}"
+        say "#{decrypt ? 'de' : 'en'}crypting #{color(description || input_path, :info)} for #{color(slug, :info)}"
 
         data     = input_path == '-' ? $stdin.read : File.binread(input_path)
         aes      = OpenSSL::Cipher.new('AES-256-CBC')
-        decrypt  ? aes.decrypt : aes.encrypt
+        decrypt ? aes.decrypt : aes.encrypt
         aes.key  = [key].pack('H*')
         aes.iv   = [iv].pack('H*')
 
@@ -106,6 +115,7 @@ module Travis
 
       def decrypt_to_for(input_path)
         return if input_path == '-'
+
         if input_path.start_with? Dir.home
           input_path.sub(Dir.home, '~')
         else
@@ -114,18 +124,19 @@ module Travis
       end
 
       def escape_path(path)
-        Shellwords.escape(path).sub(/^\\~\//, '~\/')
+        Shellwords.escape(path).sub(%r{^\\~/}, '~\/')
       end
 
       def output_path_for(input_path)
         case input_path
         when '-'           then return '-'
-        when /^(.+)\.enc$/ then return $1 if     decrypt?
-        when /^(.+)\.dec$/ then return $1 unless decrypt?
+        when /^(.+)\.enc$/ then return ::Regexp.last_match(1) if     decrypt?
+        when /^(.+)\.dec$/ then return ::Regexp.last_match(1) unless decrypt?
         end
 
-        if interactive? and input_path =~ /(\.enc|\.dec)$/
-          exit 1 unless danger_zone? "File extension of input file is #{color($1, :info)}, are you sure that is correct?"
+        if interactive? && input_path =~ /(\.enc|\.dec)$/ && !(danger_zone? "File extension of input file is #{color(::Regexp.last_match(1),
+                                                                                                                     :info)}, are you sure that is correct?")
+          exit 1
         end
 
         "#{input_path}.#{decrypt ? 'dec' : 'enc'}"

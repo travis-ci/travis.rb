@@ -1,5 +1,3 @@
-require 'spec_helper'
+# frozen_string_literal: true
 
-describe Travis::CLI::Setup do
-  # TODO
-end
+require 'spec_helper'

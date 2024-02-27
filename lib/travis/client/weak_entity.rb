@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'travis/client'
 
 module Travis
@@ -10,7 +12,7 @@ module Travis
       end
 
       def self.id_field
-        raise "weak entities do not have id fields"
+        raise 'weak entities do not have id fields'
       end
 
       def self.id?(object)
@@ -19,7 +21,8 @@ module Travis
 
       def self.cast_id(object)
         return object if id? object
-        raise "weak entities do not have id fields"
+
+        raise 'weak entities do not have id fields'
       end
     end
   end

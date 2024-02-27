@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'travis/client'
 require 'travis/tools/ssl_key'
 
@@ -14,7 +16,7 @@ module Travis
 
         def encrypt(value)
           encrypted = to_rsa.public_encrypt(value)
-          Base64.encode64(encrypted).gsub(/\s+/, "")
+          Base64.encode64(encrypted).gsub(/\s+/, '')
         end
 
         def to_rsa
@@ -34,7 +36,8 @@ module Travis
       preloadable
 
       # @!parse attr_reader :slug, :description
-      attributes :slug, :active, :private, :admin, :description, :last_build_id, :last_build_number, :last_build_state, :last_build_duration, :last_build_started_at, :last_build_finished_at, :github_language
+      attributes :slug, :active, :private, :admin, :description, :last_build_id, :last_build_number, :last_build_state,
+                 :last_build_duration, :last_build_started_at, :last_build_finished_at, :github_language
       inspect_info :slug
 
       time :last_build_finished_at, :last_build_started_at
@@ -51,14 +54,14 @@ module Travis
       end
 
       def public_key
-        attributes["public_key"] ||= begin
+        attributes['public_key'] ||= begin
           payload = session.get_raw("/repos/#{id}/key")
           Key.new(payload.fetch('key'), payload['fingerprint'])
         end
       end
 
       def name
-        slug[/[^\/]+$/]
+        slug[%r{[^/]+$}]
       end
 
       def public_key=(key)
@@ -75,6 +78,7 @@ module Travis
       # @!parse attr_reader :last_build
       def last_build
         return unless last_build_id
+
         attributes['last_build'] ||= begin
           last_build               = session.find_one(Build, last_build_id)
           last_build.number        = last_build_number
@@ -89,11 +93,12 @@ module Travis
 
       def builds(params = nil)
         return each_build unless params
-        session.find_many(Build, params.merge(:repository_id => id))
+
+        session.find_many(Build, params.merge(repository_id: id))
       end
 
       def build(number)
-        builds(:number => number.to_s).first
+        builds(number: number.to_s).first
       end
 
       def recent_builds
@@ -102,7 +107,8 @@ module Travis
 
       def last_on_branch(name = nil)
         return branch(name) if name
-        attributes['last_on_branch'] ||= session.get('branches', :repository_id => id)['branches']
+
+        attributes['last_on_branch'] ||= session.get('branches', repository_id: id)['branches']
       end
 
       def branches
@@ -112,19 +118,24 @@ module Travis
       def branch(name)
         attributes['branches']       ||= {}
         attributes['branches'][name] ||= begin
-          build = attributes['last_on_branch'].detect { |b| b.commit.branch == name.to_s } if attributes['last_on_branch']
+          if attributes['last_on_branch']
+            build = attributes['last_on_branch'].detect do |b|
+              b.commit.branch == name.to_s
+            end
+          end
           build || session.get("/repos/#{id}/branches/#{name}")['branch']
         end
       end
 
       def each_build(params = nil, &block)
         return enum_for(__method__, params) unless block_given?
+
         params ||= {}
         chunk = builds(params)
         until chunk.empty?
           chunk.each(&block)
           number = chunk.last.number
-          chunk  = number == '1' ? [] : builds(params.merge(:after_number => number))
+          chunk  = number == '1' ? [] : builds(params.merge(after_number: number))
         end
         self
       end
@@ -133,12 +144,12 @@ module Travis
         build_number = number.to_s[/^\d+/] or return nil
         build        = build(build_number) or return nil
         job          = build.jobs.detect { |j| j.number == number } if number != build_number
-        job        ||= build.jobs.first if build and build.jobs.size == 1
+        job        ||= build.jobs.first if build && (build.jobs.size == 1)
         job
       end
 
       def set_hook(flag)
-        result = session.put_raw('/hooks/', :hook => { :id => id, :active => flag })
+        result = session.put_raw('/hooks/', hook: { id:, active: flag })
         result['result']
       end
 
@@ -152,10 +163,10 @@ module Travis
 
       def pusher_channels
         attributes['pusher_channels'] ||= if session.private_channels?
-          ["user-#{session.user.id}", "repo-#{id}"]
-        else
-          ["common"]
-        end
+                                            ["user-#{session.user.id}", "repo-#{id}"]
+                                          else
+                                            ['common']
+                                          end
       end
 
       def member?
@@ -163,7 +174,7 @@ module Travis
       end
 
       def owner_name
-        slug[/^[^\/]+/]
+        slug[%r{^[^/]+}]
       end
 
       def owner
@@ -171,7 +182,7 @@ module Travis
       end
 
       def requests
-        attributes['requests'] ||= session.find_many(Request, :repository_id => id)
+        attributes['requests'] ||= session.find_many(Request, repository_id: id)
       end
 
       def settings
@@ -181,7 +192,7 @@ module Travis
           settings
         end
       rescue Travis::Client::NotFound
-        raise Travis::Client::Error, "not allowed to access settings"
+        raise Travis::Client::Error, 'not allowed to access settings'
       end
 
       def caches(params = {})
@@ -193,8 +204,9 @@ module Travis
       end
 
       def active?
-        # TODO remove once active is properly synced and exposed by api
+        # TODO: remove once active is properly synced and exposed by api
         return active unless active.nil?
+
         last_build_id?
       end
 
@@ -216,9 +228,9 @@ module Travis
 
       private
 
-        def state
-          last_build_state
-        end
+      def state
+        last_build_state
+      end
     end
   end
 end

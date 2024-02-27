@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'travis/cli'
 
 module Travis
   module CLI
     class Sync < ApiCommand
-      description "triggers a new sync with GitHub"
+      description 'triggers a new sync with GitHub'
 
       on '-c', '--check',      'only check the sync status'
       on '-b', '--background', 'will trigger sync but not block until sync is done'
@@ -13,16 +15,16 @@ module Travis
         authenticate
 
         if check?
-          say "#{"not " unless user.syncing?}syncing", "#{user.login} is currently %s"
-        elsif user.syncing? and not force?
-          error "user is already syncing"
+          say "#{'not ' unless user.syncing?}syncing", "#{user.login} is currently %s"
+        elsif user.syncing? && !force?
+          error 'user is already syncing'
         elsif background?
-          say "starting synchronization"
+          say 'starting synchronization'
           sync(false)
         else
-          say "synchronizing: "
+          say 'synchronizing: '
           sync
-          say color(" done", :success)
+          say color(' done', :success)
         end
       end
     end

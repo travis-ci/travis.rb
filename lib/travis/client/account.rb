@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'travis/client'
 
 module Travis
@@ -32,11 +34,11 @@ module Travis
       end
 
       def repos_count
-        load_attribute("repos_count") { repositories.count }
+        load_attribute('repos_count') { repositories.count }
       end
 
       def repositories
-        attributes['repositories'] ||= session.repos(:owner_name => login)
+        attributes['repositories'] ||= session.repos(owner_name: login)
       end
 
       def member?
@@ -47,10 +49,10 @@ module Travis
 
       private
 
-        def load_attribute(name, &block)
-          session.accounts if missing? name
-          block ? attributes.fetch(name.to_s, &block) : attributes[name.to_s]
-        end
+      def load_attribute(name, &block)
+        session.accounts if missing? name
+        block ? attributes.fetch(name.to_s, &block) : attributes[name.to_s]
+      end
     end
   end
 end

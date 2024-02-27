@@ -1,15 +1,17 @@
+# frozen_string_literal: true
+
 require 'travis/cli/setup'
 
 module Travis
   module CLI
     class Setup
       class Hackage < Service
-        description "automatic deployment of hackage packages"
+        description 'automatic deployment of hackage packages'
 
         def run
           deploy 'hackage' do |config|
-            config['username'] ||= ask("Hackage Username: ").to_s
-            config['password'] ||= ask("Hackage Password: ") { |q| q.echo = "*" }.to_s
+            config['username'] ||= ask('Hackage Username: ').to_s
+            config['password'] ||= ask('Hackage Password: ') { |q| q.echo = '*' }.to_s
           end
         end
       end

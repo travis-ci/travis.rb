@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'travis/client'
 require 'forwardable'
 require 'json'
@@ -13,6 +15,7 @@ module Travis
     class Listener
       class Socket < PusherClient::Socket
         attr_accessor :session, :signatures
+
         def initialize(application_key, options = {})
           @session    = options.fetch(:session)
           @signatures = {}
@@ -31,7 +34,10 @@ module Travis
 
         def fetch_auth(*channels)
           channels.select! { |c| signatures[c].nil? if c.start_with? 'private-' }
-          signatures.merge! session.post_raw('/pusher/auth', :channels => channels, :socket_id => socket_id)['channels'] if channels.any?
+          return unless channels.any?
+
+          signatures.merge! session.post_raw('/pusher/auth', channels:,
+                                                             socket_id:)['channels']
         end
 
         def get_private_auth(channel)
@@ -40,19 +46,22 @@ module Travis
         end
 
         def handle_error(data)
-          code, message = data["code"], data["message"] if data.is_a? Hash
+          if data.is_a? Hash
+            code = data['code']
+            message = data['message']
+          end
           message ||= data.inspect
 
           case code
           when 4100             then reconnect(1)
           when 4200, 4201, 4202 then reconnect
-          else raise Travis::Client::Error, "Pusher error: %s (code: %p)" % [message, code]
+          else raise Travis::Client::Error, format('Pusher error: %s (code: %p)', message, code)
           end
         end
 
         def reconnect(delay = nil)
           disconnect if connected
-          sleep delay if delay and delay > 0
+          sleep delay if delay&.positive?
           connect
         end
       end
@@ -60,7 +69,7 @@ module Travis
       EVENTS = %w[
         build:created build:started build:finished
         job:created job:started job:log job:finished
-      ]
+      ].freeze
 
       Event = Struct.new(:type, :repository, :build, :job, :payload)
 
@@ -71,7 +80,8 @@ module Travis
         def_delegators :listener, :disconnect, :on_connect, :subscribe
 
         def initialize(listener, entities)
-          @listener, @entities = listener, Array(entities)
+          @listener = listener
+          @entities = Array(entities)
         end
 
         def on(*events)
@@ -80,11 +90,11 @@ module Travis
 
         private
 
-          def dispatch?(event)
-            entities.include? event.repository or
-            entities.include? event.build      or
+        def dispatch?(event)
+          entities.include? event.repository or
+            entities.include? event.build or
             entities.include? event.job
-          end
+        end
       end
 
       attr_reader :session, :socket
@@ -111,15 +121,15 @@ module Travis
         events.each { |e| @callbacks << [e, block] }
       end
 
-      def on_connect
-        socket.bind('pusher:connection_established') { yield }
+      def on_connect(&block)
+        socket.bind('pusher:connection_established', &block)
       end
 
       def listen
         @channels = default_channels if @channels.empty?
         @channels.map! { |c| c.start_with?('private-') ? c : "private-#{c}" } if session.private_channels?
         @channels.uniq.each { |c| socket.subscribe(c) }
-        @callbacks.each { |e,b| socket.bind(e) { |d| dispatch(e, d, &b) } }
+        @callbacks.each { |e, b| socket.bind(e) { |d| dispatch(e, d, &b) } }
         socket.connect
       end
 
@@ -129,55 +139,60 @@ module Travis
 
       private
 
-        def dispatch(type, json)
-          payload  = JSON.parse(json)
-          entities = session.load format_payload(type, payload)
-          yield Event.new(type, entities['repository'], entities['build'], entities['job'], payload)
-        end
+      def dispatch(type, json)
+        payload  = JSON.parse(json)
+        entities = session.load format_payload(type, payload)
+        yield Event.new(type, entities['repository'], entities['build'], entities['job'], payload)
+      end
 
-        def format_payload(type, payload)
-          case type
-          when "job:log" then format_log(payload)
-          when /job:/    then format_job(payload)
-          else payload
-          end
+      def format_payload(type, payload)
+        case type
+        when 'job:log' then format_log(payload)
+        when /job:/    then format_job(payload)
+        else payload
         end
+      end
 
-        def format_job(payload)
-          build           = { "id" => payload["build_id"],      "repository_id" => payload["repository_id"]   }
-          repo            = { "id" => payload["repository_id"], "slug"          => payload["repository_slug"] }
-          build["number"] = payload["number"][/^[^\.]+/] if payload["number"]
-          { "job" => payload, "build" => build, "repository" => repo }
-        end
+      def format_job(payload)
+        build           = { 'id' => payload['build_id'],      'repository_id' => payload['repository_id']   }
+        repo            = { 'id' => payload['repository_id'], 'slug'          => payload['repository_slug'] }
+        build['number'] = payload['number'][/^[^.]+/] if payload['number']
+        { 'job' => payload, 'build' => build, 'repository' => repo }
+      end
 
-        def format_log(payload)
-          job = session.job(payload['id'])
-          { "job" => { "id" => job.id }, "build" => { "id" => job.build.id }, "repository" => { "id" => job.repository.id } }
-        end
+      def format_log(payload)
+        job = session.job(payload['id'])
+        { 'job' => { 'id' => job.id }, 'build' => { 'id' => job.build.id },
+          'repository' => { 'id' => job.repository.id } }
+      end
 
-        def default_channels
-          return ['common'] if session.access_token.nil?
-          session.user.channels
-        end
+      def default_channels
+        return ['common'] if session.access_token.nil?
 
-        def pusher_options
-          pusher_options       = session.config['pusher'] || {}
-          encrypted            = pusher_options['scheme'] != 'http'
-          options              = { :encrypted => encrypted, :session => session }
-          options[:ws_host]    = pusher_options['host'] if pusher_options['host']
-          options[:wss_port]   = pusher_options['port'] if encrypted  and pusher_options['port']
-          options[:ws_port]    = pusher_options['port'] if !encrypted and pusher_options['port']
-          options[:ws_path]    = pusher_options['path'] if pusher_options['path']
-          options[:ws_path]    = '/' << options[:ws_path] unless options[:ws_path].nil? or options[:ws_path].start_with? '/'
-          options[:ssl_verify] = session.ssl.fetch(:verify, true)
-          options
-        end
+        session.user.channels
+      end
 
-        def pusher_key
-          session.config.fetch('pusher').fetch('key')
-        rescue IndexError
-          raise Travis::Client::Error, "#{session.api_endpoint} is missing pusher key"
+      def pusher_options
+        pusher_options       = session.config['pusher'] || {}
+        encrypted            = pusher_options['scheme'] != 'http'
+        options              = { encrypted:, session: }
+        options[:ws_host]    = pusher_options['host'] if pusher_options['host']
+        options[:wss_port]   = pusher_options['port'] if encrypted  && pusher_options['port']
+        options[:ws_port]    = pusher_options['port'] if !encrypted && pusher_options['port']
+        options[:ws_path]    = pusher_options['path'] if pusher_options['path']
+        unless options[:ws_path].nil? || options[:ws_path].start_with?('/')
+          options[:ws_path] =
+            '/' << options[:ws_path]
         end
+        options[:ssl_verify] = session.ssl.fetch(:verify, true)
+        options
+      end
+
+      def pusher_key
+        session.config.fetch('pusher').fetch('key')
+      rescue IndexError
+        raise Travis::Client::Error, "#{session.api_endpoint} is missing pusher key"
+      end
     end
   end
 end

@@ -1,29 +1,26 @@
 language: ruby
 cache: bundler
+dist: bionic
 
 os:
   - linux
 
 rvm:
-  - jruby
-  - "2.4"
-  - "2.5"
-  - "2.6"
-  - "2.7"
+  - "3.2"
 
 jobs:
   include:
-    - rvm: "2.3"
+    - rvm: "3.2"
       before_script:
         - gem install faraday -v 1.0.1
     - os: osx
-      rvm: "2.5"
+      rvm: "3.2"
     - os: osx
-      rvm: "2.6"
+      rvm: "3.2"
     - stage: deploy
       if: repo = travis-ci/travis.rb and branch = master and type = push
       os: linux
-      rvm: "2.6"
+      rvm: "3.2"
       deploy:
         provider: rubygems
         api_key:

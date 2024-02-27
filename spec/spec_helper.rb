@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'support/fake_api'
 require 'support/fake_github'
 require 'support/helpers'
@@ -21,7 +23,7 @@ RSpec.configure do |c|
     temp_dir = File.expand_path('travis-spec', Dir.tmpdir)
     FileUtils.rm_rf(temp_dir)
     FileUtils.mkdir_p(temp_dir)
-    ENV.delete_if { |k,v| k.start_with? "TRAVIS_" }
+    ENV.delete_if { |k, _v| k.start_with? 'TRAVIS_' }
     ENV['TRAVIS_CONFIG_PATH'] = File.expand_path('travis', temp_dir)
   end
 
