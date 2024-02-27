@@ -10,9 +10,6 @@ rvm:
 
 jobs:
   include:
-    - rvm: "3.2"
-      before_script:
-        - gem install faraday -v 1.0.1
     - os: osx
       rvm:
         - "3.1"
@@ -28,6 +25,9 @@ jobs:
         gem: travis
         edge: true
 
+before_script:
+  - ruby -v
+  - rbenv versions
 script:
   - bundle exec rake
   - gem build travis.gemspec
