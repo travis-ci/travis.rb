@@ -16,6 +16,11 @@ jobs:
     - os: osx
       rvm: "3.2"
     - os: osx
+      before_install:
+        - brew update
+        - brew install rbenv
+        - rbenv install 3.2
+        - rbenv global 3.2
       rvm: "3.2"
     - stage: deploy
       if: repo = travis-ci/travis.rb and branch = master and type = push
@@ -32,6 +37,3 @@ script:
   - bundle exec rake
   - gem build travis.gemspec
   - gem install travis-*.gem
-
-before_install:
-  - gem install rubygems-update -v 3.4.22
