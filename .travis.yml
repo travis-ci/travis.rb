@@ -11,8 +11,11 @@ rvm:
 jobs:
   include:
     - os: osx
+      before_install:
+        - ruby -v
+        - which rbenv
+        - rbenv versions
       rvm:
-        - "3.1"
         - "3.2"
     - stage: deploy
       if: repo = travis-ci/travis.rb and branch = master and type = push
@@ -25,9 +28,6 @@ jobs:
         gem: travis
         edge: true
 
-before_script:
-  - ruby -v
-  - rbenv versions
 script:
   - bundle exec rake
   - gem build travis.gemspec
