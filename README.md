@@ -2086,6 +2086,11 @@ See https://github.com/travis-ci/travis.rb/issues/768#issuecomment-700220351 for
 
 ## Version History
 
+### 1.13.0
+
+* Default API endpoint switched https://github.com/travis-ci/travis.rb/pull/840
+* Api key regenerate https://github.com/travis-ci/travis.rb/pull/842
+
 ### 1.12.0
 
 * Upgraded ruby version to 3.2 https://github.com/travis-ci/travis.rb/pull/848
