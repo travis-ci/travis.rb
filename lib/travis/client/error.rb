@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'travis/client'
 
 module Travis
@@ -25,7 +27,7 @@ module Travis
 
     class AssetNotFound < Error
       def initialize(file, *args)
-        if md = file.match(%r[init/(?<lang>[^\.]+)\.yml$])
+        if (md = file.match(%r{init/(?<lang>[^.]+)\.yml$}))
           super "unknown language #{md[:lang]}", *args
         else
           super file, *args
@@ -42,9 +44,9 @@ module Travis
       end
 
       def parse_message(message)
-        response   = JSON.load(message)
+        response   = JSON.parse(message)
         message    = response['message'].to_s
-        if @errors = response['errors'] and @errors.any?
+        if (@errors = response['errors']) && @errors.any?
           readable = @errors.map { |e| "#{e['field']}: #{e['code'].gsub('_', ' ')}" }
           message += " (#{readable.join(', ')})"
         end

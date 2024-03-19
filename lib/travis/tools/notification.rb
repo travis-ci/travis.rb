@@ -1,31 +1,35 @@
-require "travis"
-require "travis/tools/system"
-require "travis/tools/assets"
-require "cgi"
+# frozen_string_literal: true
+
+require 'travis'
+require 'travis/tools/system'
+require 'travis/tools/assets'
+require 'cgi'
 
 module Travis
   module Tools
     module Notification
-      extend self
-      DEFAULT = [:osx, :growl, :libnotify]
+      module_function
+
+      DEFAULT = %i[osx growl libnotify].freeze
       ICON    = Assets['notifications/icon.png']
 
       def new(*list)
         list.concat(DEFAULT) if list.empty?
         notification = list.map { |n| get(n) }.detect { |n| n.available? }
-        raise ArgumentError, "no notification system found (looked for #{list.join(", ")})" unless notification
+        raise ArgumentError, "no notification system found (looked for #{list.join(', ')})" unless notification
+
         notification
       end
 
       def get(name)
         const = constants.detect { |c| c.to_s[/[^:]+$/].downcase == name.to_s }
-        raise ArgumentError, "unknown notifications type %p" % name unless const
+        raise ArgumentError, 'unknown notifications type %p' % name unless const
+
         const_get(const).new
       end
 
       class Dummy
-        def notify(title, body)
-        end
+        def notify(title, body); end
 
         def available?
           true
@@ -33,14 +37,15 @@ module Travis
       end
 
       class OSX
-        BIN_PATH = Assets["notifications/Travis CI.app/Contents/MacOS/Travis CI"]
+        BIN_PATH = Assets['notifications/Travis CI.app/Contents/MacOS/Travis CI']
 
         def notify(title, body)
           system BIN_PATH, '-message', body.to_s, '-title', title.to_s, '-sender', 'org.travis-ci.Travis-CI'
         end
 
         def available?
-          System.mac? and System.recent_version?(System.os_version.to_s, '10.8') and System.running? "NotificationCenter"
+          System.mac? and System.recent_version?(System.os_version.to_s,
+                                                 '10.8') and System.running? 'NotificationCenter'
         end
       end
 
@@ -50,7 +55,7 @@ module Travis
         end
 
         def available?
-          System.has? 'growlnotify' and System.running? "Growl"
+          System.has? 'growlnotify' and System.running? 'Growl'
         end
       end
 

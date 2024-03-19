@@ -2086,6 +2086,12 @@ See https://github.com/travis-ci/travis.rb/issues/768#issuecomment-700220351 for
 
 ## Version History
 
+### 1.12.0
+
+* Upgraded ruby version to 3.2 https://github.com/travis-ci/travis.rb/pull/848
+* Added API Key Reset Capabilities https://github.com/travis-ci/travis.rb/pull/842
+* Fix travis lint issues https://github.com/travis-ci/travis.rb/pull/840
+
 ### 1.11.1
 
 * Fix `travis sshkey --generate` https://github.com/travis-ci/travis.rb/pull/820

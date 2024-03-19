@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'travis/cli'
 
 module Travis
@@ -15,9 +17,10 @@ module Travis
 
       def run
         countdown = Integer(limit || 10) unless all?
-        params    = { :after_number => after } if after
+        params    = { after_number: after } if after
         repository.each_build(params) do |build|
           next unless display? build
+
           display(build)
 
           if countdown
@@ -29,21 +32,22 @@ module Travis
 
       private
 
-        def display?(build)
-          return build.pr_number   == pull_request.to_i if pull_request
-          return build.branch_info == branch            if branch
-          true
-        end
+      def display?(build)
+        return build.pr_number   == pull_request.to_i if pull_request
+        return build.branch_info == branch            if branch
 
-        def display(build)
-          say [
-            date? && color(formatter.time(build.finished_at || build.started_at), build.color),
-            color("##{build.number} #{build.state}:".ljust(16), [build.color, :bold]),
-            color("#{build.branch_info}", :info),
-            committer? && build.commit.author_name.ljust(25),
-            build.commit.subject
-          ].compact.join(" ").strip + "\n"
-        end
+        true
+      end
+
+      def display(build)
+        say [
+          date? && color(formatter.time(build.finished_at || build.started_at), build.color),
+          color("##{build.number} #{build.state}:".ljust(16), [build.color, :bold]),
+          color(build.branch_info.to_s, :info),
+          committer? && build.commit.author_name.ljust(25),
+          build.commit.subject
+        ].compact.join(' ').strip + "\n"
+      end
     end
   end
 end

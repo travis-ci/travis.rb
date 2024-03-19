@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'travis/cli'
 
 module Travis
@@ -16,61 +18,63 @@ module Travis
 
         warn "Deleted the following caches:\n" if delete?
         branches.each { |name, list| display_branch(name, list) }
-        size = caches.inject(0) { |s,c| s + c.size }
-        say "Overall size of above caches: " << formatter.file_size(size)
+        size = caches.inject(0) { |s, c| s + c.size }
+        say 'Overall size of above caches: ' << formatter.file_size(size)
       end
 
       private
 
-        def check_caches
-          return if caches.any?
-          say "no caches found"
-          exit
-        end
+      def check_caches
+        return if caches.any?
 
-        def display_branch(name, list)
-          say color(name ? "On branch #{name}:" : "Global:", :important)
-          list.each { |c| display_cache(c) }
-          puts
-        end
+        say 'no caches found'
+        exit
+      end
 
-        def display_cache(cache)
-          say [
-            color(cache.slug.ljust(space), :bold),
-            "last modified: " << formatter.time(cache.last_modified),
-            "size: " << formatter.file_size(cache.size)
-          ].join("  ") << "\n"
-        end
+      def display_branch(name, list)
+        say color(name ? "On branch #{name}:" : 'Global:', :important)
+        list.each { |c| display_cache(c) }
+        puts
+      end
 
-        def params
-          params = {}
-          params[:branch] = branch if branch?
-          params[:match]  = match  if match?
-          params
-        end
+      def display_cache(cache)
+        say [
+          color(cache.slug.ljust(space), :bold),
+          'last modified: ' << formatter.time(cache.last_modified),
+          'size: ' << formatter.file_size(cache.size)
+        ].join('  ') << "\n"
+      end
 
-        def caches
-          @caches ||= drop? ? repository.delete_caches(params) : repository.caches(params)
-        end
+      def params
+        params = {}
+        params[:branch] = branch if branch?
+        params[:match]  = match  if match?
+        params
+      end
 
-        def space
-          @space ||= caches.map(&:slug).map(&:size).max
-        end
+      def caches
+        @caches ||= drop? ? repository.delete_caches(params) : repository.caches(params)
+      end
 
-        def drop?
-          return false unless delete?
-          return true if force?
-          error "not deleting caches without --force" unless interactive?
-          error "aborted" unless danger_zone? "Do you really want to delete #{description}?"
-          true
-        end
+      def space
+        @space ||= caches.map(&:slug).map(&:size).max
+      end
 
-        def description
-          description = color("all caches", :important)
-          description << " on branch #{color(branch, :important)}" if branch?
-          description << " that match #{color(match, :important)}" if match?
-          description
-        end
+      def drop?
+        return false unless delete?
+        return true if force?
+
+        error 'not deleting caches without --force' unless interactive?
+        error 'aborted' unless danger_zone? "Do you really want to delete #{description}?"
+        true
+      end
+
+      def description
+        description = color('all caches', :important)
+        description << " on branch #{color(branch, :important)}" if branch?
+        description << " that match #{color(match, :important)}" if match?
+        description
+      end
     end
   end
 end

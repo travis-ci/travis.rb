@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'stringio'
 require 'ostruct'
@@ -6,9 +8,12 @@ module Helpers
   attr_reader :last_run
 
   def capture
-    _stdout, $stdout = $stdout, StringIO.new
-    _stderr, $stderr = $stderr, StringIO.new
-    _stdin,  $stdin  = $stdin,  StringIO.new
+    _stdout = $stdout
+    $stdout = StringIO.new
+    _stderr = $stderr
+    $stderr = StringIO.new
+    _stdin = $stdin
+    $stdin = StringIO.new
     yield
     capture_result(true)
   rescue SystemExit => e
@@ -30,16 +35,16 @@ module Helpers
   end
 
   def stderr
-    last_run.err if last_run
+    last_run&.err
   end
 
   def stdout
-    last_run.out if last_run
+    last_run&.out
   end
 
   private
 
-    def capture_result(success)
-      @last_run = OpenStruct.new(:out => $stdout.string, :err => $stderr.string, :success? => success)
-    end
+  def capture_result(success)
+    @last_run = OpenStruct.new(out: $stdout.string, err: $stderr.string, success?: success)
+  end
 end

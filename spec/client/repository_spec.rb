@@ -1,39 +1,42 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe Travis::Client::Repository do
+  subject(:repository) { session.repo('rails/rails') }
+
   let(:session) { Travis::Client.new }
-  subject { session.repo('rails/rails') }
 
-  its(:slug) { should be == 'rails/rails' }
-  its(:description) { should_not be_empty }
-  its(:last_build_id) { should be == 4125095 }
-  its(:last_build_number) { should be == '6180' }
-  its(:last_build_state) { should be == 'failed' }
-  its(:last_build_duration) { should be == 5019 }
-  its(:last_build_started_at) { should be_a(Time) }
-  its(:last_build_finished_at) { should be_nil }
-  its(:inspect) { should be == "#<Travis::Client::Repository: rails/rails>" }
-  its(:key) { should be_a(Travis::Client::Repository::Key) }
-  its(:last_build) { should be_a(Travis::Client::Build) }
-  its(:color) { should be == 'red' }
-  its(:github_language) { should be == 'Ruby' }
-  its(:owner_name) { should be == 'rails' }
-  its(:owner) { should be == session.account("rails") }
+  its(:slug) { is_expected.to be == 'rails/rails' }
+  its(:description) { is_expected.not_to be_empty }
+  its(:last_build_id) { is_expected.to be == 4_125_095 }
+  its(:last_build_number) { is_expected.to be == '6180' }
+  its(:last_build_state) { is_expected.to be == 'failed' }
+  its(:last_build_duration) { is_expected.to be == 5019 }
+  its(:last_build_started_at) { is_expected.to be_a(Time) }
+  its(:last_build_finished_at) { is_expected.to be_nil }
+  its(:inspect) { is_expected.to be == '#<Travis::Client::Repository: rails/rails>' }
+  its(:key) { is_expected.to be_a(Travis::Client::Repository::Key) }
+  its(:last_build) { is_expected.to be_a(Travis::Client::Build) }
+  its(:color) { is_expected.to be == 'red' }
+  its(:github_language) { is_expected.to be == 'Ruby' }
+  its(:owner_name) { is_expected.to be == 'rails' }
+  its(:owner) { is_expected.to be == session.account('rails') }
 
-  it { should_not be_pending  }
-  it { should     be_started  }
-  it { should     be_finished }
-  it { should_not be_passed   }
-  it { should_not be_errored  }
-  it { should     be_failed   }
-  it { should_not be_canceled }
-  it { should     be_created  }
-  it { should     be_red      }
-  it { should_not be_green    }
-  it { should_not be_yellow   }
-  it { should be_unsuccessful }
+  it { is_expected.not_to be_pending  }
+  it { is_expected.to     be_started  }
+  it { is_expected.to     be_finished }
+  it { is_expected.not_to be_passed   }
+  it { is_expected.not_to be_errored  }
+  it { is_expected.to     be_failed   }
+  it { is_expected.not_to be_canceled }
+  it { is_expected.to     be_created  }
+  it { is_expected.to     be_red      }
+  it { is_expected.not_to be_green    }
+  it { is_expected.not_to be_yellow   }
+  it { is_expected.to be_unsuccessful }
 
-  it 'should expose the pubkey fingerprint' do
-    subject.public_key.fingerprint.should be == 'foobar'
+  it 'exposes the pubkey fingerprint' do
+    repository.public_key.fingerprint.should be == 'foobar'
   end
 end

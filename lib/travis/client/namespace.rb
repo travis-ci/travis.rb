@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'travis/client'
 
 module Travis
@@ -7,7 +9,8 @@ module Travis
         attr_accessor :namespace, :type
 
         def initialize(namespace, type)
-          @namespace, @type = namespace, type
+          @namespace = namespace
+          @type = type
         end
 
         def find_one(id = nil)
@@ -41,9 +44,9 @@ module Travis
 
         private
 
-          def session
-            namespace.session
-          end
+        def session
+          namespace.session
+        end
       end
 
       include Methods
@@ -66,20 +69,21 @@ module Travis
 
       private
 
-        def fix_names(klass)
-          constants.each do |name|
-            const = klass.const_get(name)
-            klass.const_set(name, const) if const == const_get(name)
-          end
+      def fix_names(klass)
+        constants.each do |name|
+          const = klass.const_get(name)
+          klass.const_set(name, const) if const == const_get(name)
         end
+      end
 
-        def delegate_session(klass)
-          return if klass == Object or klass == Kernel
-          klass.extend(Methods)
-          namespace = self
-          klass.define_singleton_method(:session)  { namespace.session }
-          klass.define_singleton_method(:session=) { |value| namespace.session = value }
-        end
+      def delegate_session(klass)
+        return if [Object, Kernel].include?(klass)
+
+        klass.extend(Methods)
+        namespace = self
+        klass.define_singleton_method(:session)  { namespace.session }
+        klass.define_singleton_method(:session=) { |value| namespace.session = value }
+      end
     end
   end
 end

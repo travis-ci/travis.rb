@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'travis/client'
 require 'delegate'
 
@@ -35,7 +37,7 @@ module Travis
         end
 
         def add(name, value, options = {})
-          body       = JSON.dump(:env_var => options.merge(:name => name, :value => value))
+          body       = JSON.dump(env_var: options.merge(name:, value:))
           result     = session.post(EnvVar.path(self), body)
           self.list += [result['env_var']]
         end
@@ -43,8 +45,8 @@ module Travis
         def upsert(name, value, options = {})
           entries = select { |e| e.name == name }
           if entries.any?
-            entries.first.update(options.merge(:value => value))
-            entries[1..-1].each { |e| e.delete }
+            entries.first.update(options.merge(value:))
+            entries[1..].each { |e| e.delete }
           else
             add(name, value, options)
           end
@@ -53,11 +55,13 @@ module Travis
 
         def [](key)
           return super if key.is_a? Integer
+
           detect { |e| e.name == key.to_s }
         end
 
         def []=(key, value)
           return super if key.is_a? Integer
+
           upsert(key.to_s, value)
         end
 
@@ -65,8 +69,9 @@ module Travis
       end
 
       def self.path(object)
-        repository_id = Repository === object ? object.id : object.repository_id
-        raise "repository unknown" unless repository_id
+        repository_id = object.is_a?(Repository) ? object.id : object.repository_id
+        raise 'repository unknown' unless repository_id
+
         "/settings/env_vars/#{object.id if object.is_a? EnvVar}?repository_id=#{repository_id}"
       end
 
@@ -82,8 +87,8 @@ module Travis
       has :repository
 
       def update(options)
-        options = { :value => options } unless options.is_a? Hash
-        result  = session.patch(EnvVar.path(self), JSON.dump(:env_var => options))
+        options = { value: options } unless options.is_a? Hash
+        result  = session.patch(EnvVar.path(self), JSON.dump(env_var: options))
         attributes.replace(result['env_var'].attributes)
         self
       end
@@ -95,7 +100,7 @@ module Travis
       end
 
       def inspect_info
-        "#{name}=#{value ? value.inspect : "[secure]"}"
+        "#{name}=#{value ? value.inspect : '[secure]'}"
       end
     end
   end

@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'travis/cli'
 
 module Travis
   module CLI
     class Help < Command
-      description "helps you out when in dire need of information"
+      description 'helps you out when in dire need of information'
 
       CommandGroup = Struct.new(:cmds, :header)
 
@@ -22,7 +24,7 @@ module Travis
               say "        #{color(cmd.command_name, :command).ljust(25)} #{color(cmd.description, :info)}"
             end
           end
-          say "\nrun `#$0 help COMMAND` for more info"
+          say "\nrun `#{$PROGRAM_NAME} help COMMAND` for more info"
         end
       end
 
@@ -33,20 +35,20 @@ module Travis
       def api_commands
         CLI.commands.select do |cmd|
           cmd.ancestors.include?(CLI::ApiCommand) &&
-          !cmd.ancestors.include?(CLI::RepoCommand)
-        end.sort_by {|c| c.command_name}
+            !cmd.ancestors.include?(CLI::RepoCommand)
+        end.sort_by { |c| c.command_name }
       end
 
       def repo_commands
         CLI.commands.select do |cmd|
           cmd.ancestors.include? CLI::RepoCommand
-        end.sort_by {|c| c.command_name}
+        end.sort_by { |c| c.command_name }
       end
 
       def other_commands
-        CLI.commands.select do |cmd|
-          !cmd.ancestors.include? CLI::ApiCommand
-        end.sort_by {|c| c.command_name}
+        CLI.commands.reject do |cmd|
+          cmd.ancestors.include? CLI::ApiCommand
+        end.sort_by { |c| c.command_name }
       end
     end
   end
