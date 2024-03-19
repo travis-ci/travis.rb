@@ -1,5 +1,4 @@
 .env
-Gemfile.lock
 spec/tmp
 doc
 .ruby*
