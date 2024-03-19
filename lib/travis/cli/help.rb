@@ -21,7 +21,7 @@ module Travis
           [other_cmds, api_cmds, repo_cmds].each do |cmd_grp|
             say "    #{cmd_grp.header}"
             cmd_grp.cmds.each do |cmd|
-              say "        #{color(cmd.command_name, :command).ljust(22)} #{color(cmd.description, :info)}"
+              say "        #{color(cmd.command_name, :command).ljust(25)} #{color(cmd.description, :info)}"
             end
           end
           say "\nrun `#{$PROGRAM_NAME} help COMMAND` for more info"

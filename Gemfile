@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 gemspec
 
-gem 'gh', git: 'https://github.com/travis-ci/gh', branch: 'prd-ruby-upgrade-dev'
+gem 'gh', git: 'https://github.com/travis-ci/gh'
 gem 'rake'
 gem 'activesupport', '~> 7.0.6'
 
