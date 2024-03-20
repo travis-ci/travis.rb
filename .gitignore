@@ -4,3 +4,10 @@ spec/tmp
 doc
 .ruby*
 pkg
+
+# Snapcraft folders and files
+parts
+prime
+stage
+snap
+*.snap
