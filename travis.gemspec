@@ -1,10 +1,10 @@
 # frozen_string_literal: true
-
+require_relative 'lib/travis/version'
 # Run `rake travis.gemspec` to update the gemspec.
 Gem::Specification.new do |s|
   # general info
   s.name        = 'travis'
-  s.version     = '1.13.0'
+  s.version     = Travis::VERSION
   s.required_ruby_version = '>= 3.2.0'
   s.description = 'CLI and Ruby client library for Travis CI'
   s.homepage    = 'https://github.com/travis-ci/travis.rb'

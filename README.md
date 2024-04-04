@@ -2007,7 +2007,7 @@ If you do not have write access to the system gem directory, you'll need to perf
 Now make sure everything is working:
 
     $ travis version
-    1.10.0
+    1.13.1
 
 See also [Note on Ubuntu](#ubuntu) below.
 
