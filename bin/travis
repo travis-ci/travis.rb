@@ -9,12 +9,13 @@ require 'bundler/setup' if File.exist? File.expand_path('../Gemfile', __dir__)
 require 'travis/cli'
 
 # load plugins
-TRAVIS_PLUGINS = [].freeze
+TRAVIS_PLUGINS = []
 config_path    = ENV.fetch('TRAVIS_CONFIG_PATH') { File.expand_path('.travis', Dir.home) }
 Dir.glob(File.expand_path('*/init.rb', config_path)) do |file|
   TRAVIS_PLUGINS << file.sub("#{config_path}/", '').sub(%r{/init\.rb$}, '')
   load(file)
 end
+TRAVIS_PLUGINS.freeze
 
 # and off we go then
 Travis::CLI.run(ARGV)
