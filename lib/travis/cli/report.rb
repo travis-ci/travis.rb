@@ -83,7 +83,6 @@ module Travis
 
       def endpoint_name(url, prefix = '')
         case url
-        when Travis::Client::ORG_URI  then "#{prefix}org"
         when Travis::Client::COM_URI  then "#{prefix}com"
         when /api-staging\.travis-ci/ then endpoint_name(url.sub('api-staging.', 'api.'), 'staging-')
         else

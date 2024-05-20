@@ -20,7 +20,6 @@ module Travis
       def_delegators :repository, :ssh_key
 
       def run
-        error "SSH keys are not available on #{color(session.config['host'], :bold)}" if org?
         delete_key                            if delete?
         update_key File.read(upload), upload  if upload?
         update_key $stdin.read, 'stdin'       if stdin?

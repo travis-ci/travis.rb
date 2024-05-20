@@ -26,7 +26,7 @@ module Travis
               g.github_token  = github_token
               g.debug         = proc { |log| debug(log) }
               g.after_tokens  = proc { g.explode = true and error('no suitable github token found') }
-              g.scopes        = org? ? ['public_repo'] : ['repo']
+              g.scopes        = ['repo']
               g.note          = "automatic releases for #{repository.slug}"
             end
           end

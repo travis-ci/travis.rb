@@ -164,6 +164,6 @@ describe Travis::Client::Session do
   end
 
   describe 'config' do
-    its(:config) { is_expected.to be == { 'host' => 'travis-ci.org' } }
+    its(:config) { is_expected.to be == { 'host' => 'travis-ci.com' } }
   end
 end

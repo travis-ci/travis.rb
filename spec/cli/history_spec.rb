@@ -3,6 +3,9 @@
 require 'spec_helper'
 
 describe Travis::CLI::History do
+
+  before { ENV['TRAVIS_TOKEN'] = 'token' }
+
   example 'travis history' do
     run_cli('history').should be_success
     stdout.should be == "#6180 failed:    master Associaton -> Association\n"
