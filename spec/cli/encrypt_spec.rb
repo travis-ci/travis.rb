@@ -3,6 +3,9 @@
 require 'spec_helper'
 
 describe Travis::CLI::Encrypt do
+
+ before { ENV['TRAVIS_TOKEN'] = 'token' }
+
   example 'travis encrypt foo' do
     run_cli('encrypt', 'foo').should be_success
     stdout.should match(/^".{60,}"\n$/)

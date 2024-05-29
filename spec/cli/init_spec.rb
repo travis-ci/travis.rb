@@ -3,6 +3,9 @@
 require 'spec_helper'
 
 describe Travis::CLI::Init do
+
+  before { ENV['TRAVIS_TOKEN'] = 'token' }
+
   old_path = Dir.pwd
   tmp_path = File.expand_path('travis-spec-init', Dir.tmpdir)
 

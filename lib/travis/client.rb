@@ -29,7 +29,6 @@ require 'travis/client/lint_result'
 module Travis
   module Client
 
-    ORG_URI = 'https://api.travis-ci.org/'
     COM_URI = 'https://api.travis-ci.com/'
 
     def self.new(options = {})

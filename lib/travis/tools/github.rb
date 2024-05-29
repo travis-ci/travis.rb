@@ -18,6 +18,7 @@ module Travis
                     :hub_path, :oauth_paths, :composer_path, :git_config_keys, :debug, :no_token, :check_token
 
       def initialize(options = nil)
+
         @check_token     = true
         @ask_login       = proc { raise 'ask_login callback not set' }
         @after_tokens    = proc {}

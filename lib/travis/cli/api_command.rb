@@ -14,10 +14,8 @@ module Travis
 
       on('-e', '--api-endpoint URL', 'Travis API server to talk to')
       on('-I', '--[no-]insecure', 'do not verify SSL certificate of API endpoint')
-      on('--pro', "short-cut for --api-endpoint '#{Travis::Client::COM_URI}'") { |c, _| c.api_endpoint = Travis::Client::COM_URI }
-      on('--com', "short-cut for --api-endpoint '#{Travis::Client::COM_URI}'") { |c, _| c.api_endpoint = Travis::Client::COM_URI }
-      on('--org', "short-cut for --api-endpoint '#{Travis::Client::ORG_URI}'") { |c, _| c.api_endpoint = Travis::Client::ORG_URI }
-      on('--staging', 'talks to staging system') { |c, _| c.api_endpoint = c.api_endpoint.gsub(/api/, 'api-staging') }
+      on('--pro', "short-cut for --api-endpoint '#{Travis::Client::COM_URI}' [deprecated]") { |c, _| c.api_endpoint = Travis::Client::COM_URI }
+      on('--com', "short-cut for --api-endpoint '#{Travis::Client::COM_URI}' [deprecated]") { |c, _| c.api_endpoint = Travis::Client::COM_URI }
       on('-t', '--token [ACCESS_TOKEN]', 'access token to use') { |c, t| c.access_token = t }
 
       on('--debug', 'show API requests') do |c, _|
@@ -64,7 +62,7 @@ module Travis
         endpoint_config['insecure']       = insecure unless insecure.nil?
         self.insecure                     = endpoint_config['insecure']
         session.ssl                       = { verify: false } if insecure?
-        authenticate if pro? || enterprise?
+        authenticate
       end
 
       def enterprise?
@@ -73,10 +71,6 @@ module Travis
 
       def pro?
         api_endpoint == Travis::Client::COM_URI
-      end
-
-      def org?
-        api_endpoint == Travis::Client::ORG_URI
       end
 
       def detected_endpoint?
@@ -170,8 +164,6 @@ module Travis
 
       def endpoint_option
         return ""       if pro? and detected_endpoint?
-        return " --org" if org?
-        return " --pro" if pro?
 
         if config['enterprise']
           key, _ = config['enterprise'].detect { |k,v| v.start_with? api_endpoint }

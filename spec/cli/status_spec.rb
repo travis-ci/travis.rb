@@ -3,6 +3,9 @@
 require 'spec_helper'
 
 describe Travis::CLI::Status do
+
+  before { ENV['TRAVIS_TOKEN'] = 'token' }
+
   example 'travis status' do
     run_cli('status').should be_success
     stdout.should be == "failed\n"

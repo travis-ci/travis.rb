@@ -665,7 +665,7 @@ module Travis
         end
 
         get '/config' do
-          { 'config' => { 'host' => 'travis-ci.org' } }.to_json
+          { 'config' => { 'host' => 'travis-ci.com' } }.to_json
         end
 
         get '/logs/3168318' do

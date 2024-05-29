@@ -7,7 +7,7 @@ module Travis
   module CLI
     class RepoCommand < ApiCommand
       GIT_REGEX = %r{/?(.*/.+?)(\.git)?$}
-      TRAVIS    = %r{^https://(staging-)?api\.travis-ci\.(org|com)}
+      TRAVIS    = %r{^https://(staging-)?api\.travis-ci\.com}
       on('-g', '--github-token TOKEN', 'identify by GitHub token')
       on('-r', '--repo SLUG', 'repository to use (will try to detect from current git clone)') do |c, slug|
         c.slug = slug
@@ -133,7 +133,7 @@ module Travis
           repo_config['endpoint'] ||= begin
             load_gh
             GH.head("/repos/#{slug}")
-            Travis::Client::ORG_URI
+            Travis::Client::COM_URI
           rescue GH::Error
             Travis::Client::COM_URI
           end
