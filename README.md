@@ -2007,7 +2007,7 @@ If you do not have write access to the system gem directory, you'll need to perf
 Now make sure everything is working:
 
     $ travis version
-    1.13.3
+    1.14.0
 
 See also [Note on Ubuntu](#ubuntu) below.
 
@@ -2085,6 +2085,9 @@ You can eradicate this problem by either:
 See https://github.com/travis-ci/travis.rb/issues/768#issuecomment-700220351 for more details.
 
 ## Version History
+### 1.14.0
+
+* Remove org references https://github.com/travis-ci/travis.rb/pull/861
 
 ### 1.13.0
 
