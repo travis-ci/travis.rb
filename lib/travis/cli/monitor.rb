@@ -34,7 +34,7 @@ module Travis
         super
         repos.map! { |r| repo(r) }
         repos.concat(user.repositories) if my_repos?
-        setup_notification(!firehose? || :dummy) unless notification
+        setup_notification(true) unless notification
         debug "Using notifications: #{notification.class.name[/[^:]+$/]}"
       end
 
@@ -65,10 +65,6 @@ module Travis
         events = %w[build:started build:finished]
         events << 'job:started' << 'job:finished' unless builds?
         events
-      end
-
-      def firehose?
-        org? and repos.empty?
       end
 
       def all?

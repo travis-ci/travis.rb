@@ -8,6 +8,8 @@ describe Travis::CLI::EncryptFile do
   CMD_TARGET = 'README.md'
 
   before do
+
+    ENV['TRAVIS_TOKEN'] = 'token'
     Digest.stub(:hexencode).and_return 'randomhex' # to avoid relying on Dir.pwd value for hex
   end
 

@@ -6,5 +6,5 @@ module Travis
   autoload :Pro,      'travis/pro'
   autoload :Version,  'travis/version'
 
-  include Client::Namespace.new(Client::COM_URI)
+  include Client::Namespace.new
 end
