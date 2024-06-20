@@ -1,0 +1,27 @@
+name: travis
+version: git
+summary: Travis CI CLI Client
+description: |
+  Command line client interface with a Travis CI service. Works with
+  travis-ci.org, travis-ci.com or any custom Travis CI setup you might have.
+
+grade: devel # must be 'stable' to release into candidate/stable channel
+confinement: strict
+
+apps:
+  travis:
+    environment:
+      RUBYLIB: $SNAP/usr/lib/ruby/2.3.0:$SNAP/usr/lib/x86_64-linux-gnu/ruby/2.3.0
+      GEM_HOME: $SNAP/gems
+      GEM_PATH: $SNAP
+    command: ruby $SNAP/bin/travis
+    plugs: [home, network]
+
+parts:
+  travis.rb:
+    source: .
+    plugin: nil
+    build: gem build travis.gemspec
+    install: gem install travis-*.gem -i $SNAPCRAFT_PART_INSTALL
+    build-packages: [gcc, libc6-dev, make, ruby-dev]
+    stage-packages: [ruby]
