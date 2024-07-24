@@ -6,21 +6,21 @@ os:
   - linux
 
 rvm:
-  - "3.2"
+  - "3.3"
 
 jobs:
   include:
-    - rvm: "3.2"
+    - rvm: "3.3"
       before_script:
         - gem install faraday -v 1.0.1
     - os: osx
-      rvm: "3.2"
+      rvm: "3.3"
     - os: osx
-      rvm: "3.2"
+      rvm: "3.3"
     - stage: deploy
       if: repo = travis-ci/travis.rb and branch = master and type = push
       os: linux
-      rvm: "3.2"
+      rvm: "3.3"
       deploy:
         provider: rubygems
         api_key:
