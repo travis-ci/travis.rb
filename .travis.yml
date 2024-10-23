@@ -14,8 +14,10 @@ jobs:
       before_script:
         - gem install faraday -v 1.0.1
     - os: osx
+      osx_image: xcode11.4.1
       rvm: "3.2"
     - os: osx
+      osx_image: xcode11.4.1
       rvm: "3.2"
     - stage: deploy
       if: repo = travis-ci/travis.rb and branch = master and type = push
