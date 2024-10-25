@@ -1,16 +1,9 @@
 language: ruby
 cache: bundler
-dist: bionic
-
-os:
-  - linux
-
-rvm:
-  - "3.2"
-
 jobs:
   include:
     - rvm: "3.2"
+      dist: bionic
       before_script:
         - gem install faraday -v 1.0.1
     - os: osx
@@ -23,7 +16,7 @@ jobs:
         - rvm get stable && rvm reload && rvm install 3.2.5 --verify-downloads 1 --disable-install-doc -C --without-tcl,--without-tk,--without-gmp && rvm use 3.2.5 --default
     - stage: deploy
       if: repo = travis-ci/travis.rb and branch = master and type = push
-      os: linux
+      dist: bionic
       rvm: "3.2"
       deploy:
         provider: rubygems
