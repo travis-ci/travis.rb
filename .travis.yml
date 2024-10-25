@@ -1,8 +1,8 @@
 language: ruby
-cache: bundler
 jobs:
   include:
     - rvm: "3.2"
+      cache: bundler
       dist: bionic
       before_script:
         - gem install faraday -v 1.0.1
