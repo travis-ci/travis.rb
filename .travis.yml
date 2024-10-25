@@ -26,3 +26,5 @@ script:
   - bundle exec rake
   - gem build travis.gemspec
   - gem install travis-*.gem
+before_install:
+  - gem install rubygems-update -v 3.4.22
