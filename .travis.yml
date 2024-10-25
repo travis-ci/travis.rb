@@ -8,9 +8,6 @@ jobs:
         - gem install faraday -v 1.0.1
     - os: osx
       # Broken ruby 3.2 workaround
-      before_install:
-        - rvm get stable && rvm reload && rvm install 3.2.5 --verify-downloads 1 --disable-install-doc -C --without-tcl,--without-tk,--without-gmp && rvm use 3.2.5 --default
-    - os: osx
       osx_image: xcode11.4.1
       before_install:
         - rvm get stable && rvm reload && rvm install 3.2.5 --verify-downloads 1 --disable-install-doc -C --without-tcl,--without-tk,--without-gmp && rvm use 3.2.5 --default
