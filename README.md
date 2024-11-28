@@ -2061,6 +2061,10 @@ Debian, Ubuntu:
 
 For other Linux distributions, refer to their respective documentation.
 
+Solus:
+
+    $ sudo eopkg it ruby
+
 #### Ruby versioning tools
 
 Alternatively, you can use a Ruby version management tool such as [rvm](https://rvm.io/rvm/install/), [rbenv](http://rbenv.org/) or [chruby](https://github.com/postmodern/chruby). This is only recommended if you need to run multiple versions of Ruby.
