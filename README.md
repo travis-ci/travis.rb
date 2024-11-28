@@ -834,6 +834,7 @@ There are two ways the client can treat existing values:
         -R, --store-repo SLUG            like --repo, but remembers value for current directory
         -K, --key KEY                    encryption key to be used (randomly generated otherwise)
             --iv IV                      encryption IV to be used (randomly generated otherwise)
+            --env-prefix ENV_PREFIX      prefix of the names of the encryption key/IV environment variables (randomly generated otherwise)
         -d, --decrypt                    decrypt the file instead of encrypting it, requires key and iv
         -f, --force                      override output file if it exists
         -p, --print-key                  print (possibly generated) key and iv
